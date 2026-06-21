@@ -1,0 +1,32 @@
+name: decomposer-ci
+
+# Continuous independent verification of the decomposer workflow.
+# Runs the invariant test suite and the full decomposition pipeline (which gates on
+# the build-independent checks) on every push/PR that touches decomposer/.
+
+on:
+  push:
+    branches: ["**"]
+    paths: ["decomposer/**", ".github/workflows/decomposer-ci.yml"]
+  pull_request:
+    paths: ["decomposer/**", ".github/workflows/decomposer-ci.yml"]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: decomposer
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt pytest
+      - name: Run tests (incl. negative 'verify the verifier' cases)
+        run: PYTHONPATH=src python -m pytest tests/ -q
+      - name: Run full pipeline (gates on character-coverage, refs, idempotence, ...)
+        run: PYTHONPATH=src python -m decomposer.cli
