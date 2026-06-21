@@ -1,0 +1,3179 @@
+{
+  "concepts": [
+    {
+      "attributes": {
+        "depth": 0,
+        "kind": "document",
+        "order": 0,
+        "role": "segment",
+        "x_adapter": "latex"
+      },
+      "id": "problem_07",
+      "kind": "document",
+      "name": "problem_07",
+      "role": "segment",
+      "source_node": "problem_07"
+    },
+    {
+      "attributes": {
+        "depth": 1,
+        "kind": "metadata_field",
+        "order": 0,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.1",
+      "kind": "metadata_field",
+      "name": "problemsetup",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.1"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:618b9b0886cfbe45",
+        "depth": 2,
+        "kind": "metadata_field",
+        "order": 0,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.1/metadata_field.2",
+      "kind": "metadata_field",
+      "name": "title",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.1/metadata_field.2"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:11ec6e25e38c2171",
+        "depth": 2,
+        "kind": "metadata_field",
+        "order": 1,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.1/metadata_field.3",
+      "kind": "metadata_field",
+      "name": "subject",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.1/metadata_field.3"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:b36a8146c054e643",
+        "depth": 2,
+        "kind": "metadata_field",
+        "order": 2,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.1/metadata_field.4",
+      "kind": "metadata_field",
+      "name": "subtopic",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.1/metadata_field.4"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:56ce503f033e5487",
+        "depth": 2,
+        "kind": "metadata_field",
+        "order": 3,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.1/metadata_field.5",
+      "kind": "metadata_field",
+      "name": "level",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.1/metadata_field.5"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:1a99d620db95e44f",
+        "depth": 2,
+        "kind": "metadata_field",
+        "order": 4,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.1/metadata_field.6",
+      "kind": "metadata_field",
+      "name": "contributor",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.1/metadata_field.6"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:5851d331964ecee7",
+        "depth": 2,
+        "kind": "metadata_field",
+        "order": 5,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.1/metadata_field.7",
+      "kind": "metadata_field",
+      "name": "contact",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.1/metadata_field.7"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:ebf12ef47cf575b3",
+        "depth": 2,
+        "kind": "metadata_field",
+        "order": 6,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.1/metadata_field.8",
+      "kind": "metadata_field",
+      "name": "status",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.1/metadata_field.8"
+    },
+    {
+      "attributes": {
+        "depth": 1,
+        "kind": "metadata_field",
+        "order": 1,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.9",
+      "kind": "metadata_field",
+      "name": "problemtags",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.9"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:f5e88497b357d071",
+        "depth": 2,
+        "kind": "metadata_field",
+        "order": 0,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.9/metadata_field.10",
+      "kind": "metadata_field",
+      "name": "question_type",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.9/metadata_field.10"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:87927fc55864b2b4",
+        "depth": 2,
+        "kind": "metadata_field",
+        "order": 1,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.9/metadata_field.11",
+      "kind": "metadata_field",
+      "name": "challenged_capability",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.9/metadata_field.11"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:8f855250d25abe2f",
+        "depth": 2,
+        "kind": "metadata_field",
+        "order": 2,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.9/metadata_field.12",
+      "kind": "metadata_field",
+      "name": "verification_method",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.9/metadata_field.12"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:9ed9229dc3d52401",
+        "depth": 2,
+        "kind": "metadata_field",
+        "order": 3,
+        "role": "meta"
+      },
+      "id": "problem_07/metadata_field.9/metadata_field.13",
+      "kind": "metadata_field",
+      "name": "observed_failure_mode",
+      "role": "meta",
+      "source_node": "problem_07/metadata_field.9/metadata_field.13"
+    },
+    {
+      "attributes": {
+        "depth": 1,
+        "kind": "block",
+        "order": 2,
+        "role": "narrate",
+        "x_kind": "msbproblem"
+      },
+      "id": "problem_07/block.1",
+      "kind": "block",
+      "role": "narrate",
+      "source_node": "problem_07/block.1"
+    },
+    {
+      "attributes": {
+        "depth": 2,
+        "kind": "problem_statement",
+        "order": 0,
+        "role": "assert"
+      },
+      "id": "problem_07/block.1/problem_statement.1",
+      "kind": "problem_statement",
+      "role": "assert",
+      "source_node": "problem_07/block.1/problem_statement.1"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "section",
+        "order": 0,
+        "role": "segment"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.1",
+      "kind": "section",
+      "name": "Setting and Definitions",
+      "role": "segment",
+      "source_node": "problem_07/block.1/problem_statement.1/section.1"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:246c76e5061366b5",
+        "depth": 4,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.1/paragraph.1",
+      "kind": "paragraph",
+      "name": "Let $\\Theta \\subseteq \\mathbb{R}^d$ be a closed and convex set of model parameters. Deploying a model $f_\\theta$ induces a data distribution $\\mathcal{D}(\\theta",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.1/paragraph.1"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:0713b1c2c0459c5a",
+        "depth": 4,
+        "kind": "equation",
+        "order": 1,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.1/equation.1",
+      "kind": "equation",
+      "name": "\\[\n\\mathcal{L}(\\theta; w) = \\mathbb{E}_{Z \\sim \\mathcal{D}(w)} [\\ell(Z; \\theta)]\n\\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/problem_statement.1/section.1/equation.1"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:f3f83fca5801fb27",
+        "depth": 4,
+        "kind": "paragraph",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.1/paragraph.2",
+      "kind": "paragraph",
+      "name": "where $\\ell(z; \\cdot)$ is the loss function.\nConsider the sequence generated by the successive applications of the retraining mapping, defined as $\\theta_{t+1} ",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.1/paragraph.2"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:77b53105e458aad1",
+        "depth": 4,
+        "kind": "equation",
+        "order": 3,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.1/equation.2",
+      "kind": "equation",
+      "name": "\\[\nT(w) = \\arg\\min_{\\theta \\in \\Theta} \\mathcal{L}(\\theta; w)\n\\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/problem_statement.1/section.1/equation.2"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:8c0dc32c6d3c8764",
+        "depth": 4,
+        "kind": "paragraph",
+        "order": 4,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.1/paragraph.3",
+      "kind": "paragraph",
+      "name": "We denote the empirical version of the retraining mapping as $\\hat{T}(w)$, yielding the sample-based trajectory, starting from a given $\\theta_0 = \\hat \\theta_0",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.1/paragraph.3"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:88e2d517583d83ca",
+        "depth": 4,
+        "kind": "equation",
+        "order": 5,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.1/equation.3",
+      "kind": "equation",
+      "name": "\\[\n\\hat{\\theta}_t = \\widehat{T}(\\hat{\\theta}_{t-1}) = \\arg\\min_{w \\in \\Theta} \\frac{1}{n} \\sum_{i=1}^n \\ell(Z_{i,t}; w), \\quad \\text{where } Z_{i,t} \\sim \\mathc",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/problem_statement.1/section.1/equation.3"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "section",
+        "order": 1,
+        "role": "segment"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.2",
+      "kind": "section",
+      "name": "Assumption",
+      "role": "segment",
+      "source_node": "problem_07/block.1/problem_statement.1/section.2"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:20ac2152535e5856",
+        "depth": 4,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.2/paragraph.4",
+      "kind": "paragraph",
+      "name": "Assume the following conditions hold for some constants $\\gamma, \\beta, \\epsilon > 0$:",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.2/paragraph.4"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.2/list.1",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.2/list.1"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:b37b2d33112e0fb7",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.1",
+      "kind": "list_item",
+      "name": "For any fixed data point $z$, the loss function $\\ell(z; \\cdot)$ is $\\gamma$-strongly convex.",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.1"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:f11901faca564bcb",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.2",
+      "kind": "list_item",
+      "name": "The gradient mapping $\\nabla_\\theta \\ell(z; \\theta)$ is $\\beta$-Lipschitz continuous in $z$ and $\\theta$.",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.2"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:1d861937f1b5bd1c",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.3",
+      "kind": "list_item",
+      "name": "The distribution mapping $\\mathcal{D}(\\cdot)$ is $\\epsilon$-sensitive under the Wasserstein-1 distance.",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.3"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:2c25b1e399326660",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 3,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.4",
+      "kind": "list_item",
+      "name": "For each $\\theta_t$, there exists a local neighborhood $C$ of $\\theta_t$ such that the loss function $\\ell(z; \\theta)$ is $L_C(z)$-Lipschitz continuous with res",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.4"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:c041667bf40abd72",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 4,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:1efa6a4349befabf",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/paragraph.5",
+      "kind": "paragraph",
+      "name": "The conditional variance of the loss gradient is positive definite:",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/paragraph.5"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:a4e6a965614c323f",
+        "depth": 6,
+        "kind": "equation",
+        "order": 1,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/equation.4",
+      "kind": "equation",
+      "name": "\\[\n V_{w}(\\theta) = \\text{Var}_{Z \\sim \\mathcal{D}(w)} \\left[ \\nabla_\\theta \\ell(Z; \\theta) \\right] \\succ 0\n \\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/equation.4"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:d5166b734c93255b",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 5,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.6",
+      "kind": "list_item",
+      "name": "For any sample size $n$ and iteration $t$, the estimator $\\widehat{\\theta}_t$ has a well-defined density function with respect to the Lebesgue measure, and its ",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.6"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "section",
+        "order": 2,
+        "role": "segment"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.3",
+      "kind": "section",
+      "name": "Question 1",
+      "role": "segment",
+      "source_node": "problem_07/block.1/problem_statement.1/section.3"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:ba708f98069fa277",
+        "depth": 4,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.3/paragraph.6",
+      "kind": "paragraph",
+      "name": "Let $\\kappa = \\frac{\\epsilon\\beta}{\\gamma}$. Suppose we execute the retrainig to generate the sequence $\\{\\theta_{t}\\}_{t=1}$.",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.3/paragraph.6"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.3/list.2",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.3/list.2"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:544c4179342f00e3",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:bfdbf647da2a106e",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/paragraph.7",
+      "kind": "paragraph",
+      "name": "Prove that for any $\\theta, \\theta' \\in \\Theta$:",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/paragraph.7"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:2585f987c460f3e3",
+        "depth": 6,
+        "kind": "equation",
+        "order": 1,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/equation.5",
+      "kind": "equation",
+      "name": "\\[\n \\|T(\\theta) - T(\\theta')\\|_2 \\le \\frac{\\epsilon\\beta}{\\gamma} \\|\\theta - \\theta'\\|_2.\n \\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/equation.5"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:07b97fd933fb8c7f",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.8",
+      "kind": "list_item",
+      "name": "Does the sequence $\\theta_t$ converge under the condition $\\kappa < 1$? If convergence is guaranteed, prove that the sequence converges to its limit point $\\the",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.8"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "section",
+        "order": 3,
+        "role": "segment"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.4",
+      "kind": "section",
+      "name": "Question 2",
+      "role": "segment",
+      "source_node": "problem_07/block.1/problem_statement.1/section.4"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:4f05932cebd088fc",
+        "depth": 4,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.4/paragraph.8",
+      "kind": "paragraph",
+      "name": "Let $\\Theta \\subseteq \\mathbb{R}^d$ be the closed and convex set of model parameters. Suppose the condition $\\kappa < 1$ holds.",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.4/paragraph.8"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.4/list.3",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.4/list.3"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:e6722877f0b437ae",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.9",
+      "kind": "list_item",
+      "name": "For any fixed iteration $t \\ge 1$, does $\\widehat{\\theta}_t \\xrightarrow{P} \\theta_t$ hold? Provide a rigorous and detailed justification.",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.9"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:e328e67dd964e29f",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.10",
+      "kind": "list_item",
+      "name": "For any fixed iteration $t \\ge 1$, does the empirical estimator $\\widehat{\\theta}_t$ exhibit asymptotic normality to $\\theta_t$ as $n \\to \\infty$? If so, prove ",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.10"
+    },
+    {
+      "attributes": {
+        "depth": 2,
+        "kind": "answer_key",
+        "order": 1,
+        "role": "assert"
+      },
+      "id": "problem_07/block.1/answer_key.1",
+      "kind": "answer_key",
+      "role": "assert",
+      "source_node": "problem_07/block.1/answer_key.1"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "section",
+        "order": 0,
+        "role": "segment"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5",
+      "kind": "section",
+      "name": "Solution to Question 1",
+      "role": "segment",
+      "source_node": "problem_07/block.1/answer_key.1/section.5"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:f728e55dea6b3f29",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:06166037ee9d04a3",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.9",
+      "kind": "paragraph",
+      "name": "By the first-order optimality conditions of the retraining mapping, we have:",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.9"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:3dbed2e22834cbd5",
+        "depth": 6,
+        "kind": "equation",
+        "order": 1,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.6",
+      "kind": "equation",
+      "name": "\\[\n\\nabla_\\theta \\mathcal{L}(T(\\theta); \\theta) = 0 \\quad \\text{and} \\quad \\nabla_\\theta \\mathcal{L}(T(\\theta'); \\theta') = 0.\n\\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.6"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:5383de0593143b98",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.10",
+      "kind": "paragraph",
+      "name": "Applying the $\\gamma$-strong convexity of $\\mathcal{L}(\\cdot; \\theta)$ followed by the Kantorovich-Rubinstein theorem for the $\\beta$-Lipschitz gradient $f(z) =",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.10"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:a6af1951eb968df1",
+        "depth": 6,
+        "kind": "equation",
+        "order": 3,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.7",
+      "kind": "equation",
+      "name": "\\begin{align*}\n\\gamma \\|T(\\theta) - T(\\theta')\\|_2 & \\le \\| \\nabla_\\theta \\mathcal{L}(T(\\theta); \\theta) - \\nabla_\\theta \\mathcal{L}(T(\\theta'); \\theta) \\|_2 \\\\",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.7"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:e62e6178435a4e85",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 4,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.11",
+      "kind": "paragraph",
+      "name": "Invoking the $\\epsilon$-sensitivity condition $\\mathcal{W}_1\\big(\\mathcal{D}(\\theta), \\mathcal{D}(\\theta')\\big) \\le \\epsilon \\|\\theta - \\theta'\\|_2$ yields:",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.11"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:07da30196ea97d5e",
+        "depth": 6,
+        "kind": "equation",
+        "order": 5,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.8",
+      "kind": "equation",
+      "name": "\\[\n\\gamma \\|T(\\theta) - T(\\theta')\\|_2 \\le \\epsilon\\beta \\|\\theta - \\theta'\\|_2 \\implies \\|T(\\theta) - T(\\theta')\\|_2 \\le \\frac{\\epsilon\\beta}{\\gamma} \\|\\theta ",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.8"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:d8602396dc5e91cd",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:c53563e0940b8097",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.12",
+      "kind": "paragraph",
+      "name": "Since $\\kappa < 1$ and $\\Theta \\subseteq \\mathbb{R}^d$ is closed, $T(\\cdot)$ is a strict contraction. By the \\emph{Banach Fixed-Point Theorem}, there exists a u",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.12"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:3b02dbc315b60d05",
+        "depth": 6,
+        "kind": "equation",
+        "order": 1,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.9",
+      "kind": "equation",
+      "name": "\\[\n\\|\\theta_t - \\theta^*\\|_2 = \\|T(\\theta_{t-1}) - T(\\theta^*)\\|_2 \\le \\kappa \\|\\theta_{t-1} - \\theta^*\\|_2 \\le \\kappa^t \\|\\theta_0 - \\theta^*\\|_2.\n\\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.9"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:6ee0be6f4567fc40",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.13",
+      "kind": "paragraph",
+      "name": "Setting $\\kappa^t \\|\\theta_0 - \\theta^*\\|_2 \\le \\delta$ and solving for $t$ immediately yields the linear convergence iteration complexity:",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.13"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:6d771863cbe0c590",
+        "depth": 6,
+        "kind": "equation",
+        "order": 3,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.10",
+      "kind": "equation",
+      "name": "\\[\nt \\ge \\frac{\\ln\\left(\\|\\theta_0 - \\theta^*\\|_2 / \\delta\\right)}{\\ln(1/\\kappa)}.\n\\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.10"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "section",
+        "order": 1,
+        "role": "segment"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6",
+      "kind": "section",
+      "name": "Solution to Question 2",
+      "role": "segment",
+      "source_node": "problem_07/block.1/answer_key.1/section.6"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:acf54026e42e0a4e",
+        "depth": 5,
+        "kind": "list_item",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:d3f2c277e90940bf",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.14",
+      "kind": "paragraph",
+      "name": "We have",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.14"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:05b1c7cf353d610c",
+        "depth": 6,
+        "kind": "equation",
+        "order": 1,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.11",
+      "kind": "equation",
+      "name": "\\[\n\\begin{aligned}\n \\|\\theta_t-\\widehat\\theta_t\\|\n &=\n \\|T(\\theta_{t-1})-\\widehat T(\\widehat\\theta_{t-1})\\| \\\\\n &\\le\n \\|T(\\widehat\\theta_{t-1})-\\widehat T(\\wide",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.11"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:61708d12a2b2aea3",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.15",
+      "kind": "paragraph",
+      "name": "By the local Lipschitz condition, there exists $\\varepsilon_0>0$ such that",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.15"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:8be4d9c307869ff0",
+        "depth": 6,
+        "kind": "equation",
+        "order": 3,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.12",
+      "kind": "equation",
+      "name": "\\[\n \\sup_{\\theta:\\|\\theta-T(\\widehat\\theta_{t-1})\\|\\le\\varepsilon_0}\n \\left|\n \\widehat{\\mathcal{L}}(\\theta,\\widehat\\theta_{t-1})\n -\n \\mathcal{L}(\\theta,\\widehat",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.12"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:2a435738c37bf0f8",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 4,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.16",
+      "kind": "paragraph",
+      "name": "Since $\\ell$ is strongly convex for any $\\theta$,\n$T(\\widehat\\theta_{t-1})$ is unique, so there exists $\\delta$\nsuch that $\\mathcal{L}(\\theta,\\widehat\\theta_{t-",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.16"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:cd5bed34b4f4a2bf",
+        "depth": 6,
+        "kind": "equation",
+        "order": 5,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.13",
+      "kind": "equation",
+      "name": "\\[\n\\begin{aligned}\n&\\inf_{\\|\\theta-T(\\widehat\\theta_{t-1})\\|=\\varepsilon_0}\n \\widehat{\\mathcal{L}}(\\theta,\\widehat\\theta_{t-1})\n -\n \\widehat{\\mathcal{L}}(T(\\wid",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.13"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:28a330696ebbc76d",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 6,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.17",
+      "kind": "paragraph",
+      "name": "We consider any fixed $\\theta$ such that\n$\\|\\theta-T(\\widehat\\theta_{t-1})\\|\\ge\\varepsilon_0$. Let $\\omega=\\frac{\\theta-T(\\widehat\\theta_{t-1})}{\\|\\theta-T(\\wid",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.17"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:9669e6d38935f354",
+        "depth": 6,
+        "kind": "equation",
+        "order": 7,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.14",
+      "kind": "equation",
+      "name": "\\[\n\\begin{aligned}\n&\n\\widehat{\\mathcal{L}}(\\theta,\\widehat\\theta_{t-1})\n-\n\\widehat{\\mathcal{L}}(T(\\widehat\\theta_{t-1}),\\widehat\\theta_{t-1}) \\\\\n\\ge&\n \\frac{\\|\\",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.14"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:2dad1c3261369fa5",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 8,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.18",
+      "kind": "paragraph",
+      "name": "Thus, no $\\theta$ such that\n$\\|\\theta-T(\\widehat\\theta_{t-1})\\|\\ge\\varepsilon_0$ can be the minimizer of\n$\\widehat{\\mathcal{L}}(\\theta,\\widehat\\theta_{t-1})$, s",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.18"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:e740d1be2e89be5a",
+        "depth": 6,
+        "kind": "equation",
+        "order": 9,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.15",
+      "kind": "equation",
+      "name": "\\[\n \\|T(\\widehat\\theta_{t-1})-\\widehat T(\\widehat\\theta_{t-1})\\|\n \\xrightarrow{P}0.\n\\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.15"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:000068ff2bc457ee",
+        "depth": 6,
+        "kind": "paragraph",
+        "order": 10,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.19",
+      "kind": "paragraph",
+      "name": "For all $t \\geq 1$, we have",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.19"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:3b931705527ddb9f",
+        "depth": 6,
+        "kind": "equation",
+        "order": 11,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.16",
+      "kind": "equation",
+      "name": "\\[\n \\|\\widehat\\theta_t-\\theta_t\\|\n \\le\n \\sum_{i=0}^{t}\n \\left(\\frac{\\varepsilon\\beta}{\\gamma}\\right)^{t-i}\n \\|T(\\widehat\\theta_i)-\\widehat T(\\widehat\\theta_i)\\|",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.16"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "list_item",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14"
+    },
+    {
+      "attributes": {
+        "depth": 6,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:910efcd6a4e8b891",
+        "depth": 7,
+        "kind": "list_item",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:beb5664a28387c2a",
+        "depth": 8,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.20",
+      "kind": "paragraph",
+      "name": "\\textbf{Decomposition.}\n\n Define the normalized error",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.20"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:7777d2d8384fde9a",
+        "depth": 8,
+        "kind": "equation",
+        "order": 1,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.17",
+      "kind": "equation",
+      "name": "\\[\n U_t := \\sqrt{n}(\\widehat\\theta_t-\\theta_t),\n \\qquad\n \\widetilde\\theta_t := T(\\widehat\\theta_{t-1}).\n \\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.17"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:40f6d2b20b1dfcd1",
+        "depth": 8,
+        "kind": "paragraph",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.21",
+      "kind": "paragraph",
+      "name": "The key decomposition is",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.21"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:f9637866e2c2fc75",
+        "depth": 8,
+        "kind": "equation",
+        "order": 3,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.18",
+      "kind": "equation",
+      "name": "\\[\n \\widehat\\theta_t-\\theta_t\n =\n \\bigl(\\widetilde\\theta_t-\\theta_t\\bigr)\n +\n \\bigl(\\widehat\\theta_t-\\widetilde\\theta_t\\bigr).\n \\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.18"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:390654ed043f6756",
+        "depth": 7,
+        "kind": "list_item",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:c74c8e9f031ae2a6",
+        "depth": 8,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.22",
+      "kind": "paragraph",
+      "name": "\\textbf{Conditional distribution.}\n\n Conditional on $\\widehat\\theta_{t-1}$, the samples at time $t$ are i.i.d.\n from $D(\\widehat\\theta_{t-1})$, and\n $\\widetilde",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.22"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:62dbc00ac17a7b2b",
+        "depth": 8,
+        "kind": "equation",
+        "order": 1,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.19",
+      "kind": "equation",
+      "name": "\\[\n \\sqrt{n}(\\widehat\\theta_t-\\widetilde\\theta_t)\n \\mid \\widehat\\theta_{t-1}\n \\xrightarrow{D}\n N\\bigl(0,\\Sigma_{\\widehat\\theta_{t-1}}(\\widetilde\\theta_t)\\bigr).",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.19"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:ffb345bbc7c579ef",
+        "depth": 8,
+        "kind": "paragraph",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.23",
+      "kind": "paragraph",
+      "name": "Since\n $\\widehat\\theta_{t-1}=\\theta_{t-1}+U_{t-1}/\\sqrt{n}$, this gives the\n conditional limiting distribution",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.23"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:37056264224c88be",
+        "depth": 8,
+        "kind": "equation",
+        "order": 3,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.20",
+      "kind": "equation",
+      "name": "\\[\n U_t\\mid U_{t-1}\n \\xrightarrow{D}\n N\\bigl(\\mu(U_{t-1}),\\Sigma(U_{t-1})\\bigr),\n \\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.20"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:b48111c10c65fc11",
+        "depth": 8,
+        "kind": "paragraph",
+        "order": 4,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.24",
+      "kind": "paragraph",
+      "name": "where",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.24"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:b9293c42e6926274",
+        "depth": 8,
+        "kind": "equation",
+        "order": 5,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.21",
+      "kind": "equation",
+      "name": "\\[\n \\mu(U_{t-1})\n =\n \\sqrt{n}\\left[\n T\\left(\\theta_{t-1}+\\frac{U_{t-1}}{\\sqrt{n}}\\right)\n -\n T(\\theta_{t-1})\n \\right].\n \\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.21"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:f2d96bea8225e49f",
+        "depth": 7,
+        "kind": "list_item",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:44953064d3ec65e8",
+        "depth": 8,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.25",
+      "kind": "paragraph",
+      "name": "\\textbf{Marginal distribution.}\n\n The proof then turns the conditional CLT into a marginal CLT by induction\n and the characteristic function method. By the towe",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.25"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:b80a620bb7fa1e31",
+        "depth": 8,
+        "kind": "equation",
+        "order": 1,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.22",
+      "kind": "equation",
+      "name": "\\[\n \\phi_{U_t}(s)\n =\n \\mathbb{E}\\left[\n \\phi_{U_t\\mid U_{t-1}}(s\\mid U_{t-1})\n \\right].\n \\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.22"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:dadd49aa5632dc54",
+        "depth": 8,
+        "kind": "paragraph",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.26",
+      "kind": "paragraph",
+      "name": "Therefore, once we know the conditional limiting distribution of\n $U_t\\mid U_{t-1}$, we can obtain the marginal characteristic function by averaging over the la",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.26"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:0aa64349c7ad1ff1",
+        "depth": 8,
+        "kind": "equation",
+        "order": 3,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.23",
+      "kind": "equation",
+      "name": "\\[\n U_t\\xrightarrow{D}N(0,V_t),\n \\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.23"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:261821d3cf8be124",
+        "depth": 8,
+        "kind": "paragraph",
+        "order": 4,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.27",
+      "kind": "paragraph",
+      "name": "with recursive variance",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.27"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:8e0262f5db8bf499",
+        "depth": 8,
+        "kind": "equation",
+        "order": 5,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.24",
+      "kind": "equation",
+      "name": "\\[\n V_t\n =\n \\nabla T(\\theta_{t-1})V_{t-1}\\nabla T(\\theta_{t-1})^\\top\n +\n \\Sigma_{\\theta_{t-1}}(\\theta_t).\n \\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.24"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:aa3b17600d88d316",
+        "depth": 8,
+        "kind": "paragraph",
+        "order": 6,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.28",
+      "kind": "paragraph",
+      "name": "Here",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.28"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:f6a9c4772199bf42",
+        "depth": 8,
+        "kind": "equation",
+        "order": 7,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.25",
+      "kind": "equation",
+      "name": "\\[\n \\Sigma_{\\theta_{t-1}}(\\theta_t)\n =\n H_{\\theta_{t-1}}(\\theta_t)^{-1}\n V_{\\theta_{t-1}}(\\theta_t)\n H_{\\theta_{t-1}}(\\theta_t)^{-1},\n \\]",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.25"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:b48111c10c65fc11",
+        "depth": 8,
+        "kind": "paragraph",
+        "order": 8,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.29",
+      "kind": "paragraph",
+      "name": "where",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.29"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:30256ba42ba87ea3",
+        "depth": 8,
+        "kind": "equation",
+        "order": 9,
+        "role": "formalize"
+      },
+      "id": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.26",
+      "kind": "equation",
+      "name": "\\begin{align*}\n H_{\\theta_{t-1}}(\\theta_t)\n &:=\n \\mathbb{E}_{z\\sim D(\\theta_{t-1})} \\nabla_\\theta^2\\ell(z;\\theta_t), \\\\\n V_{\\theta_{t-1}}(\\theta_t)\n &:=\n \\opera",
+      "role": "formalize",
+      "source_node": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.26"
+    },
+    {
+      "attributes": {
+        "depth": 2,
+        "kind": "grading_scheme",
+        "order": 2,
+        "role": "meta"
+      },
+      "id": "problem_07/block.1/grading_scheme.1",
+      "kind": "grading_scheme",
+      "role": "meta",
+      "source_node": "problem_07/block.1/grading_scheme.1"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7",
+      "kind": "list",
+      "name": "label=*.",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list_item",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.18",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.18"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:806cc8980236cd98",
+        "depth": 5,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/paragraph.30",
+      "kind": "paragraph",
+      "name": "\\textbf{Question 1(1): Contraction Property and Sensitivity Bounds}",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/paragraph.30"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "list",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:be781910c445c2bc",
+        "depth": 6,
+        "kind": "list_item",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.19",
+      "kind": "list_item",
+      "name": "\\textbf{Criterion 1.1 (Optimality \\& Convexity):} The response must correctly invoke the first-order optimality conditions ($\\nabla_\\theta \\mathcal{L} = 0$) and",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.19"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:189ba55fe3778ca3",
+        "depth": 6,
+        "kind": "list_item",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.20",
+      "kind": "list_item",
+      "name": "\\textbf{Criterion 1.2 (Kantorovich-Rubinstein Alignment):} The response must correctly rewrite the gradient difference as an expectation discrepancy under shift",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.20"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:701988b67805b052",
+        "depth": 6,
+        "kind": "list_item",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.21",
+      "kind": "list_item",
+      "name": "\\textbf{Criterion 1.3 (Final Contraction Parameter):} The response must inject the $\\epsilon$-sensitivity condition to conclude the strict contractive modulus: ",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.21"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list_item",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.22",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.22"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:13353548d6f8bf28",
+        "depth": 5,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/paragraph.31",
+      "kind": "paragraph",
+      "name": "\\textbf{Question 1(2): Fixed-Point Convergence and Iteration Complexity}",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/paragraph.31"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "list",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:913f05fb2b4be597",
+        "depth": 6,
+        "kind": "list_item",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.23",
+      "kind": "list_item",
+      "name": "\\textbf{Criterion 2.1 (Banach Application):} The response must explicitly invoke the Banach Fixed-Point Theorem, validating that since $\\kappa = \\frac{\\epsilon\\",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.23"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:8306edb8d5e9d92a",
+        "depth": 6,
+        "kind": "list_item",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.24",
+      "kind": "list_item",
+      "name": "\\textbf{Criterion 2.2 (Complexity Derivation):} The response must utilize mathematical induction to bound the tracking error at step $t$ by $\\kappa^t \\|\\theta_0",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.24"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list_item",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.25",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.25"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:3d3493cbb601c578",
+        "depth": 5,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/paragraph.32",
+      "kind": "paragraph",
+      "name": "\\textbf{Question 2(1): Probability Consistency under Empirical Risk Perturbations}",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/paragraph.32"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "list",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:bef767f1d7a5b453",
+        "depth": 6,
+        "kind": "list_item",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.26",
+      "kind": "list_item",
+      "name": "\\textbf{Criterion 3.1 (Triangle Inequality Expansion):} The response must execute a proper multi-step triangle inequality breakdown to isolate the empirical opt",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.26"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:8c135d8640a10498",
+        "depth": 6,
+        "kind": "list_item",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.27",
+      "kind": "list_item",
+      "name": "\\textbf{Criterion 3.2 (Convex Compact Boundary Auditing):} The response must demonstrate understanding of M-estimator consistency via convexity. It must constru",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.27"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:fc8c19bc1e72bb43",
+        "depth": 6,
+        "kind": "list_item",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.28",
+      "kind": "list_item",
+      "name": "\\textbf{Criterion 3.3 (Asymptotic Convergence Mapping):} The response must rigorously show that the point-wise empirical mapping error vanishes in probability (",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.28"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list_item",
+        "order": 3,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.29",
+      "kind": "list_item",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.29"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:65681c1e374e3d44",
+        "depth": 5,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/paragraph.33",
+      "kind": "paragraph",
+      "name": "\\textbf{Question 2(2): Advanced Asymptotic Normality and Tower Property Aggregation}",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/paragraph.33"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "list",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:693a40dae8f1b7c8",
+        "depth": 6,
+        "kind": "list_item",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.30",
+      "kind": "list_item",
+      "name": "\\textbf{Criterion 4.1 (Conditional M-Estimator CLT):} The response must formalize the temporal dependency structure by conditioning on the filtration or past pa",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.30"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:79659c4cb771cf37",
+        "depth": 6,
+        "kind": "list_item",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.31",
+      "kind": "list_item",
+      "name": "\\textbf{Criterion 4.2 (Characteristic Function Induction):} The response must explicitly deploy the Tower Property of expectation on the joint probability space",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.31"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:0590af2cf4135e18",
+        "depth": 6,
+        "kind": "list_item",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.32",
+      "kind": "list_item",
+      "name": "\\textbf{Criterion 4.3 (Recursive Variance \\& Sandwich Formulation):} The response must compute the definitive marginal Gaussian limit $U_t \\xrightarrow{D} N(0, ",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.32"
+    },
+    {
+      "attributes": {
+        "depth": 2,
+        "kind": "editor_notes",
+        "order": 3,
+        "role": "meta"
+      },
+      "id": "problem_07/block.1/editor_notes.1",
+      "kind": "editor_notes",
+      "role": "meta",
+      "source_node": "problem_07/block.1/editor_notes.1"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:bcba34e32e11404d",
+        "depth": 3,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/editor_notes.1/paragraph.34",
+      "kind": "paragraph",
+      "name": "Suggested checks:",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/editor_notes.1/paragraph.34"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "list",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/editor_notes.1/list.12",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/editor_notes.1/list.12"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:8cf5bc3099f54cee",
+        "depth": 4,
+        "kind": "list_item",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/editor_notes.1/list.12/list_item.33",
+      "kind": "list_item",
+      "name": "Is every symbol defined?",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/editor_notes.1/list.12/list_item.33"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:b9bfccaf1d14d2cd",
+        "depth": 4,
+        "kind": "list_item",
+        "order": 1,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/editor_notes.1/list.12/list_item.34",
+      "kind": "list_item",
+      "name": "Does the rubric use exact answer / tolerance for objective questions or a structural / judge rubric for proof-style questions?",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/editor_notes.1/list.12/list_item.34"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:5310293b3c9f95b2",
+        "depth": 4,
+        "kind": "list_item",
+        "order": 2,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/editor_notes.1/list.12/list_item.35",
+      "kind": "list_item",
+      "name": "Can the verifier grade deterministically, or at least be audited line by line from the written schema?",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/editor_notes.1/list.12/list_item.35"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:e0f339421058f13a",
+        "depth": 4,
+        "kind": "list_item",
+        "order": 3,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/editor_notes.1/list.12/list_item.36",
+      "kind": "list_item",
+      "name": "Does the problem require non-routine reasoning?",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/editor_notes.1/list.12/list_item.36"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:ba4fe3d5575f4a31",
+        "depth": 4,
+        "kind": "list_item",
+        "order": 4,
+        "role": "narrate"
+      },
+      "id": "problem_07/block.1/editor_notes.1/list.12/list_item.37",
+      "kind": "list_item",
+      "name": "Does the matching review sidecar contain five raw model responses and a failure-mode summary?",
+      "role": "narrate",
+      "source_node": "problem_07/block.1/editor_notes.1/list.12/list_item.37"
+    }
+  ],
+  "metrics": {
+    "concept_kind_counts": {
+      "answer_key": 1,
+      "block": 1,
+      "document": 1,
+      "editor_notes": 1,
+      "equation": 26,
+      "grading_scheme": 1,
+      "list": 12,
+      "list_item": 37,
+      "metadata_field": 13,
+      "paragraph": 34,
+      "problem_statement": 1,
+      "section": 6
+    },
+    "n_concepts": 134,
+    "n_reasoning_edges": 0,
+    "n_relations": 133,
+    "n_resolved": 133,
+    "predicate_counts": {
+      "contains": 133
+    }
+  },
+  "relations": [
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.1",
+      "object": "problem_07/metadata_field.1",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.1",
+      "resolved": true,
+      "subject": "problem_07"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.2",
+      "object": "problem_07/metadata_field.1/metadata_field.2",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.1/metadata_field.2",
+      "resolved": true,
+      "subject": "problem_07/metadata_field.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.3",
+      "object": "problem_07/metadata_field.1/metadata_field.3",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.1/metadata_field.3",
+      "resolved": true,
+      "subject": "problem_07/metadata_field.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.4",
+      "object": "problem_07/metadata_field.1/metadata_field.4",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.1/metadata_field.4",
+      "resolved": true,
+      "subject": "problem_07/metadata_field.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.5",
+      "object": "problem_07/metadata_field.1/metadata_field.5",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.1/metadata_field.5",
+      "resolved": true,
+      "subject": "problem_07/metadata_field.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.6",
+      "object": "problem_07/metadata_field.1/metadata_field.6",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.1/metadata_field.6",
+      "resolved": true,
+      "subject": "problem_07/metadata_field.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.7",
+      "object": "problem_07/metadata_field.1/metadata_field.7",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.1/metadata_field.7",
+      "resolved": true,
+      "subject": "problem_07/metadata_field.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.8",
+      "object": "problem_07/metadata_field.1/metadata_field.8",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.1/metadata_field.8",
+      "resolved": true,
+      "subject": "problem_07/metadata_field.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.9",
+      "object": "problem_07/metadata_field.9",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.9",
+      "resolved": true,
+      "subject": "problem_07"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.10",
+      "object": "problem_07/metadata_field.9/metadata_field.10",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.9/metadata_field.10",
+      "resolved": true,
+      "subject": "problem_07/metadata_field.9"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.11",
+      "object": "problem_07/metadata_field.9/metadata_field.11",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.9/metadata_field.11",
+      "resolved": true,
+      "subject": "problem_07/metadata_field.9"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.12",
+      "object": "problem_07/metadata_field.9/metadata_field.12",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.9/metadata_field.12",
+      "resolved": true,
+      "subject": "problem_07/metadata_field.9"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.13",
+      "object": "problem_07/metadata_field.9/metadata_field.13",
+      "predicate": "contains",
+      "provenance": "problem_07/metadata_field.9/metadata_field.13",
+      "resolved": true,
+      "subject": "problem_07/metadata_field.9"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.14",
+      "object": "problem_07/block.1",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1",
+      "resolved": true,
+      "subject": "problem_07"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.15",
+      "object": "problem_07/block.1/problem_statement.1",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1",
+      "resolved": true,
+      "subject": "problem_07/block.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.16",
+      "object": "problem_07/block.1/problem_statement.1/section.1",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.1",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.17",
+      "object": "problem_07/block.1/problem_statement.1/section.1/paragraph.1",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.1/paragraph.1",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.18",
+      "object": "problem_07/block.1/problem_statement.1/section.1/equation.1",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.1/equation.1",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.19",
+      "object": "problem_07/block.1/problem_statement.1/section.1/paragraph.2",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.1/paragraph.2",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.20",
+      "object": "problem_07/block.1/problem_statement.1/section.1/equation.2",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.1/equation.2",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.21",
+      "object": "problem_07/block.1/problem_statement.1/section.1/paragraph.3",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.1/paragraph.3",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.22",
+      "object": "problem_07/block.1/problem_statement.1/section.1/equation.3",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.1/equation.3",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.23",
+      "object": "problem_07/block.1/problem_statement.1/section.2",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.2",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.24",
+      "object": "problem_07/block.1/problem_statement.1/section.2/paragraph.4",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.2/paragraph.4",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.2"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.25",
+      "object": "problem_07/block.1/problem_statement.1/section.2/list.1",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.2/list.1",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.2"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.26",
+      "object": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.1",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.1",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.2/list.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.27",
+      "object": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.2",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.2",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.2/list.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.28",
+      "object": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.3",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.3",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.2/list.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.29",
+      "object": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.4",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.4",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.2/list.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.30",
+      "object": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.2/list.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.31",
+      "object": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/paragraph.5",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/paragraph.5",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.32",
+      "object": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/equation.4",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/equation.4",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.33",
+      "object": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.6",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.6",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.2/list.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.34",
+      "object": "problem_07/block.1/problem_statement.1/section.3",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.3",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.35",
+      "object": "problem_07/block.1/problem_statement.1/section.3/paragraph.6",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.3/paragraph.6",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.3"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.36",
+      "object": "problem_07/block.1/problem_statement.1/section.3/list.2",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.3/list.2",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.3"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.37",
+      "object": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.3/list.2"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.38",
+      "object": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/paragraph.7",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/paragraph.7",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.39",
+      "object": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/equation.5",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/equation.5",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.40",
+      "object": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.8",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.8",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.3/list.2"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.41",
+      "object": "problem_07/block.1/problem_statement.1/section.4",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.4",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.42",
+      "object": "problem_07/block.1/problem_statement.1/section.4/paragraph.8",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.4/paragraph.8",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.4"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.43",
+      "object": "problem_07/block.1/problem_statement.1/section.4/list.3",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.4/list.3",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.4"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.44",
+      "object": "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.9",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.9",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.4/list.3"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.45",
+      "object": "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.10",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.10",
+      "resolved": true,
+      "subject": "problem_07/block.1/problem_statement.1/section.4/list.3"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.46",
+      "object": "problem_07/block.1/answer_key.1",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1",
+      "resolved": true,
+      "subject": "problem_07/block.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.47",
+      "object": "problem_07/block.1/answer_key.1/section.5",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.48",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.49",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5/list.4"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.50",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.9",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.9",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.51",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.6",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.6",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.52",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.10",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.10",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.53",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.7",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.7",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.54",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.11",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.11",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.55",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.8",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.8",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.56",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5/list.4"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.57",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.12",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.12",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.58",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.9",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.9",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.59",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.13",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.13",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.60",
+      "object": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.10",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.10",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.61",
+      "object": "problem_07/block.1/answer_key.1/section.6",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.62",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.63",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.64",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.14",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.14",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.65",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.11",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.11",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.66",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.15",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.15",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.67",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.12",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.12",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.68",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.16",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.16",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.69",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.13",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.13",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.70",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.17",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.17",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.71",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.14",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.14",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.72",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.18",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.18",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.73",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.15",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.15",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.74",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.19",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.19",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.75",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.16",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.16",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.76",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.77",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.78",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.79",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.20",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.20",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.80",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.17",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.17",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.81",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.21",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.21",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.82",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.18",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.18",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.83",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.84",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.22",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.22",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.85",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.19",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.19",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.86",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.23",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.23",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.87",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.20",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.20",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.88",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.24",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.24",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.89",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.21",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.21",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.90",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.91",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.25",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.25",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.92",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.22",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.22",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.93",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.26",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.26",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.94",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.23",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.23",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.95",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.27",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.27",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.96",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.24",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.24",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.97",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.28",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.28",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.98",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.25",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.25",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.99",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.29",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.29",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.100",
+      "object": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.26",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.26",
+      "resolved": true,
+      "subject": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.101",
+      "object": "problem_07/block.1/grading_scheme.1",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1",
+      "resolved": true,
+      "subject": "problem_07/block.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.102",
+      "object": "problem_07/block.1/grading_scheme.1/list.7",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.103",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.18",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.18",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.104",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/paragraph.30",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/paragraph.30",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.18"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.105",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.18"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.106",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.19",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.19",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.107",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.20",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.20",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.108",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.21",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.21",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.109",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.22",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.22",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.110",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/paragraph.31",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/paragraph.31",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.22"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.111",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.22"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.112",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.23",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.23",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.113",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.24",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.24",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.114",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.25",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.25",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.115",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/paragraph.32",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/paragraph.32",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.25"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.116",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.25"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.117",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.26",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.26",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.118",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.27",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.27",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.119",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.28",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.28",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.120",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.29",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.29",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.121",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/paragraph.33",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/paragraph.33",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.29"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.122",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.29"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.123",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.30",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.30",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.124",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.31",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.31",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.125",
+      "object": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.32",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.32",
+      "resolved": true,
+      "subject": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.126",
+      "object": "problem_07/block.1/editor_notes.1",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/editor_notes.1",
+      "resolved": true,
+      "subject": "problem_07/block.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.127",
+      "object": "problem_07/block.1/editor_notes.1/paragraph.34",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/editor_notes.1/paragraph.34",
+      "resolved": true,
+      "subject": "problem_07/block.1/editor_notes.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.128",
+      "object": "problem_07/block.1/editor_notes.1/list.12",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/editor_notes.1/list.12",
+      "resolved": true,
+      "subject": "problem_07/block.1/editor_notes.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.129",
+      "object": "problem_07/block.1/editor_notes.1/list.12/list_item.33",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/editor_notes.1/list.12/list_item.33",
+      "resolved": true,
+      "subject": "problem_07/block.1/editor_notes.1/list.12"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.130",
+      "object": "problem_07/block.1/editor_notes.1/list.12/list_item.34",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/editor_notes.1/list.12/list_item.34",
+      "resolved": true,
+      "subject": "problem_07/block.1/editor_notes.1/list.12"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.131",
+      "object": "problem_07/block.1/editor_notes.1/list.12/list_item.35",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/editor_notes.1/list.12/list_item.35",
+      "resolved": true,
+      "subject": "problem_07/block.1/editor_notes.1/list.12"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.132",
+      "object": "problem_07/block.1/editor_notes.1/list.12/list_item.36",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/editor_notes.1/list.12/list_item.36",
+      "resolved": true,
+      "subject": "problem_07/block.1/editor_notes.1/list.12"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.133",
+      "object": "problem_07/block.1/editor_notes.1/list.12/list_item.37",
+      "predicate": "contains",
+      "provenance": "problem_07/block.1/editor_notes.1/list.12/list_item.37",
+      "resolved": true,
+      "subject": "problem_07/block.1/editor_notes.1/list.12"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "slug": "problem_07"
+}

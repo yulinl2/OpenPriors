@@ -1,0 +1,21 @@
+[project]
+name = "openpriors-concept-graph"
+version = "0.1.0"
+description = "Lift OpenPriors decomposer output into an (object, attribute, relation) concept + reasoning-chain graph; the bridge to a structure-mapping matcher."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["pydantic>=2.0"]
+
+[project.optional-dependencies]
+interop = ["rdflib", "networkx", "pyshacl"]  # optional: SPARQL/SHACL/DAG at scale
+dev = ["pytest>=7"]
+
+[project.scripts]
+concept-graph = "concept_graph.cli:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

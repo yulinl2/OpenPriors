@@ -1,0 +1,20 @@
+{
+  "attr:answer_key": 1,
+  "attr:block": 1,
+  "attr:document": 1,
+  "attr:editor_notes": 1,
+  "attr:equation": 26,
+  "attr:grading_scheme": 1,
+  "attr:list": 12,
+  "attr:list_item": 37,
+  "attr:metadata_field": 13,
+  "attr:paragraph": 34,
+  "attr:problem_statement": 1,
+  "attr:section": 6,
+  "rel:contains": 133,
+  "role:assert": 2,
+  "role:formalize": 26,
+  "role:meta": 15,
+  "role:narrate": 84,
+  "role:segment": 7
+}

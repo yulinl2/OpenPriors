@@ -1,0 +1,117 @@
+{
+  "arxiv-2006.06138": {
+    "concept_kind_counts": {
+      "bib_reference": 88,
+      "block": 20,
+      "document": 1,
+      "equation": 112,
+      "list": 4,
+      "list_item": 11,
+      "paragraph": 162,
+      "remark": 1,
+      "section": 34,
+      "theorem": 10
+    },
+    "n_concepts": 443,
+    "n_reasoning_edges": 17,
+    "n_relations": 626,
+    "n_resolved": 589,
+    "predicate_counts": {
+      "cites": 103,
+      "contains": 442,
+      "derives_from": 17,
+      "refers_to": 64
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "edge_conservation": true,
+        "reasoning_dag_acyclic": true,
+        "schema_valid": true,
+        "traceability": true
+      }
+    }
+  },
+  "problem_04_review": {
+    "concept_kind_counts": {
+      "block": 5,
+      "document": 1,
+      "list": 9,
+      "metadata_field": 27,
+      "paragraph": 3,
+      "section": 12
+    },
+    "n_concepts": 57,
+    "n_reasoning_edges": 0,
+    "n_relations": 56,
+    "n_resolved": 56,
+    "predicate_counts": {
+      "contains": 56
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "edge_conservation": true,
+        "reasoning_dag_acyclic": true,
+        "schema_valid": true,
+        "traceability": true
+      }
+    }
+  },
+  "problem_07": {
+    "concept_kind_counts": {
+      "answer_key": 1,
+      "block": 1,
+      "document": 1,
+      "editor_notes": 1,
+      "equation": 26,
+      "grading_scheme": 1,
+      "list": 12,
+      "list_item": 37,
+      "metadata_field": 13,
+      "paragraph": 34,
+      "problem_statement": 1,
+      "section": 6
+    },
+    "n_concepts": 134,
+    "n_reasoning_edges": 0,
+    "n_relations": 133,
+    "n_resolved": 133,
+    "predicate_counts": {
+      "contains": 133
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "edge_conservation": true,
+        "reasoning_dag_acyclic": true,
+        "schema_valid": true,
+        "traceability": true
+      }
+    }
+  },
+  "sample-text-riddles": {
+    "concept_kind_counts": {
+      "block": 4,
+      "document": 1,
+      "example": 4,
+      "paragraph": 4
+    },
+    "n_concepts": 13,
+    "n_reasoning_edges": 0,
+    "n_relations": 12,
+    "n_resolved": 12,
+    "predicate_counts": {
+      "contains": 12
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "edge_conservation": true,
+        "reasoning_dag_acyclic": true,
+        "schema_valid": true,
+        "traceability": true
+      }
+    }
+  }
+}

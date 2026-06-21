@@ -1,0 +1,1333 @@
+{
+  "concepts": [
+    {
+      "attributes": {
+        "depth": 0,
+        "kind": "document",
+        "order": 0,
+        "role": "segment",
+        "x_adapter": "markdown"
+      },
+      "id": "problem_04_review",
+      "kind": "document",
+      "name": "problem_04_review",
+      "role": "segment",
+      "source_node": "problem_04_review"
+    },
+    {
+      "attributes": {
+        "depth": 1,
+        "kind": "section",
+        "order": 0,
+        "role": "segment"
+      },
+      "id": "problem_04_review/section.1",
+      "kind": "section",
+      "name": "Problem Review Sidecar",
+      "role": "segment",
+      "source_node": "problem_04_review/section.1"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:e22745cc52d3dd5f",
+        "depth": 2,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_04_review/section.1/paragraph.1",
+      "kind": "paragraph",
+      "name": "Keep this file paired with the matching `problem_NN.tex` public artifact.",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/paragraph.1"
+    },
+    {
+      "attributes": {
+        "depth": 2,
+        "kind": "section",
+        "order": 1,
+        "role": "segment"
+      },
+      "id": "problem_04_review/section.1/section.2",
+      "kind": "section",
+      "name": "Problem Metadata",
+      "role": "segment",
+      "source_node": "problem_04_review/section.1/section.2"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_04_review/section.1/section.2/list.1",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.2/list.1"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 0,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.2/list.1/metadata_field.1",
+      "kind": "metadata_field",
+      "name": "Title",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.2/list.1/metadata_field.1"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 1,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.2/list.1/metadata_field.2",
+      "kind": "metadata_field",
+      "name": "Contributor",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.2/list.1/metadata_field.2"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 2,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.2/list.1/metadata_field.3",
+      "kind": "metadata_field",
+      "name": "Folder",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.2/list.1/metadata_field.3"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 3,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.2/list.1/metadata_field.4",
+      "kind": "metadata_field",
+      "name": "Problem slot",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.2/list.1/metadata_field.4"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:18a9263d0c641778",
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 4,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.2/list.1/metadata_field.5",
+      "kind": "metadata_field",
+      "name": "Current stage",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.2/list.1/metadata_field.5"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:970d50b809724cd6",
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 5,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.2/list.1/metadata_field.6",
+      "kind": "metadata_field",
+      "name": "Current status",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.2/list.1/metadata_field.6"
+    },
+    {
+      "attributes": {
+        "depth": 2,
+        "kind": "section",
+        "order": 2,
+        "role": "segment"
+      },
+      "id": "problem_04_review/section.1/section.3",
+      "kind": "section",
+      "name": "Question Tags",
+      "role": "segment",
+      "source_node": "problem_04_review/section.1/section.3"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_04_review/section.1/section.3/list.2",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.3/list.2"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 0,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.3/list.2/metadata_field.7",
+      "kind": "metadata_field",
+      "name": "Question type",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.3/list.2/metadata_field.7"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 1,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.3/list.2/metadata_field.8",
+      "kind": "metadata_field",
+      "name": "Challenged capability",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.3/list.2/metadata_field.8"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 2,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.3/list.2/metadata_field.9",
+      "kind": "metadata_field",
+      "name": "Sub-field",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.3/list.2/metadata_field.9"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 3,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.3/list.2/metadata_field.10",
+      "kind": "metadata_field",
+      "name": "Verification method",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.3/list.2/metadata_field.10"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 4,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.3/list.2/metadata_field.11",
+      "kind": "metadata_field",
+      "name": "Observed failure mode",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.3/list.2/metadata_field.11"
+    },
+    {
+      "attributes": {
+        "depth": 2,
+        "kind": "section",
+        "order": 3,
+        "role": "segment"
+      },
+      "id": "problem_04_review/section.1/section.4",
+      "kind": "section",
+      "name": "Oracle and Verification Notes",
+      "role": "segment",
+      "source_node": "problem_04_review/section.1/section.4"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_04_review/section.1/section.4/list.3",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.4/list.3"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 0,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.4/list.3/metadata_field.12",
+      "kind": "metadata_field",
+      "name": "Why the reference solution is correct",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.4/list.3/metadata_field.12"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 1,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.4/list.3/metadata_field.13",
+      "kind": "metadata_field",
+      "name": "Deterministic verifier or evaluation schema",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.4/list.3/metadata_field.13"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 2,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.4/list.3/metadata_field.14",
+      "kind": "metadata_field",
+      "name": "Known edge cases or acceptable variants",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.4/list.3/metadata_field.14"
+    },
+    {
+      "attributes": {
+        "depth": 2,
+        "kind": "section",
+        "order": 4,
+        "role": "segment"
+      },
+      "id": "problem_04_review/section.1/section.5",
+      "kind": "section",
+      "name": "Five Sample Model Responses",
+      "role": "segment",
+      "source_node": "problem_04_review/section.1/section.5"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:3394e8239e8c7d30",
+        "depth": 3,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_04_review/section.1/section.5/paragraph.2",
+      "kind": "paragraph",
+      "name": "Paste raw markdown text, not screenshots. Label each response with model, provider, and harness, and mix at least two providers when possible.",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.5/paragraph.2"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "section",
+        "order": 1,
+        "role": "segment"
+      },
+      "id": "problem_04_review/section.1/section.5/section.6",
+      "kind": "section",
+      "name": "Response 1",
+      "role": "segment",
+      "source_node": "problem_04_review/section.1/section.5/section.6"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_04_review/section.1/section.5/section.6/list.4",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.5/section.6/list.4"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "metadata_field",
+        "order": 0,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.5/section.6/list.4/metadata_field.15",
+      "kind": "metadata_field",
+      "name": "Model",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.5/section.6/list.4/metadata_field.15"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "metadata_field",
+        "order": 1,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.5/section.6/list.4/metadata_field.16",
+      "kind": "metadata_field",
+      "name": "Prompt or harness notes",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.5/section.6/list.4/metadata_field.16"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:cb87664589b8c663",
+        "depth": 4,
+        "kind": "block",
+        "order": 1,
+        "role": "narrate",
+        "x_kind": "code"
+      },
+      "id": "problem_04_review/section.1/section.5/section.6/block.1",
+      "kind": "block",
+      "name": "```text\nPASTE RESPONSE HERE\n```",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.5/section.6/block.1"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "section",
+        "order": 2,
+        "role": "segment"
+      },
+      "id": "problem_04_review/section.1/section.5/section.7",
+      "kind": "section",
+      "name": "Response 2",
+      "role": "segment",
+      "source_node": "problem_04_review/section.1/section.5/section.7"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_04_review/section.1/section.5/section.7/list.5",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.5/section.7/list.5"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "metadata_field",
+        "order": 0,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.5/section.7/list.5/metadata_field.17",
+      "kind": "metadata_field",
+      "name": "Model",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.5/section.7/list.5/metadata_field.17"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "metadata_field",
+        "order": 1,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.5/section.7/list.5/metadata_field.18",
+      "kind": "metadata_field",
+      "name": "Prompt or harness notes",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.5/section.7/list.5/metadata_field.18"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:cb87664589b8c663",
+        "depth": 4,
+        "kind": "block",
+        "order": 1,
+        "role": "narrate",
+        "x_kind": "code"
+      },
+      "id": "problem_04_review/section.1/section.5/section.7/block.2",
+      "kind": "block",
+      "name": "```text\nPASTE RESPONSE HERE\n```",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.5/section.7/block.2"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "section",
+        "order": 3,
+        "role": "segment"
+      },
+      "id": "problem_04_review/section.1/section.5/section.8",
+      "kind": "section",
+      "name": "Response 3",
+      "role": "segment",
+      "source_node": "problem_04_review/section.1/section.5/section.8"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_04_review/section.1/section.5/section.8/list.6",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.5/section.8/list.6"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "metadata_field",
+        "order": 0,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.5/section.8/list.6/metadata_field.19",
+      "kind": "metadata_field",
+      "name": "Model",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.5/section.8/list.6/metadata_field.19"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "metadata_field",
+        "order": 1,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.5/section.8/list.6/metadata_field.20",
+      "kind": "metadata_field",
+      "name": "Prompt or harness notes",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.5/section.8/list.6/metadata_field.20"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:cb87664589b8c663",
+        "depth": 4,
+        "kind": "block",
+        "order": 1,
+        "role": "narrate",
+        "x_kind": "code"
+      },
+      "id": "problem_04_review/section.1/section.5/section.8/block.3",
+      "kind": "block",
+      "name": "```text\nPASTE RESPONSE HERE\n```",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.5/section.8/block.3"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "section",
+        "order": 4,
+        "role": "segment"
+      },
+      "id": "problem_04_review/section.1/section.5/section.9",
+      "kind": "section",
+      "name": "Response 4",
+      "role": "segment",
+      "source_node": "problem_04_review/section.1/section.5/section.9"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_04_review/section.1/section.5/section.9/list.7",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.5/section.9/list.7"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "metadata_field",
+        "order": 0,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.5/section.9/list.7/metadata_field.21",
+      "kind": "metadata_field",
+      "name": "Model",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.5/section.9/list.7/metadata_field.21"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "metadata_field",
+        "order": 1,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.5/section.9/list.7/metadata_field.22",
+      "kind": "metadata_field",
+      "name": "Prompt or harness notes",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.5/section.9/list.7/metadata_field.22"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:cb87664589b8c663",
+        "depth": 4,
+        "kind": "block",
+        "order": 1,
+        "role": "narrate",
+        "x_kind": "code"
+      },
+      "id": "problem_04_review/section.1/section.5/section.9/block.4",
+      "kind": "block",
+      "name": "```text\nPASTE RESPONSE HERE\n```",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.5/section.9/block.4"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "section",
+        "order": 5,
+        "role": "segment"
+      },
+      "id": "problem_04_review/section.1/section.5/section.10",
+      "kind": "section",
+      "name": "Response 5",
+      "role": "segment",
+      "source_node": "problem_04_review/section.1/section.5/section.10"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_04_review/section.1/section.5/section.10/list.8",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.5/section.10/list.8"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "metadata_field",
+        "order": 0,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.5/section.10/list.8/metadata_field.23",
+      "kind": "metadata_field",
+      "name": "Model",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.5/section.10/list.8/metadata_field.23"
+    },
+    {
+      "attributes": {
+        "depth": 5,
+        "kind": "metadata_field",
+        "order": 1,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.5/section.10/list.8/metadata_field.24",
+      "kind": "metadata_field",
+      "name": "Prompt or harness notes",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.5/section.10/list.8/metadata_field.24"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:cb87664589b8c663",
+        "depth": 4,
+        "kind": "block",
+        "order": 1,
+        "role": "narrate",
+        "x_kind": "code"
+      },
+      "id": "problem_04_review/section.1/section.5/section.10/block.5",
+      "kind": "block",
+      "name": "```text\nPASTE RESPONSE HERE\n```",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.5/section.10/block.5"
+    },
+    {
+      "attributes": {
+        "depth": 2,
+        "kind": "section",
+        "order": 5,
+        "role": "segment"
+      },
+      "id": "problem_04_review/section.1/section.11",
+      "kind": "section",
+      "name": "Failure-Mode Summary",
+      "role": "segment",
+      "source_node": "problem_04_review/section.1/section.11"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:a563ccfadf779ede",
+        "depth": 3,
+        "kind": "paragraph",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_04_review/section.1/section.11/paragraph.3",
+      "kind": "paragraph",
+      "name": "Describe the pattern across the five responses, what they got wrong, the hypothesized mechanism, any near-misses or partial successes, and why this exposes a me",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.11/paragraph.3"
+    },
+    {
+      "attributes": {
+        "depth": 2,
+        "kind": "section",
+        "order": 6,
+        "role": "segment"
+      },
+      "id": "problem_04_review/section.1/section.12",
+      "kind": "section",
+      "name": "Reviewer Notes",
+      "role": "segment",
+      "source_node": "problem_04_review/section.1/section.12"
+    },
+    {
+      "attributes": {
+        "depth": 3,
+        "kind": "list",
+        "order": 0,
+        "role": "narrate"
+      },
+      "id": "problem_04_review/section.1/section.12/list.9",
+      "kind": "list",
+      "role": "narrate",
+      "source_node": "problem_04_review/section.1/section.12/list.9"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 0,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.12/list.9/metadata_field.25",
+      "kind": "metadata_field",
+      "name": "Collision or duplication risk",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.12/list.9/metadata_field.25"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 1,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.12/list.9/metadata_field.26",
+      "kind": "metadata_field",
+      "name": "Questions for Stage 1 reviewers",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.12/list.9/metadata_field.26"
+    },
+    {
+      "attributes": {
+        "depth": 4,
+        "kind": "metadata_field",
+        "order": 2,
+        "role": "meta"
+      },
+      "id": "problem_04_review/section.1/section.12/list.9/metadata_field.27",
+      "kind": "metadata_field",
+      "name": "Suggested next action",
+      "role": "meta",
+      "source_node": "problem_04_review/section.1/section.12/list.9/metadata_field.27"
+    }
+  ],
+  "metrics": {
+    "concept_kind_counts": {
+      "block": 5,
+      "document": 1,
+      "list": 9,
+      "metadata_field": 27,
+      "paragraph": 3,
+      "section": 12
+    },
+    "n_concepts": 57,
+    "n_reasoning_edges": 0,
+    "n_relations": 56,
+    "n_resolved": 56,
+    "predicate_counts": {
+      "contains": 56
+    }
+  },
+  "relations": [
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.1",
+      "object": "problem_04_review/section.1",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1",
+      "resolved": true,
+      "subject": "problem_04_review"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.2",
+      "object": "problem_04_review/section.1/paragraph.1",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/paragraph.1",
+      "resolved": true,
+      "subject": "problem_04_review/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.3",
+      "object": "problem_04_review/section.1/section.2",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.2",
+      "resolved": true,
+      "subject": "problem_04_review/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.4",
+      "object": "problem_04_review/section.1/section.2/list.1",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.2/list.1",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.2"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.5",
+      "object": "problem_04_review/section.1/section.2/list.1/metadata_field.1",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.2/list.1/metadata_field.1",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.2/list.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.6",
+      "object": "problem_04_review/section.1/section.2/list.1/metadata_field.2",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.2/list.1/metadata_field.2",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.2/list.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.7",
+      "object": "problem_04_review/section.1/section.2/list.1/metadata_field.3",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.2/list.1/metadata_field.3",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.2/list.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.8",
+      "object": "problem_04_review/section.1/section.2/list.1/metadata_field.4",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.2/list.1/metadata_field.4",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.2/list.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.9",
+      "object": "problem_04_review/section.1/section.2/list.1/metadata_field.5",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.2/list.1/metadata_field.5",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.2/list.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.10",
+      "object": "problem_04_review/section.1/section.2/list.1/metadata_field.6",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.2/list.1/metadata_field.6",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.2/list.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.11",
+      "object": "problem_04_review/section.1/section.3",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.3",
+      "resolved": true,
+      "subject": "problem_04_review/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.12",
+      "object": "problem_04_review/section.1/section.3/list.2",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.3/list.2",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.3"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.13",
+      "object": "problem_04_review/section.1/section.3/list.2/metadata_field.7",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.3/list.2/metadata_field.7",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.3/list.2"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.14",
+      "object": "problem_04_review/section.1/section.3/list.2/metadata_field.8",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.3/list.2/metadata_field.8",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.3/list.2"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.15",
+      "object": "problem_04_review/section.1/section.3/list.2/metadata_field.9",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.3/list.2/metadata_field.9",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.3/list.2"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.16",
+      "object": "problem_04_review/section.1/section.3/list.2/metadata_field.10",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.3/list.2/metadata_field.10",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.3/list.2"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.17",
+      "object": "problem_04_review/section.1/section.3/list.2/metadata_field.11",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.3/list.2/metadata_field.11",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.3/list.2"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.18",
+      "object": "problem_04_review/section.1/section.4",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.4",
+      "resolved": true,
+      "subject": "problem_04_review/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.19",
+      "object": "problem_04_review/section.1/section.4/list.3",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.4/list.3",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.4"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.20",
+      "object": "problem_04_review/section.1/section.4/list.3/metadata_field.12",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.4/list.3/metadata_field.12",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.4/list.3"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.21",
+      "object": "problem_04_review/section.1/section.4/list.3/metadata_field.13",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.4/list.3/metadata_field.13",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.4/list.3"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.22",
+      "object": "problem_04_review/section.1/section.4/list.3/metadata_field.14",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.4/list.3/metadata_field.14",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.4/list.3"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.23",
+      "object": "problem_04_review/section.1/section.5",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5",
+      "resolved": true,
+      "subject": "problem_04_review/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.24",
+      "object": "problem_04_review/section.1/section.5/paragraph.2",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/paragraph.2",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.25",
+      "object": "problem_04_review/section.1/section.5/section.6",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.6",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.26",
+      "object": "problem_04_review/section.1/section.5/section.6/list.4",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.6/list.4",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.6"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.27",
+      "object": "problem_04_review/section.1/section.5/section.6/list.4/metadata_field.15",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.6/list.4/metadata_field.15",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.6/list.4"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.28",
+      "object": "problem_04_review/section.1/section.5/section.6/list.4/metadata_field.16",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.6/list.4/metadata_field.16",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.6/list.4"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.29",
+      "object": "problem_04_review/section.1/section.5/section.6/block.1",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.6/block.1",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.6"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.30",
+      "object": "problem_04_review/section.1/section.5/section.7",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.7",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.31",
+      "object": "problem_04_review/section.1/section.5/section.7/list.5",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.7/list.5",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.7"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.32",
+      "object": "problem_04_review/section.1/section.5/section.7/list.5/metadata_field.17",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.7/list.5/metadata_field.17",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.7/list.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.33",
+      "object": "problem_04_review/section.1/section.5/section.7/list.5/metadata_field.18",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.7/list.5/metadata_field.18",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.7/list.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.34",
+      "object": "problem_04_review/section.1/section.5/section.7/block.2",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.7/block.2",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.7"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.35",
+      "object": "problem_04_review/section.1/section.5/section.8",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.8",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.36",
+      "object": "problem_04_review/section.1/section.5/section.8/list.6",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.8/list.6",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.8"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.37",
+      "object": "problem_04_review/section.1/section.5/section.8/list.6/metadata_field.19",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.8/list.6/metadata_field.19",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.8/list.6"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.38",
+      "object": "problem_04_review/section.1/section.5/section.8/list.6/metadata_field.20",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.8/list.6/metadata_field.20",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.8/list.6"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.39",
+      "object": "problem_04_review/section.1/section.5/section.8/block.3",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.8/block.3",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.8"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.40",
+      "object": "problem_04_review/section.1/section.5/section.9",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.9",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.41",
+      "object": "problem_04_review/section.1/section.5/section.9/list.7",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.9/list.7",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.9"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.42",
+      "object": "problem_04_review/section.1/section.5/section.9/list.7/metadata_field.21",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.9/list.7/metadata_field.21",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.9/list.7"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.43",
+      "object": "problem_04_review/section.1/section.5/section.9/list.7/metadata_field.22",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.9/list.7/metadata_field.22",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.9/list.7"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.44",
+      "object": "problem_04_review/section.1/section.5/section.9/block.4",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.9/block.4",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.9"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.45",
+      "object": "problem_04_review/section.1/section.5/section.10",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.10",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.46",
+      "object": "problem_04_review/section.1/section.5/section.10/list.8",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.10/list.8",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.10"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.47",
+      "object": "problem_04_review/section.1/section.5/section.10/list.8/metadata_field.23",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.10/list.8/metadata_field.23",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.10/list.8"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.48",
+      "object": "problem_04_review/section.1/section.5/section.10/list.8/metadata_field.24",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.10/list.8/metadata_field.24",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.10/list.8"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.49",
+      "object": "problem_04_review/section.1/section.5/section.10/block.5",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.5/section.10/block.5",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.5/section.10"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.50",
+      "object": "problem_04_review/section.1/section.11",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.11",
+      "resolved": true,
+      "subject": "problem_04_review/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.51",
+      "object": "problem_04_review/section.1/section.11/paragraph.3",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.11/paragraph.3",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.11"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.52",
+      "object": "problem_04_review/section.1/section.12",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.12",
+      "resolved": true,
+      "subject": "problem_04_review/section.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.53",
+      "object": "problem_04_review/section.1/section.12/list.9",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.12/list.9",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.12"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.54",
+      "object": "problem_04_review/section.1/section.12/list.9/metadata_field.25",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.12/list.9/metadata_field.25",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.12/list.9"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.55",
+      "object": "problem_04_review/section.1/section.12/list.9/metadata_field.26",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.12/list.9/metadata_field.26",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.12/list.9"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.56",
+      "object": "problem_04_review/section.1/section.12/list.9/metadata_field.27",
+      "predicate": "contains",
+      "provenance": "problem_04_review/section.1/section.12/list.9/metadata_field.27",
+      "resolved": true,
+      "subject": "problem_04_review/section.1/section.12/list.9"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "slug": "problem_04_review"
+}

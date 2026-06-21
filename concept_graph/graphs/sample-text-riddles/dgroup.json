@@ -1,0 +1,259 @@
+{
+  "attributes": [
+    {
+      "arg": "sample-text-riddles",
+      "pred": "document"
+    },
+    {
+      "arg": "sample-text-riddles",
+      "pred": "role:segment"
+    },
+    {
+      "arg": "sample-text-riddles/example.1",
+      "pred": "example"
+    },
+    {
+      "arg": "sample-text-riddles/example.1",
+      "pred": "role:exemplify"
+    },
+    {
+      "arg": "sample-text-riddles/example.1",
+      "pred": "riddle"
+    },
+    {
+      "arg": "sample-text-riddles/example.1/block.1",
+      "pred": "block"
+    },
+    {
+      "arg": "sample-text-riddles/example.1/block.1",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "sample-text-riddles/example.1/block.1",
+      "pred": "source_analog"
+    },
+    {
+      "arg": "sample-text-riddles/example.1/paragraph.1",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "sample-text-riddles/example.1/paragraph.1",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "sample-text-riddles/example.1/paragraph.1",
+      "pred": "target_analog"
+    },
+    {
+      "arg": "sample-text-riddles/example.2",
+      "pred": "example"
+    },
+    {
+      "arg": "sample-text-riddles/example.2",
+      "pred": "role:exemplify"
+    },
+    {
+      "arg": "sample-text-riddles/example.2",
+      "pred": "riddle"
+    },
+    {
+      "arg": "sample-text-riddles/example.2/block.2",
+      "pred": "block"
+    },
+    {
+      "arg": "sample-text-riddles/example.2/block.2",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "sample-text-riddles/example.2/block.2",
+      "pred": "source_analog"
+    },
+    {
+      "arg": "sample-text-riddles/example.2/paragraph.2",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "sample-text-riddles/example.2/paragraph.2",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "sample-text-riddles/example.2/paragraph.2",
+      "pred": "target_analog"
+    },
+    {
+      "arg": "sample-text-riddles/example.3",
+      "pred": "example"
+    },
+    {
+      "arg": "sample-text-riddles/example.3",
+      "pred": "role:exemplify"
+    },
+    {
+      "arg": "sample-text-riddles/example.3",
+      "pred": "riddle"
+    },
+    {
+      "arg": "sample-text-riddles/example.3/block.3",
+      "pred": "block"
+    },
+    {
+      "arg": "sample-text-riddles/example.3/block.3",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "sample-text-riddles/example.3/block.3",
+      "pred": "source_analog"
+    },
+    {
+      "arg": "sample-text-riddles/example.3/paragraph.3",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "sample-text-riddles/example.3/paragraph.3",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "sample-text-riddles/example.3/paragraph.3",
+      "pred": "target_analog"
+    },
+    {
+      "arg": "sample-text-riddles/example.4",
+      "pred": "example"
+    },
+    {
+      "arg": "sample-text-riddles/example.4",
+      "pred": "role:exemplify"
+    },
+    {
+      "arg": "sample-text-riddles/example.4",
+      "pred": "riddle"
+    },
+    {
+      "arg": "sample-text-riddles/example.4/block.4",
+      "pred": "block"
+    },
+    {
+      "arg": "sample-text-riddles/example.4/block.4",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "sample-text-riddles/example.4/block.4",
+      "pred": "source_analog"
+    },
+    {
+      "arg": "sample-text-riddles/example.4/paragraph.4",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "sample-text-riddles/example.4/paragraph.4",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "sample-text-riddles/example.4/paragraph.4",
+      "pred": "target_analog"
+    }
+  ],
+  "entities": [
+    "sample-text-riddles",
+    "sample-text-riddles/example.1",
+    "sample-text-riddles/example.1/block.1",
+    "sample-text-riddles/example.1/paragraph.1",
+    "sample-text-riddles/example.2",
+    "sample-text-riddles/example.2/block.2",
+    "sample-text-riddles/example.2/paragraph.2",
+    "sample-text-riddles/example.3",
+    "sample-text-riddles/example.3/block.3",
+    "sample-text-riddles/example.3/paragraph.3",
+    "sample-text-riddles/example.4",
+    "sample-text-riddles/example.4/block.4",
+    "sample-text-riddles/example.4/paragraph.4"
+  ],
+  "higher_order": [],
+  "relations": [
+    {
+      "args": [
+        "sample-text-riddles",
+        "sample-text-riddles/example.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "sample-text-riddles/example.1",
+        "sample-text-riddles/example.1/block.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "sample-text-riddles/example.1",
+        "sample-text-riddles/example.1/paragraph.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "sample-text-riddles",
+        "sample-text-riddles/example.2"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "sample-text-riddles/example.2",
+        "sample-text-riddles/example.2/block.2"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "sample-text-riddles/example.2",
+        "sample-text-riddles/example.2/paragraph.2"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "sample-text-riddles",
+        "sample-text-riddles/example.3"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "sample-text-riddles/example.3",
+        "sample-text-riddles/example.3/block.3"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "sample-text-riddles/example.3",
+        "sample-text-riddles/example.3/paragraph.3"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "sample-text-riddles",
+        "sample-text-riddles/example.4"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "sample-text-riddles/example.4",
+        "sample-text-riddles/example.4/block.4"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "sample-text-riddles/example.4",
+        "sample-text-riddles/example.4/paragraph.4"
+      ],
+      "pred": "contains"
+    }
+  ],
+  "slug": "sample-text-riddles"
+}
