@@ -1,0 +1,22 @@
+
+> Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that each person spent 100 dollars on the job.
+
+Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that each person spent ___ on the job.
+
+—
+
+> Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that it took each person 100 dollars to finish the job.
+
+Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that it took each person ___ to finish the job.
+
+—
+
+> Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that it took each person 300 dollars to finish the same job.
+
+Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that it took each person ___ to finish the same job.
+
+—
+
+> Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that it took one person 300 dollars to finish the same job.
+
+Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that it took one person ___ to finish the same job.
