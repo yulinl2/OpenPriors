@@ -14,6 +14,8 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      SOURCE_DATE_EPOCH: "1735689600"  # 2025-01-01Z: deterministic provenance timestamps
     defaults:
       run:
         working-directory: decomposer

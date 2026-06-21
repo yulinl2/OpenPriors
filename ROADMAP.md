@@ -79,5 +79,5 @@ the **Argue / Build / Verify** triad and is recorded under `<pkg>/runs/` or `<pk
 | Epic | State | Evidence |
 |---|---|---|
 | A · decomposer | ✅ merged (#1), CI green | 4 corpora pass all invariants; 0.85 differential recall |
-| B · concept_graph | 🚧 iteration 2 (this branch) | building the OAR lift + reasoning DAG + verifiers |
-| C · matcher | ⏳ planned | design grounded in `Imports/structure mapping notes.md` |
+| B · concept_graph | ✅ merged (#2), CI green | OAR lift + 17-edge reasoning DAG + SME bridge; all corpora verified |
+| C · matcher | 🚧 iteration 3 (foundation) | MAC content-vector retrieval + **renaming-invariance holds for all graphs** + systematicity |
