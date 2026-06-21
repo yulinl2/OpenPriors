@@ -1,0 +1,59 @@
+# OpenPriors · analogy (Epic C / FAC — the novelty detector core)
+
+The **structure-mapping engine**: given two predicate-calculus description groups (a *base*
+and a *target*), it finds the best structure-preserving alignment, projects **candidate
+inferences**, and computes the **candidate-inference "shortcut" / novelty signal** — the
+mechanism OpenPriors exists to build (`Imports/structure mapping notes.md` §2, §6).
+
+This is the **FAC** half of MAC/FAC; the [`matcher`](../matcher) MAC stage is the cheap
+pre-filter that feeds it.
+
+## What it does
+
+1. **Match hypotheses** — pair base/target expressions identical under *identicality*
+   (same functor, same arity, recursively); entity leaves induce correspondences.
+2. **Greedy merge** (no backtracking) into a maximal consistent global mapping (**Gmap**),
+   scoring by order so **systematicity** (deep, interconnected structure) wins.
+3. **Candidate inferences** — unmatched base structure anchored to the matched system is
+   projected onto the target (unmapped args become skolems).
+4. **Novelty / shortcut signal** — `target_coverage`, `novelty = 1 − coverage`, and a
+   description-length-normalized shortcut score.
+
+## Verified against ground truth
+
+The canonical **solar-system → atom** analogy (Gentner 1983) has a *known* correct mapping,
+so it is the test oracle:
+
+```
+mapping            : {sun → nucleus, planet → electron}      ✅ (the textbook answer)
+top inference      : CAUSE(AND(GREATER(MASS(nucleus),MASS(electron)), ATTRACTS(nucleus,electron)),
+                            REVOLVES(electron,nucleus))      ← projected onto the atom
+inference ranking  : CAUSE (systematic) ranked above the GREATER(TEMPERATURE…) distractor  ✅
+novelty            : coverage 1.0 → novelty 0.0  (the atom *is* the solar system relabeled)
+```
+
+7 tests, incl. identicality semantics, the known mapping, systematic-beats-distractor
+inference ranking, and an unrelated-target control (coverage 0 → novelty 1).
+
+It also runs on the real corpus: `from_concept_dgroup()` loads any `concept_graph`
+`dgroup.json`, so e.g. `arxiv-2006.06138 → problem_07` aligns on shared relational structure.
+
+## Run
+
+```bash
+PYTHONPATH=analogy/src decomposer/.venv/bin/python -m analogy.cli
+# optional corpus pair:
+PYTHONPATH=analogy/src decomposer/.venv/bin/python -m analogy.cli \
+  --base concept_graph/graphs/arxiv-2006.06138/dgroup.json \
+  --target concept_graph/graphs/problem_07/dgroup.json
+PYTHONPATH=analogy/src decomposer/.venv/bin/python -m pytest analogy/tests -q
+```
+
+## Where this sits
+
+This closes the core loop from `Imports/structure mapping notes.md`: decomposer (encode) →
+concept_graph (relational graph + dgroups) → matcher (MAC retrieval, renaming-invariant) →
+**analogy (SME alignment + candidate-inference novelty signal)**. The natural next step is
+the LLM-based front end that lifts *prose* statements into rich predicate-calculus dgroups
+(the documented sub-agent frontier), which turns the riddles' source↔target pairs and full
+paper proofs into inputs this engine can align end-to-end.

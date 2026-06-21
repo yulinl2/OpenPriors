@@ -1,0 +1,37 @@
+{
+  "base": "solar-system",
+  "candidate_inferences": [
+    {
+      "anchored_submatches": 3,
+      "base_fact": "CAUSE(AND(GREATER(MASS(sun), MASS(planet)), ATTRACTS(sun, planet)), REVOLVES(planet, sun))",
+      "entity_overlap": 2,
+      "projection": "CAUSE(AND(GREATER(MASS(nucleus), MASS(electron)), ATTRACTS(nucleus, electron)), REVOLVES(electron, nucleus))",
+      "score": 8.0
+    },
+    {
+      "anchored_submatches": 0,
+      "base_fact": "GREATER(TEMPERATURE(sun), TEMPERATURE(planet))",
+      "entity_overlap": 2,
+      "projection": "GREATER(TEMPERATURE(nucleus), TEMPERATURE(electron))",
+      "score": 2.0
+    }
+  ],
+  "mapping": {
+    "planet": "electron",
+    "sun": "nucleus"
+  },
+  "novelty": {
+    "mapping_size": 2,
+    "matched_relations": 3,
+    "matched_target_facts": 3,
+    "n_candidate_inferences": 2,
+    "novelty_score": 0.0,
+    "shortcut_signal": 0.6,
+    "structural_score": 7.0,
+    "target_coverage": 1.0,
+    "target_facts": 3,
+    "top_inference": "CAUSE(AND(GREATER(MASS(nucleus), MASS(electron)), ATTRACTS(nucleus, electron)), REVOLVES(electron, nucleus))"
+  },
+  "structural_score": 7.0,
+  "target": "rutherford-atom"
+}
