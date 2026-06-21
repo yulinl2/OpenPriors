@@ -31,7 +31,6 @@ def run_classic() -> dict:
 
 def main(argv=None) -> int:
     here = Path(__file__).resolve().parents[2]
-    repo = here.parent
     ap = argparse.ArgumentParser(prog="analogy", description=__doc__)
     ap.add_argument("--base", help="path to a concept_graph dgroup.json (base)")
     ap.add_argument("--target", help="path to a concept_graph dgroup.json (target)")

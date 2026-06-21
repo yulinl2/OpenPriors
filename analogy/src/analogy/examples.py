@@ -36,11 +36,15 @@ def atom() -> Dgroup:
 
 
 def from_concept_dgroup(path: str | Path) -> Dgroup:
-    """Build a Dgroup from a concept_graph ``dgroup.json`` (relations + higher_order)."""
+    """Build a Dgroup from a concept_graph ``dgroup.json``.
+
+    Faithfully includes all three predicate kinds the SME bridge emits: 1-place
+    ``attributes``, and ``relations`` / ``higher_order`` of arbitrary arity.
+    """
     data = json.loads(Path(path).read_text(encoding="utf-8"))
-    facts = []
+    facts: list = []
+    for a in data.get("attributes", []):           # 1-place predicates
+        facts.append((a["pred"], a["arg"]))
     for r in data.get("relations", []) + data.get("higher_order", []):
-        a = r.get("args", [])
-        if len(a) == 2:
-            facts.append((r["pred"], a[0], a[1]))
+        facts.append((r["pred"], *r.get("args", [])))  # arbitrary arity
     return Dgroup(data.get("slug", "dgroup"), facts)

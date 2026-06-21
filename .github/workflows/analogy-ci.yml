@@ -1,7 +1,8 @@
 name: analogy-ci
 
 # Verifies the SME aligner + novelty detector against the classic ground-truth analogy.
-# Pure-Python (stdlib only); rebuilds concept_graph dgroups for the optional corpus run.
+# Pure-Python (stdlib only). The corpus-loader test reads the committed concept_graph
+# dgroup fixtures (no rebuild needed); the optional corpus-pair CLI run is not exercised here.
 
 on:
   push:

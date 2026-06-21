@@ -57,7 +57,8 @@ def test_unrelated_target_has_novelty():
 
 def test_loads_corpus_dgroup_and_aligns():
     dg = ROOT.parent / "concept_graph" / "graphs" / "problem_07" / "dgroup.json"
-    if dg.exists():
-        b = examples.from_concept_dgroup(dg)
-        g = align(b, b)  # self-alignment: a graph maps onto itself
-        assert g.correspondences and g.score > 0
+    assert dg.exists(), "concept_graph dgroup fixture must exist"
+    b = examples.from_concept_dgroup(dg)
+    assert b.facts, "loader must produce facts (attributes + relations)"
+    g = align(b, b)  # self-alignment: a graph maps onto itself
+    assert g.correspondences and g.score > 0
