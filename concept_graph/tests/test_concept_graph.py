@@ -47,6 +47,26 @@ def test_edge_conservation_fails_when_a_relation_is_dropped():
     assert not verify.check_edge_conservation(g, EDGES).passed
 
 
+def test_traceability_fails_on_unresolved_unflagged_object():
+    g = build_graph(NODES, EDGES, "d")
+    # an unresolved object that is NOT flagged external must fail the P4 gate
+    g.relations.append(Relation(id="bad", subject="d/theorem.1", predicate="refers_to",
+                                object="d/ghost", resolved=False, provenance="x"))
+    assert not verify.check_traceability(g).passed
+    # the same edge, flagged external, passes
+    g.relations[-1].attributes["external"] = True
+    assert verify.check_traceability(g).passed
+
+
+def test_structural_lift_preserves_edge_attrs():
+    edges = [{"id": "e1", "relation": "refers_to", "source": "d/proof.1",
+              "target": "missing", "resolved": False,
+              "attrs": {"raw_target": "eq:99"}}]
+    g = build_graph(NODES, edges, "d")
+    r = next(r for r in g.relations if r.provenance == "e1")
+    assert r.attributes.get("raw_target") == "eq:99"  # not dropped
+
+
 def test_reasoning_dag_detects_cycle():
     g = ConceptGraph(slug="d", concepts=build_graph(NODES, EDGES, "d").concepts)
     g.relations = [

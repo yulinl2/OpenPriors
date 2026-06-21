@@ -72,15 +72,17 @@ def build_graph(nodes: list[dict], edges: list[dict], slug: str) -> ConceptGraph
         if p is not None and p in cids:
             add(p, "contains", n["id"], prov=n["id"])
 
-    # 1b. structural edges -> cites / refers_to
+    # 1b. structural edges -> cites / refers_to (carry ALL edge attrs => lossless)
     for e in edges:
         rel = e["relation"]
         if rel not in ("cites", "refers_to"):
             continue
         tgt = e["target"]
         resolved = bool(e.get("resolved")) and tgt in cids
+        src_attrs = dict(e.get("attrs", {}))
+        src_attrs.pop("external", None)  # recomputed below against this graph's concepts
         add(e["source"], rel, tgt, resolved=resolved,
-            prov=e["id"], external=not resolved, **{k: v for k, v in e.get("attrs", {}).items() if k == "key"})
+            prov=e["id"], external=not resolved, **src_attrs)
 
     # 2a. derived: proof proves nearest preceding theorem-like sibling
     children_by_parent: dict[str, list[dict]] = {}

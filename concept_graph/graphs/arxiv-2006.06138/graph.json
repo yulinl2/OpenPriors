@@ -11063,7 +11063,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "sec:setup"
       },
       "higher_order": false,
       "id": "r.457",
@@ -11166,7 +11167,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "sec:counterfactual"
       },
       "higher_order": false,
       "id": "r.465",
@@ -11178,7 +11180,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "sec:effect"
       },
       "higher_order": false,
       "id": "r.466",
@@ -11190,7 +11193,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "sec:setup"
       },
       "higher_order": false,
       "id": "r.467",
@@ -11202,7 +11206,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "sec:effect"
       },
       "higher_order": false,
       "id": "r.468",
@@ -11214,7 +11219,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "sec:extension"
       },
       "higher_order": false,
       "id": "r.469",
@@ -11252,7 +11258,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "sec:extension"
       },
       "higher_order": false,
       "id": "r.472",
@@ -11810,7 +11817,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "algo:split-CQR"
       },
       "higher_order": false,
       "id": "r.515",
@@ -11835,7 +11843,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "algo:split-CQR"
       },
       "higher_order": false,
       "id": "r.517",
@@ -11847,7 +11856,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "app:miscellaneous"
       },
       "higher_order": false,
       "id": "r.518",
@@ -11911,7 +11921,8 @@
     },
     {
       "attributes": {
-        "external": true
+        "external": true,
+        "raw_target": "tab:weight_func"
       },
       "higher_order": false,
       "id": "r.523",
@@ -11949,7 +11960,8 @@
     },
     {
       "attributes": {
-        "external": true
+        "external": true,
+        "raw_target": "tab:weight_func"
       },
       "higher_order": false,
       "id": "r.526",
@@ -11961,7 +11973,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "prop:equal"
       },
       "higher_order": false,
       "id": "r.527",
@@ -11973,7 +11986,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "prop:equal"
       },
       "higher_order": false,
       "id": "r.528",
@@ -11985,7 +11999,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "prop:equal"
       },
       "higher_order": false,
       "id": "r.529",
@@ -11997,7 +12012,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "algo:split-CQR"
       },
       "higher_order": false,
       "id": "r.530",
@@ -12009,7 +12025,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "app:miscellaneous"
       },
       "higher_order": false,
       "id": "r.531",
@@ -12047,7 +12064,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "thm:double_robustness_ATE"
       },
       "higher_order": false,
       "id": "r.534",
@@ -12059,7 +12077,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "cor:double_robustness"
       },
       "higher_order": false,
       "id": "r.535",
@@ -12071,7 +12090,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "app:proofs"
       },
       "higher_order": false,
       "id": "r.536",
@@ -12083,7 +12103,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "app:proofs"
       },
       "higher_order": false,
       "id": "r.537",
@@ -12095,7 +12116,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "thm:double_robustness_ATE"
       },
       "higher_order": false,
       "id": "r.538",
@@ -12107,7 +12129,8 @@
     },
     {
       "attributes": {
-        "external": true
+        "external": true,
+        "raw_target": "tab:weight_func"
       },
       "higher_order": false,
       "id": "r.539",
@@ -12249,7 +12272,8 @@
     },
     {
       "attributes": {
-        "external": true
+        "external": true,
+        "raw_target": "tab:coverage"
       },
       "higher_order": false,
       "id": "r.550",
@@ -12261,7 +12285,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "fig:simul1_coverage_tau"
       },
       "higher_order": false,
       "id": "r.551",
@@ -12273,7 +12298,8 @@
     },
     {
       "attributes": {
-        "external": true
+        "external": true,
+        "raw_target": "tab:coverage"
       },
       "higher_order": false,
       "id": "r.552",
@@ -12285,7 +12311,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "fig:simul1_coverage"
       },
       "higher_order": false,
       "id": "r.553",
@@ -12297,7 +12324,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "fig:simul1_len"
       },
       "higher_order": false,
       "id": "r.554",
@@ -12309,7 +12337,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "subsec:double_robustness"
       },
       "higher_order": false,
       "id": "r.555",
@@ -12321,7 +12350,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "fig:simul1_coverage"
       },
       "higher_order": false,
       "id": "r.556",
@@ -12333,7 +12363,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "fig:synthetic_cond_tau"
       },
       "higher_order": false,
       "id": "r.557",
@@ -12345,7 +12376,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "app:expr"
       },
       "higher_order": false,
       "id": "r.558",
@@ -12357,7 +12389,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "fig:synthetic_cond_tau"
       },
       "higher_order": false,
       "id": "r.559",
@@ -12369,7 +12402,8 @@
     },
     {
       "attributes": {
-        "external": true
+        "external": true,
+        "raw_target": "tab:twofolds"
       },
       "higher_order": false,
       "id": "r.560",
@@ -12381,7 +12415,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "thm:double_robustness_ATE"
       },
       "higher_order": false,
       "id": "r.561",
@@ -12419,7 +12454,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "app:miscellaneous"
       },
       "higher_order": false,
       "id": "r.564",
@@ -12431,7 +12467,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "algo:two_step"
       },
       "higher_order": false,
       "id": "r.565",
@@ -12508,7 +12545,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "subsec:simul"
       },
       "higher_order": false,
       "id": "r.571",
@@ -12520,7 +12558,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "subsec:naive"
       },
       "higher_order": false,
       "id": "r.572",
@@ -12532,7 +12571,8 @@
     },
     {
       "attributes": {
-        "external": true
+        "external": true,
+        "raw_target": "algo:nest_CQR"
       },
       "higher_order": false,
       "id": "r.573",
@@ -12544,7 +12584,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "subsec:simul"
       },
       "higher_order": false,
       "id": "r.574",
@@ -12556,7 +12597,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "subsec:simul"
       },
       "higher_order": false,
       "id": "r.575",
@@ -12568,7 +12610,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "fig:NLSM_simul_ITE"
       },
       "higher_order": false,
       "id": "r.576",
@@ -12580,7 +12623,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "subsec:simul"
       },
       "higher_order": false,
       "id": "r.577",
@@ -12592,7 +12636,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "subsec:simul"
       },
       "higher_order": false,
       "id": "r.578",
@@ -12604,7 +12649,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "subsec:simul"
       },
       "higher_order": false,
       "id": "r.579",
@@ -12616,7 +12662,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "fig:NLSM_cond"
       },
       "higher_order": false,
       "id": "r.580",
@@ -12641,7 +12688,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "fig:NLSM_analysis"
       },
       "higher_order": false,
       "id": "r.582",
@@ -12653,7 +12701,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "fig:NLSM_analysis"
       },
       "higher_order": false,
       "id": "r.583",
@@ -12665,7 +12714,8 @@
     },
     {
       "attributes": {
-        "external": true
+        "external": true,
+        "raw_target": "tab:weight_func"
       },
       "higher_order": false,
       "id": "r.584",
@@ -12820,7 +12870,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "algo:split-CQR"
       },
       "higher_order": false,
       "id": "r.596",
@@ -12832,7 +12883,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "algo:split-CQR"
       },
       "higher_order": false,
       "id": "r.597",
@@ -12844,7 +12896,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "subsec:asymptotic"
       },
       "higher_order": false,
       "id": "r.598",
@@ -12856,7 +12909,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "thm:double_robustness_w"
       },
       "higher_order": false,
       "id": "r.599",
@@ -12868,7 +12922,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "lem:delta_infty"
       },
       "higher_order": false,
       "id": "r.600",
@@ -12880,7 +12935,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "lem:tv"
       },
       "higher_order": false,
       "id": "r.601",
@@ -12892,7 +12948,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "prop:rosenthal"
       },
       "higher_order": false,
       "id": "r.602",
@@ -12904,7 +12961,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "prop:vonbahresseen"
       },
       "higher_order": false,
       "id": "r.603",
@@ -12916,7 +12974,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "thm:double_robustness_w"
       },
       "higher_order": false,
       "id": "r.604",
@@ -12928,7 +12987,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "thm:double_robustness_q"
       },
       "higher_order": false,
       "id": "r.605",
@@ -12940,7 +13000,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "thm:double_robustness_ATE"
       },
       "higher_order": false,
       "id": "r.606",
@@ -12952,7 +13013,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "subsec:double_robustness"
       },
       "higher_order": false,
       "id": "r.607",
@@ -12964,7 +13026,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "cor:double_robustness"
       },
       "higher_order": false,
       "id": "r.608",
@@ -12976,7 +13039,8 @@
     },
     {
       "attributes": {
-        "external": false
+        "external": false,
+        "raw_target": "cor:double_robustness"
       },
       "higher_order": false,
       "id": "r.609",

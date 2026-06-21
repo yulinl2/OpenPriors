@@ -11,7 +11,7 @@ P1-P4 (see docs/principles-continuity.md):
 
 from __future__ import annotations
 
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, Field, ValidationError
 
 from .schema import ConceptGraph
 
@@ -20,7 +20,7 @@ class CheckResult(BaseModel):
     name: str
     principle: str
     passed: bool
-    metrics: dict = {}
+    metrics: dict = Field(default_factory=dict)
     detail: str = ""
 
 
@@ -53,7 +53,9 @@ def check_traceability(g: ConceptGraph) -> CheckResult:
     for r in g.relations:
         if r.subject not in cids:
             dangling.append((r.id, "subject", r.subject))
-        if r.resolved and r.object not in cids:
+        # object must resolve to a concept OR be explicitly logged external —
+        # an unresolved endpoint that is not flagged external fails the P4 gate.
+        if r.object not in cids and not r.attributes.get("external"):
             dangling.append((r.id, "object", r.object))
     ok = not bad_concept and not dangling
     return CheckResult(
