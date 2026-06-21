@@ -11,8 +11,9 @@ import json
 import sys
 from pathlib import Path
 
+from concept_graph.schema import ConceptGraph
+
 from . import invariance, mac
-from .invariance import ConceptGraph  # re-exported with sys.path wired
 
 
 def _canon(obj) -> str:

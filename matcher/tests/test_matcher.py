@@ -48,10 +48,12 @@ def test_systematicity_depth():
     assert s["n_higher_order_relations"] == 2 and s["max_reasoning_depth"] >= 1
 
 
-def test_rank_against_self_excluded():
+def test_rank_against_uses_dot_and_excludes_self():
     vs = {"a": {"x": 2, "y": 1}, "b": {"x": 2, "y": 1}, "c": {"z": 1}}
     ranking = mac.rank_against("a", vs)
-    assert ranking[0][0] == "b" and dict(ranking)["b"] == 1.0 and "a" not in dict(ranking)
+    # ranks by the sound dot-product MAC score: dot(a,b)=5, dot(a,c)=0
+    assert ranking[0] == ("b", 5.0) and dict(ranking)["c"] == 0.0 and "a" not in dict(ranking)
+    assert mac.mac_score is mac.dot  # the retrieval primitive is the dot product
 
 
 def test_real_graphs_all_invariant():

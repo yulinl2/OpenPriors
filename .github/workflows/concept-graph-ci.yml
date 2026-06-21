@@ -13,6 +13,8 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      SOURCE_DATE_EPOCH: "1735689600"  # 2025-01-01Z: deterministic provenance timestamps
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5

@@ -10,6 +10,7 @@ from __future__ import annotations
 
 import hashlib
 import json
+import os
 import platform
 import sys
 from datetime import datetime, timezone
@@ -28,7 +29,13 @@ def _sha256(p: Path) -> str:
 
 
 def _now() -> str:
-    return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
+    """Timestamp for provenance. Honors SOURCE_DATE_EPOCH so committed artifacts are
+    reproducible (no wall-clock churn on regeneration); falls back to current time for
+    live runs."""
+    epoch = os.environ.get("SOURCE_DATE_EPOCH")
+    dt = (datetime.fromtimestamp(int(epoch), tz=timezone.utc)
+          if epoch else datetime.now(timezone.utc))
+    return dt.strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
 def _tool_versions() -> dict:

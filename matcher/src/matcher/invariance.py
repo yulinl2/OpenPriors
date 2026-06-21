@@ -13,16 +13,12 @@ which is SME's selection principle for preferring deep, interconnected structure
 
 from __future__ import annotations
 
-import sys
-from pathlib import Path
-
-# reuse Epic B's canonical model + content-vector emitter (no drift)
-_CG = Path(__file__).resolve().parents[3] / "concept_graph" / "src"
-if str(_CG) not in sys.path:
-    sys.path.insert(0, str(_CG))
-
-from concept_graph.schema import ConceptGraph  # noqa: E402
-from concept_graph.sme import content_vector  # noqa: E402
+# Reuse Epic B's canonical model + content-vector emitter (no drift). concept_graph must
+# be importable — wire it via PYTHONPATH (see matcher/README.md and the CI workflow) or
+# `pip install -e concept_graph`. (No import-time sys.path mutation: that is fragile and
+# can shadow an installed package.)
+from concept_graph.schema import ConceptGraph
+from concept_graph.sme import content_vector
 
 
 def relabel(g: ConceptGraph, mapping: dict[str, str]) -> ConceptGraph:

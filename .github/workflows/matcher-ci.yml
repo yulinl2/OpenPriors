@@ -14,6 +14,8 @@ on:
 jobs:
   verify:
     runs-on: ubuntu-latest
+    env:
+      SOURCE_DATE_EPOCH: "1735689600"  # 2025-01-01Z: deterministic provenance timestamps
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -28,6 +30,6 @@ jobs:
           PYTHONPATH=decomposer/src python -m decomposer.cli
           PYTHONPATH=concept_graph/src python -m concept_graph.cli
       - name: MAC retrieval + renaming-invariance
-        run: PYTHONPATH=matcher/src python -m matcher.cli
+        run: PYTHONPATH=matcher/src:concept_graph/src python -m matcher.cli
       - name: Tests
-        run: PYTHONPATH=matcher/src python -m pytest matcher/tests -q
+        run: PYTHONPATH=matcher/src:concept_graph/src python -m pytest matcher/tests -q
