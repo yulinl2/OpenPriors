@@ -69,6 +69,18 @@ def test_reference_integrity_passes_when_external_logged():
     assert verify.check_reference_integrity(d).passed
 
 
+# ---- acyclic_tree: a cycle must FAIL gracefully, not crash ----
+def test_acyclic_tree_fails_on_cycle_without_crashing():
+    a = Node(id="a", type="section", role="segment")
+    b = Node(id="b", type="section", role="segment")
+    a.children = [b]
+    b.children = [a]            # back-edge => cycle (constructible via mutation)
+    root = Node(id="t", type="document", role="segment", children=[a])
+    d = Decomposition(provenance=_prov(), document=root)
+    r = verify.check_acyclic_tree(d)   # must return, not RecursionError
+    assert not r.passed and r.metrics["cycle"] is True
+
+
 # ---- idempotence: real law, must distinguish good vs bad normalizers ----
 def test_idempotent_distinguishes():
     good = lambda s: s.strip()

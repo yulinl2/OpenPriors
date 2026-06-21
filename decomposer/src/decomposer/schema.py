@@ -68,6 +68,7 @@ NodeType = Literal[
     "example",
     "riddle",
     "metadata_field",
+    "problem",        # generic exemplifying problem (EXEMPLIFY role)
     "bib_reference",
     "citation",
     "cross_reference",

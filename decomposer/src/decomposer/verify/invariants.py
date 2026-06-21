@@ -12,7 +12,7 @@ from __future__ import annotations
 
 from typing import Callable, Optional
 
-from pydantic import BaseModel, ValidationError
+from pydantic import BaseModel, Field, ValidationError
 
 from ..schema import Decomposition, Node
 
@@ -21,7 +21,7 @@ class CheckResult(BaseModel):
     name: str
     principle: str
     passed: bool
-    metrics: dict = {}
+    metrics: dict = Field(default_factory=dict)
     detail: str = ""
 
 
@@ -47,18 +47,35 @@ def check_unique_ids(decomp: Decomposition) -> CheckResult:
 
 
 def check_acyclic_tree(decomp: Decomposition) -> CheckResult:
-    """P4 — containment is a single-rooted tree: each node reached exactly once."""
-    seen: dict[int, int] = {}
-    def walk(n: Node):
+    """P4 — containment is a single-rooted tree: each node reached exactly once.
+
+    Cycle-safe: a malformed tree containing a cycle is detected and reported as a
+    failure rather than recursing forever (this is a gate, it must not crash).
+    """
+    visit_count: dict[int, int] = {}
+    cycle = False
+
+    def walk(n: Node, ancestors: frozenset) -> None:
+        nonlocal cycle
         for c in n.children:
-            seen[id(c)] = seen.get(id(c), 0) + 1
-            walk(c)
-    walk(decomp.document)
-    multi = [k for k, v in seen.items() if v > 1]
+            cid = id(c)
+            visit_count[cid] = visit_count.get(cid, 0) + 1
+            if cid in ancestors:          # back-edge => cycle; do not recurse
+                cycle = True
+                continue
+            walk(c, ancestors | {cid})
+
+    walk(decomp.document, frozenset({id(decomp.document)}))
+    multi = [k for k, v in visit_count.items() if v > 1]
+    passed = not multi and not cycle
+    detail = ""
+    if cycle:
+        detail = "containment cycle detected"
+    elif multi:
+        detail = f"{len(multi)} nodes reached more than once (DAG, not a tree)"
     return CheckResult(
-        name="acyclic_tree", principle="P4", passed=not multi,
-        metrics={"n_edges": len(seen)},
-        detail="" if not multi else f"{len(multi)} nodes reached more than once",
+        name="acyclic_tree", principle="P4", passed=passed,
+        metrics={"n_edges": len(visit_count), "cycle": cycle}, detail=detail,
     )
 
 

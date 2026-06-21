@@ -51,4 +51,6 @@ def test_full_pipeline_all_pass(tmp_path):
                             "sample-text-riddles", "problem_04_review"}
     for slug, m in summary.items():
         assert m["verification"]["all_passed"], f"{slug} failed verification"
-        assert m["metrics"]["coverage_ratio"] if False else True  # metrics present
+        # run metrics are actually present and populated
+        assert {"n_nodes", "type_counts", "classified_ratio", "n_edges"} <= m.keys()
+        assert m["n_nodes"] > 0 and isinstance(m["type_counts"], dict)

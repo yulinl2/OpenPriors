@@ -21,6 +21,7 @@
     {
       "detail": "",
       "metrics": {
+        "cycle": false,
         "n_edges": 442
       },
       "name": "acyclic_tree",

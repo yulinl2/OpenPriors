@@ -1,6 +1,6 @@
 {
   "adapter": "markdown",
-  "generated_at": "2026-06-21T15:36:56Z",
+  "generated_at": "2026-06-21T15:45:13Z",
   "metrics": {
     "classified_ratio": 0.6667,
     "max_depth": 2,
@@ -36,7 +36,7 @@
       "markdown"
     ],
     "origin": "Imports/decomposer-sample-test-cases/sample-text-riddles.md",
-    "retrieved_at": "2026-06-21T15:36:56Z",
+    "retrieved_at": "2026-06-21T15:45:13Z",
     "slug": "sample-text-riddles",
     "source_files": [
       "sample-text-riddles/sample-text-riddles.md"
