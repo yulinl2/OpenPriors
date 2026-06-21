@@ -1,0 +1,39 @@
+{
+  "classified_ratio": 0.9925,
+  "max_depth": 8,
+  "n_edges": 0,
+  "n_edges_resolved": 0,
+  "n_nodes": 134,
+  "role_counts": {
+    "assert": 2,
+    "formalize": 26,
+    "meta": 15,
+    "narrate": 84,
+    "segment": 7
+  },
+  "type_counts": {
+    "answer_key": 1,
+    "block": 1,
+    "document": 1,
+    "editor_notes": 1,
+    "equation": 26,
+    "grading_scheme": 1,
+    "list": 12,
+    "list_item": 37,
+    "metadata_field": 13,
+    "paragraph": 34,
+    "problem_statement": 1,
+    "section": 6
+  },
+  "verification": {
+    "all_passed": true,
+    "checks": {
+      "acyclic_tree": true,
+      "character_coverage": true,
+      "idempotent_normalization": true,
+      "reference_integrity": true,
+      "schema_valid": true,
+      "unique_ids": true
+    }
+  }
+}

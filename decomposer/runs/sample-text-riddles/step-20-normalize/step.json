@@ -1,0 +1,15 @@
+{
+  "dir": "step-20-normalize",
+  "id": "20",
+  "metrics": {
+    "idempotent": true,
+    "n_macros": 0,
+    "normalized_chars": 1359,
+    "raw_chars": 1360,
+    "redundancy_removed_chars": 1
+  },
+  "name": "normalize",
+  "principle": "P2",
+  "status": "ok",
+  "tool": "markdown adapter (pure-Python, deterministic)"
+}

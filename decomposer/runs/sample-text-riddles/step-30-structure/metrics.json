@@ -1,0 +1,29 @@
+{
+  "classified_ratio": 0.6667,
+  "max_depth": 2,
+  "n_edges": 0,
+  "n_edges_resolved": 0,
+  "n_nodes": 13,
+  "role_counts": {
+    "exemplify": 4,
+    "narrate": 8,
+    "segment": 1
+  },
+  "type_counts": {
+    "block": 4,
+    "document": 1,
+    "example": 4,
+    "paragraph": 4
+  },
+  "verification": {
+    "all_passed": true,
+    "checks": {
+      "acyclic_tree": true,
+      "character_coverage": true,
+      "idempotent_normalization": true,
+      "reference_integrity": true,
+      "schema_valid": true,
+      "unique_ids": true
+    }
+  }
+}

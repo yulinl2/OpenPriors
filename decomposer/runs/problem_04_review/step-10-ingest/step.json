@@ -1,0 +1,12 @@
+{
+  "dir": "step-10-ingest",
+  "id": "10",
+  "metrics": {
+    "bytes": 1443,
+    "n_source_files": 1
+  },
+  "name": "ingest",
+  "principle": "P1",
+  "status": "ok",
+  "tool": "curl/arxiv e-print + local corpus"
+}

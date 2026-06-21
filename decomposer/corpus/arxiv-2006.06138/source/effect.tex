@@ -1,0 +1,396 @@
+
+
+\section{From Counterfactuals To Treatment Effects}\label{sec:effect}
+
+We finally turn our attention to intervals for ITE for subjects not in
+the study, and for which both potential oucomes are missing.
+
+\subsection{A naive approach}\label{subsec:naive}
+
+Consider an arbitrary testing point $x$.  Having constructed tools for
+counterfactual inference producing interval estimates of a given
+potential outcome, we can construct a pair of prediction intervals at
+level $1-\alpha/2$, namely, $[\hat{Y}^{L}(1; x), \hat{Y}^{R}(1; x)]$
+for $Y(1)$ and $[\hat{Y}^{L}(0; x), \hat{Y}^{R}(0; x)]$ for $Y(0)$. By
+contrasting these two intervals, we can obtain an interval for ITE as
+follows: 
+\[\CITE(x) = [\hat{Y}^{L}(1; x) - \hat{Y}^{R}(0; x), \hat{Y}^{R}(1; x) - \hat{Y}^{L}(0; x)].\]
+If the counterfactual intervals have guaranteed coverage, then
+$\CITE(x)$ also covers ITE at the level $1-\alpha$ in the sense of
+\eqref{eq:covITE}. 
+% \[
+% \P_{X\sim P_{X}}(Y(1) - Y(0)\in \hat{C}(X))\ge 1 - \alpha.
+% \]
+This means that we can use
+counterfactual intervals produced by weighted split-CQR or by BART
+whenever they are suitable.
+
+\subsection{A nested approach}\label{subsec:nest}
+% Despite its simplicity, the naive approach
+% entirely decouples two
+% potential outcomes and thus 
+% can be conservative.
+In this subsection,
+we propose another strategy which we refer to as the nested approach. The nested procedure
+starts by splitting the data into two folds. On the first fold we
+train $\hat{C}_{1}(x)$ and $\hat{C}_{0}(x)$ by applying counterfactual
+inference. On the second fold, for each unit $i$, we compute
+$\hat{C}_{0}(X_{i})$ if $T_{i} = 1$ and compute $\hat{C}_{1}(X_{i})$
+if $T_{i} = 0$. This induces an interval $\CITE(x; t, y^{\obs})$ for
+ITE defined as
+\[
+\CITE(x; t, y^{\obs}) = 
+    \begin{cases}
+      y^{\obs} - \hat{C}_{0}(x), & t = 1,\\
+      \hat{C}_{1}(x) - y^{\obs}, & t = 0. 
+    \end{cases}
+ \]
+ Put $\hat{C}_{i} = \CITE(X_{i}; T_{i}, Y_{i}^{\obs})$  as in Table
+ \ref{tab:twofolds}, which illustrates the procedure. For any unit $i$
+ in the second fold,
+\[
+ \P(Y_{i}(1) - Y_{i}(0)\in \hat{C}_{i}) 
+ = \P(T_{i} = 1)\P(Y_{i}(0)\in \hat{C}_{0}(X_{i}) \mid T_{i} = 1) + \P(T_{i} = 0)\P(Y_{i}(1)\in \hat{C}_{1}(X_{i}) \mid T_{i} = 0).
+\]
+This gives that if
+\begin{equation}
+  \label{eq:condition}
+  \P(Y_{i}(0)\in \hat{C}_{0}(X_{i}) \mid T_{i} = 1) \ge 1 - \alpha, \quad \P(Y_{i}(1)\in \hat{C}_{1}(X_{i}) \mid T_{i} = 0)\ge 1 - \alpha,
+\end{equation}
+then
+\begin{equation}
+  \label{eq:fold2_cond}
+  \P(Y_{i}(1) - Y_{i}(0)\in \hat{C}_{i})\ge 1 - \alpha.
+\end{equation}
+
+
+\begin{table}
+  \caption{\label{tab:twofolds} Sketch of the two folds in the nested approach: the
+    first fold (left) is used to construct counterfactual intervals;
+    the second fold (right) is used to infer ITE.}  
+
+  \scriptsize
+  \begin{tabular}{ccc}
+    \toprule
+    $Y_{i}(1)$ & $Y_{i}(0)$ & $Y_{i}^{\mathrm{obs}}$\\
+    \midrule
+    \multicolumn{3}{l}{Treatment Group (fold 1)}\\
+    \cmark & \xmark & $Y_{i}(1)$\\
+    \midrule
+    \multicolumn{3}{l}{Control Group (fold 1)}\\
+    \xmark & \cmark & $Y_{i}(0)$\\
+    \bottomrule
+  \end{tabular}
+  \hspace{0.5cm}
+  \scriptsize  
+  \begin{tabular}{ccc}
+    \toprule
+    $\hat{Y}_{i}(1)$ & $\hat{Y}_{i}(0)$ & $\hat{C}_{i}$ \\
+    \midrule
+    \multicolumn{3}{l}{Treatment Group (fold 2)}\\
+    $Y_{i}(1)$ & $[\hat{Y}^{L}_{i}(0), \hat{Y}^{R}_{i}(0)]$ & $[Y_{i}(1) - \hat{Y}^{R}_{i}(0), Y_{i}(1) - \hat{Y}^{L}_{i}(0)]$\\
+    \midrule
+    \multicolumn{3}{l}{Control Group (fold 2)}\\
+    $[\hat{Y}^{L}_{i}(1), \hat{Y}^{R}_{i}(1)]$ & $Y_{i}(0)$ & $[\hat{Y}^{L}_{i}(1) - Y_{i}(0), \hat{Y}^{R}_{i}(1) - Y_{i}(0)]$\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+For randomized experiments with known propensity score $e(x)$,
+\eqref{eq:condition} is satisfied if we use
+$w_{0}(x) = e(x) / (1 - e(x))$ for $\hat{C}_{0}(x)$ and use
+$w_{1}(x) = (1 - e(x)) / e(x)$ for $\hat{C}_{1}(x)$. Please note that
+we do not need to split $\alpha$ for $\hat{C}_{0}(x)$ and
+$\hat{C}_{1}(x)$. For observational studies, we can substitute $e(x)$
+with $\hat{e}(x)$. By Theorem \ref{thm:double_robustness_ATE},
+\eqref{eq:condition} holds approximately if either the propensity
+scores or the conditional quantiles are estimated well.
+
+% In general, using the same argument as above, for any given covariate distribution $Q$ which may differ from $P_{X}$,
+% \[\P_{X\sim Q}(Y(1) - Y(0) \in \hat{C}(X; T, Y^{\obs}))\ge 1 - \alpha\]
+% if the following conditions on $\hat{C}_{1}(x)$ and $\hat{C}_{0}(x)$ holds. 
+% \[\P_{X\sim Q}(Y(0)\in \hat{C}_{0}(X) \mid T = 1) \ge 1 - \alpha, \quad \P_{X\sim Q}(Y(1)\in \hat{C}_{1}(X) \mid T = 0)\ge 1 - \alpha.\]
+% By Table \ref{tab:weight_func}, this can be achieved by setting $w_{0}(x) =  / (1 - e(x))$ for $\hat{C}_{0}(x)$ and use $w_{1}(x) = (1 - e(x)) / e(x)$ for $\hat{C}_{1}(x)$
+
+The nested procedure creates an i.i.d.~dataset $(X_{i}, \hat{C}_{i})$,
+conditional on the first fold, such that
+$\hat{C}_{i} = \CITE(X_{i}; T_{i}, Y_{i}^{\obs})$ covers the ITE
+with probability at least $1 - \alpha$. Therefore, the intervals
+$\hat{C}_{i}$ serve as ``surrogate intervals'' for ITE. If we can fit
+a model of $\hat{C}_{i}$ on $X_{i}$, denoted by $\tdCITE(x)$, then the
+intervals can be generalized to subjects with both potential outcomes
+missing. If $\tdCITE(X_{i})$ does not shrink $\hat{C}_{i}$ drastically,
+it is likely that $\P(Y(1) - Y(0)\in \tdCITE(X_{i}))$ shall be close to
+or above $1 - \alpha$.
+
+It may be useful to think of the nested method as follows:
+  instead of estimating the unobserved uncertainty, the nested method
+  is fitting an observed ``uncertainty measurement''
+  $\hat{C}_{i}$. This is arguably simpler.
+
+\subsection{An inexact and an exact method under the nested framework}
+The function $\tdCITE(x)$ can be obtained by training a model of the
+left- and right-end point of $\hat{C}_{i}$ on $X_{i}$ separately using
+generic machine learning methods. For instance, we can fit the 40\% quantile of the left-end point and 60\% quantile of the right-end point. Note that $\tdCITE$ does not have the
+same theoretical guarantee as those offered by conformalized
+counterfactual inference since the fit may not be controlled. For this
+reason, we refer to it as an ``inexact method''. Nonetheless,  as will
+be shown later, the inexact method achieves, in our empirical
+examples, the target coverage with drastically shorter intervals than
+the naive approach.
+
+
+In extremely sensitive settings where the validity of predictions is
+of serious concern, we may still need a method with a theoretical
+guarantee of coverage. Here, we propose a secondary conformal
+inference procedure on the induced dataset $(X_{i}, \hat{C}_{i})$.
+Given a generic observation $(X, T, Y^{\obs})$, let
+$C = \CITE(X, T, Y^{\obs})$ denote the induced interval. The second
+procedure---the ``exact method''---is based on the simple observation
+that if one can find an interval expansion function $\hat{\cC}(\cdot)$
+that maps a covariate value to an interval such that
+\begin{equation}
+  \label{eq:interval_conformal_goal}
+  \P(C\subset \hat{\cC}_\text{ITE}(X))\ge 1 - \gamma,
+\end{equation}
+then by \eqref{eq:fold2_cond}, 
+\[\P(Y(1) - Y(0) \not\in \hat{\cC}_\text{ITE}(X))\le \P(Y(1) - Y(0) \not\in C) + \P(C\not\subset \hat{\cC}_\text{ITE}(X))\le \alpha + \gamma.\]
+
+\begin{algorithm}[H]
+  \caption{(Unweighted) conformal inference for interval outcomes}  \label{algo:int}
+  \textbf{Input: } level $\gamma$, data $\Z = (X_{i}, C_{i})_{i\in \I}$ where $C_{i} = [C_{i}^{L}, C_{i}^{R}]$, testing point $x$, 
+
+  \hspace{1.3cm} functions $\hat{m}^{L}(x; \D), \hat{m}^{R}(x; \D)$ to fit the conditional mean/median of $C^{L}, C^{R}$
+
+  \textbf{Procedure: }
+  \begin{algorithmic}[1]
+    \State Split $\Z$ into a training fold $\Z_{\tr} \triangleq (X_{i}, C_{i})_{i\in \I_{\tr}}$ and a calibration fold $\Z_{\ca}\triangleq (X_{i}, C_{i})_{i\in \I_{\ca}}$
+    \State For each $i \in \I_{\ca}$, compute score $V_{i} = \max\{\hat{m}^{L}(X_{i}; \Z_{\tr}) - C_{i}^{L}, C_{i}^{R} - \hat{m}^{R}(X_{i}; \Z_{\tr})\}$
+    \State Compute $\eta$ as the $(1 - \gamma)(1 + 1 / |\Z_{\ca}|)$ quantile of the empirical distribution of $\{V_{i}: i\in \I_{\ca}\}$
+  \end{algorithmic}
+
+  \textbf{Output: $\hat{\cC}(x) = [\hat{m}^{L}(x; \Z_{\tr}) - \eta, \hat{m}^{R}(x; \Z_{\tr}) + \eta]$}
+\end{algorithm}
+
+
+Denote by $C^{L}$ and $C^{R}$ the left- and the right-end point of
+$C$, respectively. To achieve \eqref{eq:interval_conformal_goal}, we
+need to find a lower prediction bound for $C^{L}$ and an upper
+prediction bound for $C^{R}$. A naive approach is to apply standard
+(unweighted) one-sided conformal inference on $C^{L}$ and $C^{R}$ with
+level $\gamma / 2$ separately. Such a crude Bonferroni correction may
+be conservative in practice. To overcome this, we propose a conformal
+inference procedure that jointly calibrates $C^{L}$ and $C^{R}$. The
+coverage guarantee can be proved using the standard argument
+\citep[e.g.][]{lei2018distribution, romano2019conformalized} and we
+include the proof in Appendix \ref{app:miscellaneous} for
+completeness. 
+\begin{theorem}\label{thm:int_conformal}
+  Consider Algorithm \ref{algo:int} and assume $(X_{i}, C_{i})\stackrel{i.i.d.}{\sim} (X, C)$. Then
+  \[\P(C\subset \hat{\cC}(X))\ge 1 - \gamma.\]
+\end{theorem}
+
+With all this in place, both the inexact and the exact methods are stated in
+Algorithm \ref{algo:two_step}.
+\begin{algorithm}
+  \caption{Nested approach for interval estimates of ITE}  \label{algo:two_step}
+  \textbf{Input: } level $\alpha$, level $\gamma$ (only for exact version), data $\Z = (X_{i}, Y_{i}, T_{i})_{i=1}^{n}$, testing point $x$
+
+  \vspace{0.2cm}
+  \textbf{Step I: data splitting}
+  \begin{algorithmic}[1]
+    \State Split the data into two folds $\Z_{1}$ and $\Z_{2}$
+    \State Estimate propensity score $\hat{e}(x)$ on $\Z_{1}$
+  \end{algorithmic}
+
+  \vspace{0.2cm}
+  \textbf{Step II: counterfactual inference on $\Z_{2}$}
+  \begin{algorithmic}[1]   
+    \For{$i$ in $\Z_{2}$ with $T_{i} = 1$}
+         \State Compute $[\hat{Y}_{i}^{L}(0), \hat{Y}_{i}^{R}(0)]$ in Algorithm \ref{algo:split-CQR} on $\Z_{1}$ with level $\alpha$ and $w_{0}(x) = \hat{e}(x) / (1 - \hat{e}(x))$
+         \State Compute $\hat{C}_{i} = [Y_{i}(1) - \hat{Y}_{i}^{R}(0), Y_{i}(1) - \hat{Y}_{i}^{L}(0)]$
+    \EndFor
+    \For{$i$ in $\Z_{2}$ with $T_{i} = 0$}
+         \State Compute $[\hat{Y}_{i}^{L}(1), \hat{Y}_{i}^{R}(1)]$ in Algorithm \ref{algo:split-CQR} on $\Z_{1}$ with level $\alpha$ and $w_{1}(x) = (1 - \hat{e}(x)) / \hat{e}(x)$
+         \State Compute $\hat{C}_{i} = [\hat{Y}_{i}^{L}(1) - Y_{i}(0), \hat{Y}_{i}^{R}(1) - Y_{i}(0)]$
+    \EndFor
+  \end{algorithmic}
+
+  \vspace{0.2cm}
+  \textbf{Step III: Interval of ITE on the testing point}
+  \begin{algorithmic}[1]
+    \State (Exact version) Apply Algorithm \ref{algo:int} on $(X_{i}, \hat{C}_{i})_{i\in \Z_{2}}$ with level $\gamma$, yielding an interval $\hat{\cC}_\text{ITE}(x)$
+    % \State (Inexact version) Fit the conditional mean/median $\hat{m}^{L}(x)$ of $\hat{C}^{L}$ and $\hat{m}^{R}(x)$ of $\hat{C}^{R}$ separately and construct $\hat{\cC}_\text{ITE}(x) = [\hat{m}^{L}(x), \hat{m}^{R}(x)]$
+    \State (Inexact version) Fit conditional quantiles of $\hat{C}^{L}$ and $\hat{C}^{R}$, yielding an interval $\hat{\cC}_\text{ITE}(x)$
+  \end{algorithmic}
+  \textbf{Output: $\hat{\cC}_\text{ITE}(x)$}\label{algo:nest_CQR}
+\end{algorithm}
+
+
+\subsection{Empirical performance}
+
+To evaluate the performance of our methods, we design numerical
+experiments on the data analyzed in the 2018 Atlantic Causal Inference
+Conference workshop on heterogeneous treatment effects
+\citep{carvalho2019assessing}. The workshop organizers generated a
+synthetic dataset based on the National Study of Learning Mindsets
+(NLSM) \citep{yeager2019national}, a large-scale randomized trial of a
+behavioral intervention, to emulate an observational study.  For
+information on the dataset, please see Section 2 from
+\cite{carvalho2019assessing}. Due to privacy concerns, the workshop
+organizers only released limited information on the data generating
+process, as well as the simulated dataset, available at
+\url{https://github.com/grf-labs/grf/tree/master/experiments/acic18}.
+Although the focus of this workshop was
+on heterogeneous treatment effects, the organizers did not evaluate
+whether the submissions cover the ITE or CATE. In this subsection, we
+shall fill in this gap by comparing our method with Causal Forest,
+X-learner and BART, just as we did in Section \ref{subsec:simul}.
+
+Obviously, we must know the ground truth in order to evaluate
+coverage. Therefore, we generated synthetic datasets based on the
+available information from \cite{carvalho2019assessing}. First, we
+split data into two folds $\Z_{1}$ and $\Z_{2}$, with
+$|\Z_{1}| = 2079$ including 20\% of the samples and $|\Z_{2}| = 8312$
+including the remaining 80\%. In our numerical experiments, we
+generate the covariate vector $X$ by sampling from $\Z_{2}$ with
+replacement. To generate the potential outcomes, we apply random
+forest from \texttt{R} \texttt{randomForest} package on $\Z_{1}$ to
+fit $\E [Y(0)]$. Denote the output by $\hat{m}_{0}(x)$. Then we
+generate $\E [Y(1)]$ by adding the CATE function $\tau(x)$ (equation
+(1) of \cite{carvalho2019assessing}) to $\hat{m}_{0}(x)$. To account
+for heteroscedasticity, we apply quantile random forest from
+\texttt{R} \texttt{grf} package to fit the 25\% and 75\% conditional
+quantiles of $Y(0)$ and $Y(1)$ and compute the conditional
+interquartile ranges $\hat{r}_{0}(x)$ and $\hat{r}_{1}(x)$. Given a
+covariate vector $X_{i}$, we subsequently generate $Y_{i}(1)$ and
+$Y_{i}(0)$ as
+\[
+Y_{i}(1) = \hat{m}_{0}(X_{i}) + \tau(X_{i}) +
+0.5\hat{r}_{1}(X_{i})\eps_{i1}, \quad Y_{i}(0) = \hat{m}_{0}(X_{i}) +
+0.5\hat{r}_{0}(X_{i})\eps_{i0},\quad \eps_{i1},
+\eps_{i0}\stackrel{i.i.d.}{\sim} N(0, 1).
+\]
+Finally, we generate propensity scores by applying random forest from
+\texttt{R} \texttt{randomForest} package on $\Z_{1}$ and truncating
+the estimated propensity score $\hat{e}(x)$ at $0.1$ and $0.9$ to
+guarantee overlap. For each $X_{i}$, we generate $T_{i}$ as a
+Bernoulli random variable with parameter $\hat{e}(X_{i})$.
+
+For each run, we first generate $6000$ quadruples
+$(X_{i}, T_{i}, Y_{i}(1), Y_{i}(0))$ sampled according to the above
+data generating process. We then randomly select $n = 1000$ samples as
+the training set to induce an observational study with observations
+$(X_{i}, T_{i}, Y_{i}^{\obs})$. For the remaining $5000$ testing
+samples, only the covariates $X_{i}$ are accessible to the analyst;
+the triple $(T_{i}, Y_{i}(1), Y_{i}(0))$ is solely used to evaluate
+coverage. It goes without saying that each method will take the
+training set as the input and, for each testing sample, produce $95\%$
+intervals for ITE.
+
+For weighted split-CQR, we apply the naive procedure as described in Section \ref{subsec:naive} and the nested procedure with both exact and inexact calibration as described in Algorithm \ref{algo:nest_CQR}. For all procedures, we apply BART to fit conditional quantiles, as in Section \ref{subsec:simul}, and apply gradient boosting from \texttt{R} \texttt{gbm} package to fit propensity scores. For the exact nested method, we set $\alpha = \gamma = 0.025$. % All methods are implemented in \texttt{R} \texttt{cfcausal} package, available at \url{https://github.com/lihualei71/cfcausal}.
+
+Note that neither the naive nor the nested approaches are limited to
+CQR. Therefore, we also wrap both methods around BART as competitors,
+where only the inexact version is considered for the nested approach
+since BART cannot produce exact counterfactual intervals. Finally,
+since Causal Forest and X-learner cannot produce counterfactual
+intervals, except in the special case from Section \ref{subsec:simul}
+where $Y(0)\equiv 0$, we do not wrap the naive or the nested methods
+around them but directly report their confidence intervals as
+benchmarks instead. % The R programs to replicate the results are available at \url{https://github.com/lihualei71/cfcausalPaper}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width = 0.48\textwidth]{{simul_NLSM_coverage_paper}.pdf}
+  \includegraphics[width = 0.48\textwidth]{{simul_NLSM_len_paper}.pdf}
+  \caption{Coverage (left) and average length (right) of intervals for ITE on synthetic data generated from the NLSM data. The red vertical line corresponds to the target coverage $95\%$ and the blue vertical line corresponds to the average length of oracle intervals.}\label{fig:NLSM_simul_ITE}
+\end{figure}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width = 0.9\textwidth]{simul_NLSM_cond_paper.pdf}
+  \caption{Estimated conditional coverage of ITE as a function of the
+    conditional variance $\sigma^{2}(x)$ (upper row), and CATE
+    $\tau(x)$ (lower row). The coverage is set to $95\%$. The blue
+    curves correspond to the median and the blue confidence bands are
+    the $5\%$ and $95\%$ quantiles of these estimates across $100$
+    replicates.}\label{fig:NLSM_cond}
+
+\end{figure}
+
+
+Figure \ref{fig:NLSM_simul_ITE} presents the coverage and the average
+length of intervals estimated on the testing set by repeating the
+above procedure 100 times. As expected, the naive methods with both
+CQR and BART are conservative. The exact nested method with CQR is
+also conservative although the coverage is only guaranteed to be above
+$95\%$ in the worst case. In contrast, the inexact nested methods with
+CQR or BART are less conservative. Notably, BART fails to achieve the
+desired coverage but CQR, with BART as the learner, calibrates it
+successfully. Also, we can see from the right panel that the average
+length of intervals of inexact-CQR is just slightly above that of
+inexact-BART while significantly lower than that of either the naive
+or the exact nested methods. Moreover, in accordance with the
+observations from Section \ref{subsec:simul}, Causal Forest and
+X-learner have poor coverage and, thus, their (short) intervals are
+misleading. As in Section \ref{subsec:simul}, we compute the average
+length of oracle intervals as $3.92\E [\sigma(X)]$ where
+$\sigma(x) = 0.5\sqrt{\hat{r}_{1}(x)^{2} + \hat{r}_{0}(x)^{2}}$.
+Having said this, we are in a different situation here since the true
+conditional quantiles of ITE can never be identified without
+assumptions on the joint distribution of $Y(1)$ and $Y(0)$.
+Therefore, this oracle length cannot be achieved in general no matter
+how powerful the model fitting. Keeping this cautionary remark in
+mind, we nonetheless see that weighted split-CQR still produces
+reasonably short intervals.
+
+Finally, as in Section \ref{subsec:simul}, we investigate the
+conditional coverage as a function of the conditional variance
+$\sigma^{2}(x)$ and the CATE $\tau(x)$, respectively. For better
+visualization, we exclude Causal Forest and X-learner since they have
+poor marginal coverage. We can see from Figure \ref{fig:NLSM_cond}
+that inexact-CQR has desirable and relatively even conditional
+coverage while inexact-BART performs worse.
+
+
+\subsection{Re-analysing NLSM data}
+In this subsection, we apply inexact-CQR with BART as the learner to re-analyze the NLSM data from \cite{carvalho2019assessing}. Since the ground truth is inaccessible, we only perform an exploratory analysis for the purpose of illustration.
+
+To create informative testing points, we split the data into two folds
+$\Z_{1}$ and $\Z_{2}$. Then we apply weighted inexact-CQR on $\Z_{1}$
+to produce intervals for ITE for each point in $\Z_{2}$. Similarly, we
+apply weighted inexact-CQR on $\Z_{2}$ to produce intervals of ITE for
+each point in $\Z_{1}$. To account for the variability from data
+splitting, we repeat the above procedure $100$ times. Figure
+\ref{fig:NLSM_analysis} (a) displays the average length of intervals
+as a function of level $\alpha$ with the upper and lower envelopes
+being respectively the $95\%$ and $5\%$ quantiles across $100$ runs.
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.32\textwidth]{analysis_NLSM_len_paper.pdf}
+  \includegraphics[width = 0.32\textwidth]{analysis_NLSM_pos_paper.pdf}
+  \includegraphics[width = 0.32\textwidth]{analysis_NLSM_neg_paper.pdf}
+  \caption{Re-analysis of NLSM data: (a) average length of intervals; (b) fraction of intervals with positive lower bounds; (c) fraction of intervals with negative upper bounds}\label{fig:NLSM_analysis}  
+\end{figure}
+
+
+With these intervals, we can make inferential claims on ITE with
+confidence. For instance, we can decide to assign treatment to a
+patient if the lower prediction bound of her ITE interval is
+positive. Since these intervals are guaranteed to have desired
+coverage, it is likely that they produce fewer false positives on
+  the average, although we leave a theoretical investigation of this
+intuition to future work. Figure \ref{fig:NLSM_analysis} (b) and (c)
+show the fractions of intervals that only cover positive and negative
+values, respectively. We see some evidence of positive ITE when
+$\alpha$ is above $0.25$ while no evidence of any negative ITE even
+when $\alpha = 0.5$.
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

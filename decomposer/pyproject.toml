@@ -1,0 +1,26 @@
+[project]
+name = "openpriors-decomposer"
+version = "0.1.0"
+description = "Generic, first-principles document-decomposition skills workflow for OpenPriors: raw documents -> clean, nested, hierarchical structured data (the upstream stage of an (object, attribute, relation) concept/reasoning graph)."
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "see repository LICENSE" }
+dependencies = [
+    "pydantic>=2.0",     # schema = single source of truth; emits JSON Schema for audit
+    "pylatexenc>=2.10",  # pure-Python, deterministic LaTeX walking + macro handling
+    "lxml>=4.9",         # parse ar5iv (LaTeXML) HTML as a differential oracle
+]
+
+[project.optional-dependencies]
+math = ["latex2sympy2", "sympy"]  # guarded math canonicalization (optional)
+dev = ["pytest>=7"]
+
+[project.scripts]
+decompose = "decomposer.cli:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

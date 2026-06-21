@@ -1,0 +1,572 @@
+\begin{thebibliography}{88}
+\providecommand{\natexlab}[1]{#1}
+\providecommand{\url}[1]{\texttt{#1}}
+\expandafter\ifx\csname urlstyle\endcsname\relax
+  \providecommand{\doi}[1]{doi: #1}\else
+  \providecommand{\doi}{doi: \begingroup \urlstyle{rm}\Url}\fi
+
+\bibitem[Arkhangelsky et~al.(2018)Arkhangelsky, Athey, Hirshberg, Imbens, and
+  Wager]{arkhangelsky2019synthetic}
+Dmitry Arkhangelsky, Susan Athey, David~A Hirshberg, Guido~W Imbens, and Stefan
+  Wager.
+\newblock Synthetic difference in differences.
+\newblock \emph{arXiv preprint arXiv:1812.09970}, 2018.
+
+\bibitem[Athey et~al.(2017)Athey, Bayati, Doudchenko, Imbens, and
+  Khosravi]{athey2018matrix}
+Susan Athey, Mohsen Bayati, Nikolay Doudchenko, Guido Imbens, and Khashayar
+  Khosravi.
+\newblock Matrix completion methods for causal panel data models.
+\newblock \emph{arXiv preprint arXiv:1710.10251}, 2017.
+
+\bibitem[Athey et~al.(2019)Athey, Tibshirani, and Wager]{athey2019generalized}
+Susan Athey, Julie Tibshirani, and Stefan Wager.
+\newblock Generalized random forests.
+\newblock \emph{The Annals of Statistics}, 47\penalty0 (2):\penalty0
+  1148--1178, 2019.
+
+\bibitem[Balasubramanian et~al.(2014)Balasubramanian, Ho, and
+  Vovk]{balasubramanian2014conformal}
+Vineeth Balasubramanian, Shen-Shyang Ho, and Vladimir Vovk.
+\newblock \emph{Conformal prediction for reliable machine learning: theory,
+  adaptations and applications}.
+\newblock Newnes, 2014.
+
+\bibitem[Barber et~al.(2019{\natexlab{a}})Barber, Cand\`{e}s, Ramdas, and
+  Tibshirani]{barber2019limits}
+Rina~Foygel Barber, Emmanuel~J Cand\`{e}s, Aaditya Ramdas, and Ryan~J
+  Tibshirani.
+\newblock The limits of distribution-free conditional predictive inference.
+\newblock \emph{arXiv preprint arXiv:1903.04684}, 2019{\natexlab{a}}.
+
+\bibitem[Barber et~al.(2019{\natexlab{b}})Barber, Cand\`{e}s, Ramdas, and
+  Tibshirani]{barber2019predictive}
+Rina~Foygel Barber, Emmanuel~J Cand\`{e}s, Aaditya Ramdas, and Ryan~J
+  Tibshirani.
+\newblock Predictive inference with the jackknife+.
+\newblock \emph{arXiv preprint arXiv:1905.02928}, 2019{\natexlab{b}}.
+
+\bibitem[Ben-Michael et~al.(2018)Ben-Michael, Feller, and
+  Rothstein]{ben2018augmented}
+Eli Ben-Michael, Avi Feller, and Jesse Rothstein.
+\newblock The augmented synthetic control method.
+\newblock \emph{arXiv preprint arXiv:1811.04170}, 2018.
+
+\bibitem[Berrett et~al.(2019)Berrett, Wang, Barber, and
+  Samworth]{berrett2019conditional}
+Thomas~B Berrett, Yi~Wang, Rina~Foygel Barber, and Richard~J Samworth.
+\newblock The conditional permutation test for independence while controlling
+  for confounders.
+\newblock \emph{Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology)}, 2019.
+
+\bibitem[Bolger et~al.(2019)Bolger, Zee, Rossignac-Milon, and
+  Hassin]{bolger2019causal}
+Niall Bolger, Katherine~S Zee, Maya Rossignac-Milon, and Ran~R Hassin.
+\newblock Causal processes in psychology are heterogeneous.
+\newblock \emph{Journal of Experimental Psychology: General}, 148\penalty0
+  (4):\penalty0 601, 2019.
+
+\bibitem[Brand and Xie(2010)]{brand2010benefits}
+Jennie~E Brand and Yu~Xie.
+\newblock Who benefits most from college? {Evidence} for negative selection in
+  heterogeneous economic returns to higher education.
+\newblock \emph{American sociological review}, 75\penalty0 (2):\penalty0
+  273--302, 2010.
+
+\bibitem[Breen et~al.(2015)Breen, Choi, and Holm]{breen2015heterogeneous}
+Richard Breen, Seongsoo Choi, and Anders Holm.
+\newblock Heterogeneous causal effects and sample selection bias.
+\newblock \emph{Sociological Science}, 2:\penalty0 351--369, 2015.
+
+\bibitem[Carvalho et~al.(2019)Carvalho, Feller, Murray, Woody, and
+  Yeager]{carvalho2019assessing}
+Carlos Carvalho, Avi Feller, Jared Murray, Spencer Woody, and David Yeager.
+\newblock Assessing treatment effect variation in observational studies:
+  Results from a data challenge.
+\newblock \emph{arXiv preprint arXiv:1907.07592}, 2019.
+
+\bibitem[Chipman et~al.(2010)Chipman, George, and McCulloch]{chipman2010bart}
+Hugh~A Chipman, Edward~I George, and Robert~E McCulloch.
+\newblock {BART}: Bayesian additive regression trees.
+\newblock \emph{The Annals of Applied Statistics}, 4\penalty0 (1):\penalty0
+  266--298, 2010.
+
+\bibitem[D'Amour et~al.(2017)D'Amour, Ding, Feller, Lei, and
+  Sekhon]{d2017overlap}
+Alexander D'Amour, Peng Ding, Avi Feller, Lihua Lei, and Jasjeet Sekhon.
+\newblock Overlap in observational studies with high-dimensional covariates.
+\newblock \emph{arXiv preprint arXiv:1711.02582}, 2017.
+
+\bibitem[Djebbari and Smith(2008)]{djebbari2008heterogeneous}
+Habiba Djebbari and Jeffrey Smith.
+\newblock Heterogeneous impacts in {PROGRESA}.
+\newblock \emph{Journal of Econometrics}, 145\penalty0 (1-2):\penalty0 64--80,
+  2008.
+
+\bibitem[Dorie(2017)]{dorie2017aciccomp2016}
+Vincent Dorie.
+\newblock aciccomp2016: Atlantic causal inference conference competition 2016
+  simulation.
+\newblock \emph{R package version 0.1-0}, 2017.
+
+\bibitem[Dorie et~al.(2019)Dorie, Hill, Shalit, Scott, and
+  Cervone]{dorie2019automated}
+Vincent Dorie, Jennifer Hill, Uri Shalit, Marc Scott, and Dan Cervone.
+\newblock Automated versus do-it-yourself methods for causal inference: Lessons
+  learned from a data analysis competition.
+\newblock \emph{Statistical Science}, 34\penalty0 (1):\penalty0 43--68, 2019.
+
+\bibitem[Efron(2014)]{efron2014estimation}
+Bradley Efron.
+\newblock Estimation and accuracy after model selection.
+\newblock \emph{Journal of the American Statistical Association}, 109\penalty0
+  (507):\penalty0 991--1007, 2014.
+
+\bibitem[Florens et~al.(2008)Florens, Heckman, Meghir, and
+  Vytlacil]{florens2008identification}
+Jean-Pierre Florens, James~J Heckman, Costas Meghir, and Edward Vytlacil.
+\newblock Identification of treatment effects using control functions in models
+  with continuous, endogenous treatment and heterogeneous effects.
+\newblock \emph{Econometrica}, 76\penalty0 (5):\penalty0 1191--1206, 2008.
+
+\bibitem[Fort(2016)]{fort2016unconditional}
+Margherita Fort.
+\newblock Unconditional and conditional quantile treatment effect:
+  Identification strategies and interpretations.
+\newblock In \emph{Topics in Theoretical and Applied Statistics}, pages 15--24.
+  Springer, 2016.
+
+\bibitem[Foster and Syrgkanis(2019)]{foster2019orthogonal}
+Dylan~J Foster and Vasilis Syrgkanis.
+\newblock Orthogonal statistical learning.
+\newblock \emph{arXiv preprint arXiv:1901.09036}, 2019.
+
+\bibitem[Friedman(2001)]{friedman2001greedy}
+Jerome~H Friedman.
+\newblock Greedy function approximation: a gradient boosting machine.
+\newblock \emph{Annals of statistics}, pages 1189--1232, 2001.
+
+\bibitem[Gammerman and Vovk(2007)]{gammerman2007hedging}
+Alexander Gammerman and Vladimir Vovk.
+\newblock Hedging predictions in machine learning.
+\newblock \emph{The Computer Journal}, 50\penalty0 (2):\penalty0 151--163,
+  2007.
+
+\bibitem[Glymour et~al.(2014)Glymour, Scheines, and
+  Spirtes]{glymour2014discovering}
+Clark Glymour, Richard Scheines, and Peter Spirtes.
+\newblock \emph{Discovering causal structure: Artificial intelligence,
+  philosophy of science, and statistical modeling}.
+\newblock Academic Press, 2014.
+
+\bibitem[Green and Kern(2012)]{green2012modeling}
+Donald~P Green and Holger~L Kern.
+\newblock Modeling heterogeneous treatment effects in survey experiments with
+  bayesian additive regression trees.
+\newblock \emph{Public opinion quarterly}, 76\penalty0 (3):\penalty0 491--511,
+  2012.
+
+\bibitem[Greenland et~al.(1999)Greenland, Pearl, and
+  Robins]{greenland1999causal}
+Sander Greenland, Judea Pearl, and James~M Robins.
+\newblock Causal diagrams for epidemiologic research.
+\newblock \emph{Epidemiology}, pages 37--48, 1999.
+
+\bibitem[Greenwell et~al.(2019)Greenwell, Boehmke, Cunningham, and
+  Developers]{gbm}
+Brandon Greenwell, Bradley Boehmke, Jay Cunningham, and GBM Developers.
+\newblock \emph{gbm: Generalized Boosted Regression Models}, 2019.
+\newblock URL \url{https://CRAN.R-project.org/package=gbm}.
+\newblock R package version 2.1.5.
+
+\bibitem[Grimmer et~al.(2017)Grimmer, Messing, and
+  Westwood]{grimmer2017estimating}
+Justin Grimmer, Solomon Messing, and Sean~J Westwood.
+\newblock Estimating heterogeneous treatment effects and the effects of
+  heterogeneous treatments with ensemble methods.
+\newblock \emph{Political Analysis}, 25\penalty0 (4):\penalty0 413--434, 2017.
+
+\bibitem[Hahn et~al.(2020)Hahn, Murray, and Carvalho]{hahn2020bayesian}
+Richard~P Hahn, Jared~S Murray, and Carlos~M Carvalho.
+\newblock Bayesian regression tree models for causal inference: regularization,
+  confounding, and heterogeneous effects.
+\newblock \emph{Bayesian Analysis}, 2020.
+
+\bibitem[Hill(2011)]{hill2011bayesian}
+Jennifer~L Hill.
+\newblock Bayesian nonparametric modeling for causal inference.
+\newblock \emph{Journal of Computational and Graphical Statistics}, 20\penalty0
+  (1):\penalty0 217--240, 2011.
+
+\bibitem[Hirano et~al.(2003)Hirano, Imbens, and Ridder]{hirano2003efficient}
+Keisuke Hirano, Guido~W Imbens, and Geert Ridder.
+\newblock Efficient estimation of average treatment effects using the estimated
+  propensity score.
+\newblock \emph{Econometrica}, 71\penalty0 (4):\penalty0 1161--1189, 2003.
+
+\bibitem[Imai and Strauss(2011)]{imai2011estimation}
+Kosuke Imai and Aaron Strauss.
+\newblock Estimation of heterogeneous treatment effects from randomized
+  experiments, with application to the optimal planning of the get-out-the-vote
+  campaign.
+\newblock \emph{Political Analysis}, 19\penalty0 (1):\penalty0 1--19, 2011.
+
+\bibitem[Imbens and Rubin(2015)]{imbens2015causal}
+Guido~W Imbens and Donald~B Rubin.
+\newblock \emph{Causal inference in statistics, social, and biomedical
+  sciences}.
+\newblock Cambridge University Press, 2015.
+
+\bibitem[Kang and Schafer(2007)]{kang2007demystifying}
+Joseph Kang and Joseph Schafer.
+\newblock Demystifying double robustness: A comparison of alternative
+  strategies for estimating a population mean from incomplete data.
+\newblock \emph{Statistical science}, 22\penalty0 (4):\penalty0 523--539, 2007.
+
+\bibitem[Kapelner and Bleich(2016)]{bartMachine}
+Adam Kapelner and Justin Bleich.
+\newblock {bartMachine}: Machine learning with {B}ayesian additive regression
+  trees.
+\newblock \emph{Journal of Statistical Software}, 70\penalty0 (4):\penalty0
+  1--40, 2016.
+
+\bibitem[Kennedy(2020)]{kennedy2020optimal}
+Edward~H Kennedy.
+\newblock Optimal doubly robust estimation of heterogeneous causal effects.
+\newblock \emph{arXiv preprint arXiv:2004.14497}, 2020.
+
+\bibitem[Kivaranovic et~al.(2020)Kivaranovic, Ristl, Posch, and
+  Leeb]{kivaranovic2020conformal}
+Danijel Kivaranovic, Robin Ristl, Martin Posch, and Hannes Leeb.
+\newblock Conformal prediction intervals for the individual treatment effect.
+\newblock \emph{arXiv preprint arXiv:2006.01474}, 2020.
+
+\bibitem[Koenker(1994)]{koenker1994confidence}
+Roger Koenker.
+\newblock Confidence intervals for regression quantiles.
+\newblock In \emph{Asymptotic statistics}, pages 349--359. Springer, 1994.
+
+\bibitem[Koenker(2005)]{koenker2005quantile}
+Roger Koenker.
+\newblock \emph{Quantile Regression (Econometric Society Monographs; No. 38)}.
+\newblock Cambridge university press, 2005.
+
+\bibitem[Koenker(2017)]{koenker2017quantile}
+Roger Koenker.
+\newblock Quantile regression: 40 years on.
+\newblock \emph{Annual Review of Economics}, 9:\penalty0 155--176, 2017.
+
+\bibitem[Koenker and Bassett(1978)]{koenker1978regression}
+Roger Koenker and Gilbert Bassett.
+\newblock Regression quantiles.
+\newblock \emph{Econometrica: journal of the Econometric Society}, pages
+  33--50, 1978.
+
+\bibitem[Koenker and Hallock(2001)]{koenker2001quantile}
+Roger Koenker and Kevin~F Hallock.
+\newblock Quantile regression.
+\newblock \emph{Journal of economic perspectives}, 15\penalty0 (4):\penalty0
+  143--156, 2001.
+
+\bibitem[K{\"u}nzel et~al.(2019)K{\"u}nzel, Sekhon, Bickel, and
+  Yu]{kunzel2019metalearners}
+S{\"o}ren K{\"u}nzel, Jasjeet Sekhon, Peter Bickel, and Bin Yu.
+\newblock Metalearners for estimating heterogeneous treatment effects using
+  machine learning.
+\newblock \emph{Proceedings of the national academy of sciences}, 116\penalty0
+  (10):\penalty0 4156--4165, 2019.
+
+\bibitem[Künzel et~al.(2020)Künzel, Tang, Xie, Saarinen, Bickel, Yu, and
+  Sekhon]{xlearner}
+Sören Künzel, Allen Tang, Ling Xie, Theo Saarinen, Peter Bickel, Bin Yu, and
+  Jasjeet Sekhon.
+\newblock \emph{causalToolbox: Toolbox for Causal Inference with emphasize on
+  Heterogeneous Treatment Effect Estimator}, 2020.
+\newblock R package version 0.0.2.000.
+
+\bibitem[Lei and Wasserman(2014)]{lei2014distribution}
+Jing Lei and Larry Wasserman.
+\newblock Distribution-free prediction bands for non-parametric regression.
+\newblock \emph{Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology)}, 76\penalty0 (1):\penalty0 71--96, 2014.
+
+\bibitem[Lei et~al.(2013)Lei, Robins, and Wasserman]{lei2013distribution}
+Jing Lei, James Robins, and Larry Wasserman.
+\newblock Distribution-free prediction sets.
+\newblock \emph{Journal of the American Statistical Association}, 108\penalty0
+  (501):\penalty0 278--287, 2013.
+
+\bibitem[Lei et~al.(2018)Lei, G’Sell, Rinaldo, Tibshirani, and
+  Wasserman]{lei2018distribution}
+Jing Lei, Max G’Sell, Alessandro Rinaldo, Ryan~J Tibshirani, and Larry
+  Wasserman.
+\newblock Distribution-free predictive inference for regression.
+\newblock \emph{Journal of the American Statistical Association}, 113\penalty0
+  (523):\penalty0 1094--1111, 2018.
+
+\bibitem[Meinshausen and Ridgeway(2006)]{meinshausen2006quantile}
+Nicolai Meinshausen and Greg Ridgeway.
+\newblock Quantile regression forests.
+\newblock \emph{Journal of Machine Learning Research}, 7\penalty0 (6), 2006.
+
+\bibitem[Morgan(2001)]{morgan2001counterfactuals}
+Stephen~L Morgan.
+\newblock Counterfactuals, causal effect heterogeneity, and the catholic school
+  effect on learning.
+\newblock \emph{Sociology of education}, 74\penalty0 (4):\penalty0 341--374,
+  2001.
+
+\bibitem[Neyman(1923/1990)]{neyman1923application}
+Jerzy Neyman.
+\newblock On the application of probability theory to agricultural experiments.
+  {Essay} on principles. {Section} 9.
+\newblock \emph{Statistical Science}, 5:\penalty0 465--472, 1923/1990.
+\newblock Translated and edited by D. M. Dabrowska and T. P. Speed from the
+  Polish original, which appeared in Roczniki Nauk Rolniczyc, Tom X (1923):
+  1--51 (Annals of Agricultural Sciences).
+
+\bibitem[Nie and Wager(2017)]{nie2017quasi}
+Xinkun Nie and Stefan Wager.
+\newblock Quasi-oracle estimation of heterogeneous treatment effects.
+\newblock \emph{arXiv preprint arXiv:1712.04912}, 2017.
+
+\bibitem[Pearl(1995)]{pearl1995causal}
+Judea Pearl.
+\newblock Causal diagrams for empirical research.
+\newblock \emph{Biometrika}, 82\penalty0 (4):\penalty0 669--688, 1995.
+
+\bibitem[Pearl and Bareinboim(2014)]{pearl2014external}
+Judea Pearl and Elias Bareinboim.
+\newblock External validity: From do-calculus to transportability across
+  populations.
+\newblock \emph{Statistical Science}, 29\penalty0 (4):\penalty0 579--595, 2014.
+
+\bibitem[Pearl and Mackenzie(2018)]{pearl2018book}
+Judea Pearl and Dana Mackenzie.
+\newblock \emph{The book of why: the new science of cause and effect}.
+\newblock Basic Books, 2018.
+
+\bibitem[Pearl et~al.(2016)Pearl, Glymour, and Jewell]{pearl2016causal}
+Judea Pearl, Madelyn Glymour, and Nicholas~P Jewell.
+\newblock \emph{Causal inference in statistics: A primer}.
+\newblock John Wiley \& Sons, 2016.
+
+\bibitem[Peters et~al.(2016)Peters, B{\"u}hlmann, and
+  Meinshausen]{peters2016causal}
+Jonas Peters, Peter B{\"u}hlmann, and Nicolai Meinshausen.
+\newblock Causal inference by using invariant prediction: identification and
+  confidence intervals.
+\newblock \emph{Journal of the Royal Statistical Society: Series B (Statistical
+  Methodology)}, 78\penalty0 (5):\penalty0 947--1012, 2016.
+
+\bibitem[Richardson and Robins(2013)]{richardson2013single}
+Thomas~S Richardson and James~M Robins.
+\newblock Single world intervention graphs (swigs): A unification of the
+  counterfactual and graphical approaches to causality.
+\newblock \emph{Center for the Statistics and the Social Sciences, University
+  of Washington Series. Working Paper}, 128\penalty0 (30), 2013.
+
+\bibitem[Robins et~al.(1994)Robins, Rotnitzky, and Zhao]{robins1994estimation}
+James~M Robins, Andrea Rotnitzky, and Lue~Ping Zhao.
+\newblock Estimation of regression coefficients when some regressors are not
+  always observed.
+\newblock \emph{Journal of the American statistical Association}, 89\penalty0
+  (427):\penalty0 846--866, 1994.
+
+\bibitem[Romano et~al.(2019)Romano, Patterson, and
+  Cand\`{e}s]{romano2019conformalized}
+Yaniv Romano, Evan Patterson, and Emmanuel Cand\`{e}s.
+\newblock Conformalized quantile regression.
+\newblock In \emph{Advances in Neural Information Processing Systems}, pages
+  3538--3548, 2019.
+
+\bibitem[Romano et~al.(2020)Romano, Sesia, and
+  Cand\`{e}s]{romano2020classification}
+Yaniv Romano, Matteo Sesia, and Emmanuel Cand\`{e}s.
+\newblock Classification with valid and adaptive coverage.
+\newblock \emph{arXiv preprint arXiv:2006.02544}, 2020.
+
+\bibitem[Rosenbaum and Rubin(1983)]{rosenbaum1983central}
+Paul~R Rosenbaum and Donald~B Rubin.
+\newblock The central role of the propensity score in observational studies for
+  causal effects.
+\newblock \emph{Biometrika}, 70\penalty0 (1):\penalty0 41--55, 1983.
+
+\bibitem[Rosenthal(1970)]{rosenthal1970subspaces}
+Haskell~P Rosenthal.
+\newblock On the subspaces of $l^{p} (p> 2)$ spanned by sequences of
+  independent random variables.
+\newblock \emph{Israel Journal of Mathematics}, 8\penalty0 (3):\penalty0
+  273--303, 1970.
+
+\bibitem[Rubin(1974)]{rubin1974estimating}
+Donald~B Rubin.
+\newblock Estimating causal effects of treatments in randomized and
+  nonrandomized studies.
+\newblock \emph{Journal of educational Psychology}, 66\penalty0 (5):\penalty0
+  688, 1974.
+
+\bibitem[Rubin(1978)]{rubin1978bayesian}
+Donald~B Rubin.
+\newblock Bayesian inference for causal effects: The role of randomization.
+\newblock \emph{The Annals of statistics}, pages 34--58, 1978.
+
+\bibitem[Rubin(1990)]{rubin1990formal}
+Donald~B Rubin.
+\newblock Formal mode of statistical inference for causal effects.
+\newblock \emph{Journal of statistical planning and inference}, 25\penalty0
+  (3):\penalty0 279--292, 1990.
+
+\bibitem[Sadinle et~al.(2019)Sadinle, Lei, and Wasserman]{sadinle2019least}
+Mauricio Sadinle, Jing Lei, and Larry Wasserman.
+\newblock Least ambiguous set-valued classifiers with bounded error levels.
+\newblock \emph{Journal of the American Statistical Association}, 114\penalty0
+  (525):\penalty0 223--234, 2019.
+
+\bibitem[Sesia and Cand{\`e}s(2020)]{sesia2019comparison}
+Matteo Sesia and Emmanuel~J Cand{\`e}s.
+\newblock A comparison of some conformal quantile regression methods.
+\newblock \emph{Stat}, 9\penalty0 (1):\penalty0 e261, 2020.
+
+\bibitem[Shafer and Vovk(2008)]{shafer2008tutorial}
+Glenn Shafer and Vladimir Vovk.
+\newblock A tutorial on conformal prediction.
+\newblock \emph{Journal of Machine Learning Research}, 9\penalty0
+  (Mar):\penalty0 371--421, 2008.
+
+\bibitem[Shimodaira(2000)]{shimodaira2000improving}
+Hidetoshi Shimodaira.
+\newblock Improving predictive inference under covariate shift by weighting the
+  log-likelihood function.
+\newblock \emph{Journal of statistical planning and inference}, 90\penalty0
+  (2):\penalty0 227--244, 2000.
+
+\bibitem[Spirtes et~al.(2000)Spirtes, Glymour, Scheines, and
+  Heckerman]{spirtes2000causation}
+Peter Spirtes, Clark~N Glymour, Richard Scheines, and David Heckerman.
+\newblock \emph{Causation, prediction, and search}.
+\newblock MIT press, 2000.
+
+\bibitem[Stuart et~al.(2011)Stuart, Cole, Bradshaw, and Leaf]{stuart2011use}
+Elizabeth~A Stuart, Stephen~R Cole, Catherine~P Bradshaw, and Philip~J Leaf.
+\newblock The use of propensity scores to assess the generalizability of
+  results from randomized trials.
+\newblock \emph{Journal of the Royal Statistical Society: Series A (Statistics
+  in Society)}, 174\penalty0 (2):\penalty0 369--386, 2011.
+
+\bibitem[Tennant et~al.(2019)Tennant, Harrison, Murray, Arnold, Berrie, Fox,
+  Gadd, Keeble, Ranker, Textor, Tomova, Gilthorpe, and Ellison]{tennant2019use}
+Peter W~G Tennant, Wendy~J Harrison, Eleanor~J Murray, Kellyn~F Arnold, Laurie
+  Berrie, Matthew~P Fox, Sarah~C Gadd, Claire Keeble, Lynsie~R Ranker, Johannes
+  Textor, Georgia~D Tomova, Mark~S Gilthorpe, and George T~H Ellison.
+\newblock Use of directed acyclic graphs (dags) in applied health research:
+  review and recommendations.
+\newblock \emph{medRxiv}, 2019.
+
+\bibitem[Tibshirani et~al.(2019{\natexlab{a}})Tibshirani, Athey, and
+  Wager]{grf}
+Julie Tibshirani, Susan Athey, and Stefan Wager.
+\newblock \emph{grf: Generalized Random Forests}, 2019{\natexlab{a}}.
+\newblock URL \url{https://CRAN.R-project.org/package=grf}.
+\newblock R package version 1.0.1.
+
+\bibitem[Tibshirani et~al.(2019{\natexlab{b}})Tibshirani, Barber, Cand\`{e}s,
+  and Ramdas]{barber2019conformal}
+Ryan~J Tibshirani, Rina~Foygel Barber, Emmanuel Cand\`{e}s, and Aaditya Ramdas.
+\newblock Conformal prediction under covariate shift.
+\newblock In \emph{Advances in Neural Information Processing Systems}, pages
+  2530--2540, 2019{\natexlab{b}}.
+
+\bibitem[Tipton(2013)]{tipton2013improving}
+Elizabeth Tipton.
+\newblock Improving generalizations from experiments using propensity score
+  subclassification: Assumptions, properties, and contexts.
+\newblock \emph{Journal of Educational and Behavioral Statistics}, 38\penalty0
+  (3):\penalty0 239--266, 2013.
+
+\bibitem[Tipton(2014)]{tipton2014generalizable}
+Elizabeth Tipton.
+\newblock How generalizable is your experiment? {An} index for comparing
+  experimental samples and populations.
+\newblock \emph{Journal of Educational and Behavioral Statistics}, 39\penalty0
+  (6):\penalty0 478--501, 2014.
+
+\bibitem[von Bahr and Esseen(1965)]{vonbahr65}
+Bengt von Bahr and Carl-Gustav Esseen.
+\newblock Inequalities for the $r$-th absolute moment of a sum of random
+  variables, $1\le r \le 2$.
+\newblock \emph{The Annals of Mathematical Statistics}, 36:\penalty0 299--303,
+  1965.
+
+\bibitem[Vovk(2012)]{vovk2012conditional}
+Vladimir Vovk.
+\newblock Conditional validity of inductive conformal predictors.
+\newblock In \emph{Asian conference on machine learning}, pages 475--490, 2012.
+
+\bibitem[Vovk(2013)]{vovk2013transductive}
+Vladimir Vovk.
+\newblock Transductive conformal predictors.
+\newblock In \emph{IFIP International Conference on Artificial Intelligence
+  Applications and Innovations}, pages 348--360. Springer, 2013.
+
+\bibitem[Vovk(2015)]{vovk2015cross}
+Vladimir Vovk.
+\newblock Cross-conformal predictors.
+\newblock \emph{Annals of Mathematics and Artificial Intelligence}, 74\penalty0
+  (1-2):\penalty0 9--28, 2015.
+
+\bibitem[Vovk et~al.(2005)Vovk, Gammerman, and Shafer]{vovk2005algorithmic}
+Vladimir Vovk, Alex Gammerman, and Glenn Shafer.
+\newblock \emph{Algorithmic learning in a random world}.
+\newblock Springer Science \& Business Media, 2005.
+
+\bibitem[Vovk et~al.(2009)Vovk, Nouretdinov, and Gammerman]{vovk2009line}
+Vladimir Vovk, Ilia Nouretdinov, and Alex Gammerman.
+\newblock On-line predictive linear regression.
+\newblock \emph{The Annals of Statistics}, 37\penalty0 (3):\penalty0
+  1566--1590, 2009.
+
+\bibitem[Wager and Athey(2018)]{wager2018estimation}
+Stefan Wager and Susan Athey.
+\newblock Estimation and inference of heterogeneous treatment effects using
+  random forests.
+\newblock \emph{Journal of the American Statistical Association}, 113\penalty0
+  (523):\penalty0 1228--1242, 2018.
+
+\bibitem[Wager et~al.(2014)Wager, Hastie, and Efron]{wager2014confidence}
+Stefan Wager, Trevor Hastie, and Bradley Efron.
+\newblock Confidence intervals for random forests: The jackknife and the
+  infinitesimal jackknife.
+\newblock \emph{The Journal of Machine Learning Research}, 15\penalty0
+  (1):\penalty0 1625--1651, 2014.
+
+\bibitem[Winkelbeiner et~al.(2019)Winkelbeiner, Leucht, Kane, and
+  Homan]{winkelbeiner2019evaluation}
+Stephanie Winkelbeiner, Stefan Leucht, John~M Kane, and Philipp Homan.
+\newblock Evaluation of differences in individual treatment response in
+  schizophrenia spectrum disorders: a meta-analysis.
+\newblock \emph{JAMA psychiatry}, 76\penalty0 (10):\penalty0 1063--1073, 2019.
+
+\bibitem[Xie et~al.(2012)Xie, Brand, and Jann]{xie2012estimating}
+Yu~Xie, Jennie~E Brand, and Ben Jann.
+\newblock Estimating heterogeneous treatment effects with observational data.
+\newblock \emph{Sociological methodology}, 42\penalty0 (1):\penalty0 314--347,
+  2012.
+
+\bibitem[Yeager et~al.(2019)Yeager, Hanselman, Walton, Murray, Crosnoe, Muller,
+  Tipton, Schneider, Hulleman, and Hinojosa]{yeager2019national}
+David~S Yeager, Paul Hanselman, Gregory~M Walton, Jared~S Murray, Robert
+  Crosnoe, Chandra Muller, Elizabeth Tipton, Barbara Schneider, Chris~S
+  Hulleman, and Cintia~P Hinojosa.
+\newblock A national experiment reveals where a growth mindset improves
+  achievement.
+\newblock \emph{Nature}, 573\penalty0 (7774):\penalty0 364--369, 2019.
+
+\bibitem[Yu and Moyeed(2001)]{yu2001bayesian}
+Keming Yu and Rana~A Moyeed.
+\newblock Bayesian quantile regression.
+\newblock \emph{Statistics \& Probability Letters}, 54\penalty0 (4):\penalty0
+  437--447, 2001.
+
+\end{thebibliography}

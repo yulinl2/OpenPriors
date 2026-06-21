@@ -1,0 +1,19 @@
+[
+  {
+    "chars": 75,
+    "op": "strip_preamble_and_doc_wrappers"
+  },
+  {
+    "chars": 152,
+    "op": "strip_comments"
+  },
+  {
+    "count": 0,
+    "n_macros": 0,
+    "op": "expand_macros"
+  },
+  {
+    "chars": 773,
+    "op": "collapse_whitespace"
+  }
+]

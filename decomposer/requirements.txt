@@ -1,0 +1,9 @@
+# Exact pins for reproducible, auditable runs (the versions this workflow was
+# built and CI-verified against). For library-style minimums see pyproject.toml.
+# Install into a venv:
+#   python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt
+pydantic==2.13.4
+pylatexenc==2.10
+lxml==6.1.1
+# optional (math canonicalization): latex2sympy2, sympy
+# optional (dev): pytest

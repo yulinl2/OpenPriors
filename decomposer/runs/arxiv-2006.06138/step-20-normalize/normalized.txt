@@ -1,0 +1,2094 @@
+\maketitle
+
+\begin{abstract}
+ Evaluating treatment effect heterogeneity widely informs treatment
+ decision making. At the moment, much emphasis is placed on the
+ estimation of the conditional average treatment effect via flexible
+ machine learning algorithms. While these methods enjoy some
+ theoretical appeal in terms of consistency and convergence rates,
+ they generally perform poorly in terms of uncertainty
+ quantification. This is troubling since assessing risk is crucial
+ for reliable decision-making in sensitive and uncertain
+ environments. In this work, we propose a conformal inference-based
+ approach that can produce reliable interval estimates for
+ counterfactuals and individual treatment effects under the potential
+ outcome framework. For completely randomized or stratified randomized experiments with perfect
+ compliance, the intervals have guaranteed average coverage in finite
+ samples regardless of the unknown data generating mechanism. For
+ randomized experiments with ignorable compliance and general
+ observational studies obeying the strong ignorability assumption,
+ the intervals satisfy a doubly robust property which states the
+ following: the average coverage is approximately controlled if
+ either the propensity score or the conditional quantiles of
+ potential outcomes can be estimated accurately. Numerical studies
+ on both synthetic and real datasets empirically demonstrate that
+ existing methods suffer from a significant coverage deficit even in
+
+ simple models. In contrast, our methods achieve the
+ desired coverage with reasonably short intervals.
+
+\end{abstract}
+
+\section{From Average Effects To Individual
+ Effects}\label{sec:introduction}
+
+Estimating the average treatment effect (ATE) for a population of
+interest has been a main focus of a rich literature on causal
+inference, and the last decades have seen the development of extensive
+statistical theory addressing important issues such as identification,
+estimation, and uncertainty quantification
+\citep[e.g.][]{rubin1974estimating, pearl1995causal}. That said, the
+average effect only provides a coarse summary of the distribution of a
+treatment effect, and may be insufficient, or even misleading, to
+validate an intervention. Imagine, for instance, that a drug cures
+70\% of the patients while it makes the symptoms much worse for the remaing
+30\%. It is unclear whether the drug should be approved in spite of the
+positive average effect. This is not an artificial example;
+trials typically do not give clear cut results and examples of this kind are common.
+
+On May 31, 2018, the National Academy of Medicine (NAM) held a
+workshop to discuss approaches of examining individual treatment
+effects (ITE) to support individualized patient care. In conjunction
+with this event, NAM published a report highlighting the importance
+of ITE in medicine. We quote from this document:
+\begin{quote}
+``The individuality of the patient should be at the core of every treatment decision. One-size-fits-all approaches to treating medical conditions are inadequate; instead, treatments should be tailored to individuals based on heterogeneity of clinical characteristics and their personal preferences.''
+\end{quote}
+Outside of medical science, treatment effect heterogeneity is also of
+great concern to political scientists \citep{imai2011estimation,
+ grimmer2017estimating}, psychologists \citep{bolger2019causal,
+ winkelbeiner2019evaluation}, sociologists \citep{xie2012estimating,
+ breen2015heterogeneous}, economists
+\citep{florens2008identification, djebbari2008heterogeneous}, and
+education researchers \citep{morgan2001counterfactuals,
+ brand2010benefits}. In short, there is a wide range of fields that
+would benefit from a better understanding of ITE.
+
+To move past the average treatment effect as the object of inference,
+most existing works have targeted, instead, the {\em conditional
+ average treatment effects} (CATE)---although we will introduce a
+formal definition later in Section \ref{sec:setup}, this is the
+expectation of the ITE conditional on the values of the covariates.
+
+While CATE naturally provide a richer summary than ATE,
+they surely still neglect the inherent variability in the response
+(the conditional variance, if you will) which might be crucial for
+decision-making; unless, of course, the covariates explain away most
+of the variation in ITE.
+
+As a consequence, two types of variability are of immediate concern:
+(1) the variability of the response around the regression function
+and, (2) the variability of CATE estimators due to finite
+samples. Getting both (1) and (2) under control requires having
+sufficiently many covariates to explain away a significant fraction of
+the variability in the response, and at the same time, a nearly
+perfect estimate of CATE for every value of the covariates. Neither of
+these seem to be realistic for everyday causal inference problems.
+
+ In areas like medical science or public policy, point estimates are
+ insufficient to inform decisions due to the huge loss potentially
+ incurred by wrong actions. A confidence interval, or at least a
+ p-value, is required by the U.S.~Food and Drug Administration to
+ approve a drug, in order to guarantee sufficient evidence and
+ confidence in favor of the drug. The issues are that despite the
+ importance of uncertainty quantification, the reliability of modern
+ machine learning methods is typically under-studied, and that
+ theoretical guarantees are hard to come by. For instance, existing
+ theory usually requires strong non-verifiable assumptions and
+ asymptotic regimes one does not encounter in practice. This of
+ course limits the applications of machine learning methods in
+ sensitive causal inference problems. In addition, we will
+ demonstrate later that the confidence intervals for CATE or prediction intervals for ITE
+ produced by frequently discussed methods (including Bayesian
+ methods) typically have unsatisfactory or unacceptable coverage,
+ even in very simple and smooth models with at most ten
+ covariates.
+
+In this work, we leverage ideas from conformal inference to construct
+valid prediction intervals for individual treatment effects under the
+potential outcome framework \citep{neyman1923application,
+ rubin1974estimating}. In particular, we address two challenges:
+\begin{enumerate}[(1)]
+\item Construct intervals for ITE with reliable coverage for subjects
+ in the study, for which one of the potential oucomes is missing;
+\item Construct intervals for ITE with reliable coverage for subjects
+ not in the study, and for which both potential oucomes are missing.
+\end{enumerate}
+To be sure, in the case where a method is able to estimate ITE
+accurately, there is no need to distinguish these two tasks. In
+practice, however, this is rarely possible due to insufficient sample
+sizes, model misspecification, and inherent variability. We will thus see that the second challenge is generally far more ambitious since two potential outcomes are never observed simultaneously; consequently we cannot model them jointly.
+
+In brief, Section \ref{sec:counterfactual} shows how the first
+challenge reduces to counterfactual inference since one potential
+outcome is observed for each subject; here, an interval for the
+missing outcome can be shifted into an interval for the individual
+treatment effect by contrasting it with the observed outcome. This
+section also introduces methods with guaranteed coverage even under
+model misspecification. In particular, for completely randomized or
+stratified randomized trials with perfect compliance so that the
+propensity score is known but may not be constant, our method
+achieves coverage in finite samples \emph{without any assumption other
+ than that of operating on ~i.i.d.~samples}.
+
+For general observational studies under the strong
+ignorability assumption \citep{rubin1974estimating}, or randomized
+experiments with ignorable compliance, our methods have guaranteed
+coverage provided that either the outcome model or the treatment model
+is accurately estimated. This is analogous to the \emph{doubly robust}
+property applicable to average treatment effect
+\citep[e.g.][]{robins1994estimation, kang2007demystifying} which
+speaks to the consistency of point
+estimates.
+
+Having addressed the first challenge, we will see in Section
+\ref{sec:effect} that our methods can serve as a stepping stone for
+the second. A naive approach, here, would be to apply the
+counterfactual inference on both potential outcomes and contrast the
+two intervals to induce an interval for ITE.
+
+Moreover, we introduce another approach
+
+which applies the counterfactual inference to generate intervals for ITE
+applicable to subjects in the dataset as an intermediate step, and
+trains a model to generalize these intervals to subjects not in the
+study.
+
+Finally, our methods easily extend to a widely studied problem which
+goes by the name of generalizability, or transportability, or external
+validity, and which concerns settings in which there is a
+distributional shift between the target population and the study
+population \citep[e.g.][]{stuart2011use, tipton2014generalizable}, see
+Sections \ref{sec:setup}--\ref{sec:effect}. Furthermore, as explained
+in Section \ref{sec:extension}, our methods also naturally adapt to
+other causal inference frameworks, such as causal diagrams
+\citep{pearl1995causal} and invariant prediction
+\citep{peters2016causal}.
+
+\section{From Point Estimates To Interval Estimates}
+\label{sec:setup}
+\subsection{Problem setup}
+Throughout the paper we focus on the potential outcome framework
+\citep{neyman1923application, rubin1974estimating} with a binary
+treatment. Extensions to other causal inference frameworks are
+discussed in Section \ref{sec:extension}. Given $n$ subjects, denote
+by $T_{i}\in \{0, 1\}$ the binary treatment indicator, by
+$(Y_{i}(1), Y_{i}(0))$ the pair of potential outcomes and by $X_{i}$
+the vector of other covariates. We assume that
+\[(Y_{i}(1), Y_{i}(0), T_{i}, X_{i})\stackrel{i.i.d.}{\sim}(Y(1), Y(0), T, X),\]
+where $(Y(1), Y(0), T, X)$ denotes a generic random vector. Under the
+{\em stable unit treatment value assumption} (SUTVA) commonly assumed
+in the literature \citep{rubin1990formal}, the observed dataset comprises triples $(Y_{i}^{\mathrm{obs}}, T_{i}, X_{i})$ where
+\[Y_{i}^{\mathrm{obs}} = \begin{cases} Y_{i}(1), & T_{i} = 1,\\
+ Y_{i}(0), & T_i = 0.\end{cases}
+\]
+The individual treatment effect $\tau_{i}$ is defined as
+\begin{equation}
+\label{eq:ITE}
+\tau_{i} \triangleq Y_{i}(1) - Y_{i}(0).
+\end{equation}
+By definition, only one potential outcome is observed for every unit while the other is missing. Therefore, the ITE are unobserved and have to be inferred. Throughout the paper we assume the strong ignorability:
+\begin{equation}
+ \label{eq:ignorability}
+ (Y(1), Y(0)) \protect\mathpalette{\protect\independenT}{\perp} T \mid X.
+\end{equation}
+Strong ignorability rules out any source of unmeasured confounders,
+which affect both the treatment assignment and the potential
+outcomes. Under this assumption, the treatment assignment is purely
+randomized conditional on any covariate values. Although ignorability
+is a strong assumption, it is a widely used starting point to
+formulate statistical theory and methodology \citep{rubin1978bayesian, rosenbaum1983central, imbens2015causal}.
+
+\subsection{Traditional inferential targets}
+As mentioned earlier, existing methods mostly focus on CATE, defined
+as
+\begin{equation}
+ \label{eq:CATE}
+ \tau(x) \triangleq \mathbb{E} [Y(1) - Y(0) \mid X = x].
+\end{equation}
+The CATE function $\tau(\cdot)$ can be expressed as
+$\tau(x) = m_{1}(x) - m_{0}(x)$, where
+\[
+m_{1}(x) = \mathbb{E} [Y(1) \mid X = x] \, \text{ and } \, m_{0}(x) = \mathbb{E} [Y(0) \mid X =
+x].
+\]
+It is standard in the literature to impose modeling restrictions on
+$m_{1}(x)$ and $m_{0}(x)$ (or equivalently $\tau(x)$ and $m_{0}(x)$)
+and estimate these functions using parametric or nonparametric
+techniques. Under the strong ignorability assumption, a standard
+argument shows that
+\[m_{1}(x) = \mathbb{E} [Y^{\mathrm{obs}} \mid X = x, T = 1] \, \text{ and } \,
+ m_{0}(x) = \mathbb{E} [Y^{\mathrm{obs}} \mid X = x, T = 0].\] Thus, the estimation
+problem reduces to that of estimating certain conditional
+ expectations \citep[e.g.][]{nie2017quasi, foster2019orthogonal,
+ kennedy2020optimal}. However, drawing reliable confidence
+bands---which can be trusted in practice---from finite samples around
+estimates of possibly high-dimensional regression functions
+
+is delicate,
+to say the least. As we will show later, many standard techniques,
+e.g. normal approximation and resampling techniques, may significantly
+underestimate the variability of such estimates.
+
+An alternative estimand is the conditional quantile treatment effect
+(CQTE), which happens to be less investigated in the literature
+\citep[e.g.][]{koenker1978regression, fort2016unconditional}. Instead of contrasting the mean
+functions $m_{1}(x)$ and $m_{0}(x)$,
+
+CQTE is defined as the difference between the $\beta$-th quantiles of
+the distributions of $Y(1)$ and $Y(0)$ conditional on $X = x$ for a
+given $\beta$ of interest.
+
+CQTE is to be distinguished from the quantiles of
+$Y(1) - Y(0)$; they are not the same at all!
+
+It turns out that the conditional quantiles of ITE are unidentifiable
+in general since they involve the joint distribution of $(Y(0), Y(1))$
+and that we can never observe joint outcomes. Furthermore, the
+difficulties associated with uncertainty quantification
+persist.
+
+\subsection{Coverage of interval estimates}
+In this work, we take counterfactuals $(Y_{i}(1), Y_{i}(0))$'s and the
+ITE $\tau_{i}$'s as objects of inference, and attempt to construct
+prediction intervals covering these random variables. Taking the
+potential outcome $Y(1)$ as an example, we wish to construct intervals
+$\hat{C}_{1}(x)$, which depend on the location in covariate space, and
+obey
+\begin{equation}
+ \label{eq:coverage}
+ \mathbb{P}(Y(1) \in \hat{C}_{1}(X))\ge 1 - \alpha,
+\end{equation}
+for a pre-specified level $\alpha$.
+
+Similarly, we seek $\hat{C}_{0}(x)$ for $Y(0)$ and $\hat{C}_\text{ITE}(x)$
+for $Y(1) - Y(0)$ obeying marginal coverage in the same sense, i.e.
+\begin{equation}
+ \label{eq:covITE}
+ \mathbb{P}(Y(1) - Y(0) \in \hat{C}_\text{ITE}(X))\ge 1 - \alpha.
+\end{equation}
+
+If we had perfect knowledge of the the quantiles $q_{\beta}(x)$ of
+$Y(1)$ given $X = x$ for each $\beta\in (0, 1)$, then the oracle
+estimate,
+\[
+{C}_{1}(x) = [q_{\alpha / 2}(x), q_{1 - \alpha / 2}(x)],
+\]
+would automatically satisfy %
+ \hyperref[{eq:coverage}]{\textup{\tagform@{\ref*{eq:coverage}}}}%
+. This is arguably the
+best prediction interval one could produce. In addition, coverage
+would hold conditionally on $X = x$. In reality, conditional quantiles may
+be hard to estimate due to the limited effective sample size and
+imperfect model knowledge. In this case, substituting the true
+quantiles in $C_1(x)$ with estimates may fail to yield valid coverage.
+
+A typical objection to the criterion %
+ \hyperref[{eq:coverage}]{\textup{\tagform@{\ref*{eq:coverage}}}}%
+ is that it
+only controls coverage in an average (marginal) sense---just as the
+root mean squared error (RMSE) measures {\em average}
+performance. Admittedly, it does not say much about the validity of
+the predicted range for a patient with {\em this} $x$.
+
+Without modeling assumptions, it is known to be impossible to
+construct non-trivial prediction intervals with {\em guaranteed}
+conditional coverage \citep{barber2019limits}. This does not mean that
+conditional coverage cannot be achieved in any particular application;
+in fact, we make conditional coverage a focus point of this work and
+demonstrate reasonable approximations.
+
+\subsection{General coverage criteria}\label{subsec:general_criterion}
+In classical causal inference, it is often argued that the average
+treatment effect on the treated (ATT), defined as
+$\mathbb{E} [Y(1) - Y(0)\mid T = 1]$, is preferrable to the average
+treatment effect (ATE), defined as $\mathbb{E} [Y(1) - Y(0)]$,
+
+because it is often more plausible to remove treatment from treated units than to assign treatment to control units. Theoretically, the identification of ATT is strictly easier than ATE since the former requires a weaker assumption on the propensity scores \citep[e.g.][]{imbens2015causal}.
+The criterion %
+ \hyperref[{eq:coverage}]{\textup{\tagform@{\ref*{eq:coverage}}}}%
+ can be then modified as
+\begin{equation}
+ \label{eq:coverage_ATT}
+ \mathbb{P}(Y(t) \in \hat{C}_{t}(X) \mid T = 1)\ge 1 - \alpha, \quad (t = 0, 1).
+\end{equation}
+Compared to %
+ \hyperref[{eq:coverage}]{\textup{\tagform@{\ref*{eq:coverage}}}}%
+, %
+ \hyperref[{eq:coverage_ATT}]{\textup{\tagform@{\ref*{eq:coverage_ATT}}}}%
+ substitutes
+the marginal distribution of $X$ with the conditional distribution of
+$X$ given $T = 1$ (recall that we operate under the strong
+ignorability assumption). Similarly we may consider the counterpart of
+the average treatment effect on the controls (ATC) by conditioning on
+$T = 0$. These considerations motivate the following general
+criterion:
+\begin{equation}
+ \label{eq:coverage_general}
+ \mathbb{P}_{(X, Y(t))\sim Q_{X}\times P_{Y(t)\mid X}}(Y(t) \in \hat{C}_{t}(X))\ge 1 - \alpha, \quad (t = 0, 1).
+ \end{equation}
+ For instance, %
+ \hyperref[{eq:coverage_ATT}]{\textup{\tagform@{\ref*{eq:coverage_ATT}}}}%
+ is a special case with
+ $Q_{X} = P_{X\mid T = 1}$. The general formulation
+ %
+ \hyperref[{eq:coverage_general}]{\textup{\tagform@{\ref*{eq:coverage_general}}}}%
+ is useful when the study population
+ differs from the target population. In this case, $Q_{X}$ can be
+ chosen to be the covariate distribution in the target
+ population. Inference on ATE and CATE in this setting has been a
+ subject of much recent research, and is known under the name of
+ generalizability, or transportability, or external validity
+ \citep[e.g.][]{tipton2013improving, pearl2014external}.
+
+\section{From Observables To Counterfactuals}\label{sec:counterfactual}
+
+\subsection{Counterfactuals and covariate shift}\label{subsec:counterfactuals_covariate_shift}
+Counterfactual inference is both the ultimate goal in areas such as
+policy evaluation \citep[e.g.][]{athey2018matrix, ben2018augmented,
+ arkhangelsky2019synthetic} as well as the stepping stone for
+inferring ITE in general. We construct prediction intervals for $Y(1)$
+and $Y(0)$ using the i.i.d.~observations
+$(Y_{i}^{\mathrm{obs}}, T_{i}, X_{i})$, and make no assumption other than the
+strong ignorability assumption. Therefore, only the samples in the
+treatment (resp.~control) group are useful for constructing
+$\hat{C}_{1}(x)$ (resp.~$\hat{C}_{0}(x)$).
+
+Under SUTVA and strong ignorability assumption, the joint distribution of
+$(X, Y^{\mathrm{obs}})$ of the observed treated samples is given by
+\[
+P_{X\mid T = 1} \times P_{Y(1) \mid X}.
+\]
+Once again, we want to achieve %
+ \hyperref[{eq:coverage_general}]{\textup{\tagform@{\ref*{eq:coverage_general}}}}%
+ under the
+target distribution $Q_{X}\times P_{Y(1)\mid X}$ on the basis of an
+i.i.d.~sample drawn from $P_{X\mid T = 1}\times P_{Y(1) \mid X}$.
+These two distributions share the same conditional distribution
+$P_{Y(1)\mid X}$ of the outcome but otherwise differ in the
+distribution of the covariates. Covariate shifts have been widely
+studied in the machine learning literature
+\citep[e.g.][]{shimodaira2000improving}, yet, the heavy focus there is
+on point estimates. For interval estimates, we shall rely on weighted
+conformal inference recently developed by \cite{barber2019conformal}.
+
+\subsection{Weighted conformal inference}
+Conformal inference was introduced by Vladimir Vovk and his
+collaborators \citep[e.g.][]{vovk2005algorithmic,
+ gammerman2007hedging, shafer2008tutorial, vovk2009line,
+ vovk2012conditional, vovk2013transductive,
+ balasubramanian2014conformal, vovk2015cross}. It later gained
+significant attention from the statistics community for regression
+problems \citep[e.g.][]{lei2013distribution, lei2014distribution,
+ lei2018distribution, barber2019limits, barber2019predictive} and
+classification problems \citep[e.g.][]{sadinle2019least,
+ romano2020classification}, spurring further developments. Given
+i.i.d. samples $(X_{i}, Y_{i})_{i=1}^{n}$ drawn from a distribution
+$P_{X}\times P_{Y\mid X}$, conformal inference takes an arbitrary
+prediction model---such as an estimate of the conditional
+quantile---as input and calibrates it to produce a prediction set
+$\hat{C}(x)$ with guaranteed marginal coverage, such that
+\begin{equation}
+ \label{eq:conformal_guarantee}
+ \mathbb{P}_{(X, Y)\sim P_{X}\times P_{Y\mid X}}(Y \in \hat{C}(X))\ge 1 - \alpha.
+\end{equation}
+For instance, with estimates $\hat{q}_{\alpha_{\mathrm{lo}}}(x)$ and
+$\hat{q}_{\alpha_{\mathrm{hi}}}(x)$ of the $\alpha_{\mathrm{lo}}$-th and
+$\alpha_{\mathrm{hi}}$-th conditional quantiles of $Y \mid X = x$, the
+conformal quantile regression (CQR) introduced in
+\cite{romano2019conformalized} as a variant of the standard conformal
+inference, would produce an interval estimate of the form
+\begin{equation}
+ \label{eq:CQR_CX}
+ \hat{C}(x) = [\hat{q}_{\alpha_{\mathrm{lo}}}(x) - \eta,
+ \hat{q}_{\alpha_{\mathrm{hi}}}(x) + \eta];
+\end{equation}
+above, $\eta$ is a data-driven constant computed in a particular
+way. Conditional quantiles can be estimated via quantile regression \citep[e.g.][]{koenker1978regression, koenker1994confidence, koenker2001quantile, yu2001bayesian, koenker2005quantile, meinshausen2006quantile, koenker2017quantile}. In contrast to asymptopia---we refer here to classical
+ asymptotic normality theory or asymptotic empricial process theory
+ which characterizes the accuracy of certain resampling
+ methods---CQR enjoys finite sample coverage guarantees without regard to the
+unknown joint distribution of $X$ and $Y$.
+
+Because our inference problem involves a potential covariate shift
+between the target distribution and the sampling distribution, we need
+to adjust the criterion %
+ \hyperref[{eq:conformal_guarantee}]{\textup{\tagform@{\ref*{eq:conformal_guarantee}}}}%
+ into
+\begin{equation}
+ \label{eq:weighted_conformal_guarantee}
+ \mathbb{P}_{(X, Y)\sim Q_{X}\times P_{Y\mid X}}(Y \in \hat{C}(X))\ge 1 - \alpha.
+\end{equation}
+To address such a situation, \cite{barber2019conformal} introduced a
+weighted variant of conformal inference achieving
+%
+ \hyperref[{eq:weighted_conformal_guarantee}]{\textup{\tagform@{\ref*{eq:weighted_conformal_guarantee}}}}%
+. This holds with the proviso
+that the the likelihood ratio $w(x) = dQ_{X}(x) / dP_{X}(x)$ is known,
+although the algorithm is shown to perform well when it is only
+estimated. When applied to CQR, the weighted interval estimate is
+still of the form %
+ \hyperref[{eq:CQR_CX}]{\textup{\tagform@{\ref*{eq:CQR_CX}}}}%
+, the difference being that the
+algorithm computing $\eta(x)$ incorporates information about the
+likelihood ratio $w(x)$. Algorithm \ref{algo:split-CQR} sketches
+split-CQR, a type of weighted conformal inference we shall use in this
+work.\footnote{\cite{barber2019conformal} introduced weighted
+ conformal inference and applied to conditional mean estimates
+ \citep[e.g.][]{lei2018distribution}. The extension to other conformal
+ inference techniques such as CQR is straightforward.} In passing,
+it is worth mentioning that in this algorithm, $\eta(x)$ remains
+invariant if $w(x)$ is rescaled to become $c \cdot w(x)$ in which $c$
+is an arbitrary positive constant.
+
+\begin{algorithm}[H]
+ \caption{Weighted split-CQR} \label{algo:split-CQR}
+ \textbf{Input: } level $\alpha$, data $\mathcal{Z} = (X_{i}, Y_{i})_{i\in \mathcal{I}}$, testing point $x$, function $\hat{q}_{\beta}(x; \mathcal{D})$ to fit $\beta$-th conditional
+
+ \hspace{1.4cm} quantile and function $\hat{w}(x; \mathcal{D})$ to fit the weight function at $x$ using $\mathcal{D}$ as data
+
+ \textbf{Procedure: }
+ \begin{algorithmic}[1]
+ \State Split $\mathcal{Z}$ into a training fold $\mathcal{Z}_{\mathrm{tr}} \triangleq (X_{i}, Y_{i})_{i\in \mathcal{I}_{\mathrm{tr}}}$ and a calibration fold $\mathcal{Z}_{\mathrm{ca}}\triangleq (X_{i}, Y_{i})_{i\in \mathcal{I}_{\mathrm{ca}}}$
+ \State For each $i \in \mathcal{I}_{\mathrm{ca}}$, compute the score $V_{i} = \max\{\hat{q}_{\alpha_{\mathrm{lo}}}(X_{i}; \mathcal{Z}_{\mathrm{tr}}) - Y_{i}, Y_{i} - \hat{q}_{\alpha_{\mathrm{hi}}}(X_{i}; \mathcal{Z}_{\mathrm{tr}})\}$
+ \State For each $i \in \mathcal{I}_{\mathrm{ca}}$, compute the weight $W_{i} = \hat{w}(X_{i}; \mathcal{Z}_{\mathrm{tr}}) \in [0, \infty)$
+ \State Compute the normalized weights $\hat{p}_{i}(x) = \frac{W_{i}}{\sum_{i\in \mathcal{I}_{\mathrm{ca}}}W_{i} + \hat{w}(x; \mathcal{Z}_{\mathrm{tr}})}$ and $\hat{p}_{\infty}(x) = \frac{\hat{w}(x; \mathcal{Z}_{\mathrm{tr}})}{\sum_{i\in \mathcal{I}_{\mathrm{ca}}}W_{i} + \hat{w}(x; \mathcal{Z}_{\mathrm{tr}})}$
+ \State Compute $\eta(x)$ as the $(1 - \alpha)$-th quantile of the distribution $\sum_{i\in \mathcal{I}_{\mathrm{ca}}}\hat{p}_{i}(x)\delta_{V_{i}} + \hat{p}_{\infty}(x)\delta_{\infty}$
+ \end{algorithmic}
+
+ \textbf{Output: $\hat{C}(x) = [\hat{q}_{\alpha_{\mathrm{lo}}}(x; \mathcal{Z}_{\mathrm{tr}}) - \eta(x), \hat{q}_{\alpha_{\mathrm{hi}}}(x; \mathcal{Z}_{\mathrm{tr}}) + \eta(x)]$}
+\end{algorithm}
+
+Note that in step 4, if $\hat{w}(x; \mathcal{Z}_{\mathrm{tr}}) = \infty$, we
+ set $\hat{p}_{i}(x) = 0\,\, (i\in [n])$ and
+ $\hat{p}_{\infty}(x) = 1$, in which case step 5 gives
+ $\hat{C}(x) = (-\infty, \infty)$. The requirement that
+ $W_i\in [0, \infty)$ is natural because $X_{i}\sim P_{X}$ and
+ $w(X)\in [0, \infty)$ almost surely under $P_{X}$ even if $Q_{X}$ is
+ not absolutely continuous with respect to $P_{X}$. If the
+likelihood ratio $w(x)$ is known, \cite{barber2019conformal} prove
+that the interval $\hat{C}(x)$ from Algorithm \ref{algo:split-CQR}
+achieves %
+ \hyperref[{eq:weighted_conformal_guarantee}]{\textup{\tagform@{\ref*{eq:weighted_conformal_guarantee}}}}%
+.
+Moreover,
+
+we show that the inequality
+%
+ \hyperref[{eq:weighted_conformal_guarantee}]{\textup{\tagform@{\ref*{eq:weighted_conformal_guarantee}}}}%
+ is almost an equality if the
+non-conformity scores have no ties and the covariate shift has a
+bounded moment , and further, %
+ \hyperref[{eq:weighted_conformal_guarantee}]{\textup{\tagform@{\ref*{eq:weighted_conformal_guarantee}}}}%
+ approximately holds if the covariate shift is unknown but estimated well.
+
+\begin{proposition}\label{prop:equal}
+ Consider Algorithm \ref{algo:split-CQR} and assume
+ $(X_{i}, Y_{i})\stackrel{i.i.d.}{\sim} P_{X}\times P_{Y \mid
+ X}$. First, consider the case where $\hat{w}(\cdot) = w(\cdot)$.
+ \begin{enumerate}[(1)]
+ \item %
+ \hyperref[{eq:weighted_conformal_guarantee}]{\textup{\tagform@{\ref*{eq:weighted_conformal_guarantee}}}}%
+ holds without any
+ further assumption.
+ \item Further, if the non-conformity scores
+ $\{V_{i}: i\in \mathcal{I}_{\mathrm{ca}}\}$ have no ties almost surely, $Q_{X}$
+ is absolutely continuous with respect to $P_{X}$, and
+ $(\mathbb{E}[\hat{w}(X)^{r}])^{1/r} \le M_{r} < \infty$, then
+ \[1 - \alpha \le \mathbb{P}_{(X, Y)\sim Q_{X}\times P_{Y \mid X}}(Y \in
+ \hat{C}(X))\le 1 - \alpha + c \, n^{1 / r - 1}.
+ \]
+ Above, $c$ is a positive constant that only depends on $M_{r}$ and $r$.
+\end{enumerate}
+In the general case where $\hat{w}(\cdot) \neq w(\cdot)$, set
+$\Delta_{w} = (1/2)\mathbb{E}_{X\sim P_{X}}|\hat{w}(X) - w(X)|$. Then coverage
+is always lower bounded by $1 - \alpha - \Delta_{w}$, and upper
+bounded by $1 - \alpha + \Delta_{w} + cn^{1/r - 1}$ under the same
+assumptions as in (2).
+ \end{proposition}
+
+The proof is presented in Appendix \ref{app:miscellaneous}. Note that the proposition holds uniformly over all conditional
+ distributions $P_{Y\mid X}$ and all procedures used to fit
+ conditional quantiles. When $\hat{w}(\cdot) = w(\cdot)$, because we express the dependence on $P_{X}$
+ and $Q_{X}$ only through $(\mathbb{E}[w(X)^{r}])^{1/r}$, an immediate consequence
+ is that when the likelihood ratio is bounded, we can take
+ $r = \infty$ and the upper bound matches the rate for unweighted
+ conformal inference. This essentially implies that weighted split-CQR
+ has almost exact coverage when the calibration fold is large.
+
+\subsection{The role of the propensity score}
+Propensity scores were introduced by \cite{rosenbaum1983central} for
+the analysis of observational studies. Given a binary treatment, the
+propensity score $e(x)$ is defined as the probability of getting
+treated given the covariate value, i.e.
+\[e(x) = \mathbb{P}(T = 1\mid X = x).\]
+With the full knowledge of $e(x)$, one can identify ATE/ATT/ATC
+using inverse propensity weighting (IPW)
+\citep{imbens2015causal} without any assumption on potential outcomes
+other than some mild moment conditions. This holds with the proviso
+that certain overlap/positivity conditions hold. Specifically, if the
+overlap condition $0 < e(X) < 1$ holds almost surely, ATE can be
+identified as follows:
+\begin{equation}
+ \label{eq:ATE_IPW}
+ \mathbb{E}[Y(1) - Y(0)] = \mathbb{E} \left[w_{1}(X)Y^{\mathrm{obs}}I(T = 1) - w_{0}(X)Y^{\mathrm{obs}}I(T = 0)\right],
+\end{equation}
+where $w_{1}(x) = 1 / e(x)$ and $w_{0}(x) = 1 / (1 - e(x))$. This
+holds under moment conditions on $1 / e(X) , 1 / (1 - e(X))$, $Y(1)$
+and $Y(0)$. The overlap condition guarantees that $w_{1}(x)$ and
+$w_{0}(x)$ stay finite, and is necessary for identification through
+%
+ \hyperref[{eq:ATE_IPW}]{\textup{\tagform@{\ref*{eq:ATE_IPW}}}}%
+.
+Indeed, if $e(x) = 0$ for a subset of covariate values with non-zero
+probability, there will be no treated unit on that stratum and hence
+the stratum-wise ATE can never be identified without modeling
+assumptions on the potential outcomes. The overlap condition is as
+fundamental as the strong ignorability assumption in observational
+studies. We refer the readers to \cite{d2017overlap} for an extensive
+discussion. Similarly, under the weaker overlap condition $e(X) < 1$
+almost surely, ATT can be identified through %
+ \hyperref[{eq:ATE_IPW}]{\textup{\tagform@{\ref*{eq:ATE_IPW}}}}%
+ with
+$w_{1}(x) = 1 / \mathbb{P}(T = 1)$ and $w_{0}(x) = e(x) / (1 - e(x)) \mathbb{P}(T = 1)$
+\citep{hirano2003efficient}.
+
+The weights in IPW estimators are essentially calibrating the observed
+covariate distribution to the target one. This is similar in spirit to
+weighted conformal inference. For ATE-type conformal
+inference on $Y(1)$, a simple application of Bayes formula implies
+that
+\[w_{1}(x) = \frac{dP_{X}(x)}{dP_{X\mid T = 1}(x)} = \frac{\mathbb{P}(T =
+ 1)}{e(x)}.\]
+Now recall that weighted conformal inference is invariant to rescaling
+of the likelihood ratio $w_{1}(x) \propto 1/e(x)$, so that we can
+simply ignore the numerator, in which case everything reduces to the
+inverse propensity score. Similarly, for inference on $Y(0)$,
+$w_{0}(x)$ can be chosen as $1 / (1 - e(x))$. The concurrence with
+IPW-type estimators is here unsurprising since the reweighting scheme
+is motivated by the covariate shift due to treatment selection in both
+settings.
+
+For ATT-type conformal inference on $Y(1)$, $Q_{X} = P_{X\mid T = 1}$.
+Thus, no weighting is needed and unweighted conformal inference may be
+applied. By contrast, the inference on $Y(0)$ still requires
+reweighting because $Q_X = P_{X\mid T = 1}\not = P_{X\mid T =
+ 0}$. Applying Bayes formula,
+\[w_{0}(x) = \frac{\mathbb{P}(T = 0)}{\mathbb{P}(T = 1)}\frac{e(x)}{1 - e(x)}.\]
+We can therefore choose $w_{0}(x) = e(x) / (1 - e(x))$ per our
+previous discussion. This happens to coincide with the weights used by
+the IPW estimator for ATT.
+
+In general, if $Q_{X}$ is the covariate distribution in another
+population, as in the context of
+generalizability/transportability/external validity, then
+\[
+w_{1}(x) = \frac{dQ_{X}(x)}{dP_{X\mid T = 1}(x)} =
+\frac{dQ_{X}(x)}{dP_{X}(x)}\frac{\mathbb{P}(T = 1)}{e(x)}.
+\]
+In this case, we can choose $w_{1}(x) = (dQ_{X}/dP_{X})(x) / e(x)$ to
+be the inverse propensity tilted likelihood ratio. Similarly
+$w_{0}(x) = (dQ_{X}/dP_{X})(x) / (1 - e(x))$. All these weight
+functions are displayed in Table \ref{tab:weight_func}. In sum,
+weighted conformal inference depends on propensity scores in the same
+way IPW estimation of average causal effects depends on these same
+scores.
+
+\begin{table}
+ \caption{\label{tab:weight_func}Summary of weight functions for different inferential targets}
+
+ \centering
+ \begin{tabular}{c|cccc}
+ \toprule
+ Inferential type & ATE & ATT & ATC & General\\
+ \midrule
+ $w_{1}(x)$ & $1 / e(x)$ & $1$ & $(1 - e(x)) / e(x)$ & $(dQ/dP)(x) / e(x)$\\
+ $w_{0}(x)$ & $1 / (1 - e(x))$ & $e(x) / (1 - e(x))$ & $1$ & $(dQ/dP)(x) / (1 - e(x))$\\
+ \bottomrule
+ \end{tabular}
+\end{table}
+
+\subsection{Conformalized counterfactual inference is exact for randomized trials}
+For randomized trials with perfect compliance, the strong ignorability
+assumption is satisfied by randomization and the propensity score is
+known since it is designed by researchers. In completely randomized
+experiments, $e(\cdot)$ is a constant mapping, in which case weighting
+is not required for either $Y(1)$ or $Y(0)$. For general stratified
+experiments such as blocking experiments, $e(x)$ could vary with some
+of the covariates (e.g. age, gender), and one would apply weighted
+conformal inference by using the weight functions from Table
+\ref{tab:weight_func}. Either way, weighted conformal inference
+achieves coverage in finite samples (Proposition \ref{prop:equal})
+even if our conditional quantile estimates are completely off.
+Moreover, taking $Y(1)$ and the ATE-type coverage as an example,
+$\chi^{r}\divpq{Q_{X}}{P_{X}} \le \mathbb{E} [1 / e(X)^{r}]$. By Proposition
+\ref{prop:equal}, our method has almost exact coverage when the
+calibration fold is large and $\mathbb{E} [1 / e(X)^{2}] < \infty$.
+
+On the other hand, Proposition
+ \ref{prop:equal} guarantees that the coverage is lower bounded by
+ $1 - \alpha$ no matter the status of the overlap condition. Intuitively, this is because the interval $\hat{C}(x) = (-\infty, \infty)$ and hence always covers $Y(1)$ when $e(x) = 0$.
+
+We close this section with a last important bibliographical
+comment. As we were putting the finishing touch on this paper, we
+became aware of the independent work by
+\cite{kivaranovic2020conformal} applying unweighted standard conformal
+inference to construct counterfactual intervals for completely
+randomized experiments. Clearly, our two papers have a similar
+aim. That said, and as mentioned in their Section 2.1, the approach in
+\cite{kivaranovic2020conformal} cannot handle stratified experiments
+even if the propensity score is known. Hence, the scopes of the two
+papers are very different.
+
+\subsection{Conformalized counterfactual inference is doubly robust}\label{subsec:double_robustness}
+
+For observational studies or randomized trials with imperfect
+compliance, the propensity score is unknown and needs to be
+estimated. Let $\hat{e}(x)$ denote the estimate of $e(x)$. In this
+subsection, we will see that the coverage of weighted split-CQR is
+approximately guaranteed if either $\hat{e}(x)\approx e(x)$ or
+$\hat{q}_{\beta}(x)\approx q_{\beta}(x)$ with
+$\beta \in \{\alpha_{\mathrm{lo}}, \alpha_{\mathrm{hi}}\}$. Before stating a rigorous
+result of this fact, we first provide an intuitive justification. On
+the one hand, if $\hat{e}(x)\approx e(x)$, our method approximates the
+oracle version of weighted split-CQR with the true weights and the
+intervals should, therefore, approximately achieve the desired
+coverage even if $\hat{q}_{\beta}(x)$ drastically deviates from the
+true conditional quantiles. On the other hand, if
+$\hat{q}_{\beta}(x) \approx q_{\beta}(x)$, where $q_{\beta}(x)$ is the
+$\beta$-th quantile of $Y(1)$ (or $Y(0)$) given $X = x$, then
+\[
+V_{i}\approx \max\{q_{\alpha_{\mathrm{lo}}}(X_{i}) - Y_{i}(1), Y_{i}(1) -
+q_{\alpha_{\mathrm{hi}}}(X_{i})\}.
+\]
+
+As a result,
+\[
+\mathbb{P}(V_{i}\le 0\mid X_{i}) \approx \mathbb{P}(Y_{i}(1) \in
+[q_{\alpha_{\mathrm{lo}}}(X_{i}), q_{\alpha_{\mathrm{hi}}}(X_{i})]\mid X_{i}) =
+\alpha_{\mathrm{hi}} - \alpha_{\mathrm{lo}}.
+\]
+If $\alpha_{\mathrm{hi}} - \alpha_{\mathrm{lo}} = 1 - \alpha$, then $0$ is
+approximately the $(1 - \alpha)$-th quantile of the $V_{i}$'s. In
+Algorithm \ref{algo:split-CQR} we have that $\eta(x)$ is the
+$(1 - \alpha)$-th quantile of the random distribution
+$\sum_{i\in \mathcal{I}_{\mathrm{ca}}}\hat{p}_{i}(x)\delta_{V_{i}} +
+\hat{p}_{\infty}(x)\delta_{\infty}$.
+Denote by $G$ the cumulative distribution function (cdf) of this
+random distribution. Then
+\[G(0) \approx \mathbb{E} [G(0) \mid (X_i)_{i\in \mathcal{I}_{\mathrm{ca}}}] =
+\sum_{i\in \mathcal{I}_{\mathrm{ca}}}\hat{p}_{i}(x)\mathbb{P}(V_{i}\le 0 \mid X_{i}) \approx
+\sum_{i\in \mathcal{I}_{\mathrm{ca}}}\hat{p}_{i}(x)(1 - \alpha) \approx 1 - \alpha.\]
+
+This says that $0$ is just about the $(1 - \alpha)$-th quantile of
+$G$. This implies that $\eta(x) \approx 0$ and thus
+$\hat{C}(x) \approx [q_{\alpha_{\mathrm{lo}}}(x), q_{\alpha_{\mathrm{hi}}}(x)]$. By
+definition, the coverage in this case is approximately
+$\alpha_{\mathrm{hi}} - \alpha_{\mathrm{lo}} = 1 - \alpha$.
+
+The following theorem, whose proof is in Appendix
+\ref{app:miscellaneous}, formalizes the above heuristics.
+\begin{theorem}\label{thm:double_robustness_ATE}
+ Let $N = |\mathcal{Z}_{\mathrm{tr}}|$ and $n = |\mathcal{Z}_{\mathrm{ca}}|$. Further, let
+ $\hat{q}_{\beta, N}(x) = \hat{q}_{\beta, N}(x; \mathcal{Z}_{\mathrm{tr}})$ be an
+ estimate of the $\beta$-th conditional quantile $q_{\beta}(x)$ of
+ $Y(1)$ given $X = x$, $\hat{e}_{N}(x) = \hat{e}_{N}(x; \mathcal{Z}_{\mathrm{tr}})$ be
+ an estimate of $e(x)$, and $\hat{C}_{N, n}(x)$ be the resulting
+ interval from Algorithm \ref{algo:split-CQR}. Assume that
+ $\mathbb{E}[1 / \hat{e}_{N}(X)\mid \mathcal{Z}_{\mathrm{tr}}] < \infty$ and
+ $\mathbb{E}[1 / e(X)] < \infty$. Assume that one of the following holds:
+ \begin{enumerate}[\textbf{A}1]
+ \item $\displaystyle \lim_{N\rightarrow \infty}\mathbb{E}\bigg|\frac{1}{\hat{e}_{N}(X)} - \frac{1}{e(X)}\bigg| = 0$;
+ \item
+ \begin{enumerate}[(1)]
+ \item $\alpha_{\mathrm{hi}} - \alpha_{\mathrm{lo}} = 1 - \alpha$,
+ \item there exists $r, b_{1}, b_{2} > 0$ such that
+ $\mathbb{P}(Y(1) = y \mid X = x) \in [b_{1}, b_{2}]$ uniformly over all
+ $(x, y)$ with
+ $y\in [q_{\alpha_{\mathrm{lo}}}(x) - r, q_{\alpha_{\mathrm{lo}}}(x) + r]\cup
+ [q_{\alpha_{\mathrm{hi}}}(x) - r, q_{\alpha_{\mathrm{hi}}}(x) + r]$,
+ \item there exists $\delta > 0$ such that
+ \[\limsup_{N\rightarrow \infty}\mathbb{E}\left[\frac{1}{\hat{e}_{N}(X)^{1 + \delta}}\right] < \infty, \quad \lim_{N\rightarrow \infty}\mathbb{E}\left[\frac{H_{N}(X)}{\hat{e}_{N}(X)}\right] = \lim_{N\rightarrow \infty}\mathbb{E}\left[\frac{H_{N}(X)}{e(X)}\right] = 0,\]
+ where
+ \[\displaystyle H_{N}(x) = \max\{|\hat{q}_{\alpha_{\mathrm{lo}}, N}(x) - q_{\alpha_{\mathrm{lo}}}(x)|, |\hat{q}_{\alpha_{\mathrm{hi}}, N}(x) - q_{\alpha_{\mathrm{hi}}}(x)|\}.\]
+ \end{enumerate}
+ \end{enumerate}
+ Then under SUTVA and the strong ignorability assumption,
+ \begin{equation}
+ \label{eq:unconditional_coverage}
+ \lim_{N, n\rightarrow\infty}\mathbb{P}_{(X, Y(1))\sim P_{X}\times P_{Y(1)\mid X}}(Y(1) \in \hat{C}_{N, n}(X))\ge 1 - \alpha.
+ \end{equation}
+ Furthermore, if \textbf{A}2 holds, then for any $\epsilon > 0$,
+ \begin{equation}
+ \label{eq:conditional_coverage}
+ \lim_{N, n\rightarrow\infty}\mathbb{P}_{X\sim P_{X}}\left( \mathbb{P}(Y(1)\in \hat{C}_{N, n}(X)\mid X)\le 1 - \alpha - \epsilon\right) = 0.
+ \end{equation}
+\end{theorem}
+Theorem \ref{thm:double_robustness_ATE} is a special case of Corollary
+\ref{cor:double_robustness} in Appendix \ref{app:proofs} on the double
+robustness of general weighted split-CQR. The refined
+ theorems in Appendix \ref{app:proofs} also provide the rate of
+ convergence with which coverage is achieved. We choose here to
+ present a simpler version to avoid mathematical
+ complications. Observe that it is a simple exercise to extend
+Theorem \ref{thm:double_robustness_ATE} to other types of coverage and
+to $Y(0)$ by consulting Table \ref{tab:weight_func}.
+
+Property %
+ \hyperref[{eq:unconditional_coverage}]{\textup{\tagform@{\ref*{eq:unconditional_coverage}}}}%
+ is analogous to the
+doubly robust point estimation of ATE
+\citep[e.g.][]{robins1994estimation, kang2007demystifying}, which
+yields consistent estimators if either the propensity score or the
+conditional mean of potential outcomes are consistent. Nonetheless, we
+emphasize that our double robustness is not the same since consistency
+of point estimates and coverage of interval estimates are different
+concepts.
+
+Property %
+ \hyperref[{eq:conditional_coverage}]{\textup{\tagform@{\ref*{eq:conditional_coverage}}}}%
+ implies that weighted
+split-CQR has approximately guaranteed conditional coverage if the
+conditional quantiles are estimated accurately. This is of course
+sufficient but not necessary. In practice, we may work with less
+accurate estimates and shall nevertheless empirically demonstrate the
+robustness of weighted split-CQR in terms of conditional coverage.
+
+\subsection{Numerical experiments}\label{subsec:simul}
+
+In this subsection we demonstrate the performance of our methods via
+simulation studies. In particular, we consider a variant of the
+example in \cite{wager2018estimation}:
+\begin{itemize}
+\item The covariate vector $X = (X_{1}, \ldots, X_{d})^{T}$ is such
+ that $X_{j} = \Phi(X_{j}')$, where $\Phi$ denotes the cdf of the
+ standard normal distribution and $(X_{1}', \ldots, X_{d}')$ is an
+ equicorrelated multivariate Gaussian vector with mean zero and
+ $\mathrm{Var}(X'_j) = 1$, $\operatorname{Cov}(X'_j, X'_{j'}) = \rho$ for $j \neq j'$.
+
+ When $\rho = 0$, $X$ is uniformly distributed on the unit
+ cube. When $\rho > 0$, the variables are positively correlated.
+\item The baseline potential outcome is such that $Y(0)\equiv 0$. This
+ simplifies the problem into a pure counterfactual inference problem.
+ \item The potential outcome $Y(1)$ is generated as follows:
+ \[\mathbb{E}[Y(1) \mid X] = f(X_{1})f(X_{2}),\quad f(x) = \frac{2}{1 + \exp\{-12(x - 0.5)\}},\]
+ which is the same as in \cite{wager2018estimation}, and
+ \[Y(1) = \mathbb{E}[Y(1) \mid X] + \sigma(X)\epsilon, \quad \epsilon \sim N(0,
+ 1);\]
+ the homoscedastic case $\sigma^{2}(x)\equiv \sigma^{2}$ is
+ considered in \cite{wager2018estimation};
+ \item The propensity score $e(x)$ is set as:
+ \[e(x) = \frac{1}{4}\left\{ 1 + \beta_{2, 4}(x_{1})\right\},\]
+ where $\beta_{2, 4}$ is the cdf of the beta
+ distribution with shape parameters $(2, 4)$. This ensures that
+ $e(x)\in [0.25, 0.5]$, thereby providing sufficient overlap.
+ \end{itemize}
+ In our experiments, we will consider $8 = 2\times 2 \times 2$
+ scenarios: low ($d = 10$) and high ($d = 100$) dimensions,
+ uncorrelated ($\rho = 0$) and correlated ($\rho = 0.9$) covariates,
+ and homoscedastic ($\sigma^{2}(x) \equiv 1$) and heteroscedastic
+ $(\sigma^{2}(x) = -\log x_{1})$ errors.
+
+ We present comparisons with three competing methods offering
+ qualitatively different approaches to uncertainty quantification as
+ well as well-written \texttt{R} packages:
+ \begin{itemize}
+ \item Causal Forest \citep{wager2018estimation} uses the
+ infinitesimal jackknife \citep{efron2014estimation,
+ wager2014confidence} to estimate the variance of CATE
+ estimators. The authors established asymptotically valid coverage
+ of CATE under regularity assumptions. This work does not
+ discuss ITE. The method is implemented in the \texttt{grf} package
+ \citep{grf}.
+ \item X-learner \citep{kunzel2019metalearners} uses the bootstrap to
+ estimate the variance of CATE estimators. As with Causal Forest,
+ the authors did not develop tools to cover ITE. The method is
+ implemented in the \texttt{causalToolbox} package
+ \citep{xlearner}.
+ \item Bayesian Additive Regression Trees (BART) were initially
+ developed as a flexible general-purpose Bayesian machine learning
+ algorithm \citep{chipman2010bart}. They were later applied to
+ causal inference \citep[e.g.][]{hill2011bayesian,
+ green2012modeling, hahn2020bayesian} and found to outperform
+ other methods both in terms of accuracy and coverage
+ \citep{dorie2017aciccomp2016, dorie2019automated}. The method
+ constructs Bayesian credible intervals to cover CATE. By
+ replacing credible intervals with prediction intervals, the method
+ can be adapted to cover ITE. We use the functions
+ \texttt{calc\_credible\_intervals} and
+ \texttt{calc\_prediction\_intervals} from the \texttt{bartMachine}
+ package \citep{bartMachine} to compute both intervals.
+ \end{itemize}
+ For weighted split-CQR, we estimate the propensity score via the
+ gradient boosting algorithm \citep{friedman2001greedy} by using the
+ \texttt{gbm} package \citep{gbm}. We further estimate the
+ conditional quantiles in three different ways: (1) via quantile
+ random forest \citep{athey2019generalized} by using the \texttt{grf}
+ package \citep{grf}, (2) via quantile gradient boosting by using the
+ \texttt{gbm} package \citep{gbm}, and (3) via the prediction
+ posterior quantiles from BART by using the \texttt{bartMachine}
+ package \citep{bartMachine}. For all conditional quantile
+ estimators, we set
+ $\alpha_{\mathrm{lo}} = \alpha / 2, \alpha_{\mathrm{hi}} = 1 - \alpha / 2$. Lastly,
+ we use $75\%$ data as the training fold, as suggested by
+ \cite{sesia2019comparison}. Our method is implemented in \texttt{R}
+ \texttt{cfcausal} package, available at
+ \url{https://github.com/lihualei71/cfcausal}. Code to replicate all
+ the results from the paper is available at
+ \url{https://github.com/lihualei71/cfcausalPaper}.
+
+\newcommand{n_{\text{test}}}{n_{\text{test}}}
+
+\begin{table}
+ \caption{\label{tab:coverage}Summary of coverage guarantees in theory (left) and in our simulation study (right). }
+ \centering
+ \begin{tabular}{rllll}
+ \toprule
+ & CF & X-learner & BART & CQR\\
+ \midrule
+ CATE & \ding{51} & \ding{51} & \ding{51} & \ding{55}\\
+ ITE & \ding{55} & \ding{55} & \ding{51} & \ding{51}\\
+ \bottomrule
+ \end{tabular}
+
+ \hspace{1cm}
+ \begin{tabular}{rllll}
+ \toprule
+ & CF & X-learner & BART & CQR\\
+ \midrule
+ CATE & \ding{55} & \ding{55} & \ding{55} & \ding{51}\\
+ ITE & \ding{55} & \ding{55} & \ding{55} & \ding{51}\\
+ \bottomrule
+ \end{tabular}
+
+\end{table}
+
+ Each time, we generate $100$ independent datasets with sample size
+ $n = 1000$. In each run, we also generate $n_{\text{test}} = 10000$ extra
+ independent data points, and construct 95\% confidence or prediction intervals for
+ each of them via the aforementioned methods. We then estimate
+ the empirical marginal coverage of CATE and ITE as
+ $(1/n_{\text{test}})\sum_{i=1}^{n_{\text{test}}}I(\tau(X_{i})\in \hat{C}_\text{ITE}(X_{i}))$ and
+ $(1/n_{\text{test}})\sum_{i=1}^{n_{\text{test}}}I(Y_{i}(1) - Y_{i}(0)\in
+ \hat{C}_\text{ITE}(X_{i}))$,
+ respectively, where $\hat{C}_\text{ITE}(X_{i}) = \hat{C}_{1}(X_{i})$ in this case. Note that our metric is not asking for coverage
+ at every point $x$. Instead, it demands coverage in an average
+ sense. Therefore, a reliable method should, at the very least,
+ have coverage close to or above $0.95$. To be sure, a method with
+ invalid marginal coverage certainly cannot have valid conditional
+ coverage. As summarized in Table \ref{tab:coverage} (left), note,
+ and this is important, that Causal Forest and X-learner are only
+ guaranteed to cover CATE, whereas weighted split-CQR is only
+ guaranteed to cover ITE. Lastly, BART has guarantees to cover both
+ CATE and ITE by employing two types of intervals.
+
+Figure \ref{fig:simul1_coverage_tau} presents CATE coverage results
+for this simple example; recall that the model smoothly depends only
+upon two variables out of ten or a hundred. Causal Forest and
+X-learner have poor coverage in all scenarios. Their performance
+degrades even further in the higher dimensional setting $d =
+100$.
+Clearly, we must be far from the asymptotic setting considered in the
+literature. BART has better coverage than Causal Forest and
+X-learner. In the first three columns, we can see that the BART
+credible intervals cover CATE. In the last column where the covariates
+are correlated and the errors are heteroscedastic, BART has poor
+coverage, especially in high dimensions. Although our method is not
+guaranteed to cover CATE, we see that it achieves coverage in all
+scenarios, although it may be conservative. Intuitively, this happens
+because weighted split-CQR is designed to cover ITE and that in
+reasonable models, prediction intervals are wider and often include
+confidence intervals for the mean. In sum, CQR is the only method
+achieving valid coverage in all scenarios (contrast this with the
+theoretical predictions from Table \ref{tab:coverage} (left)).
+
+ \begin{figure}[H]
+ \centering
+ \includegraphics[width = 0.7\textwidth]{simul_synthetic_coverage_tau_paper.pdf}
+ \caption{Empirical 95\% coverage of CATE. Each panel corresponds to
+ one of the eight scenarios. ``Homosc.'' and ``Heterosc.'' are short for
+ ``homoscedastic'' and ``heteroscedastic errors''; ``Ind.'' and
+ ``Corr.'' are short for ``independent'' and ``correlated
+ covariates''. }
+\label{fig:simul1_coverage_tau}
+\end{figure}
+
+ \begin{figure}[H]
+ \centering
+ \includegraphics[width = 0.7\textwidth]{simul_synthetic_coverage_paper.pdf}
+ \caption{Empirical 95\% coverage of ITE. Everything else is as in
+ Figure \ref{fig:simul1_coverage_tau}.}
+\label{fig:simul1_coverage}
+\end{figure}
+
+Figure \ref{fig:simul1_coverage} presents ITE coverage, which is
+ the real subject of this paper. Causal Forest and X-learner should not be regarded as competing methods since they are not
+designed to cover ITE and it is therefore unsurprising that each
+method has low coverage. We include the results here just to highlight the potential danger of misinterpreting the confidence intervals for CATE as ITE prediction intervals. The prediction intervals of BART have
+perfect coverage with homoscedastic errors in both low and high
+dimensions. However, in heteroscedastic cases, BART has unsatisfactory
+coverage especially when the covariates are correlated. Finally, our
+method achieves almost exact coverage regardless of the learning
+procedures, regardless of whether the variables are correlated or not,
+the `noise' is homoscedastic or not, and the dimension is low or high.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width = 0.7\textwidth]{simul_synthetic_len_paper.pdf}
+ \caption{Lengths of interval estimates for ITE. The blue vertical line corresponds to the average length of oracle intervals. Everything else is as in
+ Figure \ref{fig:simul1_coverage_tau}. }
+\label{fig:simul1_len}
+\end{figure}
+
+Next, we present interval lengths in Figure
+\ref{fig:simul1_len}. Causal Forest and X-learner have short intervals
+and we have seen that this is because they are poorly calibrated. In
+homoscedastic settings where BART has valid coverage, BART also has
+the shortest intervals.
+
+Notably, weighted split-CQR, with BART as
+the learner of conditional quantiles, produces intervals that are
+almost as narrow as those produced with BART. As explained in Section
+\ref{subsec:double_robustness}, the correction $\eta(x) \approx 0$ since
+BART fits the quantiles very well. As a result,
+$\hat{C}(x) \approx [\hat{q}_{\alpha_{\mathrm{lo}}}(x),
+\hat{q}_{\alpha_{\mathrm{hi}}}(x)]$.
+We would like to observe that a major source of power loss is the data
+splitting step since weighted split-CQR only uses 75\% data to train
+BART.
+
+In heteroscedastic settings, BART has shorter intervals
+because it has poor coverage as shown in Figure
+\ref{fig:simul1_coverage}. We also see that weighted split-CQR has
+much larger variability in interval lengths when using BART as the
+learner. This is due to the fact that BART fails to estimate the
+conditional quantiles well and thus yields a noisy conformity
+correction $\eta(x)$.
+
+To evaluate the tightness of these intervals, we compute the average
+length of oracle intervals formed by the true $0.025$-th and
+$0.975$-th conditional quantiles. In this case, the errors are
+normally distributed and thus the expected length is
+$(2 \times 1.96)\mathbb{E} [\sigma(X)]$. This is equal to $3.92$ in both cases
+because $\int_{0}^{1}1dz = \int_{0}^{1}(-\log z)dz = 1$. In all
+cases, we observe that the interval lengths of weighted split-CQR with
+gradient boosting and random forest are reasonably short. In
+homoscedastic cases, weighted split-CQR with BART almost achieves the
+oracle length, despite having an expected sample size for inferring
+$Y(1)$ equal to $n \mathbb{E}[e(X)] = (5/12)n \approx 417$.
+
+Finally, we turn to investigating the conditional coverage of all
+these methods.
+
+Recall that in the heteroscedastic setting,
+$\sigma^{2}(x) \rightarrow \infty$ as $x_{1}\rightarrow 0$.
+Therefore, we expect the conditional coverage for instances with
+larger values of $x_{1}$ to be lower. Figure
+\ref{fig:synthetic_cond_tau} displays the estimated conditional
+coverage of ITE as a function of the percentiles of $\sigma^{2}(x)$
+when $d = 10$. Specifically, we stratify $\sigma^{2}(X_{i})$'s on the
+$10000$ testing points into $10$ folds based on their
+$10\%, 20\%, \ldots, 90\%$ percentiles and estimate the coverage
+within each interval. It is clear that Causal Forest, X-learner and
+BART all have decreasing conditional coverage as $\sigma^{2}(x)$
+increases. Although BART has much better marginal coverage than the
+other two methods, the poor conditional coverage near the right end
+point is worrisome. In contrast, weighted split-CQR with quantile
+random forest or quantile gradient boosting maintains conditional
+coverage. While the weighted split-CQR with BART does not perform as
+well as the other two variants, it improves upon BART implying that
+the calibration is also helpful in securing conditional coverage. In
+Appendix \ref{app:expr}, we show the same plots for $d = 100$ as well
+as plots of conditional coverage stratified by the CATE function
+$\tau(\cdot)$. They all exhibit similar patterns as shown in Figure
+\ref{fig:synthetic_cond_tau}.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width = 0.9\textwidth]{simul_synthetic_cond_d10_std_paper.pdf}
+ \caption{Estimated conditional coverage of ITE as a function of the
+ conditional variance. Here, the dimension $d = 10$ and the
+ coverage is set to 95\%. The blue curves correspond to the median
+ and the blue confidence bands are the $5\%$ and $95\%$ quantiles
+ of these estimates across $100$
+ replicates.}\label{fig:synthetic_cond_tau}
+\end{figure}
+
+To clear any misinterpretation, we emphasize that our
+ comparisons are based on interval estimates of ITE and CATE, and
+ thus do not carry over to point estimates of CATE, which are of
+ common interest in the literature. In general, the accuracy of a
+ point estimate does not inform coverage of an interval
+ estimate. Also, an interval estimate does not have to be derived
+ from a point estimate and a weighted split-CQR conformal interval is
+ an example.
+
+\section{From Counterfactuals To Treatment Effects}\label{sec:effect}
+
+We finally turn our attention to intervals for ITE for subjects not in
+the study, and for which both potential oucomes are missing.
+
+\subsection{A naive approach}\label{subsec:naive}
+
+Consider an arbitrary testing point $x$. Having constructed tools for
+counterfactual inference producing interval estimates of a given
+potential outcome, we can construct a pair of prediction intervals at
+level $1-\alpha/2$, namely, $[\hat{Y}^{L}(1; x), \hat{Y}^{R}(1; x)]$
+for $Y(1)$ and $[\hat{Y}^{L}(0; x), \hat{Y}^{R}(0; x)]$ for $Y(0)$. By
+contrasting these two intervals, we can obtain an interval for ITE as
+follows:
+\[\hat{C}_\text{ITE}(x) = [\hat{Y}^{L}(1; x) - \hat{Y}^{R}(0; x), \hat{Y}^{R}(1; x) - \hat{Y}^{L}(0; x)].\]
+If the counterfactual intervals have guaranteed coverage, then
+$\hat{C}_\text{ITE}(x)$ also covers ITE at the level $1-\alpha$ in the sense of
+%
+ \hyperref[{eq:covITE}]{\textup{\tagform@{\ref*{eq:covITE}}}}%
+.
+
+This means that we can use
+counterfactual intervals produced by weighted split-CQR or by BART
+whenever they are suitable.
+
+\subsection{A nested approach}\label{subsec:nest}
+
+In this subsection,
+we propose another strategy which we refer to as the nested approach. The nested procedure
+starts by splitting the data into two folds. On the first fold we
+train $\hat{C}_{1}(x)$ and $\hat{C}_{0}(x)$ by applying counterfactual
+inference. On the second fold, for each unit $i$, we compute
+$\hat{C}_{0}(X_{i})$ if $T_{i} = 1$ and compute $\hat{C}_{1}(X_{i})$
+if $T_{i} = 0$. This induces an interval $\hat{C}_\text{ITE}(x; t, y^{\mathrm{obs}})$ for
+ITE defined as
+\[
+\hat{C}_\text{ITE}(x; t, y^{\mathrm{obs}}) =
+ \begin{cases}
+ y^{\mathrm{obs}} - \hat{C}_{0}(x), & t = 1,\\
+ \hat{C}_{1}(x) - y^{\mathrm{obs}}, & t = 0.
+ \end{cases}
+ \]
+ Put $\hat{C}_{i} = \hat{C}_\text{ITE}(X_{i}; T_{i}, Y_{i}^{\mathrm{obs}})$ as in Table
+ \ref{tab:twofolds}, which illustrates the procedure. For any unit $i$
+ in the second fold,
+\[
+ \mathbb{P}(Y_{i}(1) - Y_{i}(0)\in \hat{C}_{i})
+ = \mathbb{P}(T_{i} = 1)\mathbb{P}(Y_{i}(0)\in \hat{C}_{0}(X_{i}) \mid T_{i} = 1) + \mathbb{P}(T_{i} = 0)\mathbb{P}(Y_{i}(1)\in \hat{C}_{1}(X_{i}) \mid T_{i} = 0).
+\]
+This gives that if
+\begin{equation}
+ \label{eq:condition}
+ \mathbb{P}(Y_{i}(0)\in \hat{C}_{0}(X_{i}) \mid T_{i} = 1) \ge 1 - \alpha, \quad \mathbb{P}(Y_{i}(1)\in \hat{C}_{1}(X_{i}) \mid T_{i} = 0)\ge 1 - \alpha,
+\end{equation}
+then
+\begin{equation}
+ \label{eq:fold2_cond}
+ \mathbb{P}(Y_{i}(1) - Y_{i}(0)\in \hat{C}_{i})\ge 1 - \alpha.
+\end{equation}
+
+\begin{table}
+ \caption{\label{tab:twofolds} Sketch of the two folds in the nested approach: the
+ first fold (left) is used to construct counterfactual intervals;
+ the second fold (right) is used to infer ITE.}
+
+ \scriptsize
+ \begin{tabular}{ccc}
+ \toprule
+ $Y_{i}(1)$ & $Y_{i}(0)$ & $Y_{i}^{\mathrm{obs}}$\\
+ \midrule
+ \multicolumn{3}{l}{Treatment Group (fold 1)}\\
+ \ding{51} & \ding{55} & $Y_{i}(1)$\\
+ \midrule
+ \multicolumn{3}{l}{Control Group (fold 1)}\\
+ \ding{55} & \ding{51} & $Y_{i}(0)$\\
+ \bottomrule
+ \end{tabular}
+ \hspace{0.5cm}
+ \scriptsize
+ \begin{tabular}{ccc}
+ \toprule
+ $\hat{Y}_{i}(1)$ & $\hat{Y}_{i}(0)$ & $\hat{C}_{i}$ \\
+ \midrule
+ \multicolumn{3}{l}{Treatment Group (fold 2)}\\
+ $Y_{i}(1)$ & $[\hat{Y}^{L}_{i}(0), \hat{Y}^{R}_{i}(0)]$ & $[Y_{i}(1) - \hat{Y}^{R}_{i}(0), Y_{i}(1) - \hat{Y}^{L}_{i}(0)]$\\
+ \midrule
+ \multicolumn{3}{l}{Control Group (fold 2)}\\
+ $[\hat{Y}^{L}_{i}(1), \hat{Y}^{R}_{i}(1)]$ & $Y_{i}(0)$ & $[\hat{Y}^{L}_{i}(1) - Y_{i}(0), \hat{Y}^{R}_{i}(1) - Y_{i}(0)]$\\
+ \bottomrule
+ \end{tabular}
+\end{table}
+
+For randomized experiments with known propensity score $e(x)$,
+%
+ \hyperref[{eq:condition}]{\textup{\tagform@{\ref*{eq:condition}}}}%
+ is satisfied if we use
+$w_{0}(x) = e(x) / (1 - e(x))$ for $\hat{C}_{0}(x)$ and use
+$w_{1}(x) = (1 - e(x)) / e(x)$ for $\hat{C}_{1}(x)$. Please note that
+we do not need to split $\alpha$ for $\hat{C}_{0}(x)$ and
+$\hat{C}_{1}(x)$. For observational studies, we can substitute $e(x)$
+with $\hat{e}(x)$. By Theorem \ref{thm:double_robustness_ATE},
+%
+ \hyperref[{eq:condition}]{\textup{\tagform@{\ref*{eq:condition}}}}%
+ holds approximately if either the propensity
+scores or the conditional quantiles are estimated well.
+
+The nested procedure creates an i.i.d.~dataset $(X_{i}, \hat{C}_{i})$,
+conditional on the first fold, such that
+$\hat{C}_{i} = \hat{C}_\text{ITE}(X_{i}; T_{i}, Y_{i}^{\mathrm{obs}})$ covers the ITE
+with probability at least $1 - \alpha$. Therefore, the intervals
+$\hat{C}_{i}$ serve as ``surrogate intervals'' for ITE. If we can fit
+a model of $\hat{C}_{i}$ on $X_{i}$, denoted by $\tilde{C}_\text{ITE}(x)$, then the
+intervals can be generalized to subjects with both potential outcomes
+missing. If $\tilde{C}_\text{ITE}(X_{i})$ does not shrink $\hat{C}_{i}$ drastically,
+it is likely that $\mathbb{P}(Y(1) - Y(0)\in \tilde{C}_\text{ITE}(X_{i}))$ shall be close to
+or above $1 - \alpha$.
+
+It may be useful to think of the nested method as follows:
+ instead of estimating the unobserved uncertainty, the nested method
+ is fitting an observed ``uncertainty measurement''
+ $\hat{C}_{i}$. This is arguably simpler.
+
+\subsection{An inexact and an exact method under the nested framework}
+The function $\tilde{C}_\text{ITE}(x)$ can be obtained by training a model of the
+left- and right-end point of $\hat{C}_{i}$ on $X_{i}$ separately using
+generic machine learning methods. For instance, we can fit the 40\% quantile of the left-end point and 60\% quantile of the right-end point. Note that $\tilde{C}_\text{ITE}$ does not have the
+same theoretical guarantee as those offered by conformalized
+counterfactual inference since the fit may not be controlled. For this
+reason, we refer to it as an ``inexact method''. Nonetheless, as will
+be shown later, the inexact method achieves, in our empirical
+examples, the target coverage with drastically shorter intervals than
+the naive approach.
+
+In extremely sensitive settings where the validity of predictions is
+of serious concern, we may still need a method with a theoretical
+guarantee of coverage. Here, we propose a secondary conformal
+inference procedure on the induced dataset $(X_{i}, \hat{C}_{i})$.
+Given a generic observation $(X, T, Y^{\mathrm{obs}})$, let
+$C = \hat{C}_\text{ITE}(X, T, Y^{\mathrm{obs}})$ denote the induced interval. The second
+procedure---the ``exact method''---is based on the simple observation
+that if one can find an interval expansion function $\hat{\mathcal{C}}(\cdot)$
+that maps a covariate value to an interval such that
+\begin{equation}
+ \label{eq:interval_conformal_goal}
+ \mathbb{P}(C\subset \hat{\mathcal{C}}_\text{ITE}(X))\ge 1 - \gamma,
+\end{equation}
+then by %
+ \hyperref[{eq:fold2_cond}]{\textup{\tagform@{\ref*{eq:fold2_cond}}}}%
+,
+\[\mathbb{P}(Y(1) - Y(0) \not\in \hat{\mathcal{C}}_\text{ITE}(X))\le \mathbb{P}(Y(1) - Y(0) \not\in C) + \mathbb{P}(C\not\subset \hat{\mathcal{C}}_\text{ITE}(X))\le \alpha + \gamma.\]
+
+\begin{algorithm}[H]
+ \caption{(Unweighted) conformal inference for interval outcomes} \label{algo:int}
+ \textbf{Input: } level $\gamma$, data $\mathcal{Z} = (X_{i}, C_{i})_{i\in \mathcal{I}}$ where $C_{i} = [C_{i}^{L}, C_{i}^{R}]$, testing point $x$,
+
+ \hspace{1.3cm} functions $\hat{m}^{L}(x; \mathcal{D}), \hat{m}^{R}(x; \mathcal{D})$ to fit the conditional mean/median of $C^{L}, C^{R}$
+
+ \textbf{Procedure: }
+ \begin{algorithmic}[1]
+ \State Split $\mathcal{Z}$ into a training fold $\mathcal{Z}_{\mathrm{tr}} \triangleq (X_{i}, C_{i})_{i\in \mathcal{I}_{\mathrm{tr}}}$ and a calibration fold $\mathcal{Z}_{\mathrm{ca}}\triangleq (X_{i}, C_{i})_{i\in \mathcal{I}_{\mathrm{ca}}}$
+ \State For each $i \in \mathcal{I}_{\mathrm{ca}}$, compute score $V_{i} = \max\{\hat{m}^{L}(X_{i}; \mathcal{Z}_{\mathrm{tr}}) - C_{i}^{L}, C_{i}^{R} - \hat{m}^{R}(X_{i}; \mathcal{Z}_{\mathrm{tr}})\}$
+ \State Compute $\eta$ as the $(1 - \gamma)(1 + 1 / |\mathcal{Z}_{\mathrm{ca}}|)$ quantile of the empirical distribution of $\{V_{i}: i\in \mathcal{I}_{\mathrm{ca}}\}$
+ \end{algorithmic}
+
+ \textbf{Output: $\hat{\mathcal{C}}(x) = [\hat{m}^{L}(x; \mathcal{Z}_{\mathrm{tr}}) - \eta, \hat{m}^{R}(x; \mathcal{Z}_{\mathrm{tr}}) + \eta]$}
+\end{algorithm}
+
+Denote by $C^{L}$ and $C^{R}$ the left- and the right-end point of
+$C$, respectively. To achieve %
+ \hyperref[{eq:interval_conformal_goal}]{\textup{\tagform@{\ref*{eq:interval_conformal_goal}}}}%
+, we
+need to find a lower prediction bound for $C^{L}$ and an upper
+prediction bound for $C^{R}$. A naive approach is to apply standard
+(unweighted) one-sided conformal inference on $C^{L}$ and $C^{R}$ with
+level $\gamma / 2$ separately. Such a crude Bonferroni correction may
+be conservative in practice. To overcome this, we propose a conformal
+inference procedure that jointly calibrates $C^{L}$ and $C^{R}$. The
+coverage guarantee can be proved using the standard argument
+\citep[e.g.][]{lei2018distribution, romano2019conformalized} and we
+include the proof in Appendix \ref{app:miscellaneous} for
+completeness.
+\begin{theorem}\label{thm:int_conformal}
+ Consider Algorithm \ref{algo:int} and assume $(X_{i}, C_{i})\stackrel{i.i.d.}{\sim} (X, C)$. Then
+ \[\mathbb{P}(C\subset \hat{\mathcal{C}}(X))\ge 1 - \gamma.\]
+\end{theorem}
+
+With all this in place, both the inexact and the exact methods are stated in
+Algorithm \ref{algo:two_step}.
+\begin{algorithm}
+ \caption{Nested approach for interval estimates of ITE} \label{algo:two_step}
+ \textbf{Input: } level $\alpha$, level $\gamma$ (only for exact version), data $\mathcal{Z} = (X_{i}, Y_{i}, T_{i})_{i=1}^{n}$, testing point $x$
+
+ \vspace{0.2cm}
+ \textbf{Step I: data splitting}
+ \begin{algorithmic}[1]
+ \State Split the data into two folds $\mathcal{Z}_{1}$ and $\mathcal{Z}_{2}$
+ \State Estimate propensity score $\hat{e}(x)$ on $\mathcal{Z}_{1}$
+ \end{algorithmic}
+
+ \vspace{0.2cm}
+ \textbf{Step II: counterfactual inference on $\mathcal{Z}_{2}$}
+ \begin{algorithmic}[1]
+ \For{$i$ in $\mathcal{Z}_{2}$ with $T_{i} = 1$}
+ \State Compute $[\hat{Y}_{i}^{L}(0), \hat{Y}_{i}^{R}(0)]$ in Algorithm \ref{algo:split-CQR} on $\mathcal{Z}_{1}$ with level $\alpha$ and $w_{0}(x) = \hat{e}(x) / (1 - \hat{e}(x))$
+ \State Compute $\hat{C}_{i} = [Y_{i}(1) - \hat{Y}_{i}^{R}(0), Y_{i}(1) - \hat{Y}_{i}^{L}(0)]$
+ \EndFor
+ \For{$i$ in $\mathcal{Z}_{2}$ with $T_{i} = 0$}
+ \State Compute $[\hat{Y}_{i}^{L}(1), \hat{Y}_{i}^{R}(1)]$ in Algorithm \ref{algo:split-CQR} on $\mathcal{Z}_{1}$ with level $\alpha$ and $w_{1}(x) = (1 - \hat{e}(x)) / \hat{e}(x)$
+ \State Compute $\hat{C}_{i} = [\hat{Y}_{i}^{L}(1) - Y_{i}(0), \hat{Y}_{i}^{R}(1) - Y_{i}(0)]$
+ \EndFor
+ \end{algorithmic}
+
+ \vspace{0.2cm}
+ \textbf{Step III: Interval of ITE on the testing point}
+ \begin{algorithmic}[1]
+ \State (Exact version) Apply Algorithm \ref{algo:int} on $(X_{i}, \hat{C}_{i})_{i\in \mathcal{Z}_{2}}$ with level $\gamma$, yielding an interval $\hat{\mathcal{C}}_\text{ITE}(x)$
+
+ \State (Inexact version) Fit conditional quantiles of $\hat{C}^{L}$ and $\hat{C}^{R}$, yielding an interval $\hat{\mathcal{C}}_\text{ITE}(x)$
+ \end{algorithmic}
+ \textbf{Output: $\hat{\mathcal{C}}_\text{ITE}(x)$}\label{algo:nest_CQR}
+\end{algorithm}
+
+\subsection{Empirical performance}
+
+To evaluate the performance of our methods, we design numerical
+experiments on the data analyzed in the 2018 Atlantic Causal Inference
+Conference workshop on heterogeneous treatment effects
+\citep{carvalho2019assessing}. The workshop organizers generated a
+synthetic dataset based on the National Study of Learning Mindsets
+(NLSM) \citep{yeager2019national}, a large-scale randomized trial of a
+behavioral intervention, to emulate an observational study. For
+information on the dataset, please see Section 2 from
+\cite{carvalho2019assessing}. Due to privacy concerns, the workshop
+organizers only released limited information on the data generating
+process, as well as the simulated dataset, available at
+\url{https://github.com/grf-labs/grf/tree/master/experiments/acic18}.
+Although the focus of this workshop was
+on heterogeneous treatment effects, the organizers did not evaluate
+whether the submissions cover the ITE or CATE. In this subsection, we
+shall fill in this gap by comparing our method with Causal Forest,
+X-learner and BART, just as we did in Section \ref{subsec:simul}.
+
+Obviously, we must know the ground truth in order to evaluate
+coverage. Therefore, we generated synthetic datasets based on the
+available information from \cite{carvalho2019assessing}. First, we
+split data into two folds $\mathcal{Z}_{1}$ and $\mathcal{Z}_{2}$, with
+$|\mathcal{Z}_{1}| = 2079$ including 20\% of the samples and $|\mathcal{Z}_{2}| = 8312$
+including the remaining 80\%. In our numerical experiments, we
+generate the covariate vector $X$ by sampling from $\mathcal{Z}_{2}$ with
+replacement. To generate the potential outcomes, we apply random
+forest from \texttt{R} \texttt{randomForest} package on $\mathcal{Z}_{1}$ to
+fit $\mathbb{E} [Y(0)]$. Denote the output by $\hat{m}_{0}(x)$. Then we
+generate $\mathbb{E} [Y(1)]$ by adding the CATE function $\tau(x)$ (equation
+(1) of \cite{carvalho2019assessing}) to $\hat{m}_{0}(x)$. To account
+for heteroscedasticity, we apply quantile random forest from
+\texttt{R} \texttt{grf} package to fit the 25\% and 75\% conditional
+quantiles of $Y(0)$ and $Y(1)$ and compute the conditional
+interquartile ranges $\hat{r}_{0}(x)$ and $\hat{r}_{1}(x)$. Given a
+covariate vector $X_{i}$, we subsequently generate $Y_{i}(1)$ and
+$Y_{i}(0)$ as
+\[
+Y_{i}(1) = \hat{m}_{0}(X_{i}) + \tau(X_{i}) +
+0.5\hat{r}_{1}(X_{i})\epsilon_{i1}, \quad Y_{i}(0) = \hat{m}_{0}(X_{i}) +
+0.5\hat{r}_{0}(X_{i})\epsilon_{i0},\quad \epsilon_{i1},
+\epsilon_{i0}\stackrel{i.i.d.}{\sim} N(0, 1).
+\]
+Finally, we generate propensity scores by applying random forest from
+\texttt{R} \texttt{randomForest} package on $\mathcal{Z}_{1}$ and truncating
+the estimated propensity score $\hat{e}(x)$ at $0.1$ and $0.9$ to
+guarantee overlap. For each $X_{i}$, we generate $T_{i}$ as a
+Bernoulli random variable with parameter $\hat{e}(X_{i})$.
+
+For each run, we first generate $6000$ quadruples
+$(X_{i}, T_{i}, Y_{i}(1), Y_{i}(0))$ sampled according to the above
+data generating process. We then randomly select $n = 1000$ samples as
+the training set to induce an observational study with observations
+$(X_{i}, T_{i}, Y_{i}^{\mathrm{obs}})$. For the remaining $5000$ testing
+samples, only the covariates $X_{i}$ are accessible to the analyst;
+the triple $(T_{i}, Y_{i}(1), Y_{i}(0))$ is solely used to evaluate
+coverage. It goes without saying that each method will take the
+training set as the input and, for each testing sample, produce $95\%$
+intervals for ITE.
+
+For weighted split-CQR, we apply the naive procedure as described in Section \ref{subsec:naive} and the nested procedure with both exact and inexact calibration as described in Algorithm \ref{algo:nest_CQR}. For all procedures, we apply BART to fit conditional quantiles, as in Section \ref{subsec:simul}, and apply gradient boosting from \texttt{R} \texttt{gbm} package to fit propensity scores. For the exact nested method, we set $\alpha = \gamma = 0.025$.
+
+Note that neither the naive nor the nested approaches are limited to
+CQR. Therefore, we also wrap both methods around BART as competitors,
+where only the inexact version is considered for the nested approach
+since BART cannot produce exact counterfactual intervals. Finally,
+since Causal Forest and X-learner cannot produce counterfactual
+intervals, except in the special case from Section \ref{subsec:simul}
+where $Y(0)\equiv 0$, we do not wrap the naive or the nested methods
+around them but directly report their confidence intervals as
+benchmarks instead.
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width = 0.48\textwidth]{{simul_NLSM_coverage_paper}.pdf}
+ \includegraphics[width = 0.48\textwidth]{{simul_NLSM_len_paper}.pdf}
+ \caption{Coverage (left) and average length (right) of intervals for ITE on synthetic data generated from the NLSM data. The red vertical line corresponds to the target coverage $95\%$ and the blue vertical line corresponds to the average length of oracle intervals.}\label{fig:NLSM_simul_ITE}
+\end{figure}
+
+\begin{figure}[H]
+ \centering
+ \includegraphics[width = 0.9\textwidth]{simul_NLSM_cond_paper.pdf}
+ \caption{Estimated conditional coverage of ITE as a function of the
+ conditional variance $\sigma^{2}(x)$ (upper row), and CATE
+ $\tau(x)$ (lower row). The coverage is set to $95\%$. The blue
+ curves correspond to the median and the blue confidence bands are
+ the $5\%$ and $95\%$ quantiles of these estimates across $100$
+ replicates.}\label{fig:NLSM_cond}
+
+\end{figure}
+
+Figure \ref{fig:NLSM_simul_ITE} presents the coverage and the average
+length of intervals estimated on the testing set by repeating the
+above procedure 100 times. As expected, the naive methods with both
+CQR and BART are conservative. The exact nested method with CQR is
+also conservative although the coverage is only guaranteed to be above
+$95\%$ in the worst case. In contrast, the inexact nested methods with
+CQR or BART are less conservative. Notably, BART fails to achieve the
+desired coverage but CQR, with BART as the learner, calibrates it
+successfully. Also, we can see from the right panel that the average
+length of intervals of inexact-CQR is just slightly above that of
+inexact-BART while significantly lower than that of either the naive
+or the exact nested methods. Moreover, in accordance with the
+observations from Section \ref{subsec:simul}, Causal Forest and
+X-learner have poor coverage and, thus, their (short) intervals are
+misleading. As in Section \ref{subsec:simul}, we compute the average
+length of oracle intervals as $3.92\mathbb{E} [\sigma(X)]$ where
+$\sigma(x) = 0.5\sqrt{\hat{r}_{1}(x)^{2} + \hat{r}_{0}(x)^{2}}$.
+Having said this, we are in a different situation here since the true
+conditional quantiles of ITE can never be identified without
+assumptions on the joint distribution of $Y(1)$ and $Y(0)$.
+Therefore, this oracle length cannot be achieved in general no matter
+how powerful the model fitting. Keeping this cautionary remark in
+mind, we nonetheless see that weighted split-CQR still produces
+reasonably short intervals.
+
+Finally, as in Section \ref{subsec:simul}, we investigate the
+conditional coverage as a function of the conditional variance
+$\sigma^{2}(x)$ and the CATE $\tau(x)$, respectively. For better
+visualization, we exclude Causal Forest and X-learner since they have
+poor marginal coverage. We can see from Figure \ref{fig:NLSM_cond}
+that inexact-CQR has desirable and relatively even conditional
+coverage while inexact-BART performs worse.
+
+\subsection{Re-analysing NLSM data}
+In this subsection, we apply inexact-CQR with BART as the learner to re-analyze the NLSM data from \cite{carvalho2019assessing}. Since the ground truth is inaccessible, we only perform an exploratory analysis for the purpose of illustration.
+
+To create informative testing points, we split the data into two folds
+$\mathcal{Z}_{1}$ and $\mathcal{Z}_{2}$. Then we apply weighted inexact-CQR on $\mathcal{Z}_{1}$
+to produce intervals for ITE for each point in $\mathcal{Z}_{2}$. Similarly, we
+apply weighted inexact-CQR on $\mathcal{Z}_{2}$ to produce intervals of ITE for
+each point in $\mathcal{Z}_{1}$. To account for the variability from data
+splitting, we repeat the above procedure $100$ times. Figure
+\ref{fig:NLSM_analysis} (a) displays the average length of intervals
+as a function of level $\alpha$ with the upper and lower envelopes
+being respectively the $95\%$ and $5\%$ quantiles across $100$ runs.
+
+\begin{figure}
+ \centering
+ \includegraphics[width = 0.32\textwidth]{analysis_NLSM_len_paper.pdf}
+ \includegraphics[width = 0.32\textwidth]{analysis_NLSM_pos_paper.pdf}
+ \includegraphics[width = 0.32\textwidth]{analysis_NLSM_neg_paper.pdf}
+ \caption{Re-analysis of NLSM data: (a) average length of intervals; (b) fraction of intervals with positive lower bounds; (c) fraction of intervals with negative upper bounds}\label{fig:NLSM_analysis}
+\end{figure}
+
+With these intervals, we can make inferential claims on ITE with
+confidence. For instance, we can decide to assign treatment to a
+patient if the lower prediction bound of her ITE interval is
+positive. Since these intervals are guaranteed to have desired
+coverage, it is likely that they produce fewer false positives on
+ the average, although we leave a theoretical investigation of this
+intuition to future work. Figure \ref{fig:NLSM_analysis} (b) and (c)
+show the fractions of intervals that only cover positive and negative
+values, respectively. We see some evidence of positive ITE when
+$\alpha$ is above $0.25$ while no evidence of any negative ITE even
+when $\alpha = 0.5$.
+
+\section{From Potential Outcomes to Other Causal Frameworks}\label{sec:extension}
+We proposed a method based on weighted conformal inference which
+produces interval estimates of counterfactuals and individual
+treatment effects under the potential outcome framework. For
+randomized experiments with perfect compliance, our method has
+guaranteed coverage in finite samples without any modeling assumptions
+on the data generating process. For randomized experiments with
+ignorable compliance or general observational studies under the strong
+ignorability assumption, our method is doubly robust in the sense that
+the coverage is asymptotically guaranteed if either the conditional
+quantiles of potential outcomes or the propensity scores are
+consistently estimated. In contrast, existing methods may suffer from
+a significant coverage deficit even in simple models. Furthermore, our
+framework naturally extends to other populations by modifying the
+weight function according to Table \ref{tab:weight_func}.
+
+The key observation is the covariate shift together with the
+invariance of the conditional distribution: the observed distribution
+of $(X, Y(1))$ is $P_{X\mid T = 1}\times P_{Y(1)\mid X}$ under
+ignorability while the target distribution is
+$P_{X}\times P_{Y(1)\mid X}$. Now the invariance of the conditional distribution is
+also the enabling property in other frameworks of causal inference. As
+a consequence, our method can be naturally extended to those settings,
+and we close this paper by discussing two of them.
+
+\subsection{Causal diagram framework}
+Judea Pearl in his pioneering work \citep{pearl1995causal} introduced
+a general framework of causal inference based on graphical models,
+which has been widely applied, see
+ e.g.~\cite{greenland1999causal, spirtes2000causation,
+ richardson2013single, glymour2014discovering,
+ tennant2019use}. This framework does not rely on the notion of
+counterfactuals but instead defines causal effects through the
+\texttt{do} operator, which modifies the observed distribution by
+removing the causal paths that directly point to the intervention
+variable. We refer the readers to \cite{pearl2018book} for the
+philosophy and basics of causal diagrams and to \cite{pearl2016causal}
+for the mathematical foundation of this framework.
+
+We here only discuss the case where $T$ is the intervention variable,
+$Y$ is the outcome variable and $X$ is a set of variables that
+satisfies the back-door criterion. Roughly speaking, this means that $X$
+includes all confounders and excludes all post-treatment variables. In
+this case, the foundational result in \cite{pearl1995causal} shows
+that
+\[P_{(X, Y) \mid \mathrm{do}(T = t)} = P_{X}\times P_{Y\mid X, T = t}.\]
+This is the target distribution to be inferred. In contrast, the observed distribution of $(X, Y)$ given $T = t$ is
+\[P_{(X, Y)\mid T = t} = P_{X\mid T = t}\times P_{Y\mid X, T = t}.\]
+Clearly, this has exactly the same structure as in the potential
+outcome framework. As a consequence, weighted split-CQR can be applied
+without any modification to produce doubly robust interval estimates
+of $Y$ under the \texttt{do} intervention.
+
+\subsection{Invariant prediction framework}
+
+Invariant prediction is another framework proposed by
+\cite{peters2016causal}. It is particularly powerful when there are
+multiple data sources under different interventions, such as in gene
+knockout experiments. Consider an outcome variable $Y$, a set of
+interventions or covariates $X$ and an environment variable $E$ that
+indicates the source of data. Then one basic setting under this
+framework assumes that $Y\protect\mathpalette{\protect\independenT}{\perp} E \mid X$ while $X$ may depend on $E$ with
+$X \mid E\sim P_{X}^{E}$. The goal is to predict the outcome under a
+new environment. For simplicity, we assume that a dataset
+$(X_{ij}, Y_{ij})_{i=1}^{n_{j}}$ is available for each environment
+$e_{1}, \ldots, e_{J}$ and a testing dataset $(X_{i0})_{i=1}^{n_{0}}$
+for the target environment $e_{0}$. Due to the invariance assumption,
+on the $j$-th dataset, the observed distribution of $(X, Y)$ is
+$P_{X}^{e_{j}}\times P_{Y\mid X}$ while the target distribution to be
+inferred on is $P_{X}^{e_{0}}\times P_{Y\mid X}$.
+
+Again, this is reduced to a problem of constructing valid prediction
+intervals under covariate shifts. When $J = 1$, this has exactly the
+same structure as in the potential outcome framework and thus weighted
+split-CQR with weight function $dP_{X}^{e_{0}}(x) / dP_{X}^{e_{1}}(x)$
+produces doubly robust intervals of $Y$ under environment $e_{0}$. When $J > 1$, we can in principle apply the general
+weighted conformal inference techniques from
+\cite{barber2019conformal}. However the weight function becomes much
+more complicated than that in Algorithm \ref{algo:split-CQR}. An
+alternative approach is to create a weighted population from
+environments $e_{1}, \ldots, e_{J}$ with observed distribution
+\[\left(\sum_{j=1}^{J}q_{j}P_{X}^{e_{j}}\right)\times P_{Y\mid X},\]
+and apply Algorithm \ref{algo:split-CQR} on this pseudo dataset with weight $w(x) = 1 / \sum_{j=1}^{J}q_{j}(dP_{X}^{e_{j}} / dP_{X}^{e_{0}})(x)$. The weights $q_{j}$ can be chosen through certain balancing procedures that forces the covariate distribution to approximate $P_{X}^{e_{0}}$. We leave the formal development of this idea to future work.
+
+\section*{Acknowledgment}
+E. C. was supported by Office of Naval Research grant N00014-20-12157. L. L. was supported by NSF OAC grant 1934578.
+The authors are grateful to David Arbour, Susan Athey, Eytan Bakshy, Stephen Bates, Richard A. Berk, Peter J. Bickel, Jelena Bradic, Andreas Buja, Michael Celentano, Peng Ding, Dean Eckles, Nikolaos Ignatiadis, Yucen Luo, Edward Kennedy, Roger Koenker, Arun Kumar Kuchibhotla, Elizabeth L. Ogburn, Zhimei Ren, Thomas S. Richardson, James Robins, Chiara Sabatti, Jasjeet S. Sekhon, Dylan Small, Sean Taylor, Eric Tchetgen Tchetgen, Yuhao Wang, Jeffrey Wong, Bin Yu, and Xiao-Hua Zhou for their constructive feedback.
+
+\bibliography{conformal_causal}
+\bibliographystyle{plainnat}
+
+\clearpage
+\appendix
+
+~\\
+\begin{center}
+ \begin{Large}
+ \textbf{Appendix}
+ \end{Large}
+\end{center}
+
+\section{Nonasymptotic Theory for Double Robustness of Weighted Split-CQR}\label{app:proofs}
+This section establishes the double robustness of general weighted
+split-CQR. We first prove nonasymptotic results for two sides of the double robustness and then present a simpler asymptotic result as a corollary in Section \ref{subsec:asymptotic}.
+
+\begin{theorem}\label{thm:double_robustness_w}
+ Let
+ $(X_{i}, Y_{i})\stackrel{i.i.d.}{\sim}(X, Y) \sim P_{X}\times
+ P_{Y\mid X}$ and $Q_{X}$ be another distribution on the domain of
+ $X$. Set $N = |\mathcal{Z}_{\mathrm{tr}}|$ and $n = |\mathcal{Z}_{\mathrm{ca}}|$. Further, let
+ $\hat{q}_{\beta, N}(x) = \hat{q}_{\beta, N}(x; \mathcal{Z}_{\mathrm{tr}})$ be an
+ estimate of the $\beta$-th conditional quantile $q_{\beta}(x)$ of
+ $Y \mid X = x$, $\hat{w}_{N}(x) = \hat{w}_{N}(x; \mathcal{Z}_{\mathrm{tr}})$ be an
+ estimate of $w(x) = (dQ_{X} / dP_{X})(x)$, and $\hat{C}_{N, n}(x)$
+ be the conformal interval resulting from Algorithm
+ \ref{algo:split-CQR}. Assume that
+ $\mathbb{E}[\hat{w}_{N}(X) \mid \mathcal{Z}_{\mathrm{tr}}] < \infty$, where $\mathbb{E}$ denotes
+ expectation over $X\sim P_{X}$. Redefine
+ $\hat{w}_{N}(x)$ as
+ $\hat{w}_{N}(x) / \mathbb{E}[\hat{w}_{N}(X) \mid \mathcal{Z}_{\mathrm{tr}}]$ so that
+ $\mathbb{E}[\hat{w}_{N}(X) \mid \mathcal{Z}_{\mathrm{tr}}] = 1$. Then
+ \begin{equation}\label{eq:unconditional_coverage_rate_w}
+ \mathbb{P}_{(X, Y)\sim Q_{X}\times P_{Y\mid X}}\left( Y\in \hat{C}_{N, n}(X)\right)\ge 1 - \alpha - \frac{1}{2}\mathbb{E}_{X\sim P_{X}}|\hat{w}_{N}(X) - w(X)|.
+ \end{equation}
+
+ \end{theorem}
+
+ \begin{theorem}\label{thm:double_robustness_q}
+ In the setting of Theorem \ref{thm:double_robustness_w}, assume further that
+ \begin{enumerate}[(1)]
+ \item $\alpha_{\mathrm{hi}} - \alpha_{\mathrm{lo}} = 1 - \alpha$;
+ \item there exist $r, b_{1}, b_{2} > 0$ such that $\mathbb{P}(Y = y \mid X = x) \in [b_{1}, b_{2}]$ uniformly over all $(x, y)$ with $y\in [q_{\alpha_{\mathrm{lo}}}(x) - r, q_{\alpha_{\mathrm{lo}}}(x) + r]\cup [q_{\alpha_{\mathrm{hi}}}(x) - r, q_{\alpha_{\mathrm{hi}}}(x) + r]$;
+ \item $\mathbb{P}_{X\sim Q_{X}}(w(X) < \infty) = 1$, and there exist $\delta, M > 0$ such that $\left(\mathbb{E}\left[\hat{w}_{N}(X)^{1 + \delta}\right]\right)^{1 / (1 + \delta)} \le M$;
+ \item there exist $k, \ell > 0$ such that $\displaystyle \lim_{N\rightarrow \infty} \mathbb{E}[\hat{w}_{N}(X)H_{N}^{k}(X)] = \lim_{N\rightarrow \infty} \mathbb{E}[w(X)H_{N}^{\ell}(X)] = 0$, where
+ \[\displaystyle H_{N}(x) = \max\{|\hat{q}_{\alpha_{\mathrm{lo}}, N}(x) - q_{\alpha_{\mathrm{lo}}}(x)|, |\hat{q}_{\alpha_{\mathrm{hi}}, N}(x) - q_{\alpha_{\mathrm{hi}}}(x)|\}.\]
+ \end{enumerate}
+ Then there is a constant $B_{1}$ that only depends on $r, b_1, b_2, \delta, M, k, \ell$ such that
+ \begin{multline}
+ \mathbb{P}_{(X, Y)\sim Q_{X}\times P_{Y\mid X}}(Y \in \hat{C}_{N, n}(X))\ge 1 - \alpha \\
+ -B_{1} \left\{\frac{(\log n)^{(1 + \delta') / 2(2 + \delta')}}{n^{\delta' / (2 + \delta')}} + \left(\mathbb{E}[\hat{w}_{N}(X)H_{N}^{k}(X)]\right)^{1 / (2+k)} + \left(\mathbb{E}[w(X)H_{N}^{\ell}(X)]\right)^{1/ (1+\ell)}\right\},\label{eq:unconditional_coverage_rate_q}
+ \end{multline}
+ where $\delta' = \min\{\delta, 1\}$. Furthermore, for any $\beta\in (0, 1)$, there is a constant $B_{2}$ that only depends on $r, b_1, b_2, \delta, M, k, \ell, \beta$ such that, with probability at least $1 - \beta$,
+ \begin{multline}
+ \mathbb{P}_{(X, Y)\sim Q_{X}\times P_{Y\mid X}}(Y \in \hat{C}_{N, n}(X) \mid X )\ge 1 - \alpha \\
+ - B_{2}\left\{\frac{(\log n)^{(1 + \delta') / 2(2 + \delta')}}{n^{\delta' / (2 + \delta')}} + \left(\mathbb{E}[\hat{w}_{N}(X)H_{N}^{k}(X)]\right)^{1 / (2+k)} + \left(\mathbb{E}[w(X)H_{N}^{\ell}(X)]\right)^{1/ \ell}\right\}.\label{eq:conditional_coverage_rate_q}
+ \end{multline}
+ \end{theorem}
+
+ \begin{remark}
+ If $\delta \ge 1$ and $H_{N}(X)\le \Delta_{N}$ almost surely for some deterministic sequence $\Delta_{N} = o(1)$, by letting $k, \ell\rightarrow \infty$, the RHS of %
+ \hyperref[{eq:unconditional_coverage_rate_q}]{\textup{\tagform@{\ref*{eq:unconditional_coverage_rate_q}}}}%
+ and %
+ \hyperref[{eq:conditional_coverage_rate_q}]{\textup{\tagform@{\ref*{eq:conditional_coverage_rate_q}}}}%
+ reduce to
+ \[1 - \alpha - B \left\{\left(\frac{\log n}{n}\right)^{1/3} + \Delta_{N}\right\}.\]
+ \end{remark}
+
+\subsection{Proof of Theorem \ref{thm:double_robustness_w}}
+Let $\mathrm{Quantile}(\beta; F)$ denote the $\beta$-th quantile of a distribution
+function $F$, i.e.
+\[
+\mathrm{Quantile}(\beta; F) = \inf\{z: F(z)\ge \beta\} = \sup\{z: F(z) < \beta\}.
+\]
+We start with two lemmas.
+\begin{lemma}[Equation (2) in Lemma 1 from \cite{barber2019conformal}]\label{lem:delta_infty}
+ Let $v_{1}, \ldots, v_{n+1} \in \mathbb{R}$ and $(p_{1}, \ldots,
+ p_{n+1}) \in \mathbb{R}$ be non-negative reals summing to
+ $1$. Then for any $\beta \in [0, 1]$ and
+ \begin{multline*}
+ v_{n+1}\le \mathrm{Quantile}\left(\beta; \sum_{i=1}^{n+1}p_{i}\delta_{v_{i}}\right)
+ \quad \Longleftrightarrow \quad v_{n+1}\le \mathrm{Quantile}\left( \beta; \sum_{i=1}^{n}p_{i}\delta_{v_{i}} + p_{n+1}\delta_{\infty}\right).
+ \end{multline*}
+\end{lemma}
+
+\begin{lemma}[Equation (10) from \cite{berrett2019conditional}]\label{lem:tv}
+ Let $d_{\mathrm{TV}}(Q_{1X}, Q_{2X})$ denote the total-variation distance between $Q_{1X}$ and $Q_{2X}$. Then
+ \[d_{\mathrm{TV}}(Q_{1X}\times P_{Y\mid X}, Q_{2X}\times P_{Y\mid X}) = d_{\mathrm{TV}}(Q_{1X}, Q_{2X}).\]
+\end{lemma}
+
+Returning to the proof of Theorem \ref{thm:double_robustness_w}, we first consider the case where $Q_{X}$ is absolutely continuous with respect to $P_{X}$, i.e.
+ \[\mathbb{P}_{X \sim Q_{X}}(w(X) < \infty) = 1.\]
+ In this case, for any measurable function $f$,
+ \begin{equation}
+ \label{eq:transformation}
+ \mathbb{E}_{X\sim Q_{X}}[f(X)] = \mathbb{E}_{X\sim P_{X}}[w(X)f(X)].
+ \end{equation}
+ On the other hand, it always holds that $\mathbb{P}_{X\sim P_{X}}(w(X) < \infty) = 1$. In addition, the assumption $\mathbb{E}_{X\sim P_{X}}[\hat{w}(X)\mid \mathcal{Z}_{\mathrm{tr}}] < \infty$ implies that $\mathbb{P}_{X\sim P_{X}}(\hat{w}(X) < \infty) = 1$. By %
+ \hyperref[{eq:transformation}]{\textup{\tagform@{\ref*{eq:transformation}}}}%
+,
+ \[\mathbb{P}_{X\sim Q_{X}}(\hat{w}(X) < \infty) = 1 - \mathbb{E}_{X\sim P_{X}}[w(X)I(\hat{w}(X) = \infty)].\]
+ Since the integrand is non-negative,
+ \begin{multline*}
+ \mathbb{E}_{X\sim P_{X}}[w(X)I(\hat{w}(X) = \infty)]\\
+ = \lim_{K\rightarrow \infty}\mathbb{E}_{X\sim P_{X}}[w(X)I(w(X)\le K, \hat{w}(X) = \infty)]
+ \le \lim_{K\rightarrow \infty} K \mathbb{P}_{X\sim P_{X}}(\hat{w}(X) = \infty) = 0.
+ \end{multline*}
+ Thus, we also have
+ \[\mathbb{P}_{X\sim Q_{X}}(\hat{w}(X) < \infty) = 1.\]
+
+Index the calibration fold by $\{1, \ldots, n\}$ and let
+$(X_{n+1}, Y_{n+1})\sim Q_{X}\times P_{Y\mid X}$. Write $Z_{i}$ for
+$(X_{i}, Y_{i})$ and $V$ for $(V_{1}, \ldots, V_{n + 1})$. For
+notational convenience, we suppress the subscripts $N$ and $n$ in
+$\hat{q}, \hat{w}, \hat{C}$ as well as in $\hat{p}_{i}(x)$ and $\eta(x)$.
+Next, for any permutation $\pi$ on $\{1, \ldots, n + 1\}$ and
+$v^{*}\in \mathbb{R}^{n+1}$, let
+$v_{\pi}^{*} = (v_{\pi(1)}^{*}, \ldots, v_{\pi(n+1)}^{*})$. Further,
+let $\ell(z)$ be the joint density of
+$\mathcal{Z} = (Z_{1}, \ldots, Z_{n + 1})$ and $p(z)$ be the density of $Z_{1}$
+(with respect to a dominating measure). Letting $\mathcal{E}(v)$ denote the
+unordered set of $v$, it is easy to see that
+\begin{equation}
+ \label{eq:weighted_conformal_cond}
+ \left( V \mid \mathcal{E}(V) = \mathcal{E}(v^{*}), \mathcal{Z}_{\mathrm{tr}}\right) \stackrel{d}{=} v_{\Pi}^{*},
+\end{equation}
+where $\Pi$ is a random permutation with
+\[\mathbb{P}\left(\Pi = \pi\mid \mathcal{Z}_{\mathrm{tr}}\right) = \frac{p(z_{\pi}^{*})}{\sum_{\pi}p(z_{\pi}^{*})} = \frac{w(X_{\pi(n + 1)})}{\sum_{\pi}w(X_{\pi(n + 1)})} = \frac{w(X_{\pi(n + 1)})}{n!\sum_{i=1}^{n+1}w(X_{i})}.\]
+Note that this conditional probability is well-defined because $w(X) < \infty$ almost surely under both $P_{X}$ and $Q_{X}$. As a result, for any $j\in \{1, 2, \ldots, n + 1\}$,
+\[\mathbb{P}\left(\Pi(n+1) = j\mid \mathcal{Z}_{\mathrm{tr}}\right) = \frac{w(X_{j})}{\sum_{i=1}^{n+1}w(X_{i})} = p_{j}(X_{n+1}),\]
+where $p_{n+1}$ denotes $p_{\infty}$ for notational convenience. This
+gives
+\begin{equation}
+ \label{eq:Vn+1}
+ \left( V_{n+1} \mid \mathcal{E}(V) = \mathcal{E}(v^{*}), \mathcal{Z}_{\mathrm{tr}}\right) \stackrel{d}{=} v_{\Pi(n+1)}^{*}\sim \sum_{i=1}^{n+1}p_{i}(X_{n+1})\delta_{v_{i}^{*}}.
+\end{equation}
+Note that $p_{i}$ involves the true likelihood ratio function $w(x)$ and thus is different from $\hat{p}_{i}$.
+
+Let $\tilde{Q}_{X}$ be a measure with
+\[d\tilde{Q}_{X}(x) = \hat{w}(x) dP_{X}(x).\]
+Since $\mathbb{E}_{X\sim P_{X}}[\hat{w}(X)] = 1$, $\mathbb{P}_{X\sim P_{X}}(\hat{w}(X) < \infty) = 1$. As a result, $\tilde{Q}_{X}$ is a
+probability measure.
+
+Consider now a new sample
+$(\tilde{X}_{n+1}, \tilde{Y}_{n+1})\sim \tilde{Q}_{X}\times P_{Y \mid X}$. Let
+$\tilde{V}_{n+1}$ denote the non-conformity score of
+$(\tilde{X}_{n+1}, \tilde{Y}_{n+1})$ and set
+$\tilde{V} = (V_{1}, \ldots, V_{n}, \tilde{V}_{n+1})$. Using the same
+argument as for %
+ \hyperref[{eq:Vn+1}]{\textup{\tagform@{\ref*{eq:Vn+1}}}}%
+, we have
+\begin{equation}
+ \label{eq:Vn+1hat}
+ \left( \tilde{V}_{n+1} \mid \mathcal{E}(\tilde{V})= \mathcal{E}(v^{*}), \mathcal{Z}_{\mathrm{tr}}\right) \sim \sum_{i=1}^{n+1}\hat{p}_{i}(\tilde{X}_{n+1})\delta_{v_{i}^{*}}.
+\end{equation}
+Note that each $\hat{p}_{i}(\tilde{X}_{n+1})$,
+ $i = 1,\ldots, n+1$ is well-defined since $\hat{w}(X_i)$ is almost
+ surely finite under both $P_{X}$ and $Q_{X}$. As a consequence,
+\begin{align}
+ & \mathbb{P}\left(\tilde{Y}_{n+1}\in \hat{C}(\tilde{X}_{n+1})\mid \mathcal{Z}_{\mathrm{tr}}\right)\nonumber\\
+ & = \mathbb{P}\left( \tilde{V}_{n + 1}\le \eta(\tilde{X}_{n+1})\mid \mathcal{Z}_{\mathrm{tr}}\right)\nonumber\\
+ & = \mathbb{P}\left( \tilde{V}_{n + 1}\le \mathrm{Quantile}\left( 1 - \alpha; \sum_{i=1}^{n}\hat{p}_{i}(\tilde{X}_{n+1})\delta_{V_{i}} + \hat{p}_{\infty}(\tilde{X}_{n+1})\delta_{\infty}\right)\mid \mathcal{Z}_{\mathrm{tr}}\right)\nonumber\\
+ & \stackrel{(i)}{=} \mathbb{P}\left( \tilde{V}_{n + 1}\le \mathrm{Quantile}\left( 1 - \alpha; \sum_{i=1}^{n}\hat{p}_{i}(\tilde{X}_{n+1})\delta_{V_{i}} + \hat{p}_{\infty}(\tilde{X}_{n+1})\delta_{\tilde{V}_{n+1}}\right)\mid \mathcal{Z}_{\mathrm{tr}}\right)\nonumber\\
+ & = \mathbb{E} \mathbb{P}\left( \tilde{V}_{n + 1}\le \mathrm{Quantile}\left( 1 - \alpha; \sum_{i=1}^{n}\hat{p}_{i}(\tilde{X}_{n+1})\delta_{V_{i}} + \hat{p}_{\infty}(\tilde{X}_{n+1})\delta_{\tilde{V}_{n+1}}\right) \mid \mathcal{E}(\tilde{V}), \mathcal{Z}_{\mathrm{tr}}\right)\nonumber\\
+ & \stackrel{(ii)}{\ge} 1 - \alpha, \label{eq:coverage_tilde}
+\end{align}
+where (i) uses Lemma \ref{lem:delta_infty} and (ii) uses %
+ \hyperref[{eq:Vn+1hat}]{\textup{\tagform@{\ref*{eq:Vn+1hat}}}}%
+ and the
+definition of $\mathrm{Quantile}(\beta; F)$. By Lemma \ref{lem:tv},
+\[d_{\mathrm{TV}}\left( Q_{X}\times P_{Y\mid X}, \tilde{Q}_{X}\times P_{Y\mid X}\right) = d_{\mathrm{TV}}\left( Q_{X}, \tilde{Q}_{X}\right),\]
+
+and as a consequence,
+\begin{equation}
+ \label{eq:tv_Q_tdQ}
+ \big|\mathbb{P}\left( Y_{n+1}\in \hat{C}(X_{n+1})\mid \mathcal{Z}_{\mathrm{tr}}, \mathcal{Z}_{\mathrm{ca}}\right) - \mathbb{P}\left(\tilde{Y}_{n+1}\in \hat{C}(\tilde{X}_{n+1})\mid \mathcal{Z}_{\mathrm{tr}}, \mathcal{Z}_{\mathrm{ca}}\right)\big|\le d_{\mathrm{TV}}(Q_{X}, \tilde{Q}_{X}),
+\end{equation}
+which implies that
+\[\mathbb{P}\left( Y_{n+1}\in \hat{C}(X_{n+1})\mid \mathcal{Z}_{\mathrm{tr}}, \mathcal{Z}_{\mathrm{ca}}\right)\ge \mathbb{P}\left( \tilde{Y}_{n+1}\in \hat{C}(\tilde{X}_{n+1})\mid \mathcal{Z}_{\mathrm{tr}}, \mathcal{Z}_{\mathrm{ca}}\right) - d_{\mathrm{TV}}(Q_{X}, \tilde{Q}_{X}).\]
+Taking expectation over $\mathcal{Z}_{\mathrm{ca}}$, we have
+\[\mathbb{P}\left( Y_{n+1}\in \hat{C}(X_{n+1})\mid \mathcal{Z}_{\mathrm{tr}}\right) \ge \mathbb{P}\left( \tilde{Y}_{n+1}\in \hat{C}(\tilde{X}_{n+1})\mid \mathcal{Z}_{\mathrm{tr}}\right) - d_{\mathrm{TV}}(Q_{X}, \tilde{Q}_{X})\ge 1 - \alpha - d_{\mathrm{TV}}(Q_{X}, \tilde{Q}_{X}).\]
+Using the integral definition of total-variation distance and %
+ \hyperref[{eq:transformation}]{\textup{\tagform@{\ref*{eq:transformation}}}}%
+,
+\begin{align*}
+ d_{\mathrm{TV}}(Q_{X}, \tilde{Q}_{X}) & = \frac{1}{2}\int |\hat{w}(x)dP_{X}(x) - dQ_{X}(x)| = \frac{1}{2}\int |\hat{w}(x)dP_{X}(x) - w(x)dP_{X}(x)|\\
+ & = \frac{1}{2}\mathbb{E}_{X\sim P_{X}}|\hat{w}(X) - w(X)|
+\end{align*}
+Taking expectation over $\mathcal{Z}_{\mathrm{tr}}$, we have
+\[\mathbb{P}\left( Y_{n+1}\in \hat{C}(X_{n+1})\right)\ge 1 - \alpha - \frac{1}{2}\mathbb{E}_{X\sim P_{X}}|\hat{w}(X) - w(X)|.\]
+This proves %
+ \hyperref[{eq:unconditional_coverage_rate_w}]{\textup{\tagform@{\ref*{eq:unconditional_coverage_rate_w}}}}%
+ when $\mathbb{P}_{X\sim Q_{X}}(w(X) < \infty) = 1$.
+
+Next, we extend the result to the case where $\mathbb{P}_{X\sim Q_{X}}(w(X) < \infty) < 1$. If $\mathbb{P}_{X\sim P_{X}}(\hat{w}(X) < \infty) < 1$, it is clear that $\mathbb{E}_{X\sim P_{X}}|\hat{w}(X) - w(X)| = \infty$ and %
+ \hyperref[{eq:unconditional_coverage_rate_w}]{\textup{\tagform@{\ref*{eq:unconditional_coverage_rate_w}}}}%
+ holds trivially. Thus, we assume $\mathbb{P}_{X\sim P_{X}}(\hat{w}(X) < \infty) = 1$ in the remainder.
+
+Let $Q'_{X}$ denote the distribution $Q_{X}$ conditional on the event $E_{\infty} \triangleq \{x: w(x) < \infty\}$; that is,
+\[dQ'_{X}(x) = \frac{I(x\in
+ E_{\infty})dQ_{X}(x)}{\mathbb{P}_{X\sim Q_{X}}(E_{\infty})}.\] Further, set
+$w'(x) = dQ'_{X}(x) / dP_{X}(x)$ and
+$\hat{w}'(x) = \hat{w}(x)I(x \in E_{\infty}) / \mathbb{P}_{X\sim Q_{X}}(E_{\infty})$. Note
+that $\hat{C}(x)$ remains the same on $E_{\infty}$ when $\hat{w}$ is
+replaced by $\hat{w}'$ and $Q_{X}$ is replaced by $Q'_{X}$, because
+the weighted-split-CQR algorithm is invariant with respect to
+rescalings of the covariate shift estimate. Since
+$\mathbb{P}_{X\sim Q'_{X}}(w(X) < \infty) = 1$, %
+ \hyperref[{eq:unconditional_coverage_rate_w}]{\textup{\tagform@{\ref*{eq:unconditional_coverage_rate_w}}}}%
+
+implies that
+\[\mathbb{P}_{(X, Y)\sim Q'_{X}\times P_{Y\mid X}}\left( Y\in \hat{C}(X)\right)\ge 1 - \alpha - \frac{1}{2}\mathbb{E}_{X\sim P_{X}}|\hat{w}'(X) - w'(X)|.\]
+It can be reformulated as
+\[\mathbb{P}\left( Y_{n+1}\in \hat{C}(X_{n+1})\mid w(X_{n+1}) < \infty\right)\ge 1 - \alpha - \frac{1}{2\mathbb{P}_{X\sim Q_{X}}(E_{\infty})}\mathbb{E}_{X\sim P_{X}}|\hat{w}(X) - w(X)|.\]
+On the other hand, when $w(X_{n+1}) = \infty$, $\eta(X_{n+1}) = \infty$, implying that $\hat{C}(X_{n+1}) = (-\infty, \infty)$. As a result,
+\[\mathbb{P}\left( Y_{n+1}\in \hat{C}(X_{n+1})\mid w(X_{n+1}) = \infty\right) = 1.\]
+Putting the two pieces together, we conclude that
+
+\begin{align*}
+ & \mathbb{P}\left( Y_{n+1}\in \hat{C}(X_{n+1})\right)\\
+ & \begin{multlined}
+ = \mathbb{P}\left( Y_{n+1}\in \hat{C}(X_{n+1})\mid w(X_{n+1}) < \infty\right) \mathbb{P}\left( w(X_{n+1}) < \infty\right)\\
+ + \mathbb{P}\left( Y_{n+1}\in \hat{C}(X_{n+1})\mid w(X_{n+1}) = \infty\right) \mathbb{P}\left( w(X_{n+1}) = \infty\right)
+ \end{multlined}\\
+ & \ge (1 - \alpha)\mathbb{P}_{X\sim Q_{X}}(E_{\infty}) + \mathbb{P}_{X\sim Q_{X}}(E_{\infty}^{c}) - \frac{1}{2}\mathbb{E}_{X\sim P_{X}}|\hat{w}(X) - w(X)|\\
+ & \ge 1 - \alpha - \frac{1}{2}\mathbb{E}_{X\sim P_{X}}|\hat{w}(X) - w(X)|.
+\end{align*}
+
+\subsection{Proof of Theorem \ref{thm:double_robustness_q}}
+
+We start with the following two Rosenthal-type inequalities for sums of independent random variables with finite $(1 + \delta)$-th moments.
+
+\begin{proposition}[Theorem 3 of \cite{rosenthal1970subspaces}]\label{prop:rosenthal}
+ Let $\{Z_{i}\}_{i = 1, \ldots, n}$ be independent mean-zero random
+ variables. Then for any $\delta \ge 1$, there exists $L(\delta) > 0$
+ that only depends on $\delta$ such that
+\[\mathbb{E} \bigg|\sum_{i=1}^{n}Z_{i}\bigg|^{1 + \delta}\le L(\delta)\left\{\sum_{i=1}^{n}\mathbb{E} |Z_{i}|^{1 + \delta} + \left(\sum_{i=1}^{n}\mathbb{E} |Z_{i}|^{2}\right)^{(1 + \delta) / 2}\right\}.\]
+\end{proposition}
+
+\begin{proposition}[Theorem 2 of \cite{vonbahr65}]\label{prop:vonbahresseen}
+ Let $\{Z_{i}\}_{i = 1, \ldots, n}$ be independent mean-zero random variables. Then for any $\delta \in [0, 1)$,
+\[\mathbb{E} \bigg|\sum_{i=1}^{n}Z_{i}\bigg|^{1 + \delta}\le 2\sum_{i=1}^{n}\mathbb{E} |Z_{i}|^{1 + \delta}.\]
+\end{proposition}
+
+For notational convenience, we suppress the subcripts $N$ and $n$ in $\hat{q}, \hat{w}, \hat{C}$ as well as in $\hat{p}_{i}(x)$ and $\eta(x)$. Note that Assumption (3) implies that $w(X)$ is almost surely finite under $Q_{X}$ and $\hat{w}(X)$ is almost surely finite under $P_{X}$. By the same reasoning as in the proof of %
+ \hyperref[{eq:unconditional_coverage_rate_w}]{\textup{\tagform@{\ref*{eq:unconditional_coverage_rate_w}}}}%
+, $w(X)$ is almost surely finite under $P_{X}$ and $\hat{w}(X)$ is almost surely finite under $Q_{X}$.
+
+Let $\epsilon < r / 2$ and $(\tilde{X}, \tilde{Y})$ denote a generic random vector drawn from
+$Q_{X}\times P_{Y\mid X}$, which is independent of the data. Then
+\begin{align}
+ &\mathbb{P}(\tilde{Y} \in \hat{C}(\tilde{X}) \mid \tilde{X})\nonumber\\
+ & = \mathbb{P}\left(\max\{\hat{q}_{\alpha_{\mathrm{lo}}}(\tilde{X}) - \tilde{Y}, \tilde{Y} - \hat{q}_{\alpha_{\mathrm{hi}}}(\tilde{X})\}\le \eta(\tilde{X})\mid \tilde{X}\right)\nonumber\\
+ &\ge \mathbb{P}\left(\max\{q_{\alpha_{\mathrm{lo}}}(\tilde{X}) - \tilde{Y}, \tilde{Y} - q_{\alpha_{\mathrm{hi}}}(\tilde{X})\}\le \eta(\tilde{X}) - H(\tilde{X})\mid \tilde{X}\right)\nonumber\\
+ & \ge \mathbb{P}\left(\max\{q_{\alpha_{\mathrm{lo}}}(\tilde{X}) - \tilde{Y}, \tilde{Y} - q_{\alpha_{\mathrm{hi}}}(\tilde{X})\}\le -\epsilon - H(\tilde{X})\mid \tilde{X}\right) - \mathbb{P}(\eta(\tilde{X}) < -\epsilon\mid \tilde{X})\nonumber\\
+ & \ge \mathbb{P}\left(\max\{q_{\alpha_{\mathrm{lo}}}(\tilde{X}) - \tilde{Y}, \tilde{Y} - q_{\alpha_{\mathrm{hi}}}(\tilde{X})\}\le -\epsilon - H(\tilde{X})I(H(\tilde{X})\le \epsilon)\mid \tilde{X}\right)\nonumber\\
+ & \quad - I(H(\tilde{X}) > \epsilon) - \mathbb{P}(\eta(\tilde{X}) < -\epsilon\mid \tilde{X})\nonumber\\
+ & \stackrel{(i)}{\ge}\mathbb{P}\left(\max\{q_{\alpha_{\mathrm{lo}}}(\tilde{X}) - \tilde{Y}, \tilde{Y} - q_{\alpha_{\mathrm{hi}}}(\tilde{X})\}\le 0 \mid \tilde{X}\right) - b_{2}\left\{\epsilon + H(\tilde{X})I(H(\tilde{X})\le \epsilon)\right\}\nonumber\\
+ & \quad - I(H(\tilde{X}) > \epsilon) - \mathbb{P}(\eta(\tilde{X}) < -\epsilon\mid \tilde{X})\nonumber\\
+ & \ge \mathbb{P}\left(\max\{q_{\alpha_{\mathrm{lo}}}(\tilde{X}) - \tilde{Y}, \tilde{Y} - q_{\alpha_{\mathrm{hi}}}(\tilde{X})\}\le 0 \mid \tilde{X}\right) - b_{2}\left\{\epsilon + H(\tilde{X})\right\}\nonumber\\
+ & \quad - I(H(\tilde{X}) > \epsilon) - \mathbb{P}(\eta(\tilde{X}) < -\epsilon \mid \tilde{X})\nonumber\\
+ & \stackrel{(ii)}{=} 1 - \alpha - b_{2}\left\{\epsilon + H(\tilde{X})\right\} - I(H(\tilde{X}) > \epsilon) - \mathbb{P}(\eta(\tilde{X}) < -\epsilon \mid \tilde{X}); \label{eq:conditional_coverage}
+\end{align}
+above, (i) uses the condition that $2\epsilon < r$ and the assumption
+(2), and (ii) follows from the assumption (1) and the definitions of $q_{\alpha_{\mathrm{lo}}}$ and $q_{\alpha_{\mathrm{hi}}}$ that $\mathbb{P}(\tilde{Y}\in [q_{\alpha_{\mathrm{lo}}}(\tilde{X}), q_{\alpha_{\mathrm{hi}}}(\tilde{X})]) = \alpha_{\mathrm{hi}} - \alpha_{\mathrm{lo}} = 1 - \alpha$.
+
+Next, we derive an upper bound on
+ $\mathbb{P}(\eta(\tilde{X}) < -\epsilon \mid \tilde{X})$. Let $G$ denote the
+ cumulative distribution function of the random distribution
+ $\sum_{i=1}^{n}\hat{p}_{i}(\tilde{X})\delta_{V_{i}} +
+ \hat{p}_{\infty}(\tilde{X})\delta_{\infty}$. Again, $G$ implicitly
+ depends on $N$, $n$ and $\tilde{X}$. Then $\eta(\tilde{X}) < -\epsilon$
+ implies $G(-\epsilon)\ge 1 - \alpha$, and thus,
+\[\mathbb{P}\left(\eta(\tilde{X}) < -\epsilon\mid \tilde{X}\right)\le \mathbb{P}\left( G(-\epsilon)\ge 1 - \alpha \mid \tilde{X}\right), \,\, \text{a.s.}.\]
+Let $G^{*}(-\epsilon)$ denote the expectation of $G(-\epsilon)$ conditional on
+$\mathcal{D} = \{\mathcal{Z}_{\mathrm{tr}}, (X_{i})_{i=1}^{n}, \tilde{X}\}$, namely,
+\[G^{*}(-\epsilon) = \mathbb{E}[G(-\epsilon)\mid \mathcal{D}] = \sum_{i=1}^{n}\hat{p}_{i}(\tilde{X})\mathbb{P}(V_{i}\le -\epsilon\mid \mathcal{D}).\]
+For any $t > 0$, the triangle inequality implies that
+\begin{equation}
+ \label{eq:etaX1}
+ \mathbb{P}\left(\eta(\tilde{X}) < -\epsilon\mid \tilde{X}\right)\le \mathbb{P}\left( G(-\epsilon) - G^{*}(-\epsilon)\ge t \mid \tilde{X}\right) + \mathbb{P}\left( G^{*}(-\epsilon)\ge 1 - \alpha - t \mid \tilde{X}\right), \,\, \text{a.s.}.
+\end{equation}
+To bound the first term, we note that
+\[G(-\epsilon) - G^{*}(-\epsilon) = \sum_{i=1}^{n}\hat{p}_{i}(\tilde{X})\left(
+ I(V_{i}\le - \epsilon) - \mathbb{P}(V_{i}\le -\epsilon\mid \mathcal{D})\right).\] Conditional on
+$\mathcal{D}$, $G(-\epsilon) - G^{*}(-\epsilon)$ is sub-Gaussian with
+parameter
+\[\hat{\sigma}^{2} = \sum_{i=1}^{n}\hat{p}_{i}(\tilde{X})^{2}.\]
+For any $t > 0$,
+\[\mathbb{P}\left( G(-\epsilon) - G^{*}(-\epsilon) \ge t\mid \mathcal{D}\right)\le \exp\left(
+ -\frac{t^{2}}{2\hat{\sigma}^{2}}\right).\]
+Let $\gamma_{n}$ be any fixed sequence with $\gamma_{n} = O(1)$. Taking expectation over $\mathcal{D}\setminus \{\tilde{X}\}$, we obtain that
+
+\begin{align*}
+ &\mathbb{P}\left( G(-\epsilon) - G^{*}(-\epsilon) \ge t \mid \tilde{X}\right)\\
+ & \le \mathbb{E}\left[\exp\left( -\frac{t^{2}}{2\hat{\sigma}^{2}}\right)\mid \tilde{X}\right] \\
+ & \le \exp\left( - \frac{t^2}{2\gamma_{n}}\right) + \mathbb{P}\left(\hat{\sigma}^2 \ge \gamma_{n}\mid \tilde{X}\right)\\
+ & = \exp\left( - \frac{t^2}{2\gamma_{n}}\right) + \mathbb{P}\left( \frac{\sum_{i=1}^{n}\hat{w}(X_i)^2}{\left(\sum_{i=1}^{n}\hat{w}(X_i) + \hat{w}(\tilde{X})\right)^2}\ge \gamma_{n}\mid \tilde{X}\right)\\
+ & \le \exp\left( - \frac{t^2}{2\gamma_{n}}\right) + \mathbb{P}\left( \frac{\sum_{i=1}^{n}\hat{w}(X_i)^2}{\left(\sum_{i=1}^{n}\hat{w}(X_i)\right)^2}\ge \gamma_{n}\mid \tilde{X}\right)\\
+ & \stackrel{(i)}{=} \exp\left( - \frac{t^2}{2\gamma_{n}}\right) + \mathbb{P}\left( \frac{\sum_{i=1}^{n}\hat{w}(X_i)^2}{\left(\sum_{i=1}^{n}\hat{w}(X_i)\right)^2}\ge \gamma_{n}\right)\\
+ & \le \exp\left( - \frac{t^2}{2\gamma_{n}}\right) + \mathbb{P}\left(\sum_{i=1}^{n}\hat{w}(X_i)\le \frac{n}{2}\right) + \mathbb{P}\left(\sum_{i=1}^{n}\hat{w}(X_i)^2\ge \frac{n^2\gamma_{n}}{4}\right)\\
+ & \le \exp\left( - \frac{t^2}{2\gamma_{n}}\right) + \mathbb{P}\left(\sum_{i=1}^{n}|\hat{w}(X_i) - 1|\ge \frac{n}{2}\right) + \mathbb{P}\left(\sum_{i=1}^{n}\hat{w}(X_i)^2\ge \frac{n^2\gamma_{n}}{4}\right),
+\end{align*}
+where (i) uses the fact that $\tilde{X}$ is independent of
+$(\hat{w}(X_i))_{i=1}^{n}$. Note that this bound holds uniformly with $\tilde{X}$. Throughout the rest of the proof, we write
+$a_{1n}\preceq a_{2n}$ if there exists a constant $B$ that only
+depends on $r, b_1, b_2, \delta, M, k, \ell$ such that
+$a_{1n}\le B a_{2n}$ for all $n$. We consider two cases:
+
+\begin{enumerate}[(1)]
+\item If $\delta \ge 1$, then by Markov's inequality,
+ \[\mathbb{P}\left(\sum_{i=1}^{n}\hat{w}(X_i)^2\ge \frac{n^2\gamma_{n}}{4}\right)\le \frac{4\mathbb{E}[\sum_{i=1}^{n}\hat{w}(X_i)^2]}{n^2\gamma_{n}} = \frac{4\mathbb{E}[\hat{w}(X_1)^2]}{n\gamma_{n}}\preceq \frac{1}{n\gamma_{n}}.\]
+ Since $\mathbb{E}[\hat{w}(X_i)\mid \mathcal{Z}_\mathrm{tr}] = 1$, we have $\mathbb{E}[\hat{w}(X_i)] = 1$. By Markov's inequality and Proposition \ref{prop:rosenthal},
+ \begin{align}
+ &\mathbb{P}\left( \sum_{i=1}^{n}|\hat{w}(X_i) - 1|\ge \frac{n}{2}\right) \nonumber\\
+ & \le \frac{2^{1 + \delta}}{n^{1 + \delta}}\mathbb{E}\left(\sum_{i=1}^{n}|\hat{w}(X_i) - \mathbb{E}[\hat{w}(X_i)]|\right)^{1 + \delta}\nonumber\\
+ & \preceq \frac{1}{n^{1 + \delta}}\left\{ n\mathbb{E}|\hat{w}(X_i) - \mathbb{E}[\hat{w}(X_i)]|^{1 + \delta} + n^{(1 + \delta) / 2}\left(\mathbb{E}|\hat{w}(X_i) - \mathbb{E}[\hat{w}(X_i)]|^{2}\right)^{(1 + \delta) / 2}\right\}\nonumber\\
+ & \stackrel{(i)}{\preceq} \frac{1}{n^{1 + \delta}}\left\{ n\mathbb{E}|\hat{w}(X_i)|^{1 + \delta} + n^{(1 + \delta) / 2}(\mathbb{E}|\hat{w}(X_i)|^2)^{(1 + \delta) / 2}\right\}\nonumber\\
+ & \preceq \frac{1}{n^{(1 + \delta) / 2}},\label{eq:denom_case1}
+ \end{align}
+ where (i) follows from the H\"{o}lder's
+ inequality which gives
+ \[\mathbb{E}|\hat{w}(X_i) - \mathbb{E}[\hat{w}(X_i)]|^{1 + \delta}\le 2^{\delta}\left( \mathbb{E}|\hat{w}(X_i)|^{1+\delta} + |\mathbb{E}[\hat{w}(X_i)]|^{1+\delta}\right)\le 2^{1 + \delta}\mathbb{E}|\hat{w}(X_i)|^{1+\delta}.\]
+ Piecing things together yields
+ \[\mathbb{P}\left( G(-\epsilon) - G^{*}(-\epsilon) \ge t \mid \tilde{X}\right)\preceq \exp\left( - \frac{t^2}{2\gamma_{n}}\right) + \frac{1}{n^{(1 + \delta) / 2}} + \frac{1}{n\gamma_{n}} \preceq \exp\left( - \frac{t^2}{2\gamma_{n}}\right) + \frac{1}{n\gamma_{n}},\]
+ where the last step follows from the fact that $\delta\ge 1$ and $\gamma_{n} = O(1)$.
+\item If $\delta < 1$, then by Markov's inequality,
+ \begin{align*}
+ &\mathbb{P}\left(\sum_{i=1}^{n}\hat{w}(X_i)^2\ge \frac{n^2\gamma_{n}}{4}\right)\le \frac{\mathbb{E}\left[\left(\sum_{i=1}^{n}\hat{w}(X_i)^2\right)^{(1 + \delta) / 2}\right]}{(n^2\gamma_{n})^{(1 + \delta) / 2}}
+ \le \frac{\mathbb{E}\left[\sum_{i=1}^{n}\hat{w}(X_i)^{1 + \delta}\right]}{(n^2\gamma_{n})^{(1 + \delta) / 2}}\preceq \frac{1}{n^{\delta}\gamma_{n}^{(1 + \delta)/2}},
+ \end{align*}
+ where the last step follows from the simple fact that $\|x\|_{p}\le \|x\|_{1}$ for $p\ge 1$, with $p = 2 / (1 + \delta)$ and $x_i = \hat{w}(X_i)^{1 + \delta}$. By Markov's inequality and Proposition \ref{prop:vonbahresseen},
+ \begin{multline}
+ \mathbb{P}\left( \sum_{i=1}^{n}|\hat{w}(X_i) - 1|\ge \frac{n}{2}\right) \\
+ \le \frac{2^{1 + \delta}}{n^{1 + \delta}}\mathbb{E}\left(\sum_{i=1}^{n}|\hat{w}(X_i) - \mathbb{E}[\hat{w}(X_i)]|\right)^{1 + \delta} \preceq \frac{2n\mathbb{E}|\hat{w}(X_i) - \mathbb{E}[\hat{w}(X_i)]|^{1 + \delta}}{n^{1 + \delta}} \preceq \frac{1}{n^{\delta}}.\label{eq:denom_case2}
+ \end{multline}
+ Piecing things together yields
+ \[\mathbb{P}\left( G(-\epsilon) - G^{*}(-\epsilon) \ge t \mid \tilde{X}\right)\preceq \exp\left( - \frac{t^2}{2\gamma_{n}}\right) + \frac{1}{n^{\delta}} + \frac{1}{n^{\delta}\gamma_{n}^{(1 + \delta) / 2}} \preceq \exp\left( - \frac{t^2}{2\gamma_{n}}\right) + \frac{1}{n^{\delta}\gamma_{n}^{(1 + \delta) / 2}},\]
+ where the last step follows from $\gamma_{n} = O(1)$.
+\end{enumerate}
+In all cases,
+\begin{equation}
+ \label{eq:etaX2}
+ \mathbb{P}\left( G(-\epsilon) - G^{*}(-\epsilon) \ge t \mid \tilde{X}\right)\preceq
+\exp\left( - \frac{t^2}{2\gamma_{n}}\right) + \frac{1}{n^{\delta'}\gamma_{n}^{(1 + \delta') / 2}}, \quad \delta' = \min\{\delta, 1\}.
+\end{equation}
+
+~\\
+\noindent Next, we almost surely bound the term
+$\mathbb{P}\left( G^{*}(-\epsilon)\ge 1 - \alpha - t \mid \tilde{X}\right)$. By the triangle
+inequality and definition of $H(\cdot)$,
+\[V_{i}\ge \max\{q_{\alpha_{\mathrm{lo}}}(X_{i}) - Y_{i}, Y_{i} - q_{\alpha_{\mathrm{hi}}}(X_{i})\} - H(X_{i})\triangleq V_{i}^{*} - H(X_{i}).\]
+By Assumptions (1) and (2), $\mathbb{P}(V_{i}^{*}\le 0\mid \mathcal{D}) = \alpha_{\mathrm{hi}} - \alpha_{\mathrm{lo}} = 1 - \alpha$. Conditioning on $\mathcal{D}$, $H(X_{i})$ is deterministic. Since $\epsilon < r / 2 < 2r$,
+\begin{align}
+ G^{*}(-\epsilon)
+ &\le \sum_{i=1}^{n}\hat{p}_{i}(\tilde{X})\left\{ I\left( H(X_{i})\ge \frac{\epsilon}{2}\right) + \mathbb{P}\left( V_{i}^{*}\le -\frac{\epsilon}{2}\mid \mathcal{D}\right)\right\}\nonumber\\
+ & \le \sum_{i=1}^{n}\hat{p}_{i}(\tilde{X})\left\{ I\left( H(X_{i})\ge \frac{\epsilon}{2}\right) + \mathbb{P}\left( V_{i}^{*}\le -\frac{\epsilon}{2}\mid \mathcal{D}\right)\right\}\nonumber\\
+ & \le \sum_{i=1}^{n}\hat{p}_{i}(\tilde{X})\left\{ I\left( H(X_{i})\ge \frac{\epsilon}{2}\right) + \mathbb{P}\left( V_{i}^{*}\le 0\mid \mathcal{D}\right) - \frac{\epsilon b_{1}}{2}\right\}\nonumber\\
+ & = \sum_{i=1}^{n}\hat{p}_{i}(\tilde{X})\left\{ I\left( H(X_{i})\ge \frac{\epsilon}{2}\right) + 1 - \alpha - \frac{\epsilon b_{1}}{2}\right\}\nonumber\\
+ & \le 1 - \alpha - \frac{\epsilon b_{1}}{2} + \sum_{i=1}^{n}\hat{p}_{i}(\tilde{X})I\left( H(X_{i})\ge \frac{\epsilon}{2}\right),\label{eq:Gstar1}
+\end{align}
+where the last step follows from the fact that $\sum_{i=1}^{n}\hat{p}_{i}(\tilde{X})\le 1$. If $t \le \epsilon b_1 / 4$, %
+ \hyperref[{eq:Gstar1}]{\textup{\tagform@{\ref*{eq:Gstar1}}}}%
+ implies that
+\begin{align*}
+ &\mathbb{P}\left( G^{*}(-\epsilon)\ge 1 - \alpha - t \mid \tilde{X}\right)\\
+ & \le \mathbb{P}\left(\sum_{i=1}^{n}\hat{p}_{i}(\tilde{X})I\left( H(X_i)\ge \frac{\epsilon}{2}\right)\ge \frac{\epsilon b_1}{2} - t\mid \tilde{X}\right)\\
+ & = \mathbb{P}\left(\frac{\sum_{i=1}^{n}\hat{w}(X_i)I(H(X_i)\ge \epsilon / 2)}{\sum_{i=1}^{n}\hat{w}(X_i) + \hat{w}(\tilde{X})}\ge \frac{\epsilon b_1}{2} - t\mid \tilde{X}\right)\\
+ & \le \mathbb{P}\left(\frac{\sum_{i=1}^{n}\hat{w}(X_i)I(H(X_i)\ge \epsilon / 2)}{\sum_{i=1}^{n}\hat{w}(X_i)}\ge \frac{\epsilon b_1}{2} - t\mid \tilde{X}\right)\\
+ & \stackrel{(i)}{=} \mathbb{P}\left(\frac{\sum_{i=1}^{n}\hat{w}(X_i)I(H(X_i)\ge \epsilon / 2)}{\sum_{i=1}^{n}\hat{w}(X_i)}\ge \frac{\epsilon b_1}{2} - t\right)\\
+ & \le \mathbb{P}\left(\sum_{i=1}^{n}\hat{w}(X_i)\le \frac{n}{2}\right) + \mathbb{P}\left( \sum_{i=1}^{n}\hat{w}(X_i)I\left( H(X_i)\ge \frac{\epsilon}{2}\right)\ge \frac{n(\epsilon b_1 - 2t)}{4}\right)\\
+ & \stackrel{(ii)}{\le} \mathbb{P}\left(\sum_{i=1}^{n}|\hat{w}(X_i) - 1|\ge \frac{n}{2}\right) + \mathbb{P}\left( \sum_{i=1}^{n}\hat{w}(X_i)I\left( H(X_i)\ge \frac{\epsilon}{2}\right)\ge \frac{n\epsilon b_1}{8}\right),
+\end{align*}
+where (i) follows from the independence between $\tilde{X}$ and $\mathcal{D}\setminus\{\tilde{X}\}$ and (ii) follows from the fact that $t \le \epsilon b_1 / 4$. By %
+ \hyperref[{eq:denom_case1}]{\textup{\tagform@{\ref*{eq:denom_case1}}}}%
+ and %
+ \hyperref[{eq:denom_case2}]{\textup{\tagform@{\ref*{eq:denom_case2}}}}%
+, we have that
+\[\mathbb{P}\left(\sum_{i=1}^{n}|\hat{w}(X_i) - 1|\ge \frac{n}{2}\right)\preceq \frac{1}{n^{(\delta + \delta') / 2}},\]
+where $\delta' = \min\{\delta, 1\}$. By Markov's inequality,
+\begin{align*}
+ \mathbb{P}\left( \sum_{i=1}^{n}\hat{w}(X_i)I\left( H(X_i)\ge \frac{\epsilon}{2}\right)\ge \frac{n\epsilon b_1}{8}\right) &\preceq \frac{1}{\epsilon}\mathbb{E}\left[\hat{w}(X)I\left( H(X)\ge \frac{\epsilon}{2}\right)\right]\preceq \frac{\mathbb{E}[\hat{w}(X)H^{k}(X)]}{\epsilon^{1+k}},
+\end{align*}
+where the last step uses the simple fact that $I(H(X_i)\ge \epsilon / 2)\le (2/\epsilon)^{k}H^{k}(X_i)$. Therefore, for any $t\le \epsilon b_1 / 4$, we obtain an almost sure bound of the form
+\begin{equation}
+ \label{eq:etaX3}
+ \mathbb{P}\left( G^{*}(-\epsilon)\ge 1 - \alpha - t \mid \tilde{X}\right) \preceq \frac{1}{n^{(\delta + \delta') / 2}} + \frac{\mathbb{E}[\hat{w}(X)H^{k}(X)]}{\epsilon^{1+k}}.
+\end{equation}
+
+~\\
+Combining %
+ \hyperref[{eq:etaX1}]{\textup{\tagform@{\ref*{eq:etaX1}}}}%
+, %
+ \hyperref[{eq:etaX2}]{\textup{\tagform@{\ref*{eq:etaX2}}}}%
+ and %
+ \hyperref[{eq:etaX3}]{\textup{\tagform@{\ref*{eq:etaX3}}}}%
+ together and setting $t = \epsilon b_1 / 4$, we obtain that for any sequence $\gamma_{n} = O(1)$,
+\begin{align}
+ \mathbb{P}\left(\eta(\tilde{X}) < -\epsilon\mid \tilde{X}\right) &\preceq \exp\left( - \frac{b_1^2}{32}\frac{\epsilon^2}{\gamma_{n}}\right) + \frac{1}{n^{\delta'}\gamma_{n}^{(1 + \delta') / 2}} + \frac{1}{n^{(\delta + \delta') / 2}} + \frac{\mathbb{E}[\hat{w}(X)H^{k}(X)]}{\epsilon^{1+k}}\nonumber\\
+ & \preceq \exp\left( - \frac{b_1^2}{32}\frac{\epsilon^2}{\gamma_{n}}\right) + \frac{1}{n^{\delta'}\gamma_{n}^{(1 + \delta') / 2}} + \frac{\mathbb{E}[\hat{w}(X)H^{k}(X)]}{\epsilon^{1+k}}. \label{eq:etaX4}
+\end{align}
+Substitute $\epsilon$ with $\epsilon_{n}$ and assume $\epsilon_{n} \le r / 2$
+(recall the beginning of the proof). Set
+\begin{equation}
+ \label{eq:gamman}
+ \gamma_{n} = \frac{32}{b_1^2}\frac{\epsilon_{n}^2}{\log n}.
+\end{equation}
+Clearly, $\gamma_{n} = o(1)$. Then the first term of %
+ \hyperref[{eq:etaX4}]{\textup{\tagform@{\ref*{eq:etaX4}}}}%
+ is $1 / n$, and thus,
+\[\mathbb{P}\left(\eta(\tilde{X}) < -\epsilon_{n}\mid \tilde{X}\right) \preceq \frac{(\log n)^{(1 + \delta') / 2}}{n^{\delta'}\epsilon_{n}^{1 + \delta'}} + \frac{\mathbb{E}[\hat{w}(X)H^{k}(X)]}{\epsilon_{n}^{1+k}}.\]
+Equivalently, there exists a constant $B$ that only depends on $r, b_1, b_2, \delta, M, k, \ell$, such that
+\[\mathbb{P}\left(\eta(\tilde{X}) < -\epsilon_{n}\mid \tilde{X}\right) \le B\left\{\frac{(\log n)^{(1 + \delta') / 2}}{n^{\delta'}\epsilon_{n}^{1 + \delta'}} + \frac{\mathbb{E}[\hat{w}(X)H^{k}(X)]}{\epsilon_{n}^{1+k}}\right\}, \,\, \text{a.s.}.\]
+Together with %
+ \hyperref[{eq:conditional_coverage}]{\textup{\tagform@{\ref*{eq:conditional_coverage}}}}%
+, it implies that
+
+\begin{multline*}
+ \mathbb{P}(\tilde{Y} \in \hat{C}(\tilde{X}) \mid \tilde{X})\\
+ \ge 1 - \alpha - b_{2}(\epsilon_{n} + H(\tilde{X})) - I(H(\tilde{X}) > \epsilon_{n}) - B\left\{\frac{(\log n)^{(1 + \delta') / 2}}{n^{\delta'}\epsilon_{n}^{1 + \delta'}} + \frac{\mathbb{E}[\hat{w}(X)H^{k}(X)]}{\epsilon_{n}^{1+k}}\right\},
+\end{multline*}
+almost surely. Assume $B\ge 2b_2$ without loss of generality. Then
+\begin{multline}
+ \mathbb{P}\left(\mathbb{P}(\tilde{Y} \in \hat{C}(\tilde{X}) \mid \tilde{X}) \le 1 - \alpha - B\left\{\epsilon_{n} + \frac{(\log n)^{(1 + \delta') / 2}}{n^{\delta'}\epsilon_{n}^{1 + \delta'}} + \frac{\mathbb{E}[\hat{w}(X)H^{k}(X)]}{\epsilon_{n}^{1+k}}\right\}\right)\\
+ \quad \le \mathbb{P}(H(\tilde{X}) > \epsilon_{n}).\label{eq:conditional_coverage2}
+\end{multline}
+For any $\beta\in (0, 1)$, let
+\[\epsilon_{n} = \frac{(\log n)^{(1 + \delta') / 2(2 + \delta')}}{n^{\delta' / (2 + \delta')}} + \left(\mathbb{E}[\hat{w}(X)H^{k}(X)]\right)^{1 / (2+k)} + \frac{\left(\mathbb{E}[w(X)H^{\ell}(X)]\right)^{1/\ell}}{\beta^{1/\ell}}.\]
+Then
+\begin{equation}
+ \label{eq:eps_cond}
+ \frac{(\log n)^{(1 + \delta') / 2}}{n^{\delta'}\epsilon_{n}^{1 + \delta'}}, \frac{\mathbb{E}[\hat{w}(X)H^{k}(X)]}{\epsilon_{n}^{1+k}}\le \epsilon_{n},
+\end{equation}
+and by Markov's inequality and %
+ \hyperref[{eq:transformation}]{\textup{\tagform@{\ref*{eq:transformation}}}}%
+,
+\[\mathbb{P}(H(\tilde{X}) > \epsilon_{n})\le \frac{\mathbb{E}[H^{\ell}(\tilde{X})]}{\epsilon_{n}^{\ell}} = \frac{\mathbb{E}[w(X)H^{\ell}(X)]}{\epsilon_{n}^{\ell}}\le \beta.\]
+Furthermore, the Assumption (4) implies that $\epsilon_{n}\le r / 2$ when $N\ge N(r)$ and $n\ge n(r)$ for some constants $N(r), n(r)$ that only depend on $r$. Replacing $B$ by $3B$, we obtain that, for $N\ge N(r), n\ge n(r)$,
+\[\mathbb{P}\left(\mathbb{P}(\tilde{Y} \in \hat{C}(\tilde{X}) \mid \tilde{X}) \le 1 - \alpha - B\epsilon_{n}\right)\le \beta.\]
+We can further enlarge $B$ so that $B\epsilon_{n} \ge 1 - \alpha$ when $N < N(r)$ or $n < n(r)$, in which case %
+ \hyperref[{eq:conditional_coverage_rate_q}]{\textup{\tagform@{\ref*{eq:conditional_coverage_rate_q}}}}%
+ trivially holds.
+
+~\\
+\noindent To prove the unconditional result, we note that %
+ \hyperref[{eq:conditional_coverage2}]{\textup{\tagform@{\ref*{eq:conditional_coverage2}}}}%
+ implies
+\[\mathbb{P}(\tilde{Y} \in \hat{C}(\tilde{X}))\ge \left( 1 - \alpha - B\left\{\epsilon_{n} + \frac{(\log n)^{(1 + \delta') / 2}}{n^{\delta'}\epsilon_{n}^{1 + \delta'}} + \frac{\mathbb{E}[\hat{w}(X)H^{k}(X)]}{\epsilon_{n}^{1+k}}\right\}\right)(1 - \mathbb{P}(H(\tilde{X}) > \epsilon_{n})).\]
+Let
+\[\epsilon_{n} = \frac{(\log n)^{(1 + \delta') / 2(2 + \delta')}}{n^{\delta' / (2 + \delta')}} + \left(\mathbb{E}[\hat{w}(X)H^{k}(X)]\right)^{1 / (2+k)} + \left(\mathbb{E}[w(X)H^{\ell}(X)]\right)^{1/ (1+\ell)}.\]
+Then %
+ \hyperref[{eq:eps_cond}]{\textup{\tagform@{\ref*{eq:eps_cond}}}}%
+ remains to hold.
+By Markov's inequality and %
+ \hyperref[{eq:transformation}]{\textup{\tagform@{\ref*{eq:transformation}}}}%
+,
+\[\mathbb{P}(H(\tilde{X}) > \epsilon_{n})\le \frac{\mathbb{E}[H^{\ell}(\tilde{X})]}{\epsilon_{n}^{\ell}} = \frac{\mathbb{E}[w(X)H^{\ell}(X)]}{\epsilon_{n}^{\ell}}\le \epsilon_{n}.\]
+Furthermore, Assumption (4) implies that $\epsilon_{n}\le r / 2$ when $N$ and $n$ are sufficiently large, in which case,
+\[\mathbb{P}(\tilde{Y} \in \hat{C}(\tilde{X}))\ge \left( 1 - \alpha - 3B\epsilon_{n}\right)(1 - \epsilon_{n})\ge 1 - \alpha - (3B+1)\epsilon_{n}.\]
+Similar to %
+ \hyperref[{eq:conditional_coverage_rate_q}]{\textup{\tagform@{\ref*{eq:conditional_coverage_rate_q}}}}%
+, we can enlarge the constant to make %
+ \hyperref[{eq:unconditional_coverage_rate_q}]{\textup{\tagform@{\ref*{eq:unconditional_coverage_rate_q}}}}%
+ hold
+when $N$ or $n$ is not sufficiently large.
+
+ \subsection{An asymptotic result}\label{subsec:asymptotic}
+
+ Theorem \ref{thm:double_robustness_w} and Theorem \ref{thm:double_robustness_q} together imply the following asymptotic
+ result, which is a generalization of Theorem
+ \ref{thm:double_robustness_ATE} from Section
+ \ref{subsec:double_robustness}.
+\begin{corollary}\label{cor:double_robustness}
+With the same notation as in Theorem \ref{thm:double_robustness_w}, assume
+ that either B1 or B2 (or both) is satisfied:
+ \begin{enumerate}[\textbf{B}1]
+ \item $\displaystyle \lim_{N\rightarrow \infty}\mathbb{E} |\hat{w}_{N}(X) - w(X)| = 0$;
+ \item the conditions (1)-(4) in Theorem \ref{thm:double_robustness_q} hold.
+ \end{enumerate}
+ Then
+ \begin{equation}
+ \label{eq:unconditional_coverage_general}
+ \lim_{N, n\rightarrow\infty}\mathbb{P}_{(X, Y)\sim Q_{X}\times P_{Y\mid X}}(Y \in \hat{C}_{N, n}(X))\ge 1 - \alpha.
+ \end{equation}
+ Furthermore, under \textbf{B}2, for any $\epsilon > 0$,
+ \begin{equation}
+ \label{eq:conditional_coverage_general}
+ \lim_{N, n\rightarrow\infty}\mathbb{P}_{X\sim Q_{X}}\left( \mathbb{P}(Y\in \hat{C}_{N, n}(X)\mid X)\le 1 - \alpha - \epsilon\right) = 0.
+ \end{equation}
+\end{corollary}
+
+\section{Proofs of Other Results}\label{app:miscellaneous}
+\subsection{Proof of Proposition \ref{prop:equal}}
+
+Note that it remains to prove the general result since (1) and (2) are special cases. The lower bound is proved by %
+ \hyperref[{eq:unconditional_coverage_rate_w}]{\textup{\tagform@{\ref*{eq:unconditional_coverage_rate_w}}}}%
+. For the upper bound, we first note that $\mathbb{E}[\hat{w}(X)^{r}] < \infty$ implies that $\mathbb{P}_{X\sim P_{X}}(\hat{w}(X) < \infty) = 1$ and $\mathbb{E}[\hat{w}(X)] < \infty$. Thus, we can assume $\mathbb{E}[\hat{w}(X)] = 1$ without loss of generality due to the invariance to rescalings of weighted split-CQR. Let $\tilde{Q}_{X}$ be a probability measure with $d\tilde{Q}_{X} = \hat{w}(X)dP_{X}$ and $(\tilde{X}, \tilde{Y})$ be a sample from $\tilde{Q}_{X}\times P_{Y\mid X}$ that is independent of the data. By H\"{o}lder's inequality,
+\[\mathbb{E} [\hat{w}(\tilde{X})] = \int \frac{d\tilde{Q}_{X}}{dP_{X}}d\tilde{Q}_{X} = \mathbb{E}_{X\sim P_{X}}[\hat{w}(X)^{2}] \le M_{r}^2 < \infty,\]
+By %
+ \hyperref[{eq:coverage_tilde}]{\textup{\tagform@{\ref*{eq:coverage_tilde}}}}%
+ again with $(\tilde{X}, \tilde{Y})$ denoting $(\tilde{X}_{n+1}, \tilde{Y}_{n+1})$ for simplicity,
+\begin{align*}
+ &\mathbb{P}\left(\tilde{Y}\in \hat{C}(\tilde{X})\mid \mathcal{Z}_{\mathrm{tr}}\right)\\
+ & = \mathbb{E} \mathbb{P}\left( \tilde{V}_{n + 1}\le \mathrm{Quantile}\left( 1 - \alpha; \sum_{i=1}^{n}\hat{p}_{i}(\tilde{X})\delta_{V_{i}^{*}} + \hat{p}_{\infty}(\tilde{X})\delta_{\tilde{V}_{n+1}}\right) \mid \mathcal{E}(\tilde{V}), \mathcal{Z}_{\mathrm{tr}}\right)\nonumber\\
+ & \le \mathbb{E} \left( 1 - \alpha + \max_{i\in [n]\cup \{\infty\}}\hat{p}_{i}(\tilde{X})\right).
+\end{align*}
+ Let $\mathcal{A}$ denote the event that
+ \[\sum_{i=1}^{n}\hat{w}(X_{i}) \le \frac{n}{2}.\]
+ By %
+ \hyperref[{eq:denom_case1}]{\textup{\tagform@{\ref*{eq:denom_case1}}}}%
+ with $\delta = 1$, we have that
+ \[\mathbb{P}\left(\sum_{i=1}^{n}\hat{w}(X_i)\le \frac{n}{2}\right) \le \frac{c_{1}M_{r}^{2}}{n},\]
+ where $c_1$ is an absolute constant. Note that
+ \[\max_{i\in [n]\cup \{\infty\}}\hat{p}_{i}(\tilde{X}) = \frac{\max\{\hat{w}(\tilde{X}), \max_{i}\hat{w}(X_{i})\}}{\hat{w}(\tilde{X}) + \sum_{i=1}^{n}\hat{w}(X_{i})}\le 1.\]
+ Then
+ \begin{align*}
+ &\mathbb{E} \left[\frac{\max\{\hat{w}(\tilde{X}), \max_{i}\hat{w}(X_{i})\}}{\hat{w}(\tilde{X}) + \sum_{i=1}^{n}\hat{w}(X_{i})}\right]\\
+ & \le \mathbb{E}\left[\frac{\max\{\hat{w}(\tilde{X}), \max_{i}\hat{w}(X_{i})\}}{\hat{w}(\tilde{X}) + \sum_{i=1}^{n}\hat{w}(X_{i})}I_{\mathcal{A}^{c}}\right] + \mathbb{P}(\mathcal{A})\\
+ & \le \mathbb{E}\left[\frac{2\max\{\hat{w}(\tilde{X}), \max_{i}\hat{w}(X_{i})\}}{n}I_{\mathcal{A}^{c}}\right] + \frac{c_{1}M_{r}^{2}}{n}\\
+ & \le \frac{2}{n}\left( \mathbb{E} \hat{w}(\tilde{X}) + \mathbb{E} \max_{i}\hat{w}(X_{i})\right) + \frac{c_{1}M_{r}^{2}}{n}\\
+ & \le \frac{2}{n}\left( \mathbb{E} \hat{w}(\tilde{X}) + \left(\mathbb{E}\sum_{i=1}^{n}\hat{w}(X_{i})^{r}\right)^{1/r}\right) + \frac{c_{1}M_{r}^{2}}{n}\\
+ & \le \frac{2}{n}\left( M_{r}^{2} + n^{1 / r}M_{r}\right) + \frac{c_{1}M_{r}^{2}}{n}.
+ \end{align*}
+This implies that
+ \[\mathbb{P}_{(X, Y)\sim \tilde{Q}_{X}\times P_{Y\mid X}}(Y\in \hat{C}(X))\le 1 - \alpha + cn^{1/r - 1}\]
+ for some constant $c$ that only depends on $M_{r}$ and $r$. The upper bound is then proved by %
+ \hyperref[{eq:tv_Q_tdQ}]{\textup{\tagform@{\ref*{eq:tv_Q_tdQ}}}}%
+ and the same steps following %
+ \hyperref[{eq:tv_Q_tdQ}]{\textup{\tagform@{\ref*{eq:tv_Q_tdQ}}}}%
+.
+
+\subsection{Proof of Theorem \ref{thm:double_robustness_ATE}}
+Since $\mathbb{E}[1 / \hat{e}_{N}(X)\mid \mathcal{Z}_{\mathrm{tr}}] < \infty$ and
+$\mathbb{E}[1 / e(X)] < \infty$, we can here set
+$$\hat{w}_{N}(x) = \frac{1 / \hat{e}_{N}(x)}{\mathbb{E}[1 / \hat{e}_{N}(X)\mid
+ \mathcal{Z}_{\mathrm{tr}}]}, \,\, w(x) = \frac{dP_{X}(x)}{dP_{X\mid T=1}(x)} = \frac{1 / e(x)}{\mathbb{E}[1 / e(X)]}$$
+$$\Longrightarrow \mathbb{E}[\hat{w}_{N}(X)\mid \mathcal{Z}_{\mathrm{tr}}] = 1 = \mathbb{E}[w(X)].$$
+Thus, the assumption
+\textbf{B}1 of Corollary \ref{cor:double_robustness} reduces to
+\[\lim_{N\rightarrow \infty}\mathbb{E}\bigg|\frac{1 / \hat{e}_{N}(X)}{\mathbb{E}[1 / \hat{e}_{N}(X)\mid \mathcal{Z}_{\mathrm{tr}}]} - \frac{1 / e(X)}{\mathbb{E}[1 / e(X)]}\bigg| = 0,\]
+and the assumptions \textbf{B}2 (3)-(4) of Corollary \ref{cor:double_robustness} reduce to
+\[\limsup_{N\rightarrow\infty}\frac{\mathbb{E} [1 / \hat{e}(X)^{1 + \delta}]}{\left(\mathbb{E} [1 / \hat{e}(X)]\right)^{1 + \delta}} < \infty, \quad \lim_{N\rightarrow \infty}\frac{\mathbb{E}[H_{N}(X) / \hat{e}_{N}(X)]}{\mathbb{E}[1 / \hat{e}_{N}(X)]} = \lim_{N\rightarrow \infty}\frac{\mathbb{E}[H_{N}(X) / e(X)]}{\mathbb{E}[1 / e(X)]} = 0.\]
+Clearly, \textbf{A}2 implies \textbf{B}2 since
+$e(x), \hat{e}_{N}(x)\in [0, 1]$. Now we prove that \textbf{A}1
+implies \textbf{B}1. In fact,
+\begin{align*}
+ &\lim_{N\rightarrow \infty}\mathbb{E}\bigg|\frac{1 / \hat{e}_{N}(X)}{\mathbb{E}[1 / \hat{e}_{N}(X)\mid \mathcal{Z}_{\mathrm{tr}}]} - \frac{1 / e(X)}{\mathbb{E}[1 / e(X)]}\bigg| \\
+ \le & \limsup_{N\rightarrow \infty}\frac{1}{\mathbb{E}[1 / \hat{e}_{N}(X)\mid \mathcal{Z}_{\mathrm{tr}}]}\mathbb{E}\bigg|\frac{1}{\hat{e}_{N}(X)} - \frac{1}{e(X)}\bigg| + \limsup_{N\rightarrow \infty}\mathbb{E} \left[\frac{1}{e(X)}\right]\mathbb{E}\bigg|\frac{1}{\mathbb{E}[1 / \hat{e}_{N}(X)\mid \mathcal{Z}_{\mathrm{tr}}]} - \frac{1}{\mathbb{E}[1 / e(X)]}\bigg|\\
+ \stackrel{(i)}{\le} & \limsup_{N\rightarrow \infty}\mathbb{E}\bigg|\frac{1}{\hat{e}_{N}(X)} - \frac{1}{e(X)}\bigg| + \limsup_{N\rightarrow \infty}\mathbb{E} \left[\frac{1}{e(X)}\right]\mathbb{E} \bigg|\mathbb{E}\left[\frac{1}{\hat{e}_{N}(X)}\mid \mathcal{Z}_{\mathrm{tr}}\right] - \mathbb{E}\left[\frac{1}{e(X)}\right]\bigg|\\
+ \le & \limsup_{N\rightarrow \infty}\mathbb{E}\bigg|\frac{1}{\hat{e}_{N}(X)} - \frac{1}{e(X)}\bigg| + \limsup_{N\rightarrow \infty}\mathbb{E} \left[\frac{1}{e(X)}\right]\mathbb{E}\left( \mathbb{E}\left[\bigg|\frac{1}{\hat{e}_{N}(X)} - \frac{1}{e(X)}\bigg|\mid \mathcal{Z}_{\mathrm{tr}}\right]\right)\\
+ \stackrel{(ii)}{=} & \left( 1 + \mathbb{E} \left[\frac{1}{e(X)}\right]\right)\limsup_{N\rightarrow \infty}\mathbb{E}\bigg|\frac{1}{\hat{e}_{N}(X)} - \frac{1}{e(X)}\bigg|;
+\end{align*}
+(i) above uses the fact that $e(x), \hat{e}_{N}(x)\in [0, 1]$ and (ii)
+uses assumption \textbf{A}1 and the condition that
+$\mathbb{E} [1 / e(X)] < \infty$.
+
+\subsection{Proof of Theorem \ref{thm:int_conformal}}
+Let $n = |\mathcal{Z}_{\mathrm{ca}}|$ and $(X_{n+1}, C_{n+1})$ be an independent
+copy of $(X, C)$. Further let
+\[V_{n+1} = \max\{\hat{m}^{L}(X_{n+1}; \mathcal{Z}_{\mathrm{tr}}) - C_{n+1}^{L}, C_{n+1}^{R} - \hat{m}^{R}(X_{n+1}; \mathcal{Z}_{\mathrm{tr}})\}.\]
+Conditional on $\mathcal{Z}_{\mathrm{tr}}$, $V_{1}, \ldots, V_{n}, V_{n + 1}$ are exchangeable. Then
+\[\mathbb{P}\left( V_{n+1}\le \mathrm{Quantile}\left( 1 - \gamma; \frac{1}{n+1}\sum_{i=1}^{n+1}\delta_{V_{i}}\right)\right)\ge 1 - \gamma.\]
+By definition,
+\[\mathrm{Quantile}\left( 1 - \gamma; \frac{1}{n+1}\sum_{i=1}^{n+1}\delta_{V_{i}}\right) = \mathrm{Quantile}\left( (1 - \gamma)\frac{n + 1}{n}; \frac{1}{n}\sum_{i=1}^{n}\delta_{V_{i}}\right) = \eta.\]
+As a consequence,
+\[\mathbb{P}\left( C_{n+1}\in \hat{\mathcal{C}}(X_{n+1})\right) = \mathbb{P}\left( V_{n+1}\le \eta\right)\ge 1 - \gamma.\]
+
+\section{Additional Experimental Results}\label{app:expr}
+
+\begin{figure}[hbp]
+ \centering
+ \includegraphics[width = 0.9\textwidth]{simul_synthetic_cond_d100_std_paper.pdf}
+ \caption{Estimated conditional coverage of ITE as a function of the
+ conditional variance $\sigma^{2}(x)$ for the heteroscedastic cases
+ from Section \ref{subsec:simul}. Here, $d = 100$ and
+ $\alpha = 0.05$. The blue curves correspond to the median and the
+ boundaries of the blue confidence bands correspond to the $95\%$
+ and $5\%$ quantiles of these estimates across $100$ replicates.}
+\label{fig:extra1}
+\end{figure}
+
+\begin{figure}
+ \centering
+ \includegraphics[width = 0.9\textwidth]{simul_synthetic_cond_d10_tau_paper.pdf}
+ \caption{Estimated conditional coverage of ITE as a function of the
+ CATE $\tau(x)$ for all scenarios with $d = 10$ from Section \ref{subsec:simul}. Everything else is as in Figure \ref{fig:extra1}.}
+\label{fig:extra2}
+\end{figure}
+
+\begin{figure}
+ \centering
+ \includegraphics[width = 0.9\textwidth]{simul_synthetic_cond_d100_tau_paper.pdf}
+ \caption{Estimated conditional coverage of ITE as a function of the
+ CATE $\tau(x)$ for all scenarios with $d = 100$ from Section
+ \ref{subsec:simul}. Everything else is as in Figure
+ \ref{fig:extra1}. The difference with Figure \ref{fig:extra2} is
+ the value of the dimension $d$. Yet, we can observe a very similar
+ behavior.}
+\label{fig:extra3}
+\end{figure}
