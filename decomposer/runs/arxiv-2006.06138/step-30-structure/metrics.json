@@ -1,0 +1,37 @@
+{
+  "classified_ratio": 0.9548,
+  "max_depth": 5,
+  "n_edges": 167,
+  "n_edges_resolved": 130,
+  "n_nodes": 443,
+  "role_counts": {
+    "assert": 11,
+    "formalize": 112,
+    "narrate": 197,
+    "refer": 88,
+    "segment": 35
+  },
+  "type_counts": {
+    "bib_reference": 88,
+    "block": 20,
+    "document": 1,
+    "equation": 112,
+    "list": 4,
+    "list_item": 11,
+    "paragraph": 162,
+    "remark": 1,
+    "section": 34,
+    "theorem": 10
+  },
+  "verification": {
+    "all_passed": true,
+    "checks": {
+      "acyclic_tree": true,
+      "character_coverage": true,
+      "idempotent_normalization": true,
+      "reference_integrity": true,
+      "schema_valid": true,
+      "unique_ids": true
+    }
+  }
+}

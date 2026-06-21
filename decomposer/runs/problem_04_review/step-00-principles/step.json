@@ -1,0 +1,12 @@
+{
+  "dir": "step-00-principles",
+  "id": "00",
+  "metrics": {
+    "adapter": "markdown",
+    "n_principles": 5
+  },
+  "name": "extract_principles",
+  "principle": "meta",
+  "status": "ok",
+  "tool": "Principle-Extraction Protocol (PEP)"
+}

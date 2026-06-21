@@ -1,0 +1,49 @@
+[
+  {
+    "chars": 11805,
+    "file": "intro.tex",
+    "op": "flatten_input"
+  },
+  {
+    "chars": 10120,
+    "file": "setup.tex",
+    "op": "flatten_input"
+  },
+  {
+    "chars": 39627,
+    "file": "counterfactual.tex",
+    "op": "flatten_input"
+  },
+  {
+    "chars": 21099,
+    "file": "effect.tex",
+    "op": "flatten_input"
+  },
+  {
+    "chars": 5416,
+    "file": "extension.tex",
+    "op": "flatten_input"
+  },
+  {
+    "chars": 46497,
+    "file": "appendix.tex",
+    "op": "flatten_input"
+  },
+  {
+    "chars": 3259,
+    "op": "strip_preamble_and_doc_wrappers"
+  },
+  {
+    "chars": 19149,
+    "op": "strip_comments"
+  },
+  {
+    "count": 1473,
+    "n_macros": 46,
+    "op": "expand_macros"
+  },
+  {
+    "chars": 1736,
+    "op": "collapse_whitespace"
+  }
+]

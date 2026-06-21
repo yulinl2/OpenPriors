@@ -1,0 +1,731 @@
+
+\section{From Observables To Counterfactuals}\label{sec:counterfactual}
+
+\subsection{Counterfactuals and covariate shift}\label{subsec:counterfactuals_covariate_shift}
+Counterfactual inference is both the ultimate goal in areas such as
+policy evaluation \citep[e.g.][]{athey2018matrix, ben2018augmented,
+  arkhangelsky2019synthetic} as well as the stepping stone for
+inferring ITE in general. We construct prediction intervals for $Y(1)$
+and $Y(0)$ using the i.i.d.~observations
+$(Y_{i}^{\obs}, T_{i}, X_{i})$, and make no assumption other than the
+strong ignorability assumption. Therefore, only the samples in the
+treatment (resp.~control) group are useful for constructing
+$\hat{C}_{1}(x)$ (resp.~$\hat{C}_{0}(x)$).
+
+Under SUTVA and strong ignorability assumption, the joint distribution of
+$(X, Y^{\obs})$ of the observed treated samples is given by 
+\[
+P_{X\mid T = 1} \times P_{Y(1) \mid X}.
+\]
+Once again, we want to achieve \eqref{eq:coverage_general} under the
+target distribution $Q_{X}\times P_{Y(1)\mid X}$ on the basis of an
+i.i.d.~sample drawn from $P_{X\mid T = 1}\times P_{Y(1) \mid X}$.
+These two distributions share the same conditional distribution
+$P_{Y(1)\mid X}$ of the outcome but otherwise differ in the
+distribution of the covariates. Covariate shifts have been widely
+studied in the machine learning literature
+\citep[e.g.][]{shimodaira2000improving}, yet, the heavy focus there is
+on point estimates. For interval estimates, we shall rely on weighted
+conformal inference recently developed by \cite{barber2019conformal}.
+
+
+\subsection{Weighted conformal inference}
+Conformal inference was introduced by Vladimir Vovk and his
+collaborators \citep[e.g.][]{vovk2005algorithmic,
+  gammerman2007hedging, shafer2008tutorial, vovk2009line,
+  vovk2012conditional, vovk2013transductive,
+  balasubramanian2014conformal, vovk2015cross}. It later gained
+significant attention from the statistics community for regression
+problems \citep[e.g.][]{lei2013distribution, lei2014distribution,
+  lei2018distribution, barber2019limits, barber2019predictive} and
+classification problems \citep[e.g.][]{sadinle2019least,
+  romano2020classification}, spurring further developments. Given
+i.i.d. samples $(X_{i}, Y_{i})_{i=1}^{n}$ drawn from a distribution
+$P_{X}\times P_{Y\mid X}$, conformal inference takes an arbitrary
+prediction model---such as an estimate of the conditional
+quantile---as input and calibrates it to produce a prediction set
+$\hat{C}(x)$ with guaranteed marginal coverage, such that 
+\begin{equation}
+  \label{eq:conformal_guarantee}
+  \P_{(X, Y)\sim P_{X}\times P_{Y\mid X}}(Y \in \hat{C}(X))\ge 1 - \alpha.
+\end{equation}
+For instance, with estimates $\hat{q}_{\alpha_{\lo}}(x)$ and
+$\hat{q}_{\alpha_{\hi}}(x)$ of the $\alpha_{\lo}$-th and
+$\alpha_{\hi}$-th conditional quantiles of $Y \mid X = x$, the
+conformal quantile regression (CQR) introduced in
+\cite{romano2019conformalized} as a variant of the standard conformal
+inference, would produce an interval estimate of the form
+\begin{equation}
+  \label{eq:CQR_CX}
+  \hat{C}(x) = [\hat{q}_{\alpha_{\lo}}(x) - \eta,
+  \hat{q}_{\alpha_{\hi}}(x) + \eta]; 
+\end{equation}
+above, $\eta$ is a data-driven constant computed in a particular
+way. Conditional quantiles can be estimated via quantile regression \citep[e.g.][]{koenker1978regression, koenker1994confidence, koenker2001quantile, yu2001bayesian, koenker2005quantile, meinshausen2006quantile, koenker2017quantile}. In contrast to asymptopia---we refer here to classical
+  asymptotic normality theory or asymptotic empricial process theory
+  which characterizes the accuracy of certain resampling
+  methods---CQR enjoys finite sample coverage guarantees without regard to the
+unknown joint distribution of $X$ and $Y$.
+
+
+Because our inference problem involves a potential covariate shift
+between the target distribution and the sampling distribution, we need
+to adjust the criterion \eqref{eq:conformal_guarantee} into
+\begin{equation}
+  \label{eq:weighted_conformal_guarantee}
+  \P_{(X, Y)\sim Q_{X}\times P_{Y\mid X}}(Y \in \hat{C}(X))\ge 1 - \alpha.
+\end{equation}
+To address such a situation, \cite{barber2019conformal} introduced a
+weighted variant of conformal inference achieving
+\eqref{eq:weighted_conformal_guarantee}. This holds with the proviso
+that the the likelihood ratio $w(x) = dQ_{X}(x) / dP_{X}(x)$ is known,
+although the algorithm is shown to perform well when it is only
+estimated.  When applied to CQR, the weighted interval estimate is
+still of the form \eqref{eq:CQR_CX}, the difference being that the
+algorithm computing $\eta(x)$ incorporates information about the
+likelihood ratio $w(x)$.  Algorithm \ref{algo:split-CQR} sketches
+split-CQR, a type of weighted conformal inference we shall use in this
+work.\footnote{\cite{barber2019conformal} introduced weighted
+  conformal inference and applied to conditional mean estimates
+  \citep[e.g.][]{lei2018distribution}. The extension to other conformal
+  inference techniques such as CQR is straightforward.}  In passing,
+it is worth mentioning that in this algorithm, $\eta(x)$ remains
+invariant if $w(x)$ is rescaled to become $c \cdot w(x)$ in which $c$
+is an arbitrary positive constant.
+
+
+\begin{algorithm}[H]
+  \caption{Weighted split-CQR}  \label{algo:split-CQR}
+  \textbf{Input: } level $\alpha$, data $\Z = (X_{i}, Y_{i})_{i\in \I}$, testing point $x$, function $\hat{q}_{\beta}(x; \D)$ to fit $\beta$-th conditional 
+
+  \hspace{1.4cm} quantile and function $\hat{w}(x; \D)$ to fit the weight function at $x$ using $\D$ as data
+
+  \textbf{Procedure: }
+  \begin{algorithmic}[1]
+    \State Split $\Z$ into a training fold $\Z_{\tr} \triangleq (X_{i}, Y_{i})_{i\in \I_{\tr}}$ and a calibration fold $\Z_{\ca}\triangleq (X_{i}, Y_{i})_{i\in \I_{\ca}}$
+    \State For each $i \in \I_{\ca}$, compute the score $V_{i} = \max\{\hat{q}_{\alpha_{\lo}}(X_{i}; \Z_{\tr}) - Y_{i}, Y_{i} - \hat{q}_{\alpha_{\hi}}(X_{i}; \Z_{\tr})\}$
+    \State For each $i \in \I_{\ca}$, compute the weight $W_{i} = \hat{w}(X_{i}; \Z_{\tr}) \in [0, \infty)$
+    \State Compute the normalized weights $\hat{p}_{i}(x) = \frac{W_{i}}{\sum_{i\in \I_{\ca}}W_{i} + \hat{w}(x; \Z_{\tr})}$ and $\hat{p}_{\infty}(x) = \frac{\hat{w}(x; \Z_{\tr})}{\sum_{i\in \I_{\ca}}W_{i} + \hat{w}(x; \Z_{\tr})}$
+    \State Compute $\eta(x)$ as the $(1 - \alpha)$-th quantile of the distribution $\sum_{i\in \I_{\ca}}\hat{p}_{i}(x)\delta_{V_{i}} + \hat{p}_{\infty}(x)\delta_{\infty}$
+  \end{algorithmic}
+
+  \textbf{Output: $\hat{C}(x) = [\hat{q}_{\alpha_{\lo}}(x; \Z_{\tr}) - \eta(x), \hat{q}_{\alpha_{\hi}}(x; \Z_{\tr}) + \eta(x)]$}  
+\end{algorithm}
+
+% \ejc{The problem with the paragraph below and the proposition is that
+%   we do not know what they are applied to. Do you mean Algorithm
+%   1? This needs to be clarified. Also, in proposition 1, you would
+%   need to make sure that the likelihood ratio $w$ is known.}
+Note that in step 4, if $\hat{w}(x; \Z_{\tr}) = \infty$, we
+  set $\hat{p}_{i}(x) = 0\,\, (i\in [n])$ and
+  $\hat{p}_{\infty}(x) = 1$, in which case step 5 gives
+  $\hat{C}(x) = (-\infty, \infty)$. The requirement that
+  $W_i\in [0, \infty)$ is natural because $X_{i}\sim P_{X}$ and
+  $w(X)\in [0, \infty)$ almost surely under $P_{X}$ even if $Q_{X}$ is
+  not absolutely continuous with respect to $P_{X}$. If the
+likelihood ratio $w(x)$ is known, \cite{barber2019conformal} prove
+that the interval $\hat{C}(x)$ from Algorithm \ref{algo:split-CQR}
+achieves \eqref{eq:weighted_conformal_guarantee}.
+Moreover, % in a companion
+% paper \citep{lei2020weighted}, 
+we show that the inequality
+\eqref{eq:weighted_conformal_guarantee} is almost an equality if the
+non-conformity scores have no ties and the covariate shift has a
+bounded moment , and further, \eqref{eq:weighted_conformal_guarantee} approximately holds if the covariate shift is unknown but estimated well.
+% $\chi^{\r}$-divergence defined as
+% $\chi^{\r}\divpq{Q_{X}}{P_{X}}$ =
+% $\int \lb dQ_{X} / dP_{X}\rb^{\r} dP_{X}$. 
+\begin{proposition}\label{prop:equal}
+  Consider Algorithm \ref{algo:split-CQR} and assume
+  $(X_{i}, Y_{i})\stackrel{i.i.d.}{\sim} P_{X}\times P_{Y \mid
+    X}$. First, consider the case where $\hat{w}(\cdot) = w(\cdot)$.
+    \begin{enumerate}[(1)]
+    \item \eqref{eq:weighted_conformal_guarantee} holds without any
+      further assumption.
+    \item Further, if the non-conformity scores
+      $\{V_{i}: i\in \I_{\ca}\}$ have no ties almost surely, $Q_{X}$
+      is absolutely continuous with respect to $P_{X}$, and
+      $(\E[\hat{w}(X)^{\r}])^{1/\r} \le M_{\r} < \infty$, then
+  \[1 - \alpha \le \P_{(X, Y)\sim Q_{X}\times P_{Y \mid X}}(Y \in
+    \hat{C}(X))\le 1 - \alpha + c \, n^{1 / \r - 1}.
+  \]
+  Above, $c$ is a positive constant that only depends on $M_{\r}$ and $\r$.
+\end{enumerate}
+In the general case where $\hat{w}(\cdot) \neq w(\cdot)$, set
+$\Delta_{w} = (1/2)\E_{X\sim P_{X}}|\hat{w}(X) - w(X)|$. Then coverage
+is always lower bounded by $1 - \alpha - \Delta_{w}$, and upper
+bounded by $1 - \alpha + \Delta_{w} + cn^{1/\r - 1}$ under the same
+assumptions as in (2).
+  \end{proposition}
+%   \lihua{
+%     Below is a refined version that is an extension of Theorem A.1. I am not sure whether this is better than our previous Proposition 1. If you prefer this one, I will make edits on the texts around it and update the proof in Appendix. Otherwise, I will keep Proposition 1 and delete the following theorem.
+%     \begin{theorem}
+%       Consider Algorithm \ref{algo:split-CQR} and assume
+%       $(X_{i}, Y_{i})\stackrel{i.i.d.}{\sim} P_{X}\times P_{Y \mid X}$, then
+%       \begin{enumerate}[(1)]
+%       \item $\displaystyle \P_{(X, Y)\sim Q_{X}\times P_{Y \mid X}}(Y \in \hat{C}(X))\ge 1 - \alpha - \frac{1}{2}\E_{X\sim P_{X}}|\hat{w}(X) - w(X)|$;
+%       \item If further assume that the non-conformity scores $\{V_{i}: i\in \I_{\ca}\}$ have no ties almost surely, 
+% and         $\E_{X\sim P_{X}}[\hat{w}(X)^{\r}] \le M$ for some $\r \ge 2, M < \infty$,
+%         then
+%         \[
+%           \P_{(X, Y)\sim Q_{X}\times P_{Y \mid X}}(Y \in
+%           \hat{C}(X))\le 1 - \alpha + \frac{1}{2}\E_{X\sim P_{X}}|\hat{w}(X) - w(X)| + c \, n^{1 / \r - 1}.
+%         \]
+%         Above, $c$ is a positive constant that only depends on $M$ and $\r$.
+%       \end{enumerate}
+%     \end{theorem}
+%   }
+% ejc{Does the lower bound require the bound on the divergence? I would
+ %  think so.} \lihua{The lower bound only requires $w(X) <
+ %  \infty$ almost surely.} 
+The proof is presented in Appendix \ref{app:miscellaneous}. Note that the proposition holds uniformly over all conditional
+ distributions $P_{Y\mid X}$ and all procedures used to fit
+ conditional quantiles. When $\hat{w}(\cdot) = w(\cdot)$, because we express the dependence on $P_{X}$
+ and $Q_{X}$ only through $(\E[w(X)^{\r}])^{1/\r}$, an immediate consequence
+ is that when the likelihood ratio is bounded, we can take
+ $\r = \infty$ and the upper bound matches the rate for unweighted
+ conformal inference. This essentially implies that weighted split-CQR
+ has almost exact coverage when the calibration fold is large.
+
+% We leave the details and our further development of (weighted) conformal inference to Appendix \ref{sec:weighted}. For the rest of the paper, we will simply take it as a black box and focus on applying it to inference on counterfactuals and ITE. 
+
+\subsection{The role of the propensity score}
+Propensity scores were introduced by \cite{rosenbaum1983central} for
+the analysis of observational studies. Given a binary treatment, the
+propensity score $e(x)$ is defined as the probability of getting
+treated given the covariate value, i.e.
+\[e(x) = \P(T = 1\mid X = x).\]
+With the full knowledge of $e(x)$, one can identify ATE/ATT/ATC
+using inverse propensity weighting (IPW)
+\citep{imbens2015causal} without any assumption on potential outcomes
+other than some mild moment conditions. This holds with the proviso
+that certain overlap/positivity conditions hold. Specifically, if the
+overlap condition $0 < e(X) < 1$ holds almost surely, ATE can be
+identified as follows:
+\begin{equation}
+  \label{eq:ATE_IPW}
+  \E[Y(1) - Y(0)] = \E \left[w_{1}(X)Y^{\obs}I(T = 1) - w_{0}(X)Y^{\obs}I(T = 0)\right],
+\end{equation}
+where $w_{1}(x) = 1 / e(x)$ and $w_{0}(x) = 1 / (1 - e(x))$.  This
+holds under moment conditions on $1 / e(X) , 1 / (1 - e(X))$, $Y(1)$
+and $Y(0)$.  The overlap condition guarantees that $w_{1}(x)$ and 
+$w_{0}(x)$ stay finite, and is necessary for identification through
+\eqref{eq:ATE_IPW}. % \lihua{Identification does not necessarily require overlap. An alternative stratigy is to identify $\E[Y(1) \mid X]$ and $\E[Y(0) \mid X]$}.  
+Indeed, if $e(x) = 0$ for a subset of covariate values with non-zero
+probability, there will be no treated unit on that stratum and hence
+the stratum-wise ATE can never be identified without modeling
+assumptions on the potential outcomes. The overlap condition is as
+fundamental as the strong ignorability assumption in observational
+studies. We refer the readers to \cite{d2017overlap} for an extensive
+discussion. Similarly, under the weaker overlap condition $e(X) < 1$
+almost surely, ATT can be identified through \eqref{eq:ATE_IPW} with
+$w_{1}(x) = 1 / \P(T = 1)$ and $w_{0}(x) = e(x) / (1 - e(x)) \P(T = 1)$
+\citep{hirano2003efficient}.%  \ejc{Sometimes, you write $\P$ and
+  % sometimes $P$. Please be consistent. I personally prefer $\P$
+  % whenever applicable.}
+
+The weights in IPW estimators are essentially calibrating the observed
+covariate distribution to the target one. This is similar in spirit to
+weighted conformal inference. For ATE-type conformal
+inference on $Y(1)$, a simple application of Bayes formula implies
+that
+\[w_{1}(x) = \frac{dP_{X}(x)}{dP_{X\mid T = 1}(x)} = \frac{\P(T =
+  1)}{e(x)}.\]
+Now recall that weighted conformal inference is invariant to rescaling
+of the likelihood ratio $w_{1}(x) \propto 1/e(x)$, so that we can
+simply ignore the numerator, in which case everything reduces to the
+inverse propensity score. Similarly, for inference on $Y(0)$,
+$w_{0}(x)$ can be chosen as $1 / (1 - e(x))$. The concurrence with
+IPW-type estimators is here unsurprising since the reweighting scheme
+is motivated by the covariate shift due to treatment selection in both
+settings.
+
+For ATT-type conformal inference on $Y(1)$, $Q_{X} = P_{X\mid T = 1}$.
+Thus, no weighting is needed and unweighted conformal inference may be
+applied. By contrast, the inference on $Y(0)$ still requires
+reweighting because $Q_X = P_{X\mid T = 1}\not = P_{X\mid T =
+  0}$. Applying Bayes formula,
+\[w_{0}(x) = \frac{\P(T = 0)}{\P(T = 1)}\frac{e(x)}{1 - e(x)}.\]
+We can therefore choose $w_{0}(x) = e(x) / (1 - e(x))$ per our
+previous discussion. This happens to coincide with the weights used by
+the IPW estimator for ATT.
+
+In general, if $Q_{X}$ is the covariate distribution in another
+population, as in the context of
+generalizability/transportability/external validity, then 
+\[
+w_{1}(x) = \frac{dQ_{X}(x)}{dP_{X\mid T = 1}(x)} =
+\frac{dQ_{X}(x)}{dP_{X}(x)}\frac{\P(T = 1)}{e(x)}. 
+\]
+In this case, we can choose $w_{1}(x) = (dQ_{X}/dP_{X})(x) / e(x)$ to
+be the inverse propensity tilted likelihood ratio. Similarly
+$w_{0}(x) = (dQ_{X}/dP_{X})(x) / (1 - e(x))$. All these weight
+functions are displayed in Table \ref{tab:weight_func}. In sum,
+weighted conformal inference depends on propensity scores in the same
+way IPW estimation of average causal effects depends on these same
+scores.
+
+\begin{table}
+  \caption{\label{tab:weight_func}Summary of weight functions for different inferential targets}
+
+  \centering
+  \begin{tabular}{c|cccc}
+    \toprule
+    Inferential type & ATE & ATT & ATC & General\\
+    \midrule
+    $w_{1}(x)$ & $1 / e(x)$ & $1$ & $(1 - e(x)) / e(x)$ & $(dQ/dP)(x) / e(x)$\\
+    $w_{0}(x)$ & $1 / (1 - e(x))$ & $e(x) / (1 - e(x))$ & $1$ & $(dQ/dP)(x) / (1 - e(x))$\\
+    \bottomrule
+  \end{tabular}
+\end{table}
+
+
+\subsection{Conformalized counterfactual inference is exact for randomized trials}
+For randomized trials with perfect compliance, the strong ignorability
+assumption is satisfied by randomization and the propensity score is
+known since it is designed by researchers. In completely randomized
+experiments, $e(\cdot)$ is a constant mapping, in which case weighting
+is not required for either $Y(1)$ or $Y(0)$. For general stratified
+experiments such as blocking experiments, $e(x)$ could vary with some
+of the covariates (e.g. age, gender), and one would apply weighted
+conformal inference by using the weight functions from Table
+\ref{tab:weight_func}.  Either way, weighted conformal inference
+achieves coverage in finite samples (Proposition \ref{prop:equal})
+even if our conditional quantile estimates are completely off.
+Moreover, taking $Y(1)$ and the ATE-type coverage as an example,
+$\chi^{\r}\divpq{Q_{X}}{P_{X}} \le \E [1 / e(X)^{\r}]$. By Proposition
+\ref{prop:equal}, our method has almost exact coverage when the
+calibration fold is large and $\E [1 / e(X)^{2}] < \infty$. % This
+% overlap condition is weaker than the stricter condition
+% $0 < a < e(X) < b < 1$ typically assumed in the literature
+% \citep[e.g.][]{hirano2003efficient, firpo2007efficient,
+%   khan2010irregular}. 
+On the other hand, Proposition
+  \ref{prop:equal} guarantees that the coverage is lower bounded by
+  $1 - \alpha$ no matter the status of the overlap condition. Intuitively, this is because the interval $\hat{C}(x) = (-\infty, \infty)$ and hence always covers $Y(1)$ when $e(x) = 0$.
+% \citep[e.g.][]{chen2008semiparametric, hirshberg2017augmented,
+%   ma2019robust, hong2020inference}.
+
+
+
+We close this section with a last important bibliographical
+comment. As we were putting the finishing touch on this paper, we
+became aware of the independent work by
+\cite{kivaranovic2020conformal} applying unweighted standard conformal
+inference to construct counterfactual intervals for completely
+randomized experiments. Clearly, our two papers have a similar
+aim. That said, and as mentioned in their Section 2.1, the approach in
+\cite{kivaranovic2020conformal} cannot handle stratified experiments
+even if the propensity score is known. Hence, the scopes of the two
+papers are very different.
+
+
+\subsection{Conformalized counterfactual inference is doubly robust}\label{subsec:double_robustness}
+
+For observational studies or randomized trials with imperfect
+compliance, the propensity score is unknown and needs to be
+estimated. Let $\hat{e}(x)$ denote the estimate of $e(x)$. In this
+subsection, we will see that the coverage of weighted split-CQR is
+approximately guaranteed if either $\hat{e}(x)\approx e(x)$ or
+$\hat{q}_{\beta}(x)\approx q_{\beta}(x)$ with
+$\beta \in \{\alpha_{\lo}, \alpha_{\hi}\}$.  Before stating a rigorous
+result of this fact, we first provide an intuitive justification. On
+the one hand, if $\hat{e}(x)\approx e(x)$, our method approximates the
+oracle version of weighted split-CQR with the true weights and the
+intervals should, therefore, approximately achieve the desired
+coverage even if $\hat{q}_{\beta}(x)$ drastically deviates from the
+true conditional quantiles. On the other hand, if
+$\hat{q}_{\beta}(x) \approx q_{\beta}(x)$, where $q_{\beta}(x)$ is the
+$\beta$-th quantile of $Y(1)$ (or $Y(0)$) given $X = x$, then
+\[
+V_{i}\approx \max\{q_{\alpha_{\lo}}(X_{i}) - Y_{i}(1), Y_{i}(1) -
+q_{\alpha_{\hi}}(X_{i})\}.
+\]
+% Assume that $Y_{i}(1)$ is continuous for simplicity. 
+% \ejc{Don't know
+%   what this means.}\lihua{I meant that $Y_{i}(1)$ has a continuous conditional density for almost every $X$. But I think it may be unnecessary for the heuristics so I deleted it.}
+As a result,
+\[
+\P(V_{i}\le 0\mid X_{i}) \approx \P(Y_{i}(1) \in
+[q_{\alpha_{\lo}}(X_{i}), q_{\alpha_{\hi}}(X_{i})]\mid X_{i}) =
+\alpha_{\hi} - \alpha_{\lo}.
+\]
+If $\alpha_{\hi} - \alpha_{\lo} = 1 - \alpha$, then $0$ is
+approximately the $(1 - \alpha)$-th quantile of the $V_{i}$'s. In
+Algorithm \ref{algo:split-CQR} we have that $\eta(x)$ is the
+$(1 - \alpha)$-th quantile of the random distribution
+$\sum_{i\in \I_{\ca}}\hat{p}_{i}(x)\delta_{V_{i}} +
+\hat{p}_{\infty}(x)\delta_{\infty}$.
+Denote by $G$ the cumulative distribution function (cdf) of this
+random distribution. Then
+\[G(0) \approx \E [G(0) \mid (X_i)_{i\in \I_{\ca}}] =
+\sum_{i\in \I_{\ca}}\hat{p}_{i}(x)\P(V_{i}\le 0 \mid X_{i}) \approx
+\sum_{i\in \I_{\ca}}\hat{p}_{i}(x)(1 - \alpha) \approx 1 - \alpha.\]
+% When $p_{i}$ and $p_{\infty}$ are all bounded away from $1$, it is not hard to show that $G$ is concentrated around $G^{*}$ in a neighborhood of $0$. 
+This says that $0$ is just about the $(1 - \alpha)$-th quantile of
+$G$. This implies that $\eta(x) \approx 0$ and thus
+$\hat{C}(x) \approx [q_{\alpha_{\lo}}(x), q_{\alpha_{\hi}}(x)]$. By
+definition, the coverage in this case is approximately
+$\alpha_{\hi} - \alpha_{\lo} = 1 - \alpha$.
+
+The following theorem, whose proof is in Appendix
+\ref{app:miscellaneous}, formalizes the above heuristics. 
+\begin{theorem}\label{thm:double_robustness_ATE}
+  Let $N = |\Z_{\tr}|$ and $n = |\Z_{\ca}|$. Further, let
+  $\hat{q}_{\beta, N}(x) = \hat{q}_{\beta, N}(x; \Z_{\tr})$ be an
+  estimate of the $\beta$-th conditional quantile $q_{\beta}(x)$ of
+  $Y(1)$ given $X = x$, $\hat{e}_{N}(x) = \hat{e}_{N}(x; \Z_{\tr})$ be
+  an estimate of $e(x)$, and $\hat{C}_{N, n}(x)$ be the resulting
+  interval from Algorithm \ref{algo:split-CQR}. Assume that
+  $\E[1 / \hat{e}_{N}(X)\mid \Z_{\tr}] < \infty$ and
+  $\E[1 / e(X)] < \infty$. Assume that one of the following holds:
+    \begin{enumerate}[\textbf{A}1]
+  \item $\displaystyle \lim_{N\rightarrow \infty}\E\bigg|\frac{1}{\hat{e}_{N}(X)} - \frac{1}{e(X)}\bigg| = 0$;
+  \item
+    \begin{enumerate}[(1)]
+    \item $\alpha_{\hi} - \alpha_{\lo} = 1 - \alpha$,
+    \item there exists $r, b_{1}, b_{2} > 0$ such that
+      $\P(Y(1) = y \mid X = x) \in [b_{1}, b_{2}]$ uniformly over all
+      $(x, y)$ with
+      $y\in [q_{\alpha_{\lo}}(x) - r, q_{\alpha_{\lo}}(x) + r]\cup
+      [q_{\alpha_{\hi}}(x) - r, q_{\alpha_{\hi}}(x) + r]$, 
+    \item there exists $\delta > 0$ such that
+      \[\limsup_{N\rightarrow \infty}\E\left[\frac{1}{\hat{e}_{N}(X)^{1 + \delta}}\right] < \infty, \quad \lim_{N\rightarrow \infty}\E\left[\frac{H_{N}(X)}{\hat{e}_{N}(X)}\right] = \lim_{N\rightarrow \infty}\E\left[\frac{H_{N}(X)}{e(X)}\right] = 0,\]
+      where
+      \[\displaystyle H_{N}(x) = \max\{|\hat{q}_{\alpha_{\lo}, N}(x) - q_{\alpha_{\lo}}(x)|, |\hat{q}_{\alpha_{\hi}, N}(x) - q_{\alpha_{\hi}}(x)|\}.\]
+     \end{enumerate}
+  \end{enumerate}
+  Then under SUTVA and the strong ignorability assumption,
+  \begin{equation}
+    \label{eq:unconditional_coverage}
+    \lim_{N, n\rightarrow\infty}\P_{(X, Y(1))\sim P_{X}\times P_{Y(1)\mid X}}(Y(1) \in \hat{C}_{N, n}(X))\ge 1 - \alpha.
+  \end{equation}
+  Furthermore, if \textbf{A}2 holds, then for any $\eps > 0$,
+  \begin{equation}
+    \label{eq:conditional_coverage}
+    \lim_{N, n\rightarrow\infty}\P_{X\sim P_{X}}\lb \P(Y(1)\in \hat{C}_{N, n}(X)\mid X)\le 1 - \alpha - \eps\rb = 0.
+  \end{equation}
+\end{theorem}
+Theorem \ref{thm:double_robustness_ATE} is a special case of Corollary
+\ref{cor:double_robustness} in Appendix \ref{app:proofs} on the double
+robustness of general weighted split-CQR. The refined
+  theorems in Appendix \ref{app:proofs} also provide the rate of
+  convergence with which coverage is achieved. We choose here to
+  present a simpler version to avoid mathematical
+  complications. Observe that it is a simple exercise to extend
+Theorem \ref{thm:double_robustness_ATE} to other types of coverage and
+to $Y(0)$ by consulting Table \ref{tab:weight_func}.
+
+Property \eqref{eq:unconditional_coverage} is analogous to the
+doubly robust point estimation of ATE
+\citep[e.g.][]{robins1994estimation, kang2007demystifying}, which
+yields consistent estimators if either the propensity score or the
+conditional mean of potential outcomes are consistent. Nonetheless, we
+emphasize that our double robustness is not the same since consistency
+of point estimates and coverage of interval estimates are different
+concepts.% \footnote{To the best of our knowledge, no analogue of the
+  % double robustness exists for CATE. Double robustness is usually
+  % formulated in terms of optimal risk rather than consistency
+  % \citep[e.g.][]{kennedy2020optimal}.}
+
+Property \eqref{eq:conditional_coverage} implies that weighted
+split-CQR has approximately guaranteed conditional coverage if the
+conditional quantiles are estimated accurately. This is of course
+sufficient but not necessary. In practice, we may work with less
+accurate estimates and shall nevertheless empirically demonstrate the
+robustness of weighted split-CQR in terms of conditional coverage.
+
+
+
+\subsection{Numerical experiments}\label{subsec:simul}
+
+In this subsection we demonstrate the performance of our methods via
+simulation studies. In particular, we consider a variant of the
+example in \cite{wager2018estimation}:
+\begin{itemize}
+\item The covariate vector $X = (X_{1}, \ldots, X_{d})^{T}$ is such
+  that $X_{j} = \Phi(X_{j}')$, where $\Phi$ denotes the cdf of the
+  standard normal distribution and $(X_{1}', \ldots, X_{d}')$ is an
+  equicorrelated multivariate Gaussian vector with mean zero and
+  $\Var(X'_j) = 1$, $\operatorname{Cov}(X'_j, X'_{j'}) = \rho$ for $j \neq j'$.   
+      % \[(X_{1}', \ldots, X_{d}')\sim N\lb 0,
+      % \begin{bmatrix}
+      %   1 & \rho & \cdots & \rho\\
+      %   \rho & 1 & \cdots & \rho\\
+      %   \vdots & \vdots & \ddots & \vdots\\
+      %   \rho & \rho & \cdots & 1
+      % \end{bmatrix}
+      % \rb.\]
+  When $\rho = 0$, $X$ is uniformly distributed on the unit
+  cube. When $\rho > 0$, the variables are positively correlated.
+\item The baseline potential outcome is such that $Y(0)\equiv 0$. This
+  simplifies the problem into a pure counterfactual inference problem.
+  \item The potential outcome $Y(1)$ is generated as follows:
+    \[\E[Y(1) \mid X] = f(X_{1})f(X_{2}),\quad  f(x) = \frac{2}{1 + \exp\{-12(x - 0.5)\}},\]
+    which is the same as in \cite{wager2018estimation}, and
+    \[Y(1) = \E[Y(1) \mid X] + \sigma(X)\eps, \quad \eps \sim N(0,
+    1);\]
+    the homoscedastic case $\sigma^{2}(x)\equiv \sigma^{2}$ is
+    considered in \cite{wager2018estimation};
+  \item The propensity score $e(x)$ is set as:
+    \[e(x) = \frac{1}{4}\left\{ 1 + \beta_{2, 4}(x_{1})\right\},\]
+    where $\beta_{2, 4}$ is the cdf of the beta
+    distribution with shape parameters $(2, 4)$. This ensures that
+    $e(x)\in [0.25, 0.5]$, thereby providing sufficient overlap.
+  \end{itemize}
+  In our experiments, we will consider $8 = 2\times 2 \times 2$
+  scenarios: low ($d = 10$) and high ($d = 100$) dimensions,
+  uncorrelated ($\rho = 0$) and correlated ($\rho = 0.9$) covariates,
+  and homoscedastic ($\sigma^{2}(x) \equiv 1$) and heteroscedastic
+  $(\sigma^{2}(x) = -\log x_{1})$ errors.
+
+  % Despite a burgeoning pool of methods developed for heterogeneous
+  % treatment effects over the past decade, most of them only provide
+  % theoretical convergence rates for CATE estimators but do not provide
+  % tools for uncertainty quantification.  
+  We present comparisons with three competing methods offering
+  qualitatively different approaches to uncertainty quantification as
+  well as well-written \texttt{R} packages:
+  \begin{itemize}
+  \item Causal Forest \citep{wager2018estimation} uses the
+    infinitesimal jackknife \citep{efron2014estimation,
+      wager2014confidence} to estimate the variance of CATE
+    estimators. The authors established asymptotically valid coverage
+    of CATE under regularity assumptions. This work does not
+    discuss ITE. The method is implemented in the \texttt{grf} package
+    \citep{grf}.
+  \item X-learner \citep{kunzel2019metalearners} uses the bootstrap to
+    estimate the variance of CATE estimators. As with Causal Forest,
+    the authors did not develop tools to cover ITE. The method is
+    implemented in the \texttt{causalToolbox} package
+    \citep{xlearner}.
+  \item Bayesian Additive Regression Trees (BART) were initially
+    developed as a flexible general-purpose Bayesian machine learning
+    algorithm \citep{chipman2010bart}. They were later applied to
+    causal inference \citep[e.g.][]{hill2011bayesian,
+      green2012modeling, hahn2020bayesian} and found to outperform
+    other methods both in terms of accuracy and coverage
+    \citep{dorie2017aciccomp2016, dorie2019automated}. The method
+    constructs Bayesian credible intervals to cover CATE.  By
+    replacing credible intervals with prediction intervals, the method
+    can be adapted to cover ITE. We use the functions
+    \texttt{calc\_credible\_intervals} and
+    \texttt{calc\_prediction\_intervals} from the \texttt{bartMachine}
+    package \citep{bartMachine} to compute both intervals.
+  \end{itemize}
+  For weighted split-CQR, we estimate the propensity score via the
+  gradient boosting algorithm \citep{friedman2001greedy} by using the
+  \texttt{gbm} package \citep{gbm}. We further estimate the
+  conditional quantiles in three different ways: (1) via quantile
+  random forest \citep{athey2019generalized} by using the \texttt{grf}
+  package \citep{grf}, (2) via quantile gradient boosting by using the
+  \texttt{gbm} package \citep{gbm}, and (3) via the prediction
+  posterior quantiles from BART by using the \texttt{bartMachine}
+  package \citep{bartMachine}. For all conditional quantile
+  estimators, we set
+  $\alpha_{\lo} = \alpha / 2, \alpha_{\hi} = 1 - \alpha / 2$. Lastly,
+  we use $75\%$ data as the training fold, as suggested by
+  \cite{sesia2019comparison}. Our method is implemented in \texttt{R}
+  \texttt{cfcausal} package, available at
+  \url{https://github.com/lihualei71/cfcausal}. Code to replicate all
+  the results from the paper is available at
+  \url{https://github.com/lihualei71/cfcausalPaper}. 
+
+\newcommand{\ntest}{n_{\text{test}}}
+
+\begin{table}
+  \caption{\label{tab:coverage}Summary of coverage guarantees in theory (left) and in our simulation study (right). }
+  \centering
+  \begin{tabular}{rllll}
+    \toprule
+    & CF & X-learner & BART & CQR\\
+    \midrule
+    CATE & \cmark & \cmark & \cmark & \xmark\\
+    ITE & \xmark & \xmark & \cmark & \cmark\\
+    \bottomrule
+  \end{tabular}
+  % \caption{Guarantees of coverage in theory}\label{tab:coverage_theory}
+  \hspace{1cm}
+  \begin{tabular}{rllll}
+    \toprule
+    & CF & X-learner & BART & CQR\\
+    \midrule
+    CATE & \xmark & \xmark & \xmark & \cmark\\
+    ITE & \xmark & \xmark & \xmark & \cmark\\
+    \bottomrule
+  \end{tabular}
+  % \caption{Guarantees of coverage in the simulation study}\label{tab:coverage_empirical}
+\end{table}
+    
+  Each time, we generate $100$ independent datasets with sample size
+  $n = 1000$. In each run, we also generate $\ntest = 10000$ extra
+  independent data points, and construct 95\% confidence or prediction intervals for
+  each of them via the aforementioned methods. We then estimate
+  the empirical marginal coverage of CATE and ITE as
+  $(1/\ntest)\sum_{i=1}^{\ntest}I(\tau(X_{i})\in \CITE(X_{i}))$ and
+  $(1/\ntest)\sum_{i=1}^{\ntest}I(Y_{i}(1) - Y_{i}(0)\in
+  \CITE(X_{i}))$,
+  respectively, where $\CITE(X_{i}) = \hat{C}_{1}(X_{i})$ in this case.  Note that our metric is not asking for coverage
+    at every point $x$. Instead, it demands coverage in an average
+    sense. Therefore, a reliable method should, at the very least,
+    have coverage close to or above $0.95$. To be sure, a method with
+    invalid marginal coverage certainly cannot have valid conditional
+    coverage. As summarized in Table \ref{tab:coverage} (left), note,
+  and this is important, that Causal Forest and X-learner are only
+  guaranteed to cover CATE, whereas weighted split-CQR is only
+  guaranteed to cover ITE. Lastly, BART has guarantees to cover both
+  CATE and ITE by employing two types of intervals.
+
+Figure \ref{fig:simul1_coverage_tau} presents CATE coverage results
+for this simple example; recall that the model smoothly depends only
+upon two variables out of ten or a hundred.  Causal Forest and
+X-learner have poor coverage in all scenarios. Their performance
+degrades even further in the higher dimensional setting $d =
+100$.
+Clearly, we must be far from the asymptotic setting considered in the
+literature. BART has better coverage than Causal Forest and
+X-learner. In the first three columns, we can see that the BART
+credible intervals cover CATE. In the last column where the covariates
+are correlated and the errors are heteroscedastic, BART has poor
+coverage, especially in high dimensions. Although our method is not
+guaranteed to cover CATE, we see that it achieves coverage in all
+scenarios, although it may be conservative. Intuitively, this happens
+because weighted split-CQR is designed to cover ITE and that in
+reasonable models, prediction intervals are wider and often include
+confidence intervals for the mean. In sum, CQR is the only method
+achieving valid coverage in all scenarios (contrast this with the
+theoretical predictions from Table \ref{tab:coverage} (left)).
+  
+    \begin{figure}[H]
+  \centering
+  \includegraphics[width = 0.7\textwidth]{simul_synthetic_coverage_tau_paper.pdf}
+  \caption{Empirical 95\% coverage of CATE. Each panel corresponds to
+    one of the eight scenarios. ``Homosc.'' and ``Heterosc.'' are short for
+    ``homoscedastic'' and ``heteroscedastic errors''; ``Ind.'' and
+    ``Corr.'' are short for ``independent'' and ``correlated
+    covariates''. }
+\label{fig:simul1_coverage_tau}
+\end{figure}
+
+
+
+  \begin{figure}[H]
+  \centering
+  \includegraphics[width = 0.7\textwidth]{simul_synthetic_coverage_paper.pdf}
+  \caption{Empirical 95\% coverage of ITE. Everything else is as in
+    Figure \ref{fig:simul1_coverage_tau}.} 
+\label{fig:simul1_coverage}
+\end{figure}
+
+
+
+Figure \ref{fig:simul1_coverage} presents ITE coverage, which is
+  the real subject of this paper. Causal Forest and X-learner  should not be regarded as competing methods since they are not
+designed to cover ITE and it is therefore unsurprising that each
+method has low coverage. We include the results here just to highlight the potential danger of misinterpreting the confidence intervals for CATE as ITE prediction intervals. The prediction intervals of BART have
+perfect coverage with homoscedastic errors in both low and high
+dimensions. However, in heteroscedastic cases, BART has unsatisfactory
+coverage especially when the covariates are correlated. Finally, our
+method achieves almost exact coverage regardless of the learning
+procedures, regardless of whether the variables are correlated or not,
+the `noise' is homoscedastic or not, and the dimension is low or high.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width = 0.7\textwidth]{simul_synthetic_len_paper.pdf}
+  \caption{Lengths of interval estimates for ITE. The blue vertical line corresponds to the average length of oracle intervals. Everything else is as in
+    Figure \ref{fig:simul1_coverage_tau}. } 
+\label{fig:simul1_len}
+\end{figure}
+
+
+
+Next, we present interval lengths in Figure
+\ref{fig:simul1_len}. Causal Forest and X-learner have short intervals
+and we have seen that this is because they are poorly calibrated. In
+homoscedastic settings where BART has valid coverage, BART also has
+the shortest intervals. % This confirms the good performance of BART
+% observed in the literature. 
+Notably, weighted split-CQR, with BART as
+the learner of conditional quantiles, produces intervals that are
+almost as narrow as those produced with BART. As explained in Section
+\ref{subsec:double_robustness}, the correction $\eta(x) \approx 0$ since
+BART fits the quantiles very well. As a result,
+$\hat{C}(x) \approx [\hat{q}_{\alpha_{\lo}}(x),
+\hat{q}_{\alpha_{\hi}}(x)]$.
+We would like to observe that a major source of power loss is the data
+splitting step since weighted split-CQR only uses 75\% data to train
+BART. % However, as shown in our companion paper
+% \citep{lei2020weighted}, this can be mitigated via more sophisticated
+% conformal inference methods such as cross-validation+ \citep{barber2019predictive}. 
+In heteroscedastic settings, BART has shorter intervals
+because it has poor coverage as shown in Figure
+\ref{fig:simul1_coverage}. We also see that weighted split-CQR has
+much larger variability in interval lengths when using BART as the
+learner. This is due to the fact that BART fails to estimate the
+conditional quantiles well and thus yields a noisy conformity
+correction $\eta(x)$.
+
+To evaluate the tightness of these intervals, we compute the average
+length of oracle intervals formed by the true $0.025$-th and
+$0.975$-th conditional quantiles. In this case, the errors are
+normally distributed and thus the expected length is
+$(2 \times 1.96)\E [\sigma(X)]$. This is equal to $3.92$ in both cases
+because $\int_{0}^{1}1dz = \int_{0}^{1}(-\log z)dz = 1$. In all
+cases, we observe that the interval lengths of weighted split-CQR with
+gradient boosting and random forest are reasonably short. In
+homoscedastic cases, weighted split-CQR with BART almost achieves the
+oracle length, despite having an expected sample size for inferring
+$Y(1)$ equal to $n \E[e(X)] = (5/12)n \approx 417$. 
+
+
+Finally, we turn to investigating the conditional coverage of all
+these methods. % Intuitively, the conditional variance is a proxy for
+% the difficulty of uncertainty quantification.
+Recall that in the heteroscedastic setting,
+$\sigma^{2}(x) \rightarrow \infty$ as $x_{1}\rightarrow 0$.
+Therefore, we expect the conditional coverage for instances with
+larger values of $x_{1}$ to be lower. Figure
+\ref{fig:synthetic_cond_tau} displays the estimated conditional
+coverage of ITE as a function of the percentiles of $\sigma^{2}(x)$
+when $d = 10$. Specifically, we stratify $\sigma^{2}(X_{i})$'s on the
+$10000$ testing points into $10$ folds based on their
+$10\%, 20\%, \ldots, 90\%$ percentiles and estimate the coverage
+within each interval. It is clear that Causal Forest, X-learner and
+BART all have decreasing conditional coverage as $\sigma^{2}(x)$
+increases. Although BART has much better marginal coverage than the
+other two methods, the poor conditional coverage near the right end
+point is worrisome. In contrast, weighted split-CQR with quantile
+random forest or quantile gradient boosting maintains conditional
+coverage. While the weighted split-CQR with BART does not perform as
+well as the other two variants, it improves upon BART implying that
+the calibration is also helpful in securing conditional coverage. In
+Appendix \ref{app:expr}, we show the same plots for $d = 100$ as well
+as plots of conditional coverage stratified by the CATE function
+$\tau(\cdot)$. They all exhibit similar patterns as shown in Figure
+\ref{fig:synthetic_cond_tau}.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width = 0.9\textwidth]{simul_synthetic_cond_d10_std_paper.pdf}
+  \caption{Estimated conditional coverage of ITE as a function of the
+    conditional variance. Here, the dimension $d = 10$ and the
+    coverage is set to 95\%. The blue curves correspond to the median
+    and the blue confidence bands are the $5\%$ and $95\%$ quantiles
+    of these estimates across $100$
+    replicates.}\label{fig:synthetic_cond_tau}
+\end{figure}
+
+To clear any misinterpretation, we emphasize that our
+  comparisons are based on interval estimates of ITE and CATE, and
+  thus do not carry over to point estimates of CATE, which are of
+  common interest in the literature. In general, the accuracy of a
+  point estimate does not inform coverage of an interval
+  estimate. Also, an interval estimate does not have to be derived
+  from a point estimate and a weighted split-CQR conformal interval is
+  an example.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "intro"
+%%% End:

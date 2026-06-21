@@ -1,0 +1,15 @@
+{
+  "dir": "step-20-normalize",
+  "id": "20",
+  "metrics": {
+    "idempotent": true,
+    "n_macros": 46,
+    "normalized_chars": 127715,
+    "raw_chars": 140520,
+    "redundancy_removed_chars": 158708
+  },
+  "name": "normalize",
+  "principle": "P2",
+  "status": "ok",
+  "tool": "latex adapter (pure-Python, deterministic)"
+}

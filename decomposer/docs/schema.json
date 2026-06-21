@@ -1,0 +1,333 @@
+{
+  "$defs": {
+    "Edge": {
+      "additionalProperties": false,
+      "description": "A *relation* in the eventual (object, attribute, relation) graph.",
+      "properties": {
+        "attrs": {
+          "additionalProperties": true,
+          "title": "Attrs",
+          "type": "object"
+        },
+        "id": {
+          "title": "Id",
+          "type": "string"
+        },
+        "relation": {
+          "enum": [
+            "contains",
+            "cites",
+            "refers_to",
+            "in_bibliography",
+            "has_label"
+          ],
+          "title": "Relation",
+          "type": "string"
+        },
+        "resolved": {
+          "default": true,
+          "title": "Resolved",
+          "type": "boolean"
+        },
+        "source": {
+          "title": "Source",
+          "type": "string"
+        },
+        "target": {
+          "title": "Target",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "source",
+        "target",
+        "relation"
+      ],
+      "title": "Edge",
+      "type": "object"
+    },
+    "Node": {
+      "additionalProperties": false,
+      "description": "A structural unit. An *object* in the eventual (object, attribute, relation) graph.",
+      "properties": {
+        "attrs": {
+          "additionalProperties": true,
+          "description": "Extensible type-specific payload (kind, numbering, bib fields, mathml, ...).",
+          "title": "Attrs",
+          "type": "object"
+        },
+        "children": {
+          "items": {
+            "$ref": "#/$defs/Node"
+          },
+          "title": "Children",
+          "type": "array"
+        },
+        "content_sha256": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Content Sha256"
+        },
+        "depth": {
+          "default": 0,
+          "title": "Depth",
+          "type": "integer"
+        },
+        "id": {
+          "description": "Stable path/logical id, unique within the document.",
+          "title": "Id",
+          "type": "string"
+        },
+        "label": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "LaTeX \\label / HTML anchor.",
+          "title": "Label"
+        },
+        "order": {
+          "default": 0,
+          "description": "Reading order within the parent.",
+          "title": "Order",
+          "type": "integer"
+        },
+        "role": {
+          "$ref": "#/$defs/Role"
+        },
+        "source_file": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Source File"
+        },
+        "span": {
+          "anyOf": [
+            {
+              "$ref": "#/$defs/Span"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null
+        },
+        "text": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "description": "Normalized textual payload (leaf content).",
+          "title": "Text"
+        },
+        "title": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Title"
+        },
+        "type": {
+          "enum": [
+            "document",
+            "section",
+            "paragraph",
+            "list",
+            "list_item",
+            "theorem",
+            "definition",
+            "assumption",
+            "remark",
+            "proof",
+            "equation",
+            "problem_statement",
+            "answer_key",
+            "grading_scheme",
+            "editor_notes",
+            "example",
+            "riddle",
+            "metadata_field",
+            "bib_reference",
+            "citation",
+            "cross_reference",
+            "figure",
+            "table",
+            "block"
+          ],
+          "title": "Type",
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "type",
+        "role"
+      ],
+      "title": "Node",
+      "type": "object"
+    },
+    "Role": {
+      "description": "The seven *roles* a structural unit can play in human technical writing.\n\nSurface markup is unbounded and idiosyncratic; *roles* are few and stable\nacross formats (LaTeX env, custom macro, bold-prose, markdown heading). The\nworkflow keys on roles so it survives an unknown next document.",
+      "enum": [
+        "segment",
+        "assert",
+        "formalize",
+        "refer",
+        "exemplify",
+        "narrate",
+        "meta"
+      ],
+      "title": "Role",
+      "type": "string"
+    },
+    "SourceProvenance": {
+      "additionalProperties": false,
+      "description": "Where the document came from + how it was processed (full metadata).",
+      "properties": {
+        "external_ids": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "External Ids",
+          "type": "object"
+        },
+        "formats": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Formats",
+          "type": "array"
+        },
+        "origin": {
+          "title": "Origin",
+          "type": "string"
+        },
+        "retrieved_at": {
+          "anyOf": [
+            {
+              "type": "string"
+            },
+            {
+              "type": "null"
+            }
+          ],
+          "default": null,
+          "title": "Retrieved At"
+        },
+        "slug": {
+          "title": "Slug",
+          "type": "string"
+        },
+        "source_files": {
+          "items": {
+            "type": "string"
+          },
+          "title": "Source Files",
+          "type": "array"
+        },
+        "source_sha256": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Source Sha256",
+          "type": "object"
+        },
+        "tool_versions": {
+          "additionalProperties": {
+            "type": "string"
+          },
+          "title": "Tool Versions",
+          "type": "object"
+        }
+      },
+      "required": [
+        "slug",
+        "origin",
+        "formats"
+      ],
+      "title": "SourceProvenance",
+      "type": "object"
+    },
+    "Span": {
+      "description": "Half-open ``[start, end)`` char offsets into the *normalized* source.\n\nPowers the conservation / character-coverage invariant (principle **P1**).",
+      "properties": {
+        "end": {
+          "title": "End",
+          "type": "integer"
+        },
+        "start": {
+          "title": "Start",
+          "type": "integer"
+        }
+      },
+      "required": [
+        "start",
+        "end"
+      ],
+      "title": "Span",
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "description": "Top-level bundle: nested document + cross-ref edges + provenance + metrics.",
+  "properties": {
+    "document": {
+      "$ref": "#/$defs/Node"
+    },
+    "edges": {
+      "items": {
+        "$ref": "#/$defs/Edge"
+      },
+      "title": "Edges",
+      "type": "array"
+    },
+    "metrics": {
+      "additionalProperties": true,
+      "title": "Metrics",
+      "type": "object"
+    },
+    "provenance": {
+      "$ref": "#/$defs/SourceProvenance"
+    },
+    "schema_version": {
+      "default": "0.1.0",
+      "title": "Schema Version",
+      "type": "string"
+    }
+  },
+  "required": [
+    "provenance",
+    "document"
+  ],
+  "title": "Decomposition",
+  "type": "object"
+}

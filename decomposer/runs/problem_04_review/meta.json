@@ -1,0 +1,61 @@
+{
+  "adapter": "markdown",
+  "generated_at": "2026-06-21T15:36:56Z",
+  "metrics": {
+    "classified_ratio": 0.9107,
+    "max_depth": 5,
+    "n_edges": 0,
+    "n_edges_resolved": 0,
+    "n_nodes": 57,
+    "role_counts": {
+      "meta": 27,
+      "narrate": 17,
+      "segment": 13
+    },
+    "type_counts": {
+      "block": 5,
+      "document": 1,
+      "list": 9,
+      "metadata_field": 27,
+      "paragraph": 3,
+      "section": 12
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "acyclic_tree": true,
+        "character_coverage": true,
+        "idempotent_normalization": true,
+        "reference_integrity": true,
+        "schema_valid": true,
+        "unique_ids": true
+      }
+    }
+  },
+  "provenance": {
+    "external_ids": {},
+    "formats": [
+      "markdown"
+    ],
+    "origin": "Imports/decomposer-sample-test-cases/problem_04_review.md",
+    "retrieved_at": "2026-06-21T15:36:56Z",
+    "slug": "problem_04_review",
+    "source_files": [
+      "problem_04_review/problem_04_review.md"
+    ],
+    "source_sha256": {
+      "problem_04_review.md": "sha256:b8a5eaf347f7b7d2"
+    },
+    "tool_versions": {
+      "pydantic": "2.13.4",
+      "pylatexenc": "2.10",
+      "python": "3.11.15"
+    }
+  },
+  "slug": "problem_04_review",
+  "tool_versions": {
+    "pydantic": "2.13.4",
+    "pylatexenc": "2.10",
+    "python": "3.11.15"
+  }
+}

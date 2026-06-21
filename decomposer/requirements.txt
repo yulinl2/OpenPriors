@@ -1,0 +1,7 @@
+# Pinned for reproducible, auditable runs. Install into a venv:
+#   python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt
+pydantic>=2.0
+pylatexenc>=2.10
+lxml>=4.9
+# optional (math canonicalization): latex2sympy2, sympy
+# optional (dev): pytest

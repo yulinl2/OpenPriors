@@ -1,0 +1,31 @@
+{
+  "dir": "step-30-structure",
+  "id": "30-40",
+  "metrics": {
+    "classified_ratio": 0.9548,
+    "n_edges": 167,
+    "n_nodes": 443,
+    "outputs": [
+      "document",
+      "nodes",
+      "edges",
+      "metrics"
+    ],
+    "type_counts": {
+      "bib_reference": 88,
+      "block": 20,
+      "document": 1,
+      "equation": 112,
+      "list": 4,
+      "list_item": 11,
+      "paragraph": 162,
+      "remark": 1,
+      "section": 34,
+      "theorem": 10
+    }
+  },
+  "name": "classify_and_split",
+  "principle": "P3+P4",
+  "status": "ok",
+  "tool": "latex adapter -> Pydantic schema -> canonical JSON/JSONL"
+}

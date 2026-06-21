@@ -1,0 +1,90 @@
+\section{From Potential Outcomes to Other Causal Frameworks}\label{sec:extension}
+We proposed a method based on weighted conformal inference which
+produces interval estimates of counterfactuals and individual
+treatment effects under the potential outcome framework. For
+randomized experiments with perfect compliance, our method has
+guaranteed coverage in finite samples without any modeling assumptions
+on the data generating process. For randomized experiments with
+ignorable compliance or general observational studies under the strong
+ignorability assumption, our method is doubly robust in the sense that
+the coverage is asymptotically guaranteed if either the conditional
+quantiles of potential outcomes or the propensity scores are
+consistently estimated. In contrast, existing methods may suffer from
+a significant coverage deficit even in simple models. Furthermore, our
+framework naturally extends to other populations by modifying the
+weight function according to Table \ref{tab:weight_func}.
+% \ejc{This
+%   feels like a repetition but I think this is okay.}
+
+The key observation is the covariate shift together with the
+invariance of the conditional distribution: the observed distribution
+of $(X, Y(1))$ is $P_{X\mid T = 1}\times P_{Y(1)\mid X}$ under
+ignorability while the target distribution is
+$P_{X}\times P_{Y(1)\mid X}$. Now the invariance of the conditional distribution is
+also the enabling property in other frameworks of causal inference. As
+a consequence, our method can be naturally extended to those settings,
+and we close this paper by discussing two of them.
+
+\subsection{Causal diagram framework}
+Judea Pearl in his pioneering work \citep{pearl1995causal} introduced
+a general framework of causal inference based on graphical models,
+which has been widely applied, see
+  e.g.~\cite{greenland1999causal, spirtes2000causation,
+    richardson2013single, glymour2014discovering,
+    tennant2019use}. This framework does not rely on the notion of
+counterfactuals but instead defines causal effects through the
+\texttt{do} operator, which modifies the observed distribution by
+removing the causal paths that directly point to the intervention
+variable. We refer the readers to \cite{pearl2018book} for the
+philosophy and basics of causal diagrams and to \cite{pearl2016causal}
+for the mathematical foundation of this framework.
+
+We here only discuss the case where $T$ is the intervention variable,
+$Y$ is the outcome variable and $X$ is a set of variables that
+satisfies the back-door criterion. Roughly speaking, this means that $X$
+includes all confounders and excludes all post-treatment variables. In
+this case, the foundational result in \cite{pearl1995causal} shows
+that
+\[P_{(X, Y) \mid \mathrm{do}(T = t)} = P_{X}\times P_{Y\mid X, T = t}.\]
+This is the target distribution to be inferred. In contrast, the observed distribution of $(X, Y)$ given $T = t$ is
+\[P_{(X, Y)\mid T = t} = P_{X\mid T = t}\times P_{Y\mid X, T = t}.\]
+Clearly, this has exactly the same structure as in the potential
+outcome framework. As a consequence, weighted split-CQR can be applied
+without any modification to produce doubly robust interval estimates
+of $Y$ under the \texttt{do} intervention.
+
+
+\subsection{Invariant prediction framework}
+
+Invariant prediction is another framework proposed by
+\cite{peters2016causal}. It is particularly powerful when there are
+multiple data sources under different interventions, such as in gene
+knockout experiments. Consider an outcome variable $Y$, a set of
+interventions or covariates $X$ and an environment variable $E$ that
+indicates the source of data. Then one basic setting under this
+framework assumes that $Y\indep E \mid X$ while $X$ may depend on $E$ with
+$X \mid E\sim P_{X}^{E}$. The goal is to predict the outcome under a
+new environment. For simplicity, we assume that a dataset
+$(X_{ij}, Y_{ij})_{i=1}^{n_{j}}$ is available for each environment
+$e_{1}, \ldots, e_{J}$ and a testing dataset $(X_{i0})_{i=1}^{n_{0}}$
+for the target environment $e_{0}$. Due to the invariance assumption,
+on the $j$-th dataset, the observed distribution of $(X, Y)$ is
+$P_{X}^{e_{j}}\times P_{Y\mid X}$ while the target distribution to be
+inferred on is $P_{X}^{e_{0}}\times P_{Y\mid X}$.
+
+Again, this is reduced to a problem of constructing valid prediction
+intervals under covariate shifts. When $J = 1$, this has exactly the
+same structure as in the potential outcome framework and thus weighted
+split-CQR with weight function $dP_{X}^{e_{0}}(x) / dP_{X}^{e_{1}}(x)$
+produces doubly robust intervals of $Y$ under environment $e_{0}$. When $J > 1$, we can in principle apply the general
+weighted conformal inference techniques from
+\cite{barber2019conformal}. However the weight function becomes much
+more complicated than that in Algorithm \ref{algo:split-CQR}. An
+alternative approach is to create a weighted population from
+environments $e_{1}, \ldots, e_{J}$ with observed distribution
+\[\lb\sum_{j=1}^{J}q_{j}P_{X}^{e_{j}}\rb\times P_{Y\mid X},\]
+and apply Algorithm \ref{algo:split-CQR} on this pseudo dataset with weight $w(x) = 1 / \sum_{j=1}^{J}q_{j}(dP_{X}^{e_{j}} / dP_{X}^{e_{0}})(x)$. The weights $q_{j}$ can be chosen through certain balancing procedures that forces the covariate distribution to approximate $P_{X}^{e_{0}}$. We leave the formal development of this idea to future work.
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

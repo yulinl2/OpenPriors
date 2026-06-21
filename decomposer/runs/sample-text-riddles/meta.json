@@ -1,0 +1,59 @@
+{
+  "adapter": "markdown",
+  "generated_at": "2026-06-21T15:36:56Z",
+  "metrics": {
+    "classified_ratio": 0.6667,
+    "max_depth": 2,
+    "n_edges": 0,
+    "n_edges_resolved": 0,
+    "n_nodes": 13,
+    "role_counts": {
+      "exemplify": 4,
+      "narrate": 8,
+      "segment": 1
+    },
+    "type_counts": {
+      "block": 4,
+      "document": 1,
+      "example": 4,
+      "paragraph": 4
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "acyclic_tree": true,
+        "character_coverage": true,
+        "idempotent_normalization": true,
+        "reference_integrity": true,
+        "schema_valid": true,
+        "unique_ids": true
+      }
+    }
+  },
+  "provenance": {
+    "external_ids": {},
+    "formats": [
+      "markdown"
+    ],
+    "origin": "Imports/decomposer-sample-test-cases/sample-text-riddles.md",
+    "retrieved_at": "2026-06-21T15:36:56Z",
+    "slug": "sample-text-riddles",
+    "source_files": [
+      "sample-text-riddles/sample-text-riddles.md"
+    ],
+    "source_sha256": {
+      "sample-text-riddles.md": "sha256:cbeef2442bb35ad8"
+    },
+    "tool_versions": {
+      "pydantic": "2.13.4",
+      "pylatexenc": "2.10",
+      "python": "3.11.15"
+    }
+  },
+  "slug": "sample-text-riddles",
+  "tool_versions": {
+    "pydantic": "2.13.4",
+    "pylatexenc": "2.10",
+    "python": "3.11.15"
+  }
+}

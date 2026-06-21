@@ -1,0 +1,66 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "detail": "bundle validates against Pydantic schema",
+      "metrics": {},
+      "name": "schema_valid",
+      "passed": true,
+      "principle": "P3"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "n_duplicates": 0,
+        "n_nodes": 134
+      },
+      "name": "unique_ids",
+      "passed": true,
+      "principle": "P4"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "n_edges": 133
+      },
+      "name": "acyclic_tree",
+      "passed": true,
+      "principle": "P4"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "coverage_ratio": 0.9093,
+        "covered_chars": 15354,
+        "min_ratio": 0.55,
+        "n_leaf_spans": 84,
+        "normalized_len": 16885,
+        "overlap_chars": 0
+      },
+      "name": "character_coverage",
+      "passed": true,
+      "principle": "P1"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "n_dangling": 0,
+        "n_edges": 0,
+        "n_external": 0
+      },
+      "name": "reference_integrity",
+      "passed": true,
+      "principle": "P4"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "len_once": 16885,
+        "len_twice": 16885
+      },
+      "name": "idempotent_normalization",
+      "passed": true,
+      "principle": "P2"
+    }
+  ]
+}

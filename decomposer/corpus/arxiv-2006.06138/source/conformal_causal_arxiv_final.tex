@@ -1,0 +1,173 @@
+\documentclass{statsoc}
+% \usepackage[top = 3cm, bottom = 3cm, left = 3cm, right=3cm]{geometry}
+\usepackage[a4paper,top=1in, bottom=1in, left=0.95in, right=0.95in]{geometry}
+\usepackage{amsmath, amssymb}
+\usepackage{arydshln}
+\usepackage{enumerate}
+\usepackage{setspace}
+\usepackage{natbib}
+\usepackage{hyperref}
+\usepackage{mathtools}
+\usepackage{xcolor}
+\hypersetup{
+  colorlinks=true,
+  citecolor=black,
+  linkcolor=black}
+\usepackage{booktabs}
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\usepackage{graphicx}
+% \usepackage{subcaption}
+% \graphicspath{{./figs/}}
+\usepackage{pifont}
+\newcommand{\cmark}{\ding{51}}%
+\newcommand{\xmark}{\ding{55}}%
+
+% \usepackage{xr}
+% \externaldocument{conformal_causal_JRSSB_final_supp}
+
+\makeatletter
+\renewcommand*{\eqref}[1]{%
+  \hyperref[{#1}]{\textup{\tagform@{\ref*{#1}}}}%
+}
+\makeatother
+
+\newcommand{\const}{B}
+\newcommand{\lb}{\left(}
+\newcommand{\rb}{\right)}
+\newcommand{\td}{\tilde}
+\newcommand{\E}{\mathbb{E}}
+\newcommand{\cE}{\mathcal{E}}
+\newcommand{\cC}{\mathcal{C}}
+\newcommand{\G}{\mathcal{G}}
+\newcommand{\R}{\mathbb{R}}
+\renewcommand{\r}{r}
+\renewcommand{\O}{\mathcal{O}}
+\renewcommand{\P}{\mathbb{P}}
+\renewcommand{\S}{\mathcal{S}}
+\newcommand{\A}{\mathcal{A}}
+\newcommand{\D}{\mathcal{D}}
+\newcommand{\Z}{\mathcal{Z}}
+\newcommand{\I}{\mathcal{I}}
+\newcommand{\eps}{\epsilon}
+\newcommand{\qt}{\mathrm{Quantile}}
+\newcommand{\lo}{\mathrm{lo}}
+\newcommand{\hi}{\mathrm{hi}}
+\newcommand{\obs}{\mathrm{obs}}
+\newcommand{\Var}{\mathrm{Var}}
+\newcommand{\tr}{\mathrm{tr}}
+\newcommand{\ca}{\mathrm{ca}}
+\renewcommand{\sp}{\mathrm{sp}}
+\newcommand{\tv}{d_{\mathrm{TV}}}
+\newcommand{\CV}{\mathrm{CV}}
+\newcommand{\LACI}{\mathrm{LACI}}
+\newcommand{\CQR}{\mathrm{CQR}}
+\newcommand{\Jackknife}{\mathrm{Jackknife}}
+\newcommand{\generic}{\mathrm{generic}}
+\newcommand{\train}{\mathrm{train}}
+\newcommand{\test}{\mathrm{test}}
+\newcommand{\CITE}{\hat{C}_\text{ITE}}
+\newcommand{\tdCITE}{\td{C}_\text{ITE}}
+\newcommand\indep{\protect\mathpalette{\protect\independenT}{\perp}}
+\def\independenT#1#2{\mathrel{\rlap{$#1#2$}\mkern2mu{#1#2}}}
+\newcommand{\revision
+}[1]{{\color{blue}#1}}
+
+\DeclarePairedDelimiterX{\divpq}[2]{(}{)}{%
+  #1\;\delimsize\|\;#2%
+}
+\allowdisplaybreaks
+
+
+\numberwithin{equation}{section}
+
+\newtheorem{theorem}{Theorem}
+\newtheorem{proposition}{Proposition}
+\newtheorem{lemma}{Lemma}
+\newtheorem{remark}{Remark}
+\newtheorem{corollary}{Corollary}
+
+
+\definecolor{darkgreen}{rgb}{0.0, 0.42, 0.24}
+\newcommand{\rev}[1]{\textcolor{red}{#1}}
+\newcommand{\ejc}[1]{\textcolor{red}{[EJC: #1]}}
+\newcommand{\lihua}[1]{\textcolor{darkgreen}{[Lihua: #1]}}
+\newcommand{\allison}[1]{\textcolor{magenta}{[AS: #1]}}
+\newcommand{\changed}[1]{\textcolor{blue}{#1}}
+
+
+\title[Conformal Inference of Counterfactuals and Individual Treatment Effects]{Conformal Inference\\ of Counterfactuals and Individual Treatment Effects}
+
+\author{Lihua Lei}
+\address{Department of Statistics, Stanford University}
+\email{lihualei@stanford.edu}
+
+\author[Lihua Lei and Emmanuel J. Cand\`{e}s]{Emmanuel J. Cand\`{e}s}
+\address{Department of Statistics and Department of Mathematics, Stanford University}
+\email{candes@stanford.edu}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+  Evaluating treatment effect heterogeneity widely informs treatment
+  decision making. At the moment, much emphasis is placed on the
+  estimation of the conditional average treatment effect via flexible
+  machine learning algorithms. While these methods enjoy some
+  theoretical appeal in terms of consistency and convergence rates,
+  they generally perform poorly in terms of uncertainty
+  quantification. This is troubling since assessing risk is crucial
+  for reliable decision-making in sensitive and uncertain
+  environments. In this work, we propose a conformal inference-based
+  approach that can produce reliable interval estimates for
+  counterfactuals and individual treatment effects under the potential
+  outcome framework. For completely randomized or stratified randomized experiments with perfect
+  compliance, the intervals have guaranteed average coverage in finite
+  samples regardless of the unknown data generating mechanism. For
+  randomized experiments with ignorable compliance and general
+  observational studies obeying the strong ignorability assumption,
+  the intervals satisfy a doubly robust property which states the
+  following: the average coverage is approximately controlled if
+  either the propensity score or the conditional quantiles of
+  potential outcomes can be estimated accurately.  Numerical studies
+  on both synthetic and real datasets empirically demonstrate that
+  existing methods suffer from a significant coverage deficit even in
+  % deceptively 
+  simple models. In contrast, our methods achieve the
+  desired coverage with reasonably short intervals. %\allison{I think
+   % the abstract stinks.}
+\end{abstract}
+
+\input{intro}
+\input{setup}
+\input{counterfactual}
+\input{effect}
+\input{extension}
+
+
+\section*{Acknowledgment}
+E. C. was supported by Office of Naval Research grant N00014-20-12157. L. L. was supported by NSF OAC grant 1934578. % These results were presented at Stanford on May 7, 2020, and at ONR 2020 Virtual Meeting: predictive and causal modeling --- bridging the gap on June 24, 2020. 
+The authors are grateful to David Arbour, Susan Athey, Eytan Bakshy, Stephen Bates, Richard A. Berk, Peter J. Bickel, Jelena Bradic, Andreas Buja, Michael Celentano, Peng Ding, Dean Eckles, Nikolaos Ignatiadis, Yucen Luo, Edward Kennedy, Roger Koenker, Arun Kumar Kuchibhotla, Elizabeth L. Ogburn, Zhimei Ren, Thomas S. Richardson, James Robins, Chiara Sabatti, Jasjeet S. Sekhon, Dylan Small, Sean Taylor, Eric Tchetgen Tchetgen, Yuhao Wang, Jeffrey Wong, Bin Yu, and Xiao-Hua Zhou for their constructive feedback.
+
+\bibliography{conformal_causal}
+\bibliographystyle{plainnat}
+
+\clearpage
+\appendix
+
+~\\
+\begin{center}
+  \begin{Large}
+    \textbf{Appendix}
+  \end{Large}
+\end{center}
+
+\input{appendix}
+
+\end{document}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:
