@@ -1,0 +1,26 @@
+name: analogy-ci
+
+# Verifies the SME aligner + novelty detector against the classic ground-truth analogy.
+# Pure-Python (stdlib only); rebuilds concept_graph dgroups for the optional corpus run.
+
+on:
+  push:
+    branches: ["**"]
+    paths: ["analogy/**", ".github/workflows/analogy-ci.yml"]
+  pull_request:
+    paths: ["analogy/**", ".github/workflows/analogy-ci.yml"]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pytest
+        run: python -m pip install --upgrade pip pytest
+      - name: SME aligner on the classic solar->atom analogy
+        run: PYTHONPATH=analogy/src python -m analogy.cli
+      - name: Tests
+        run: PYTHONPATH=analogy/src python -m pytest analogy/tests -q

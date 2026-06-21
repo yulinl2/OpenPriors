@@ -1,0 +1,18 @@
+{
+  "base": "arxiv-2006.06138",
+  "mapping_size": 82,
+  "novelty": {
+    "mapping_size": 82,
+    "matched_relations": 64,
+    "matched_target_facts": 64,
+    "n_candidate_inferences": 299,
+    "novelty_score": 0.5188,
+    "shortcut_signal": 0.2109,
+    "structural_score": 128.0,
+    "target_coverage": 0.4812,
+    "target_facts": 133,
+    "top_inference": "contains(problem_07, problem_07/block.1/problem_statement.1/section.1)"
+  },
+  "structural_score": 128.0,
+  "target": "problem_07"
+}

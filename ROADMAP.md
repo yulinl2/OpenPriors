@@ -25,9 +25,9 @@ EPIC B · Concept & reasoning graph   ── concept_graph/      [IN PROGRESS, i
          · reasoning-chain DAG · verify (conservation, traceability, acyclicity)
   frontier (sub-agent driven): fine-grained OAR extraction inside theorems/equations
 
-EPIC C · Structure-mapping matcher    ── (future)
-  content-vectors over relation tuples (MAC) + SME-style alignment (FAC)
-  + candidate-inference / shortcut detector (the novelty signal)
+EPIC C · Structure-mapping matcher    ── matcher/ (MAC) + analogy/ (FAC)
+  content-vectors over relation tuples (MAC, renaming-invariant) + SME-style
+  alignment (FAC) + candidate-inference / shortcut detector (the novelty signal)
 ```
 
 Each epic is a top-level package; each iteration is one branch + one PR; each step keeps
@@ -80,4 +80,5 @@ the **Argue / Build / Verify** triad and is recorded under `<pkg>/runs/` or `<pk
 |---|---|---|
 | A · decomposer | ✅ merged (#1), CI green | 4 corpora pass all invariants; 0.85 differential recall |
 | B · concept_graph | ✅ merged (#2), CI green | OAR lift + 17-edge reasoning DAG + SME bridge; all corpora verified |
-| C · matcher | 🚧 iteration 3 (foundation) | MAC content-vector retrieval + **renaming-invariance holds for all graphs** + systematicity |
+| C · matcher (MAC) | ✅ merged (#3), CI green | MAC content-vector retrieval + **renaming-invariance holds for all graphs** + systematicity |
+| C · analogy (FAC) | 🚧 iteration 4 | SME structural alignment + candidate-inference **novelty/shortcut detector**; recovers the textbook solar→atom mapping |
