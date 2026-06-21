@@ -1,0 +1,30 @@
+{
+  "arxiv-2006.06138": {
+    "content_vector_invariant": true,
+    "n_entities_renamed": 443,
+    "name": "renaming_invariance",
+    "passed": true,
+    "relation_multiset_invariant": true
+  },
+  "problem_04_review": {
+    "content_vector_invariant": true,
+    "n_entities_renamed": 57,
+    "name": "renaming_invariance",
+    "passed": true,
+    "relation_multiset_invariant": true
+  },
+  "problem_07": {
+    "content_vector_invariant": true,
+    "n_entities_renamed": 134,
+    "name": "renaming_invariance",
+    "passed": true,
+    "relation_multiset_invariant": true
+  },
+  "sample-text-riddles": {
+    "content_vector_invariant": true,
+    "n_entities_renamed": 13,
+    "name": "renaming_invariance",
+    "passed": true,
+    "relation_multiset_invariant": true
+  }
+}

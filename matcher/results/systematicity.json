@@ -1,0 +1,22 @@
+{
+  "arxiv-2006.06138": {
+    "max_reasoning_depth": 1,
+    "n_higher_order_relations": 17,
+    "systematicity_score": 34
+  },
+  "problem_04_review": {
+    "max_reasoning_depth": 0,
+    "n_higher_order_relations": 0,
+    "systematicity_score": 0
+  },
+  "problem_07": {
+    "max_reasoning_depth": 0,
+    "n_higher_order_relations": 0,
+    "systematicity_score": 0
+  },
+  "sample-text-riddles": {
+    "max_reasoning_depth": 0,
+    "n_higher_order_relations": 0,
+    "systematicity_score": 0
+  }
+}

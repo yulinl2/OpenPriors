@@ -1,0 +1,20 @@
+[project]
+name = "openpriors-matcher"
+version = "0.1.0"
+description = "OpenPriors Epic C foundation: MAC content-vector retrieval + renaming-invariance + systematicity over concept graphs (the structure-mapping precursor to a novelty detector)."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["pydantic>=2.0", "openpriors-concept-graph"]
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+matcher = "matcher.cli:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]

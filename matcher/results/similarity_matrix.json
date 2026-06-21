@@ -1,0 +1,26 @@
+{
+  "arxiv-2006.06138": {
+    "arxiv-2006.06138": 1.0,
+    "problem_04_review": 0.7186,
+    "problem_07": 0.9067,
+    "sample-text-riddles": 0.8175
+  },
+  "problem_04_review": {
+    "arxiv-2006.06138": 0.7186,
+    "problem_04_review": 1.0,
+    "problem_07": 0.8031,
+    "sample-text-riddles": 0.7079
+  },
+  "problem_07": {
+    "arxiv-2006.06138": 0.9067,
+    "problem_04_review": 0.8031,
+    "problem_07": 1.0,
+    "sample-text-riddles": 0.8533
+  },
+  "sample-text-riddles": {
+    "arxiv-2006.06138": 0.8175,
+    "problem_04_review": 0.7079,
+    "problem_07": 0.8533,
+    "sample-text-riddles": 1.0
+  }
+}

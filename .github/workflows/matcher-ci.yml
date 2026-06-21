@@ -1,0 +1,33 @@
+name: matcher-ci
+
+# Continuous verification of Epic C foundation. Rebuilds the full chain
+# (decomposer -> concept_graph) then runs MAC retrieval + renaming-invariance + tests,
+# so the renaming-invariance guarantee is enforced end-to-end on every change.
+
+on:
+  push:
+    branches: ["**"]
+    paths: ["matcher/**", "concept_graph/**", "decomposer/**", ".github/workflows/matcher-ci.yml"]
+  pull_request:
+    paths: ["matcher/**", "concept_graph/**", "decomposer/**", ".github/workflows/matcher-ci.yml"]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r decomposer/requirements.txt pytest
+      - name: Rebuild the chain (decomposer -> concept_graph)
+        run: |
+          PYTHONPATH=decomposer/src python -m decomposer.cli
+          PYTHONPATH=concept_graph/src python -m concept_graph.cli
+      - name: MAC retrieval + renaming-invariance
+        run: PYTHONPATH=matcher/src python -m matcher.cli
+      - name: Tests
+        run: PYTHONPATH=matcher/src python -m pytest matcher/tests -q
