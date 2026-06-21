@@ -1,0 +1,23 @@
+{
+  "concept_kind_counts": {
+    "answer_key": 1,
+    "block": 1,
+    "document": 1,
+    "editor_notes": 1,
+    "equation": 26,
+    "grading_scheme": 1,
+    "list": 12,
+    "list_item": 37,
+    "metadata_field": 13,
+    "paragraph": 34,
+    "problem_statement": 1,
+    "section": 6
+  },
+  "n_concepts": 134,
+  "n_reasoning_edges": 0,
+  "n_relations": 133,
+  "n_resolved": 133,
+  "predicate_counts": {
+    "contains": 133
+  }
+}

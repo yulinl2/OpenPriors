@@ -1,0 +1,12 @@
+{
+  "attr:block": 5,
+  "attr:document": 1,
+  "attr:list": 9,
+  "attr:metadata_field": 27,
+  "attr:paragraph": 3,
+  "attr:section": 12,
+  "rel:contains": 56,
+  "role:meta": 27,
+  "role:narrate": 17,
+  "role:segment": 13
+}

@@ -1,0 +1,24 @@
+{
+  "concept_kind_counts": {
+    "bib_reference": 88,
+    "block": 20,
+    "document": 1,
+    "equation": 112,
+    "list": 4,
+    "list_item": 11,
+    "paragraph": 162,
+    "remark": 1,
+    "section": 34,
+    "theorem": 10
+  },
+  "n_concepts": 443,
+  "n_reasoning_edges": 17,
+  "n_relations": 626,
+  "n_resolved": 589,
+  "predicate_counts": {
+    "cites": 103,
+    "contains": 442,
+    "derives_from": 17,
+    "refers_to": 64
+  }
+}

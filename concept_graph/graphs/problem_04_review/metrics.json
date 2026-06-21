@@ -1,0 +1,17 @@
+{
+  "concept_kind_counts": {
+    "block": 5,
+    "document": 1,
+    "list": 9,
+    "metadata_field": 27,
+    "paragraph": 3,
+    "section": 12
+  },
+  "n_concepts": 57,
+  "n_reasoning_edges": 0,
+  "n_relations": 56,
+  "n_resolved": 56,
+  "predicate_counts": {
+    "contains": 56
+  }
+}

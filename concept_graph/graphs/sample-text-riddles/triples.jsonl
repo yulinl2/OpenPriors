@@ -1,0 +1,12 @@
+{"o": "sample-text-riddles/example.1", "p": "contains", "s": "sample-text-riddles"}
+{"o": "sample-text-riddles/example.1/block.1", "p": "contains", "s": "sample-text-riddles/example.1"}
+{"o": "sample-text-riddles/example.1/paragraph.1", "p": "contains", "s": "sample-text-riddles/example.1"}
+{"o": "sample-text-riddles/example.2", "p": "contains", "s": "sample-text-riddles"}
+{"o": "sample-text-riddles/example.2/block.2", "p": "contains", "s": "sample-text-riddles/example.2"}
+{"o": "sample-text-riddles/example.2/paragraph.2", "p": "contains", "s": "sample-text-riddles/example.2"}
+{"o": "sample-text-riddles/example.3", "p": "contains", "s": "sample-text-riddles"}
+{"o": "sample-text-riddles/example.3/block.3", "p": "contains", "s": "sample-text-riddles/example.3"}
+{"o": "sample-text-riddles/example.3/paragraph.3", "p": "contains", "s": "sample-text-riddles/example.3"}
+{"o": "sample-text-riddles/example.4", "p": "contains", "s": "sample-text-riddles"}
+{"o": "sample-text-riddles/example.4/block.4", "p": "contains", "s": "sample-text-riddles/example.4"}
+{"o": "sample-text-riddles/example.4/paragraph.4", "p": "contains", "s": "sample-text-riddles/example.4"}
