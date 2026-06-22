@@ -33,6 +33,13 @@ def _unit(grounding: str):
     return m.group(1) if m else ""
 
 
+def _fmt_qty(value, unit: str) -> str:
+    """Format a quantity, singularizing a plural unit when the value is exactly 1."""
+    if unit and value == 1 and unit.endswith("s"):
+        unit = unit[:-1]
+    return f"{value} {unit}".strip()
+
+
 def solve(source_dg, target_dg, raw: dict) -> dict:
     g = align(source_dg, target_dg)
     answer_symbol = raw["source"]["answer_symbol"]
@@ -52,14 +59,15 @@ def solve(source_dg, target_dg, raw: dict) -> dict:
         structural = f"{blank_symbol} = {total} ÷ {count}"
         tnum, cnum = _first_int(tg.get(total, "")), _first_int(tg.get(count, ""))
         if tnum is not None and cnum:
-            numeric = f"{tnum // cnum if tnum % cnum == 0 else tnum / cnum} {_unit(tg.get(total, ''))}".strip()
+            val = tnum // cnum if tnum % cnum == 0 else tnum / cnum
+            numeric = _fmt_qty(val, _unit(tg.get(total, "")))
     elif defining is not None and functor(defining) == "EQUALS":
         a, b = args(defining)
         total = b if a == blank_symbol else a
         structural = f"{blank_symbol} = {total} (the whole total, undivided)"
         tnum = _first_int(tg.get(total, ""))
         if tnum is not None:
-            numeric = f"{tnum} {_unit(tg.get(total, ''))}".strip()
+            numeric = _fmt_qty(tnum, _unit(tg.get(total, "")))
 
     return {
         "structural_score": g.score,

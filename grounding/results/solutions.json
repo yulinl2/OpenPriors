@@ -3,7 +3,7 @@
     "answer_maps_to_blank": true,
     "blank_defining_relation": "DIVIDES",
     "mapped_to": "time_each",
-    "numeric_answer": "1 hours",
+    "numeric_answer": "1 hour",
     "structural_answer": "time_each = total_time ÷ num_people",
     "structural_score": 11.0
   },
@@ -11,7 +11,7 @@
     "answer_maps_to_blank": true,
     "blank_defining_relation": "DIVIDES",
     "mapped_to": "time_each",
-    "numeric_answer": "1 hours",
+    "numeric_answer": "1 hour",
     "structural_answer": "time_each = total_time ÷ num_people",
     "structural_score": 11.0
   },

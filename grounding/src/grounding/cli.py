@@ -33,7 +33,7 @@ def main(argv=None) -> int:
     for key, r in riddles.items():
         sol = solve(r["source"], r["target"], r["raw"])
         solutions[key] = sol
-        print(f"[{key}] relation={sol['blank_defining_relation']:7} "
+        print(f"[{key}] relation={str(sol['blank_defining_relation']):7} "
               f"maps_answer->blank={sol['answer_maps_to_blank']}  "
               f"=> {sol['structural_answer']}  ({sol['numeric_answer']})")
     (out / "solutions.json").write_text(_canon(solutions) + "\n", encoding="utf-8")

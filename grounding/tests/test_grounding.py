@@ -41,6 +41,13 @@ def test_grounding_fails_on_hallucinated_symbol():
     assert not r["passed"] and "ghost" in r["non_verbatim_groundings"]
 
 
+def test_grounding_fails_on_empty_grounding():
+    # an empty/whitespace grounding must NOT pass via `"" in text`
+    section = {"text": "3 people.", "groundings": {"x": "  "}, "facts": [["TOTAL", "x"]]}
+    r = verify.check_section(section)
+    assert not r["passed"] and "x" in r["non_verbatim_groundings"]
+
+
 def test_grounding_fails_on_ungrounded_entity():
     section = {"text": "3 people.", "groundings": {}, "facts": [["TOTAL", "x"]]}
     r = verify.check_section(section)
@@ -51,11 +58,11 @@ def test_solve_divides_vs_equals_gives_different_answers():
     riddles = _riddles()
     sol = {k: solve(v["source"], v["target"], v["raw"]) for k, v in riddles.items()}
     assert sol["riddle_1"]["blank_defining_relation"] == "DIVIDES"
-    assert sol["riddle_1"]["numeric_answer"] == "1 hours"
+    assert sol["riddle_1"]["numeric_answer"] == "1 hour"   # singularized at value 1
     assert sol["riddle_3"]["blank_defining_relation"] == "EQUALS"
     assert sol["riddle_3"]["numeric_answer"] == "3 hours"
     # the structural crux: near-identical surface -> two distinct answers
-    assert {s["numeric_answer"] for s in sol.values()} == {"1 hours", "3 hours"}
+    assert {s["numeric_answer"] for s in sol.values()} == {"1 hour", "3 hours"}
 
 
 def test_answer_maps_to_blank_via_alignment():

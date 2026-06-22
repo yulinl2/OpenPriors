@@ -1,6 +1,6 @@
 """Deterministic grounding check — the gate on the sub-agent's NL extraction.
 
-Doctrine (docs/principles.md): an LLM/sub-agent does the irreducible NL work, but its
+Doctrine (decomposer/docs/principles.md): an LLM/sub-agent does the irreducible NL work, but its
 output is admitted only if a *deterministic* check passes. Here: every symbol the extractor
 introduced must be **grounded** in a verbatim substring of the source prose, and every entity
 used in a fact must be grounded. This catches hallucinated symbols without trusting the LLM.
@@ -16,8 +16,10 @@ def check_section(section: dict) -> dict:
     groundings = section.get("groundings", {})
     facts = section["facts"]
 
-    # 1. every grounding value is a verbatim substring of the source text
-    bad_substrings = sorted(s for s, sub in groundings.items() if sub not in text)
+    # 1. every grounding value is a NON-EMPTY verbatim substring of the source text
+    #    (an empty/whitespace grounding would trivially pass `"" in text`, a loophole).
+    bad_substrings = sorted(s for s, sub in groundings.items()
+                            if not sub.strip() or sub not in text)
     # 2. every entity used in the facts is grounded
     used = entities_in_facts(facts)
     ungrounded = sorted(e for e in used if e not in groundings)
