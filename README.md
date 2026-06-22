@@ -60,10 +60,26 @@ triple JSON/JSONL representations; provenance + content hashes; pinned deps + em
 Schema; reproducible outputs via `SOURCE_DATE_EPOCH`). Each epic's `docs/` holds its
 lit-review (sub-agent produced), ADRs, and development log.
 
-## Status & frontier
+## Validation
 
-34 tests, 4 CI workflows, all green; a complete vertical slice runs end-to-end on four
-diverse test documents. The remaining frontier is the **LLM/sub-agent prose→dgroup front
-end**: lifting natural-language statements (the riddles' source↔target pairs, full paper
-proofs) into rich predicate-calculus description groups so the analogy engine runs end-to-end
-on raw prose — gated, per the project doctrine, by a deterministic structural-grounding check.
+The pipeline is exercised end-to-end on raw text, and the novelty signal is validated with
+positive **and** negative controls that together span the lexical < structural distinction:
+
+| Demonstration | What it shows | Result |
+|---|---|---|
+| **Riddles** (`grounding.cli`) | *identical surface, different structure* → different answer | riddles 1&2 → "1 hour" (`DIVIDES`); 3&4 → "3 hours" (`EQUALS`) |
+| **Banach case** (`grounding.casestudy`) | *different surface, same structure* → an instance | problem_07 Q1 vs Banach: novelty **0.09**, "INSTANCE — known machinery, relabeled"; isolates `ITERATION_COMPLEXITY` as the lone novel fact |
+| **Discrimination** (`grounding.discrimination`) | the detector is *not vacuous* | Banach vs Q1 = 0.09 (instance) **vs** Banach vs Q2 = 1.00 (distinct theorem); margin **0.91** |
+
+So a result whose structure is a renamed copy of a known theorem scores ~0 novelty, while a
+genuinely different theorem scores ~1 — exactly the "shortcut under fancy disguise" signal
+from `Imports/structure mapping notes.md` §6, validated on real mathematics.
+
+**53 tests · 7 CI workflows · all green · reproducible · $0 marginal API cost.**
+
+## Frontier
+
+The architecture is complete and validated; what remains is **breadth and scale** —
+richer dgroup extraction on full paper proofs, novelty scans across a larger real corpus,
+and more format adapters (HTML-native, PDF). Each plugs into the existing
+loader / grounding-gate / aligner path without new design.
