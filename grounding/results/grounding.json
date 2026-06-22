@@ -1,0 +1,71 @@
+{
+  "all_passed": true,
+  "riddle_1": {
+    "passed": true,
+    "source": {
+      "n_entities": 5,
+      "n_grounded": 5,
+      "non_verbatim_groundings": [],
+      "passed": true,
+      "ungrounded_entities": []
+    },
+    "target": {
+      "n_entities": 5,
+      "n_grounded": 5,
+      "non_verbatim_groundings": [],
+      "passed": true,
+      "ungrounded_entities": []
+    }
+  },
+  "riddle_2": {
+    "passed": true,
+    "source": {
+      "n_entities": 5,
+      "n_grounded": 5,
+      "non_verbatim_groundings": [],
+      "passed": true,
+      "ungrounded_entities": []
+    },
+    "target": {
+      "n_entities": 5,
+      "n_grounded": 5,
+      "non_verbatim_groundings": [],
+      "passed": true,
+      "ungrounded_entities": []
+    }
+  },
+  "riddle_3": {
+    "passed": true,
+    "source": {
+      "n_entities": 6,
+      "n_grounded": 6,
+      "non_verbatim_groundings": [],
+      "passed": true,
+      "ungrounded_entities": []
+    },
+    "target": {
+      "n_entities": 6,
+      "n_grounded": 6,
+      "non_verbatim_groundings": [],
+      "passed": true,
+      "ungrounded_entities": []
+    }
+  },
+  "riddle_4": {
+    "passed": true,
+    "source": {
+      "n_entities": 6,
+      "n_grounded": 7,
+      "non_verbatim_groundings": [],
+      "passed": true,
+      "ungrounded_entities": []
+    },
+    "target": {
+      "n_entities": 6,
+      "n_grounded": 7,
+      "non_verbatim_groundings": [],
+      "passed": true,
+      "ungrounded_entities": []
+    }
+  }
+}
