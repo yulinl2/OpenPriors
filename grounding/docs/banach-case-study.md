@@ -37,6 +37,23 @@ as the *only* unmatched target fact. That is precisely the OpenPriors objective 
 shortcut,"* and *conceptual distance = 1 − normalized structural score*. The novel content is
 isolated from the reused machinery, automatically, on real proof text.
 
+## Discrimination control — the detector is not vacuous
+
+A low-novelty verdict is only meaningful if the detector can also return *high* novelty for
+genuinely different content. So we align the **same Banach base** against two targets
+(`grounding/discrimination.py`):
+
+```
+banach vs q1_contraction            novelty=0.09  coverage=0.91  INSTANCE (low novelty)
+banach vs q2_asymptotic_normality   novelty=1.00  coverage=0.00  structurally distinct (high novelty)
+novelty margin (distinct − instance) = 0.91   discriminates = True
+```
+
+`problem_07` Q2 (an M-estimator central-limit-theorem argument with a recursive sandwich
+covariance) shares **no** relational structure with Banach, so it scores maximal novelty —
+while Q1, which *is* Banach, scores near-zero. The wide 0.91 margin is the proof that the
+signal discriminates reuse from genuine novelty rather than always declaring "instance."
+
 ## Why this matters
 
 It validates the whole stack end-to-end on genuine mathematics (not a textbook toy): prose →

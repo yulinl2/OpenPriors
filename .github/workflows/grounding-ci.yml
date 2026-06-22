@@ -25,5 +25,7 @@ jobs:
         run: PYTHONPATH=grounding/src:analogy/src python -m grounding.cli
       - name: Real-content case study (novelty detector on problem_07 Q1 vs Banach)
         run: PYTHONPATH=grounding/src:analogy/src python -m grounding.casestudy
+      - name: Discrimination control (instance vs distinct theorem)
+        run: PYTHONPATH=grounding/src:analogy/src python -m grounding.discrimination
       - name: Tests
         run: PYTHONPATH=grounding/src:analogy/src python -m pytest grounding/tests -q
