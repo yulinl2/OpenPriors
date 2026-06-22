@@ -1,0 +1,35 @@
+name: integration-ci
+
+# Proves the five epics compose into one working pipeline end-to-end.
+on:
+  push:
+    branches: ["**"]
+    paths: ["tests/**", "Makefile", "decomposer/**", "concept_graph/**", "matcher/**", "analogy/**", "grounding/**", ".github/workflows/integration-ci.yml"]
+  pull_request:
+    paths: ["tests/**", "Makefile", "decomposer/**", "concept_graph/**", "matcher/**", "analogy/**", "grounding/**", ".github/workflows/integration-ci.yml"]
+
+jobs:
+  integration:
+    runs-on: ubuntu-latest
+    env:
+      SOURCE_DATE_EPOCH: "1735689600"
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r decomposer/requirements.txt pytest
+      - name: Run the whole pipeline end-to-end
+        run: |
+          PYTHONPATH=decomposer/src     python -m decomposer.cli
+          PYTHONPATH=concept_graph/src  python -m concept_graph.cli
+          PYTHONPATH=matcher/src:concept_graph/src python -m matcher.cli
+          PYTHONPATH=analogy/src        python -m analogy.cli
+          PYTHONPATH=grounding/src:analogy/src python -m grounding.cli
+      - name: Cross-epic integration test
+        run: |
+          PYTHONPATH=decomposer/src:concept_graph/src:matcher/src:analogy/src:grounding/src \
+            python -m pytest tests/test_integration.py -q
