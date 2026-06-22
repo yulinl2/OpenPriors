@@ -1,0 +1,35 @@
+{
+  "_provenance": {
+    "extracted_by": "in-session Claude Code sub-agent (no API call), 2026-06-22",
+    "purpose": "Contrast target for the discrimination control: problem_07 Q2 (M-estimator asymptotic normality) is a DIFFERENT theorem from Banach. Aligning it against the Banach base should yield ~no structural overlap => HIGH novelty, proving the detector discriminates (it does not always say 'instance'). Disjoint functor vocabulary from banach_case.json by construction."
+  },
+  "target": {
+    "name": "problem_07-q2",
+    "text": "Define the normalized error U_t = sqrt(n)(theta_hat_t - theta_t). Conditional on theta_hat_{t-1}, the samples at time t are i.i.d. from D(theta_hat_{t-1}), and by the classical M-estimator central limit theorem, sqrt(n)(theta_hat_t - T(theta_hat_{t-1})) converges in distribution to a Gaussian N(0, Sigma). Turning the conditional CLT into a marginal CLT by induction and the characteristic function method, using the tower property of expectation, U_t converges in distribution to N(0, V_t). The recursive variance satisfies V_t = grad_T(theta_{t-1}) V_{t-1} grad_T(theta_{t-1})^T + Sigma(theta_t), where Sigma is the sandwich covariance H^{-1} V H^{-1} with H the Hessian and V the gradient covariance.",
+    "groundings": {
+      "u_t": "normalized error U_t",
+      "estimator": "theta_hat_t",
+      "the_gaussian": "Gaussian N(0, Sigma)",
+      "sigma": "N(0, Sigma)",
+      "past_param": "theta_hat_{t-1}",
+      "marginal": "marginal CLT",
+      "conditional": "conditional CLT",
+      "v_t": "N(0, V_t)",
+      "v_prev": "V_{t-1}",
+      "hessian": "H the Hessian",
+      "grad_cov": "V the gradient covariance"
+    },
+    "facts": [
+      ["NORMALIZED_ERROR", "u_t", "estimator"],
+      ["CLT", "estimator", "the_gaussian"],
+      ["GAUSSIAN", "the_gaussian", "sigma"],
+      ["CONDITIONAL", "conditional", "past_param"],
+      ["TOWER_PROPERTY", "marginal", "conditional"],
+      ["CHAR_FUNCTION_METHOD", "marginal"],
+      ["GAUSSIAN", "marginal", "v_t"],
+      ["RECURSIVE_VARIANCE", "v_t", "v_prev"],
+      ["SANDWICH", "sigma", "hessian", "grad_cov"],
+      ["CAUSE", ["AND", ["CONDITIONAL", "conditional", "past_param"], ["TOWER_PROPERTY", "marginal", "conditional"]], ["CLT", "estimator", "the_gaussian"]]
+    ]
+  }
+}
