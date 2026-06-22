@@ -12,7 +12,7 @@ from __future__ import annotations
 import json
 from pathlib import Path
 
-from analogy.align import align, _fmt
+from analogy.align import align, fmt_expr
 from analogy.novelty import novelty_report
 from analogy.predicates import Dgroup
 
@@ -40,7 +40,7 @@ def run_case(path: str | Path) -> dict:
     g = align(base, target)
     rep = novelty_report(base, target, g)
     matched_t = {repr(e) for e in g.matched_target}
-    novel_target_facts = [_fmt(f) for f in target.facts if repr(f) not in matched_t]
+    novel_target_facts = [fmt_expr(f) for f in target.facts if repr(f) not in matched_t]
 
     return {
         "base": base.name,
@@ -66,7 +66,6 @@ def _verdict(novelty: float) -> str:
 
 
 def main(argv=None) -> int:
-    import sys
     here = Path(__file__).resolve().parents[2]
     path = (argv[0] if argv else None) or str(here / "dgroups" / "banach_case.json")
     out_dir = here / "results"

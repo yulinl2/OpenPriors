@@ -126,7 +126,11 @@ def _ent(e):
     return entities(e)
 
 
-def _fmt(e) -> str:
+def fmt_expr(e) -> str:
+    """Public, human-readable formatter for a predicate-calculus expression."""
     if is_entity(e):
         return e
-    return f"{functor(e)}(" + ", ".join(_fmt(a) for a in args(e)) + ")"
+    return f"{functor(e)}(" + ", ".join(fmt_expr(a) for a in args(e)) + ")"
+
+
+_fmt = fmt_expr  # internal alias (kept for existing call sites)
