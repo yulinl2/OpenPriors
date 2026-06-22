@@ -25,6 +25,10 @@ EPIC B · Concept & reasoning graph   ── concept_graph/      [IN PROGRESS, i
          · reasoning-chain DAG · verify (conservation, traceability, acyclicity)
   frontier (sub-agent driven): fine-grained OAR extraction inside theorems/equations
 
+EPIC D · Prose front end                ── grounding/        [iteration 5]
+  sub-agent lifts prose -> predicate-calculus dgroups, gated by a deterministic
+  grounding check, then solved by the analogy engine (the loop runs on raw text)
+
 EPIC C · Structure-mapping matcher    ── matcher/ (MAC) + analogy/ (FAC)
   content-vectors over relation tuples (MAC, renaming-invariant) + SME-style
   alignment (FAC) + candidate-inference / shortcut detector (the novelty signal)
@@ -81,4 +85,5 @@ the **Argue / Build / Verify** triad and is recorded under `<pkg>/runs/` or `<pk
 | A · decomposer | ✅ merged (#1), CI green | 4 corpora pass all invariants; 0.85 differential recall |
 | B · concept_graph | ✅ merged (#2), CI green | OAR lift + 17-edge reasoning DAG + SME bridge; all corpora verified |
 | C · matcher (MAC) | ✅ merged (#3), CI green | MAC content-vector retrieval + **renaming-invariance holds for all graphs** + systematicity |
-| C · analogy (FAC) | 🚧 iteration 4 | SME structural alignment + candidate-inference **novelty/shortcut detector**; recovers the textbook solar→atom mapping |
+| C · analogy (FAC) | ✅ merged (#4), CI green | SME structural alignment + candidate-inference **novelty/shortcut detector**; recovers the textbook solar→atom mapping |
+| D · grounding (prose front end) | 🚧 iteration 5 | sub-agent prose→dgroup + **deterministic grounding gate**; solves the 4 riddles end-to-end (1h vs 3h from identical surface) |

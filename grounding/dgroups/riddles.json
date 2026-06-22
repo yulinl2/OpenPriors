@@ -1,0 +1,63 @@
+{
+  "_provenance": {
+    "source": "decomposer/corpus/sample-text-riddles/sample-text-riddles.md",
+    "extracted_by": "in-session Claude Code sub-agent (no API call), 2026-06-22",
+    "note": "Predicate-calculus description groups lifted from prose. The structural crux: riddles 1&2 use DIVIDES (per-person = total/count); riddles 3&4 use EQUALS (per-person = the whole total). Near-identical surface, different relational structure -> different answers. Every symbol is grounded to a verbatim source substring; verified deterministically by grounding/verify.py."
+  },
+  "riddle_1": {
+    "source": {
+      "text": "Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that each person spent 100 dollars on the job.",
+      "groundings": {"the_job": "finish a job", "num_people": "3 people", "total_money": "total of 300 dollars", "people": "the three", "money_each": "spent 100 dollars"},
+      "facts": [["TOTAL", "the_job", "total_money"], ["COUNT", "people", "num_people"], ["SAME_RATE", "people"], ["DIVIDES", "total_money", "num_people", "money_each"], ["CAUSE", ["SAME_RATE", "people"], ["DIVIDES", "total_money", "num_people", "money_each"]]],
+      "answer_symbol": "money_each"
+    },
+    "target": {
+      "text": "Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that each person spent ___ on the job.",
+      "groundings": {"the_job": "finish a job", "num_people": "3 people", "total_time": "total of 3 hours", "people": "the three", "time_each": "___"},
+      "facts": [["TOTAL", "the_job", "total_time"], ["COUNT", "people", "num_people"], ["SAME_RATE", "people"], ["DIVIDES", "total_time", "num_people", "time_each"], ["CAUSE", ["SAME_RATE", "people"], ["DIVIDES", "total_time", "num_people", "time_each"]]],
+      "blank_symbol": "time_each"
+    }
+  },
+  "riddle_2": {
+    "source": {
+      "text": "Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that it took each person 100 dollars to finish the job.",
+      "groundings": {"the_job": "finish a job", "num_people": "3 people", "total_money": "total of 300 dollars", "people": "the three", "money_each": "each person 100 dollars"},
+      "facts": [["TOTAL", "the_job", "total_money"], ["COUNT", "people", "num_people"], ["SAME_RATE", "people"], ["DIVIDES", "total_money", "num_people", "money_each"], ["CAUSE", ["SAME_RATE", "people"], ["DIVIDES", "total_money", "num_people", "money_each"]]],
+      "answer_symbol": "money_each"
+    },
+    "target": {
+      "text": "Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that it took each person ___ to finish the job.",
+      "groundings": {"the_job": "finish a job", "num_people": "3 people", "total_time": "total of 3 hours", "people": "the three", "time_each": "___"},
+      "facts": [["TOTAL", "the_job", "total_time"], ["COUNT", "people", "num_people"], ["SAME_RATE", "people"], ["DIVIDES", "total_time", "num_people", "time_each"], ["CAUSE", ["SAME_RATE", "people"], ["DIVIDES", "total_time", "num_people", "time_each"]]],
+      "blank_symbol": "time_each"
+    }
+  },
+  "riddle_3": {
+    "source": {
+      "text": "Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that it took each person 300 dollars to finish the same job.",
+      "groundings": {"the_job": "finish a job", "num_people": "3 people", "total_money": "total of 300 dollars", "people": "the three", "money_each": "each person 300 dollars", "same_job": "finish the same job"},
+      "facts": [["TOTAL", "the_job", "total_money"], ["COUNT", "people", "num_people"], ["SAME_RATE", "people"], ["SAME_JOB", "same_job", "the_job"], ["EQUALS", "money_each", "total_money"], ["CAUSE", ["SAME_JOB", "same_job", "the_job"], ["EQUALS", "money_each", "total_money"]]],
+      "answer_symbol": "money_each"
+    },
+    "target": {
+      "text": "Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that it took each person ___ to finish the same job.",
+      "groundings": {"the_job": "finish a job", "num_people": "3 people", "total_time": "total of 3 hours", "people": "the three", "time_each": "___", "same_job": "finish the same job"},
+      "facts": [["TOTAL", "the_job", "total_time"], ["COUNT", "people", "num_people"], ["SAME_RATE", "people"], ["SAME_JOB", "same_job", "the_job"], ["EQUALS", "time_each", "total_time"], ["CAUSE", ["SAME_JOB", "same_job", "the_job"], ["EQUALS", "time_each", "total_time"]]],
+      "blank_symbol": "time_each"
+    }
+  },
+  "riddle_4": {
+    "source": {
+      "text": "Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that it took one person 300 dollars to finish the same job.",
+      "groundings": {"the_job": "finish a job", "num_people": "3 people", "total_money": "total of 300 dollars", "people": "the three", "one_person": "one person", "money_each": "one person 300 dollars", "same_job": "finish the same job"},
+      "facts": [["TOTAL", "the_job", "total_money"], ["COUNT", "people", "num_people"], ["SAME_RATE", "people"], ["SAME_JOB", "same_job", "the_job"], ["EQUALS", "money_each", "total_money"], ["CAUSE", ["SAME_JOB", "same_job", "the_job"], ["EQUALS", "money_each", "total_money"]]],
+      "answer_symbol": "money_each"
+    },
+    "target": {
+      "text": "Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that it took one person ___ to finish the same job.",
+      "groundings": {"the_job": "finish a job", "num_people": "3 people", "total_time": "total of 3 hours", "people": "the three", "one_person": "one person", "time_each": "___", "same_job": "finish the same job"},
+      "facts": [["TOTAL", "the_job", "total_time"], ["COUNT", "people", "num_people"], ["SAME_RATE", "people"], ["SAME_JOB", "same_job", "the_job"], ["EQUALS", "time_each", "total_time"], ["CAUSE", ["SAME_JOB", "same_job", "the_job"], ["EQUALS", "time_each", "total_time"]]],
+      "blank_symbol": "time_each"
+    }
+  }
+}
