@@ -2,16 +2,14 @@
 
 Each epic has its own unit tests; this asserts the end-to-end *composition*:
 decomposer → concept_graph → matcher → analogy → grounding, with the headline results
-that define the OpenPriors thesis. Run from the repo root with every epic on PYTHONPATH:
-
-    PYTHONPATH=decomposer/src:concept_graph/src:matcher/src:analogy/src:grounding/src \
-      python -m pytest tests/test_integration.py -q
+that define the OpenPriors thesis. This file bootstraps each epic's ``src/`` onto
+``sys.path`` from ``__file__``, so it runs without setting PYTHONPATH (use the venv that
+has the deps, e.g. ``decomposer/.venv/bin/python -m pytest tests/test_integration.py -q``).
 """
 
 import os
 import pathlib
 import sys
-import tempfile
 
 REPO = pathlib.Path(__file__).resolve().parents[1]
 for pkg in ("decomposer", "concept_graph", "matcher", "analogy", "grounding"):
@@ -54,6 +52,7 @@ def test_c_fac_recovers_textbook_analogy():
     from analogy.align import align
     g = align(examples.solar_system(), examples.atom())
     assert g.correspondences == {"sun": "nucleus", "planet": "electron"}
+    assert g.candidate_inferences, "expected at least one candidate inference"
     assert g.candidate_inferences[0]["base_fact"].startswith("CAUSE")
 
 
