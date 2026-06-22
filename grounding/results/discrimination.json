@@ -1,5 +1,6 @@
 {
   "discriminates": true,
+  "grounding_all_passed": true,
   "novelty_margin": 0.9091,
   "results": {
     "q1_contraction": {

@@ -40,8 +40,8 @@ isolated from the reused machinery, automatically, on real proof text.
 ## Discrimination control — the detector is not vacuous
 
 A low-novelty verdict is only meaningful if the detector can also return *high* novelty for
-genuinely different content. So we align the **same Banach base** against two targets
-(`grounding/discrimination.py`):
+genuinely different content. So we align the **same Banach base** against two targets (run
+`python -m grounding.discrimination`; source at `grounding/src/grounding/discrimination.py`):
 
 ```
 banach vs q1_contraction            novelty=0.09  coverage=0.91  INSTANCE (low novelty)

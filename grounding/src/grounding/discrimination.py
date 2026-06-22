@@ -51,10 +51,14 @@ def run_discrimination(banach_path: str | Path, q2_path: str | Path) -> dict:
 
     n1 = results["q1_contraction"]["novelty_score"]
     n2 = results["q2_asymptotic_normality"]["novelty_score"]
+    grounded = all(r["grounding_passed"] for r in results.values())
     return {
         "results": results,
+        "grounding_all_passed": grounded,
         "novelty_margin": round(n2 - n1, 4),
-        "discriminates": n1 <= 0.15 and n2 >= 0.6,
+        # a deterministic control: both targets must be grounded AND show the expected
+        # novelty separation, else the result is not trustworthy.
+        "discriminates": grounded and n1 <= 0.15 and n2 >= 0.6,
     }
 
 
