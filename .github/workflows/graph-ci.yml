@@ -35,5 +35,7 @@ jobs:
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.pipeline
       - name: Query DSL over the unified graph (path / ancestor / analogy / conjecture lookup)
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.dsl_cli
+      - name: Second real paper end-to-end (Nesterov acceleration)
+        run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.realpaper2
       - name: Tests
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m pytest graph/tests -q

@@ -235,6 +235,35 @@ gate them.* One pass, grounded end to end, every symbol traceable to its source.
 PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.pipeline
 ```
 
+## A second real paper, in a different field (`graphstore.realpaper2`, Epic V)
+
+To show the real-paper pipeline isn't curated to one example, a **second** real result —
+**Nesterov's accelerated gradient method** (Nesterov 1983), lifted from prose by an in-session
+sub-agent — is run end to end in the *optimization* field (Epic K did this for conformal
+prediction):
+
+```
+paper 'nesterov_acceleration' (3 facts) — Nesterov 1983, accelerated gradient
+  = composition of known priors: estimate_sequence
+  covered 1/3 (0.3333)
+  novel contribution (residual): OPTIMAL_RATE(the_rate, the_lower_bound)
+
+  the momentum step plays role ROLE::PC::2 (same as contraction / weighted-exchangeability):
+    nesterov_acceleration ~~ banach_contraction (score 3.0; method <-> the_map)
+```
+
+Set-cover reads the **estimate-sequence** machinery (which builds the momentum step) as
+borrowed, and isolates `OPTIMAL_RATE` — the optimal, quadratically-faster rate — as Nesterov's
+genuine contribution over plain gradient descent. And because the momentum step is discovered
+(from its `CAUSE` position) to play the same `PC/2` structural-property role, the paper **joins
+the cross-domain analogy web**: *"Nesterov's method is to its accelerated convergence as a
+contraction map is to its linear convergence."* Same machinery as Epic K, a different field, a
+different real paper.
+
+```bash
+PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.realpaper2
+```
+
 ## Query the graph (`graphstore.dsl`, Epic S)
 
 The pipeline collapses every stage into one graph you can simply **query**. A small composable

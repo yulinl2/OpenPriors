@@ -1,0 +1,29 @@
+{
+  "_provenance": {
+    "note": "Optimization priors for the second real-paper decomposition (Epic V): the results Nesterov's accelerated gradient method builds on, lifted into grounded dgroups by an in-session sub-agent. Sharing functor vocabulary with grounding/dgroups/nesterov_paper.json so set-cover decomposition explains the paper as {estimate_sequence builds the momentum} + a residual that is its genuine contribution (the OPTIMAL accelerated rate). Grounded; checked by grounding.verify."
+  },
+  "gradient_descent_smooth": {
+    "name": "gradient_descent_smooth",
+    "text": "On a smooth convex function, plain gradient descent converges to the minimizer at a sublinear convergence rate.",
+    "groundings": {
+      "method": "plain gradient descent",
+      "function": "smooth convex function",
+      "the_rate": "sublinear convergence rate"
+    },
+    "facts": [
+      ["CAUSE", ["SMOOTH_CONVEX", "function", "method"], ["CONVERGENCE", "method", "the_rate"]]
+    ]
+  },
+  "estimate_sequence": {
+    "name": "estimate_sequence",
+    "text": "For a smooth convex function, Nesterov's estimate-sequence technique builds a momentum extrapolation step from successive gradient information.",
+    "groundings": {
+      "technique": "Nesterov's estimate-sequence technique",
+      "function": "smooth convex function",
+      "momentum_step": "momentum extrapolation step"
+    },
+    "facts": [
+      ["CAUSE", ["SMOOTH_CONVEX", "function", "technique"], ["MOMENTUM", "technique", "momentum_step"]]
+    ]
+  }
+}
