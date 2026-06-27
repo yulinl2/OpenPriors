@@ -17,8 +17,10 @@ theorem. Everything else (the correspondence, the score) is computed by SME.
 
 from __future__ import annotations
 
+from collections import defaultdict
+
 from analogy.align import align, fmt_expr
-from analogy.predicates import Dgroup
+from analogy.predicates import Dgroup, args, functor
 
 from .model import Edge, Graph
 
@@ -34,6 +36,37 @@ ROLE_ASCENSION = {
     "STRONG_CONVEXITY_BOUND": "STRUCTURAL_PREMISE",
     "LINEAR_CONVERGENCE": "GUARANTEE",
 }
+
+
+def discover_role_ascension(*corpora: dict[str, Dgroup]) -> dict:
+    """Derive the role ascension automatically — no hand-declared premise/guarantee map.
+
+    Epic N declared which relations are premises vs guarantees. But that role is already
+    *encoded* in the data: a relation's job in a "structure ⇒ guarantee" theorem is exactly
+    its position in the shared ``CAUSE`` glue. We read each functor's **role signature** from
+    the corpora — does it ever appear as a CAUSE *premise* (P), as a CAUSE *conclusion* (C),
+    and with what arity — and map functors with the same signature to a shared role token.
+    Functors that play the same structural role across different fields then ascend together,
+    so SME aligns them with zero injected domain knowledge. Arity is part of the token so the
+    resulting matches stay arity-consistent (SME requires equal arity).
+    """
+    is_premise: dict = defaultdict(bool)
+    is_conclusion: dict = defaultdict(bool)
+    arity: dict = {}
+    for corpus in corpora:
+        for dg in corpus.values():
+            for fact in dg.facts:
+                if functor(fact) != "CAUSE":
+                    continue
+                premise, conclusion = args(fact)
+                if isinstance(premise, tuple):
+                    is_premise[functor(premise)] = True
+                    arity[functor(premise)] = len(args(premise))
+                if isinstance(conclusion, tuple):
+                    is_conclusion[functor(conclusion)] = True
+                    arity[functor(conclusion)] = len(args(conclusion))
+    return {fn: f"ROLE::{'P' if is_premise[fn] else ''}{'C' if is_conclusion[fn] else ''}::{arity[fn]}"
+            for fn in arity}
 
 
 def cross_domain_analogies(domain_a: dict[str, Dgroup], domain_b: dict[str, Dgroup],
