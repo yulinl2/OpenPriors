@@ -82,7 +82,7 @@ def main(argv=None) -> int:
 
     st = g.stats()
     print(f"multi-domain graph: {st['n_nodes']} nodes, {st['n_edges']} edges "
-          f"({len(domains)} literatures: {list(domains)})")
+          f"({len(domains)} literatures: {', '.join(domains)})")
     print(f"  edge relations: {st['edge_relations']}")
     print(f"\nrole ascension DISCOVERED from CAUSE structure (no hand-declared map):")
     for fn, role in sorted(ascension.items()):
