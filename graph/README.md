@@ -232,6 +232,40 @@ gate them.* One pass, grounded end to end, every symbol traceable to its source.
 PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.pipeline
 ```
 
+## Query the graph (`graphstore.dsl`, Epic S)
+
+The pipeline collapses every stage into one graph you can simply **query**. A small composable
+DSL answers the questions a user actually asks:
+
+```
+Q: how is the conformal base theorem connected to a learning-theory result?
+   result::split_conformal --extends<--> result::weighted_conformal --analogous_to->--> result::vc_generalization
+   -> a lineage edge into an analogy edge: the literatures are concretely linked
+
+Q: why are weighted conformal and Banach contraction analogous?
+   score 7.0; correspondence {cal_test: the_map, the_weights: kappa, the_interval: the_seq, alpha_level: the_rate}
+
+Q: what did the weighted-conformal analogies predict, and how were they judged?
+   [plausible  ] BANACH_FIXEDPOINT(cal_test, skolem:the_fixedpoint)  (from banach_contraction)
+```
+
+- `shortest_path(g, a, b)` — undirected BFS across **every** relation, so one path can run from
+  a conformal theorem through a lineage edge into an analogy edge into a learning-theory result;
+- `shared_ancestor(g, r1, r2)` — the common root two results build on, via the lineage;
+- `explain_analogy(g, r1, r2)` — the SME correspondence + shared structure on the `analogous_to`
+  edge;
+- `conjectures_with_verdicts(g, result)` — what a result's analogies predicted and how the
+  judge ruled;
+- `find(g, needle)` — locate nodes by label.
+
+The literatures aren't just adjacent in the graph — a single query traverses from one field
+into another through the analogy web, with the conjectures and their verdicts hanging off the
+results they bear on.
+
+```bash
+PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.dsl_cli
+```
+
 ## Extend
 
 Add any grounded dgroup (the `grounding` front end) to the corpus and it joins the graph with
