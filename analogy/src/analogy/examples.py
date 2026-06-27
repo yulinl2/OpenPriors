@@ -64,6 +64,35 @@ def synonym_target() -> Dgroup:
     ])
 
 
+# --------------------------------------------------------------------------- #
+# Trickle-down systematicity demo: a deep relational web vs the same relations  #
+# in isolation. Trickle-down evidence should reward the former disproportionately.
+# --------------------------------------------------------------------------- #
+def _orbit(a: str, b: str, with_cause: bool):
+    facts = [
+        ("GREATER", ("MASS", a), ("MASS", b)),
+        ("ATTRACTS", a, b),
+        ("REVOLVES", b, a),
+    ]
+    if with_cause:
+        facts.append(("CAUSE",
+                      ("AND", ("GREATER", ("MASS", a), ("MASS", b)), ("ATTRACTS", a, b)),
+                      ("REVOLVES", b, a)))
+    return facts
+
+
+def systematic_pair():
+    """Base & target share a deep CAUSE over the relations (a systematic web)."""
+    return (Dgroup("sys-A", _orbit("a", "b", with_cause=True)),
+            Dgroup("sys-B", _orbit("c", "d", with_cause=True)))
+
+
+def flat_pair():
+    """The same relations with NO higher-order CAUSE tying them together."""
+    return (Dgroup("flat-A", _orbit("a", "b", with_cause=False)),
+            Dgroup("flat-B", _orbit("c", "d", with_cause=False)))
+
+
 def from_concept_dgroup(path: str | Path) -> Dgroup:
     """Build a Dgroup from a concept_graph ``dgroup.json``.
 

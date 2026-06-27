@@ -58,6 +58,12 @@ Two refinements toward the full SME, both opt-in / backward-compatible:
   match if they share a parent in a type lattice (`examples.DEFAULT_ASCENSION`). On a
   near-synonym pair, strict matching recovers only the identical predicate (`{loss:cost}`)
   while ascension recovers the full mapping (`{loss:cost, agent:system, time:step}`).
+- **Trickle-down systematicity** (notes §2) — `align(..., trickle=γ)` lets a matched
+  higher-order relation pass a fraction of its evidence to the matched sub-relations it
+  contains, so structure deep inside a systematic web scores more than the same relations in
+  isolation: a CAUSE-over-relations pair gains (`12 → 15.5` at γ=0.5) while three isolated
+  relations gain nothing (`7 → 7`). Default `0.0` keeps scores backward-compatible. This
+  mechanizes SME's selection principle (prefer deep, interconnected structure).
 - **Skolem-penalized candidate inferences** (notes §6) — projecting a base fact whose argument
   has no target image invents a new ("skolem") entity, a weaker inference. `n_skolems` is always
   reported, but the score subtracts it only under the opt-in `align(..., skolem_penalty=γ)`
