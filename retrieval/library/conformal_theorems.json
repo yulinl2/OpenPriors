@@ -1,0 +1,55 @@
+{
+  "_provenance": {
+    "note": "Library priors for the real-paper end-to-end decomposition (Epic K). These are the published conformal-prediction theorems that arXiv 2006.06138 (Lei & Candes) builds on: split conformal prediction (Vovk et al.; Lei et al. 2018), weighted conformal prediction under covariate shift (Tibshirani, Barber, Candes & Ramdas 2019), and the importance-weighting / likelihood-ratio identity. Shares functor + entity vocabulary with grounding/dgroups/arxiv_2006_06138_main.json so each theorem's statement aligns by SME against the paper's main result. The paper = {weighted_conformal} + a residual of COUNTERFACTUAL + NESTED, which is exactly its contribution (applying weighted conformal prediction to counterfactual outcomes and the ITE). Grounded; every symbol is a verbatim substring of its statement, checked by grounding.verify."
+  },
+  "split_conformal": {
+    "name": "split_conformal",
+    "text": "Split conformal prediction: given exchangeable calibration and test data, the prediction interval built from the empirical quantile of the calibration nonconformity scores attains valid marginal coverage at level 1 minus alpha.",
+    "groundings": {
+      "cal_test": "exchangeable calibration and test data",
+      "the_interval": "prediction interval",
+      "the_scores": "calibration nonconformity scores",
+      "alpha_level": "valid marginal coverage at level 1 minus alpha"
+    },
+    "facts": [
+      ["EXCHANGEABLE", "cal_test"],
+      ["CONFORMAL_INTERVAL", "the_interval", "the_scores"],
+      ["COVERAGE", "the_interval", "alpha_level"],
+      ["CAUSE", ["EXCHANGEABLE", "cal_test"], ["COVERAGE", "the_interval", "alpha_level"]]
+    ]
+  },
+  "weighted_conformal": {
+    "name": "weighted_conformal",
+    "text": "Weighted conformal prediction under covariate shift: when the test covariate distribution differs from the calibration distribution, reweighting the calibration scores by the likelihood ratio between the two distributions restores weighted exchangeability of the calibration and test data, so the resulting prediction interval attains valid marginal coverage at level 1 minus alpha.",
+    "groundings": {
+      "the_weights": "the likelihood ratio",
+      "q_dist": "test covariate distribution",
+      "p_dist": "calibration distribution",
+      "cal_test": "weighted exchangeability of the calibration and test data",
+      "the_interval": "prediction interval",
+      "the_scores": "calibration scores",
+      "alpha_level": "valid marginal coverage at level 1 minus alpha"
+    },
+    "facts": [
+      ["LIKELIHOOD_RATIO", "the_weights", "q_dist", "p_dist"],
+      ["COVARIATE_SHIFT", "q_dist", "p_dist"],
+      ["WEIGHTED_EXCHANGEABLE", "cal_test", "the_weights"],
+      ["CONFORMAL_INTERVAL", "the_interval", "the_scores"],
+      ["COVERAGE", "the_interval", "alpha_level"],
+      ["CAUSE", ["WEIGHTED_EXCHANGEABLE", "cal_test", "the_weights"], ["COVERAGE", "the_interval", "alpha_level"]],
+      ["CAUSE", ["LIKELIHOOD_RATIO", "the_weights", "q_dist", "p_dist"], ["WEIGHTED_EXCHANGEABLE", "cal_test", "the_weights"]]
+    ]
+  },
+  "importance_weighting": {
+    "name": "importance_weighting",
+    "text": "Importance weighting: the likelihood ratio between a target distribution and a source distribution is the density ratio whose expectation reweights source samples to the target.",
+    "groundings": {
+      "the_weights": "the likelihood ratio",
+      "q_dist": "target distribution",
+      "p_dist": "source distribution"
+    },
+    "facts": [
+      ["LIKELIHOOD_RATIO", "the_weights", "q_dist", "p_dist"]
+    ]
+  }
+}

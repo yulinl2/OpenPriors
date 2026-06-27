@@ -95,3 +95,7 @@ the **Argue / Build / Verify** triad and is recorded under `<pkg>/runs/` or `<pk
 | E · retrieval (MAC/FAC) | ✅ merged (#11) | **library-scale** novelty retrieval: MAC content-vector filter → SME/FAC rerank → nearest known prior + graded reuse/novelty |
 | F · proof decomposition | ✅ merged (#12) | **multi-prior set-cover**: explain a full proof as composed theorems + isolate the novel residual (MDL framing) |
 | G · deeper SME engine | ✅ merged (#13) | **minimal ascension** (near-synonym predicates align) + **skolem-penalized** inferences; both opt-in |
+| H · HTML-native ingestion | ✅ merged (#15) | third decomposer path (ar5iv HTML) + **cross-path differential** verification (34/34 sections) |
+| I · trickle-down systematicity | ✅ merged (#16) | reward deep relational webs: candidate-inference score gains with supporting sub-structure depth |
+| J · ANN index for MAC | ✅ merged (#17) | pure-Python **SimHash LSH**; true nearest at **<1%** of the library exact-scored |
+| K · real paper end-to-end | ✅ this PR | **arXiv 2006.06138** (Lei & Candès): MAC→FAC→set-cover reads the paper as *weighted conformal + {COUNTERFACTUAL, NESTED}* — its actual contribution, isolated automatically |

@@ -83,6 +83,40 @@ tunable via `max_hamming`.
 PYTHONPATH=retrieval/src:analogy/src decomposer/.venv/bin/python -m retrieval.index
 ```
 
+## End-to-end on a real published paper (`retrieval.realpaper`)
+
+The whole stack, run against a **genuine published result** rather than a constructed case:
+**Lei & Candès, *Conformal Inference of Counterfactuals and Individual Treatment Effects***
+([arXiv 2006.06138](https://arxiv.org/abs/2006.06138)). The paper's main theorem is lifted
+from its prose into a grounded dgroup (`grounding/dgroups/arxiv_2006_06138_main.json` — every
+symbol traced to a verbatim substring of the statement, checked by `grounding.verify`) and
+decomposed against a library of the conformal-prediction theorems it builds on
+(`library/conformal_theorems.json`: split conformal, **weighted conformal under covariate
+shift**, importance weighting).
+
+```
+paper 'arxiv-2006.06138-main' (9 facts) — arXiv 2006.06138
+  MAC ranking: [('weighted_conformal', 0.959), ('split_conformal', 0.443), ('importance_weighting', 0.4)]
+  nearest prior: weighted_conformal (novelty 0.2222)
+  verdict: extends weighted_conformal with new structure (partial reuse)
+  = composition of known theorems: ['weighted_conformal']
+  covered 7/9 (0.7778)
+  novel contributions (residual): COUNTERFACTUAL(the_interval, the_counterfactual), NESTED(the_interval, the_ite)
+```
+
+MAC retrieves the **correct** prior — weighted conformal prediction (Tibshirani, Barber,
+Candès & Ramdas 2019) — far above the split-conformal and importance-weighting distractors.
+FAC quantifies the reuse at 78%, and set-cover isolates the residual: `COUNTERFACTUAL` and
+`NESTED`. That residual is **exactly the paper's stated contribution** — it takes weighted
+conformal prediction and applies it to *counterfactual* outcomes (under unconfoundedness, the
+likelihood-ratio weights are the inverse propensity score) and then *nests* the construction
+to get intervals for the individual treatment effect. The system reads the borrowed machinery
+as borrowed and points at the genuinely new structure — on a real paper, automatically.
+
+```bash
+PYTHONPATH=retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m retrieval.realpaper
+```
+
 ## Extend
 
 Add a theorem to `library/theorems.json` (a grounded dgroup — symbols traced to its
