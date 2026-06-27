@@ -17,32 +17,32 @@ from .engine import load_library
 
 
 def decompose(target: Dgroup, library: dict[str, Dgroup]) -> dict:
+    # Track facts by INDEX (0..n-1), not by repr — repr-as-key would collapse duplicate
+    # facts (Dgroups may legitimately repeat a fact) and corrupt the coverage counts.
     facts = list(target.facts)
-    key = {id(f): repr(f) for f in facts}
-    by_key = {repr(f): f for f in facts}
-    uncovered = set(by_key)
+    n = len(facts)
 
-    # which proof facts each prior covers (matched by SME, base = the theorem)
-    covers_by_prior = {}
+    # which proof-fact indices each prior covers (matched by SME, base = the theorem)
+    covers_idx = {}
     for name, prior in library.items():
         matched = {repr(e) for e in align(prior, target).matched_target}
-        covers_by_prior[name] = (set(by_key) & matched)
+        covers_idx[name] = {i for i in range(n) if repr(facts[i]) in matched}
 
+    uncovered = set(range(n))
     covering = []
     while True:
         best, best_new = None, set()
-        for name, covered in covers_by_prior.items():
-            new = covered & uncovered
+        for name, ci in covers_idx.items():
+            new = ci & uncovered
             if len(new) > len(best_new):
                 best, best_new = name, new
         if not best_new:
             break
         covering.append({"prior": best, "covers_n": len(best_new),
-                         "covers": sorted(fmt_expr(by_key[k]) for k in best_new)})
+                         "covers": sorted(fmt_expr(facts[i]) for i in best_new)})
         uncovered -= best_new
 
-    n = len(facts)
-    residual = sorted(fmt_expr(by_key[k]) for k in uncovered)
+    residual = sorted(fmt_expr(facts[i]) for i in uncovered)
     # the substantive residual = non-CAUSE leaves (CAUSE facts are composition glue)
     novel_leaves = [r for r in residual if not r.startswith("CAUSE(")]
     return {

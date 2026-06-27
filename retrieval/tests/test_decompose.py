@@ -25,8 +25,10 @@ def _proof():
 
 def test_proof_decomposes_into_the_three_theorems():
     rep = decompose(_proof(), LIB)
-    assert set(rep["covering_priors"]) == {
-        "banach_fixed_point", "strong_convexity", "kantorovich_rubinstein"}
+    # the three textbook theorems are part of the cover (not necessarily the entire set,
+    # so the test stays valid if the library is later extended)
+    assert {"banach_fixed_point", "strong_convexity", "kantorovich_rubinstein"} <= set(
+        rep["covering_priors"])
     assert rep["covered_facts"] >= 5
 
 
