@@ -61,9 +61,57 @@ PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bi
 PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m pytest graph/tests -q
 ```
 
+## Cross-domain analogy edges over two literatures (`graphstore.crossdomain`, Epic N)
+
+Everything above runs within one literature. `crossdomain` is the project's core mechanism —
+SME structural analogy — operating **across** domains. It loads a **second** literature
+(contraction / convex-optimization convergence theorems,
+`grounding/dgroups/optimization_corpus.json`) into the same graph, and connects the two by
+`analogous_to` edges.
+
+Two results from different fields share no base vocabulary (`COVERAGE` vs
+`LINEAR_CONVERGENCE`), so vanilla SME finds nothing — the identicality constraint. But both
+are causal theorems of the same abstract shape `CAUSE(structural-premise → guarantee)`. A
+small, **declared role ascension** (`ROLE_ASCENSION`) abstracts each domain's premise /
+guarantee relations to shared roles; under it SME aligns the `CAUSE` skeleton across domains
+and **discovers the object correspondence**:
+
+```
+two-domain graph: 96 nodes, 208 edges
+  edge relations: {..., 'extends': 3, 'analogous_to': 4}
+
+optimization-domain lineage (same machinery, different literature):
+  gd_strong_convexity -> banach_contraction
+
+cross-domain analogies (conformal ~~ optimization):
+  weighted_conformal     ~~  banach_contraction   (score 7.0)
+  arxiv-2006.06138-main  ~~  banach_contraction   (score 7.0)
+  ...
+
+explaining one analogy — weighted_conformal ~~ banach_contraction:
+  SME correspondence: {cal_test: the_map, the_weights: kappa, the_interval: the_seq, alpha_level: the_rate}
+```
+
+Read off: *"weighted-conformal coverage is to its calibration data and reweighting as Banach
+convergence is to its contraction map and modulus."* The calibration data corresponds to the
+contraction map, the reweighting to the modulus, the prediction interval to the iterate
+sequence, and the coverage level to the convergence rate — a clean bijection, surfaced
+automatically.
+The **only** domain knowledge injected is the auditable role ascension (which concrete
+relations are premises vs guarantees); the correspondence and score are pure SME. `CAUSE`, the
+shared higher-order glue, is deliberately *not* ascended. And `split_conformal` correctly does
+**not** match — its 1-ary plain exchangeability premise can't align with the 2-ary structural
+premises, so no false analogy is drawn.
+
+```bash
+PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.crossdomain
+```
+
 ## Extend
 
 Add any grounded dgroup (the `grounding` front end) to the corpus and it joins the graph with
 its facts reified and its entities grounded; add a lineage report and its `extends` edges
 appear between result nodes. Because the store is format-agnostic over dgroups, every upstream
-ingestion path (LaTeX, HTML, prose) feeds the same graph.
+ingestion path (LaTeX, HTML, prose) feeds the same graph. Add a second literature plus role
+ascensions for its premise/guarantee relations and `analogous_to` edges connect it to the
+first by shared causal structure.

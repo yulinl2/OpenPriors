@@ -45,10 +45,12 @@ def _add_expr(g: Graph, result: str, expr, groundings: dict, counter: list) -> s
 
 
 def add_result(g: Graph, name: str, dgroup: Dgroup, text: str = "",
-               groundings: dict | None = None) -> None:
+               groundings: dict | None = None, domain: str = "") -> None:
     groundings = groundings or {}
-    g.add_node(Node(f"result::{name}", "result", name,
-                    attrs={"text": text, "n_facts": len(dgroup.facts)}, provenance=name))
+    attrs = {"text": text, "n_facts": len(dgroup.facts)}
+    if domain:                                   # only tag when a domain is given, so the
+        attrs["domain"] = domain                 # single-domain node schema is unchanged
+    g.add_node(Node(f"result::{name}", "result", name, attrs=attrs, provenance=name))
     counter = [0]
     for fact in dgroup.facts:
         fid = _add_expr(g, name, fact, groundings, counter)

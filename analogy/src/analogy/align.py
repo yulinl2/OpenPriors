@@ -59,13 +59,26 @@ def _match(be, te, ascension: dict | None = None) -> set | None:
     return None  # entity vs predicate => incompatible (identicality)
 
 
+def _is_bijective(corrs) -> bool:
+    """A correspondence set is a valid (partial) 1-1 map: no base entity to two targets and
+    no target from two bases. SME requires structural matches to be 1-1; an MH whose own
+    corrs collapse two entities onto one (e.g. a target that reuses a symbol both arguments
+    map to) is not a clean isomorphism — and, left in, makes greedy acceptance depend on set
+    iteration order. Rejecting it is both SME-correct and what makes alignment deterministic."""
+    b2t, t2b = {}, {}
+    for b, t in corrs:
+        if b2t.setdefault(b, t) != t or t2b.setdefault(t, b) != b:
+            return False
+    return True
+
+
 def match_hypotheses(base: Dgroup, target: Dgroup,
                      ascension: dict | None = None) -> list[MatchHypothesis]:
     mhs = []
     for be in base.facts:
         for te in target.facts:
             corrs = _match(be, te, ascension)
-            if corrs is not None:
+            if corrs is not None and _is_bijective(corrs):
                 mhs.append(MatchHypothesis(be, te, frozenset(corrs), order(be)))
     return mhs
 

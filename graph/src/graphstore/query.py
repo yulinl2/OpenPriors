@@ -49,6 +49,18 @@ def extends_chain(g: Graph, result: str) -> list[str]:
     return chain
 
 
+def analogies_of(g: Graph, result: str) -> list[dict]:
+    """Cross-domain analogues of ``result`` (either endpoint of an ``analogous_to`` edge),
+    each with the SME-discovered correspondence."""
+    rid = f"result::{result}"
+    out = []
+    for e in g.out_edges(rid, "analogous_to") + g.in_edges(rid, "analogous_to"):
+        other = e.dst if e.src == rid else e.src
+        out.append({"result": g.nodes[other].label, "score": e.attrs.get("score"),
+                    "correspondences": e.attrs.get("correspondences", {})})
+    return sorted(out, key=lambda r: (-(r["score"] or 0), r["result"]))
+
+
 def expr_string(g: Graph, fact_id: str) -> str:
     """Reconstruct the predicate-calculus string of a (possibly nested) reified fact —
     proof that reification is lossless and the reasoning chain is fully in the graph."""
