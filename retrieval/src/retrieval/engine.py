@@ -20,7 +20,6 @@ from math import sqrt
 from pathlib import Path
 
 from analogy.align import align
-from analogy.novelty import novelty_report
 from analogy.predicates import Dgroup, functor, subexprs
 
 
@@ -68,34 +67,47 @@ def _verdict(novelty: float, coverage: float, prior: str) -> str:
     return f"largely novel — reuses only the skeleton of {prior}"
 
 
+def _raw_coverage(target: Dgroup, gmap) -> float:
+    """Fraction of the target's facts explained by the prior — UNROUNDED (for sort/verdict)."""
+    matched = {repr(e) for e in gmap.matched_target}
+    n = len(target.facts)
+    return (sum(1 for f in target.facts if repr(f) in matched) / n) if n else 0.0
+
+
 def retrieve(target: Dgroup, library: dict[str, Dgroup], mac_k: int = 2) -> dict:
     tv = functor_vector(target)
-    mac_scored = sorted(
-        ((name, round(cosine(tv, functor_vector(dg)), 4)) for name, dg in library.items()),
-        key=lambda kv: -kv[1])
-    shortlist = [name for name, _ in mac_scored[:mac_k]]
+    # MAC: rank on RAW cosine (rounding only for the reported ranking).
+    raw = sorted(((name, cosine(tv, functor_vector(dg))) for name, dg in library.items()),
+                 key=lambda kv: -kv[1])
+    raw_lookup = dict(raw)
+    mac_ranking = [(name, round(s, 4)) for name, s in raw]
+    shortlist = [name for name, _ in raw[:mac_k]]
 
     fac = []
     for name in shortlist:
         prior = library[name]
         g = align(prior, target)                       # base = known theorem
-        rep = novelty_report(prior, target, g)          # coverage of target by the prior
+        cov = _raw_coverage(target, g)                  # raw coverage of target by the prior
+        nov = 1.0 - cov
         fac.append({
             "prior": name,
-            "mac_cosine": dict(mac_scored)[name],
+            "mac_cosine": round(raw_lookup[name], 4),
             "mapping_size": len(g.correspondences),
             "structural_score": g.score,
-            "target_coverage": rep["target_coverage"],
-            "novelty_score": rep["novelty_score"],
+            "target_coverage": round(cov, 4),
+            "novelty_score": round(nov, 4),
+            "_cov": cov, "_nov": nov,                    # raw, for sort/verdict
         })
-    fac.sort(key=lambda r: r["novelty_score"])           # nearest prior = lowest novelty
+    fac.sort(key=lambda r: r["_nov"])                    # nearest prior = lowest novelty (raw)
     best = fac[0] if fac else None
+    verdict = _verdict(best["_nov"], best["_cov"], best["prior"]) if best else None
+    for r in fac:                                        # drop raw helpers from the output
+        r.pop("_cov"); r.pop("_nov")
     return {
         "target": target.name,
-        "mac_ranking": mac_scored,
+        "mac_ranking": mac_ranking,
         "fac": fac,
         "nearest_prior": best["prior"] if best else None,
         "nearest_novelty": best["novelty_score"] if best else None,
-        "verdict": _verdict(best["novelty_score"], best["target_coverage"], best["prior"])
-        if best else None,
+        "verdict": verdict,
     }

@@ -30,9 +30,10 @@ def main(argv=None) -> int:
     for tname, tdg in targets.items():
         r = retrieve(tdg, library)
         report[tname] = r
-        print(f"[{tname}] MAC top: {r['mac_ranking'][0][0]} ({r['mac_ranking'][0][1]})  "
-              f"-> nearest prior = {r['nearest_prior']} "
-              f"(novelty {r['nearest_novelty']:.2f}) :: {r['verdict']}")
+        mac_top = f"{r['mac_ranking'][0][0]} ({r['mac_ranking'][0][1]})" if r["mac_ranking"] else "—"
+        nov = f"{r['nearest_novelty']:.2f}" if r["nearest_novelty"] is not None else "n/a"
+        print(f"[{tname}] MAC top: {mac_top}  -> nearest prior = {r['nearest_prior']} "
+              f"(novelty {nov}) :: {r['verdict']}")
     (out / "retrieval.json").write_text(
         json.dumps(report, sort_keys=True, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
     return 0

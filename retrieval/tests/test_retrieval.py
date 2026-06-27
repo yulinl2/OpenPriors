@@ -38,7 +38,7 @@ def test_q1_retrieves_banach_as_instance():
 
 def test_q2_retrieves_clt_not_banach():
     r = retrieve(_target("q2_target.json", "Q2"), LIB)
-    # MAC correctly shortlists the CLT over Banach and the Cauchy-Schwarz distractor
+    # MAC ranks the CLT first (over Banach and the Cauchy-Schwarz distractor)
     assert r["mac_ranking"][0][0] == "m_estimator_clt"
     assert r["nearest_prior"] == "m_estimator_clt"
 
@@ -50,8 +50,12 @@ def test_q2_is_more_novel_than_q1():
 
 
 def test_distractor_is_never_nearest():
+    # mac_k=len(LIB) forces the distractor through the FAC stage too, so the assertion is
+    # non-vacuous: cauchy_schwarz is actually evaluated and still not selected.
     for path, name in [("banach_case.json", "Q1"), ("q2_target.json", "Q2")]:
-        assert retrieve(_target(path, name), LIB)["nearest_prior"] != "cauchy_schwarz"
+        r = retrieve(_target(path, name), LIB, mac_k=len(LIB))
+        assert "cauchy_schwarz" in {f["prior"] for f in r["fac"]}  # it WAS evaluated by FAC
+        assert r["nearest_prior"] != "cauchy_schwarz"
 
 
 def test_library_theorems_are_grounded():
