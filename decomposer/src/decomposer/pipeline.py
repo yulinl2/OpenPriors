@@ -71,7 +71,8 @@ def _principles_for(adapter: str) -> list[dict]:
     if adapter in ("latex", "html"):
         common.append({"principle": "P5", "question": "task-specific (exam/paper)",
                        "conserved": "statement/answer-key separability; bib identity",
-                       "target": "answer_key & problem_statement distinct subtrees; bib_reference per \\bibitem",
+                       "target": "answer_key & problem_statement distinct subtrees; one "
+                                 "bib_reference per bibliography entry (\\bibitem / ltx_bibitem)",
                        "verifier": "type_counts inspection + differential HTML oracle"})
     else:
         common.append({"principle": "P5", "question": "task-specific (prose/form)",

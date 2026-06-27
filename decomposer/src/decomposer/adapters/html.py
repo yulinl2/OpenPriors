@@ -105,14 +105,63 @@ def _leaf(ctx: _Ctx, el, ntype: str, nid: str, depth: int, order: int, **attrs) 
                 attrs=attrs)
 
 
-def _refs_in(ctx: _Ctx, el, source_id: str):
+def _ref_targets(el) -> list[str]:
+    out = []
     for a in el.find_class("ltx_ref"):
         href = a.get("href") or ""
         if href.startswith("#"):
-            tgt = href[1:]
-            rel = "cites" if tgt.startswith("bib") else "refers_to"
-            ctx.edges.append(Edge(id=ctx.nid("edge", "e"), source=source_id, target=tgt,
-                                  relation=rel, resolved=False, attrs={"href": tgt}))
+            out.append(href[1:])
+    return out
+
+
+def _emit_ref_edges(ctx: _Ctx, source_id: str, targets):
+    for tgt in targets:
+        rel = "cites" if tgt.startswith("bib") else "refers_to"
+        ctx.edges.append(Edge(id=ctx.nid("edge", "e"), source=source_id, target=tgt,
+                              relation=rel, resolved=False, attrs={"href": tgt}))
+
+
+def _refs_in(ctx: _Ctx, el, source_id: str):
+    _emit_ref_edges(ctx, source_id, _ref_targets(el))
+
+
+def _emit_para_with_eqs(ctx: _Ctx, el, parent_id: str, depth: int, order0: int) -> list[Node]:
+    """Split a paragraph that wraps display equations into prose paragraphs + equation nodes,
+    partitioning ALL text (element text, child text, and tails) around the equations so no
+    narrative content is dropped and no text is double-counted."""
+    out: list[Node] = []
+    order = order0
+    buf: list[str] = [el.text or ""]
+    refs: list[str] = []
+
+    def flush():
+        nonlocal buf, refs, order
+        text = _WS.sub(" ", "".join(buf)).strip()
+        if text:
+            nid = ctx.nid("paragraph", parent_id)
+            out.append(Node(id=nid, type="paragraph", role=role_for("paragraph"),
+                            text=text, depth=depth, order=order, span=ctx.span(text),
+                            content_sha256=content_hash(text)))
+            _emit_ref_edges(ctx, nid, refs)
+            order += 1
+        buf, refs = [], []
+
+    for ch in el:
+        cls = _classes(ch)
+        if "ltx_equation" in cls or "ltx_equationgroup" in cls:
+            flush()
+            nid = ctx.nid("equation", parent_id)
+            math = ch.find_class("ltx_Math")
+            attrs = {"latex": math[0].get("alttext")} if math and math[0].get("alttext") else {}
+            out.append(_leaf(ctx, ch, "equation", nid, depth, order, **attrs))
+            order += 1
+            buf = [ch.tail or ""]
+        else:
+            buf.append("".join(ch.itertext()))
+            buf.append(ch.tail or "")
+            refs.extend(_ref_targets(ch))
+    flush()
+    return out
 
 
 def _walk(ctx: _Ctx, el, parent_id: str, depth: int) -> list[Node]:
@@ -160,10 +209,9 @@ def _walk(ctx: _Ctx, el, parent_id: str, depth: int) -> list[Node]:
         # paragraphs — but if a para wraps display equations, split them out
         if "ltx_para" in cls or "ltx_p" in cls:
             if child.find_class("ltx_equation") or child.find_class("ltx_equationgroup"):
-                nested = _walk(ctx, child, parent_id, depth)
-                for n in nested:
-                    n.order = order; order += 1
-                out.extend(nested); continue
+                for n in _emit_para_with_eqs(ctx, child, parent_id, depth, order):
+                    out.append(n); order += 1
+                continue
             nid = ctx.nid("paragraph", parent_id)
             n = _leaf(ctx, child, "paragraph", nid, depth, order)
             _refs_in(ctx, child, nid); out.append(n); order += 1; continue
