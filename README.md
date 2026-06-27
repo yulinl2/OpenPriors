@@ -37,6 +37,8 @@ natural-language understanding is irreducible.
 | **B** | [`concept_graph/`](concept_graph) | Lifts that into the **(object, attribute, relation)** representation + a reasoning-chain DAG, plus an SME description-group / content-vector bridge. | edge conservation, traceability, reasoning-DAG acyclicity |
 | **C·MAC** | [`matcher/`](matcher) | MAC content-vector retrieval (dot-product score upper-bounds SME) + the project's linchpin **renaming-invariance** guarantee + systematicity. | renaming-invariance metamorphic test (holds for all graphs), non-vacuity |
 | **C·FAC** | [`analogy/`](analogy) | SME structural alignment + candidate-inference **novelty / "shortcut" detector** — the mechanism the project exists to build. | **textbook solar-system→atom mapping recovered**; systematic inference beats distractor |
+| **D–L** | [`grounding/`](grounding), [`retrieval/`](retrieval) | Prose→dgroup grounding gate; library-scale MAC/FAC retrieval, full-proof set-cover decomposition, real-paper novelty (**arXiv 2006.06138**), and the multi-result reasoning **lineage** DAG. | 4 riddles + Banach/discrimination cases; paper residual = COUNTERFACTUAL+NESTED; lineage split→weighted→counterfactual |
+| **M** | [`graph/`](graph) | The end-goal package: one unified **(object, attribute, relation)** graph — entity/fact/functor/result nodes, **reified facts** (n-ary + nested CAUSE, lossless), JSONL persistence; the project's questions become graph traversals. | reification round-trips every fact; reasoning-subgraph reconstructs nested CAUSE; save/load exact |
 
 ## Run the whole thing
 

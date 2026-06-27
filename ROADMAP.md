@@ -99,4 +99,5 @@ the **Argue / Build / Verify** triad and is recorded under `<pkg>/runs/` or `<pk
 | I · trickle-down systematicity | ✅ merged (#16) | reward deep relational webs: candidate-inference score gains with supporting sub-structure depth |
 | J · ANN index for MAC | ✅ merged (#17) | pure-Python **SimHash LSH**; true nearest at **<1%** of the library exact-scored |
 | K · real paper end-to-end | ✅ merged (#18) | **arXiv 2006.06138** (Lei & Candès): MAC→FAC→set-cover reads the paper as *weighted conformal + {COUNTERFACTUAL, NESTED}* — its actual contribution, isolated automatically |
-| L · reasoning lineage | ✅ this PR | **multi-result *extends* DAG** from grounded structure: recovers split → weighted → counterfactual conformal (novelty 0.71 → 0.22) with no citation metadata; objects = results, relation = extends, attributes = residual |
+| L · reasoning lineage | ✅ merged (#19) | **multi-result *extends* DAG** from grounded structure: recovers split → weighted → counterfactual conformal (novelty 0.71 → 0.22) with no citation metadata; objects = results, relation = extends, attributes = residual |
+| M · unified graph store | ✅ this PR | **the end-goal package**: one typed (object, attribute, relation) graph — entity/fact/functor/result nodes, **reified facts** (n-ary + nested CAUSE lossless), JSONL persistence; the project's questions become graph traversals |
