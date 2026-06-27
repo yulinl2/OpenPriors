@@ -9,13 +9,14 @@
       "the_map": "contraction map",
       "kappa": "modulus kappa",
       "the_fixedpoint": "unique fixed point",
-      "the_seq": "iterates"
+      "the_seq": "iterates",
+      "the_rate": "linear rate"
     },
     "facts": [
       ["CONTRACTION", "the_map", "kappa"],
       ["BANACH_FIXEDPOINT", "the_map", "the_fixedpoint"],
-      ["LINEAR_CONVERGENCE", "the_seq", "kappa"],
-      ["CAUSE", ["CONTRACTION", "the_map", "kappa"], ["LINEAR_CONVERGENCE", "the_seq", "kappa"]]
+      ["LINEAR_CONVERGENCE", "the_seq", "the_rate"],
+      ["CAUSE", ["CONTRACTION", "the_map", "kappa"], ["LINEAR_CONVERGENCE", "the_seq", "the_rate"]]
     ]
   },
   "gd_strong_convexity": {
@@ -26,13 +27,14 @@
       "kappa": "modulus kappa",
       "the_fixedpoint": "unique fixed point",
       "the_seq": "iterates",
+      "the_rate": "linear rate",
       "the_bound": "strong convexity bound"
     },
     "facts": [
       ["STRONG_CONVEXITY_BOUND", "the_bound", "kappa"],
       ["CONTRACTION", "the_map", "kappa"],
-      ["LINEAR_CONVERGENCE", "the_seq", "kappa"],
-      ["CAUSE", ["CONTRACTION", "the_map", "kappa"], ["LINEAR_CONVERGENCE", "the_seq", "kappa"]],
+      ["LINEAR_CONVERGENCE", "the_seq", "the_rate"],
+      ["CAUSE", ["CONTRACTION", "the_map", "kappa"], ["LINEAR_CONVERGENCE", "the_seq", "the_rate"]],
       ["CAUSE", ["STRONG_CONVEXITY_BOUND", "the_bound", "kappa"], ["CONTRACTION", "the_map", "kappa"]]
     ]
   }

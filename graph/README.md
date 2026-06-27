@@ -89,12 +89,14 @@ cross-domain analogies (conformal ~~ optimization):
   ...
 
 explaining one analogy — weighted_conformal ~~ banach_contraction:
-  SME correspondence: {cal_test: the_map, the_interval: the_seq, the_weights: kappa, ...}
+  SME correspondence: {cal_test: the_map, the_weights: kappa, the_interval: the_seq, alpha_level: the_rate}
 ```
 
 Read off: *"weighted-conformal coverage is to its calibration data and reweighting as Banach
 convergence is to its contraction map and modulus."* The calibration data corresponds to the
-contraction map, the prediction interval to the iterate sequence — surfaced automatically.
+contraction map, the reweighting to the modulus, the prediction interval to the iterate
+sequence, and the coverage level to the convergence rate — a clean bijection, surfaced
+automatically.
 The **only** domain knowledge injected is the auditable role ascension (which concrete
 relations are premises vs guarantees); the correspondence and score are pure SME. `CAUSE`, the
 shared higher-order glue, is deliberately *not* ascended. And `split_conformal` correctly does

@@ -23,6 +23,7 @@
 {"attrs": {"grounding": "modulus kappa"}, "id": "banach_contraction::ent::kappa", "kind": "entity", "label": "kappa", "provenance": "banach_contraction"}
 {"attrs": {"grounding": "unique fixed point"}, "id": "banach_contraction::ent::the_fixedpoint", "kind": "entity", "label": "the_fixedpoint", "provenance": "banach_contraction"}
 {"attrs": {"grounding": "contraction map"}, "id": "banach_contraction::ent::the_map", "kind": "entity", "label": "the_map", "provenance": "banach_contraction"}
+{"attrs": {"grounding": "linear rate"}, "id": "banach_contraction::ent::the_rate", "kind": "entity", "label": "the_rate", "provenance": "banach_contraction"}
 {"attrs": {"grounding": "iterates"}, "id": "banach_contraction::ent::the_seq", "kind": "entity", "label": "the_seq", "provenance": "banach_contraction"}
 {"attrs": {"arity": 2, "functor": "CONTRACTION"}, "id": "banach_contraction::fact::1::CONTRACTION", "kind": "fact", "label": "CONTRACTION", "provenance": "banach_contraction"}
 {"attrs": {"arity": 2, "functor": "BANACH_FIXEDPOINT"}, "id": "banach_contraction::fact::2::BANACH_FIXEDPOINT", "kind": "fact", "label": "BANACH_FIXEDPOINT", "provenance": "banach_contraction"}
@@ -46,6 +47,7 @@
 {"attrs": {"grounding": "modulus kappa"}, "id": "gd_strong_convexity::ent::kappa", "kind": "entity", "label": "kappa", "provenance": "gd_strong_convexity"}
 {"attrs": {"grounding": "strong convexity bound"}, "id": "gd_strong_convexity::ent::the_bound", "kind": "entity", "label": "the_bound", "provenance": "gd_strong_convexity"}
 {"attrs": {"grounding": "contraction map"}, "id": "gd_strong_convexity::ent::the_map", "kind": "entity", "label": "the_map", "provenance": "gd_strong_convexity"}
+{"attrs": {"grounding": "linear rate"}, "id": "gd_strong_convexity::ent::the_rate", "kind": "entity", "label": "the_rate", "provenance": "gd_strong_convexity"}
 {"attrs": {"grounding": "iterates"}, "id": "gd_strong_convexity::ent::the_seq", "kind": "entity", "label": "the_seq", "provenance": "gd_strong_convexity"}
 {"attrs": {"arity": 2, "functor": "STRONG_CONVEXITY_BOUND"}, "id": "gd_strong_convexity::fact::1::STRONG_CONVEXITY_BOUND", "kind": "fact", "label": "STRONG_CONVEXITY_BOUND", "provenance": "gd_strong_convexity"}
 {"attrs": {"arity": 2, "functor": "CONTRACTION"}, "id": "gd_strong_convexity::fact::2::CONTRACTION", "kind": "fact", "label": "CONTRACTION", "provenance": "gd_strong_convexity"}
