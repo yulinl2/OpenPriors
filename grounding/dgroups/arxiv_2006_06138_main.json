@@ -1,0 +1,32 @@
+{
+  "_provenance": {
+    "extracted_by": "in-session Claude Code sub-agent (no API call), 2026-06-27",
+    "purpose": "Real published paper end-to-end (Epic K): the main result of arXiv 2006.06138 (Lei & Candes, Conformal Inference of Counterfactuals and ITE) lifted from prose into a grounded dgroup, for multi-prior decomposition against the conformal-prediction theorems it builds on (retrieval/library/conformal_theorems.json). The residual after covering should be COUNTERFACTUAL + NESTED — the paper's genuine contribution over weighted conformal prediction."
+  },
+  "target": {
+    "name": "arxiv-2006.06138-main",
+    "text": "Under unconfoundedness, weighted split conformal prediction with weights given by the likelihood ratio between the test covariate distribution and the calibration distribution (the inverse propensity score) yields a prediction interval for the counterfactual outcome with valid marginal coverage at level 1 minus alpha; combined with a nested procedure this produces intervals for the individual treatment effect.",
+    "groundings": {
+      "the_weights": "weights given by the likelihood ratio",
+      "q_dist": "test covariate distribution",
+      "p_dist": "calibration distribution",
+      "cal_test": "weighted split conformal prediction",
+      "the_interval": "prediction interval",
+      "the_scores": "weighted split conformal prediction",
+      "alpha_level": "valid marginal coverage at level 1 minus alpha",
+      "the_counterfactual": "counterfactual outcome",
+      "the_ite": "individual treatment effect"
+    },
+    "facts": [
+      ["LIKELIHOOD_RATIO", "the_weights", "q_dist", "p_dist"],
+      ["COVARIATE_SHIFT", "q_dist", "p_dist"],
+      ["WEIGHTED_EXCHANGEABLE", "cal_test", "the_weights"],
+      ["CONFORMAL_INTERVAL", "the_interval", "the_scores"],
+      ["COVERAGE", "the_interval", "alpha_level"],
+      ["CAUSE", ["WEIGHTED_EXCHANGEABLE", "cal_test", "the_weights"], ["COVERAGE", "the_interval", "alpha_level"]],
+      ["CAUSE", ["LIKELIHOOD_RATIO", "the_weights", "q_dist", "p_dist"], ["WEIGHTED_EXCHANGEABLE", "cal_test", "the_weights"]],
+      ["COUNTERFACTUAL", "the_interval", "the_counterfactual"],
+      ["NESTED", "the_interval", "the_ite"]
+    ]
+  }
+}

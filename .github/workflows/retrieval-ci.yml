@@ -26,5 +26,7 @@ jobs:
         run: PYTHONPATH=retrieval/src:analogy/src python -m retrieval.decompose
       - name: ANN index for MAC at scale (SimHash LSH)
         run: PYTHONPATH=retrieval/src:analogy/src python -m retrieval.index
+      - name: Real paper end-to-end (arXiv 2006.06138)
+        run: PYTHONPATH=retrieval/src:analogy/src:grounding/src python -m retrieval.realpaper
       - name: Tests
         run: PYTHONPATH=retrieval/src:analogy/src:grounding/src python -m pytest retrieval/tests -q
