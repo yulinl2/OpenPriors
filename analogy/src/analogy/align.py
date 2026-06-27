@@ -98,7 +98,7 @@ def _project(expr, mapping: dict):
 
 
 def align(base: Dgroup, target: Dgroup, ascension: dict | None = None,
-          skolem_penalty: float = 0.0) -> Gmap:
+          skolem_penalty: float = 0.0, trickle: float = 0.0) -> Gmap:
     mhs = sorted(match_hypotheses(base, target, ascension), key=lambda m: -m.order)  # deep first
     corrs: set = set()
     matched_b, matched_t, score = [], [], 0.0
@@ -109,6 +109,18 @@ def align(base: Dgroup, target: Dgroup, ascension: dict | None = None,
             matched_t.append(mh.target)
             score += 1.0 + mh.order            # systematicity weight: deeper => more
     mapping = {b: t for b, t in corrs}
+
+    # trickle-down evidence (notes §2, opt-in): for every matched sub-relation that is
+    # *contained in* another matched expression, add ``trickle * (1 + order(sub))`` to the
+    # score. So a sub-relation also nested inside a matched higher-order relation accrues
+    # extra evidence, and structure deep inside a systematic web scores more than the same
+    # relations in isolation. Default 0.0 keeps scores backward-compatible.
+    if trickle > 0:
+        matched_reprs = {repr(e) for e in matched_b}
+        for parent in matched_b:
+            for sub in _subfacts(parent):
+                if repr(sub) in matched_reprs:
+                    score += trickle * (1.0 + order(sub))
 
     # candidate inferences: unmatched base facts anchored to the matched structure
     matched_set = {repr(e) for e in matched_b}
