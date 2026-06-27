@@ -1,0 +1,40 @@
+{
+  "_provenance": {
+    "extracted_by": "in-session Claude Code sub-agent (no API call), 2026-06-27",
+    "purpose": "The FULL problem_07 Q1 proof (contraction-establishment + Banach convergence) as a rich grounded dgroup, for multi-prior set-cover decomposition (retrieval.decompose). Shares functor + entity vocabulary with retrieval/library/proof_theorems.json so each theorem's statement appears as a sub-structure of the proof; the residual (SENSITIVITY + ITERATION_COMPLEXITY) is the paper's specific contribution over standard contraction theory."
+  },
+  "target": {
+    "name": "problem_07-q1-full",
+    "text": "By the first-order optimality conditions of the retraining mapping, grad L(T(theta); theta) = 0 and grad L(T(theta'); theta') = 0. Applying the gamma-strong convexity of L gives gamma ||T(theta) - T(theta')|| <= || grad L(T(theta);theta) - grad L(T(theta');theta) ||. Rewriting the gradient difference as an expectation discrepancy under shifting distributions D(theta) vs D(theta') and applying the Kantorovich-Rubinstein theorem with the beta-Lipschitz gradient bounds it by beta * W1(D(theta), D(theta')). Invoking the epsilon-sensitivity condition W1(D(theta),D(theta')) <= epsilon ||theta - theta'|| yields the contraction ||T(theta) - T(theta')|| <= (epsilon beta / gamma) ||theta - theta'||. Let kappa = epsilon beta / gamma. Since kappa < 1, by the Banach Fixed-Point Theorem T has a unique fixed point theta_star. By induction ||theta_t - theta_star|| <= kappa^t ||theta_0 - theta_star||, so the sequence converges at a linear rate, and solving kappa^t ||theta_0 - theta_star|| <= delta gives the iteration count t >= ln(||theta_0-theta_star||/delta)/ln(1/kappa).",
+    "groundings": {
+      "the_map": "the retraining mapping",
+      "theta": "T(theta); theta",
+      "theta_prime": "T(theta'); theta'",
+      "diff_T": "T(theta) - T(theta')",
+      "grad_diff": "grad L(T(theta);theta) - grad L(T(theta');theta)",
+      "the_w1": "W1(D(theta), D(theta'))",
+      "theta_diff": "theta - theta'",
+      "kappa": "kappa = epsilon beta / gamma",
+      "theta_star": "unique fixed point theta_star",
+      "the_seq": "the sequence converges at a linear rate",
+      "theta0": "theta_0 - theta_star",
+      "iter_count": "iteration count t"
+    },
+    "facts": [
+      ["OPTIMALITY", "the_map", "theta"],
+      ["OPTIMALITY", "the_map", "theta_prime"],
+      ["STRONG_CONVEXITY_BOUND", "diff_T", "grad_diff"],
+      ["KR_BOUND", "grad_diff", "the_w1"],
+      ["SENSITIVITY", "the_w1", "theta_diff"],
+      ["CONTRACTION", "the_map", "kappa"],
+      ["CAUSE", ["STRONG_CONVEXITY_BOUND", "diff_T", "grad_diff"], ["CONTRACTION", "the_map", "kappa"]],
+      ["CAUSE", ["KR_BOUND", "grad_diff", "the_w1"], ["CONTRACTION", "the_map", "kappa"]],
+      ["CAUSE", ["SENSITIVITY", "the_w1", "theta_diff"], ["CONTRACTION", "the_map", "kappa"]],
+      ["BANACH_FIXEDPOINT", "the_map", "theta_star"],
+      ["CAUSE", ["CONTRACTION", "the_map", "kappa"], ["BANACH_FIXEDPOINT", "the_map", "theta_star"]],
+      ["LINEAR_CONVERGENCE", "the_seq", "theta_star", "kappa"],
+      ["ITERATION_COMPLEXITY", "the_seq", "iter_count"],
+      ["CAUSE", ["LINEAR_CONVERGENCE", "the_seq", "theta_star", "kappa"], ["ITERATION_COMPLEXITY", "the_seq", "iter_count"]]
+    ]
+  }
+}

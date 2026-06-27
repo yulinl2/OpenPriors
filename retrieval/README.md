@@ -35,6 +35,31 @@ PYTHONPATH=retrieval/src:analogy/src decomposer/.venv/bin/python -m retrieval.cl
 PYTHONPATH=retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m pytest retrieval/tests -q
 ```
 
+## Depth: multi-prior decomposition of a full proof (`retrieval.decompose`)
+
+Single-prior retrieval finds the *nearest* prior; the decomposer explains an **entire proof
+as a composition of known theorems** via greedy **set cover** (the MDL framing, notes §6):
+each known theorem covers the proof facts that match its statement; pick the theorem covering
+the most still-uncovered facts until none adds coverage. The uncovered remainder is the
+proof's genuine **novel residual**.
+
+On the full `problem_07` Q1 proof (14 facts) against a library of the theorems it invokes:
+
+```
+problem_07-q1-full = composition of: banach_fixed_point + strong_convexity + kantorovich_rubinstein
+covered 5/14
+novel contributions (uncovered leaves): SENSITIVITY(...), ITERATION_COMPLEXITY(...), OPTIMALITY(...)
+```
+
+The proof reuses three textbook theorems; what's left — the **ε-sensitivity assumption** (linking
+distribution shift to parameter distance) and the **iteration-complexity bound** — is exactly the
+paper's specific contribution over standard contraction theory. The system *isolates the novel
+content from the borrowed machinery*, automatically.
+
+```bash
+PYTHONPATH=retrieval/src:analogy/src decomposer/.venv/bin/python -m retrieval.decompose
+```
+
 ## Extend
 
 Add a theorem to `library/theorems.json` (a grounded dgroup — symbols traced to its
