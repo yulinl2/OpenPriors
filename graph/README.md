@@ -142,6 +142,34 @@ one-step pairs — a more systematic analogy, surfaced automatically.
 PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.multidomain
 ```
 
+## Analogical inference transfer: use an analogy to generate conjectures (`graphstore.transfer_cli`, Epic P)
+
+Finding an analogy is not the payoff — *using* it is. In structure-mapping the power of an
+analogy is its **candidate inferences**: structure present in the base but not yet in the
+target is *projected* across the correspondence as a **prediction** (Gentner 1983). This step
+turns each discovered cross-domain analogy into named, provenance-tracked conjectures about
+the target field, attached to the graph as `conjectures` edges.
+
+```
+by analogy banach_contraction ~~ weighted_conformal, the system conjectures:
+  [novel, conf 0.0] BANACH_FIXEDPOINT(cal_test, skolem:the_fixedpoint)
+     (projecting BANACH_FIXEDPOINT(the_map, the_fixedpoint): the calibration map's Banach fixed point)
+```
+
+Under the analogy *calibration data ↔ contraction map*, Banach's fixed-point fact has no
+conformal counterpart, so it projects to **"the conformal calibration procedure has a fixed
+point"** — a structural hypothesis no one stated, produced purely from cross-domain structure.
+The invented (`skolem:`) entity marks the predicted object the target domain has no name for
+yet. Conjectures are ranked by how **anchored** they are to matched structure and how few
+invented entities they need, and tagged **confirmed** (the projection already matches a fact
+the target asserts — a soundness check) or **novel** (a genuine, falsifiable prediction). Across
+genuinely different fields the conjectures are predictions, not recoveries — analogy as a
+**hypothesis generator**.
+
+```bash
+PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.transfer_cli
+```
+
 ## Extend
 
 Add any grounded dgroup (the `grounding` front end) to the corpus and it joins the graph with
