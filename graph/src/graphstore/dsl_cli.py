@@ -27,7 +27,7 @@ def main(argv=None) -> int:
     print(f"   score {ex['score']}; correspondence {ex['correspondences']}\n")
 
     print("Q: what did the weighted-conformal analogies predict, and how were they judged?")
-    for c in conjectures_with_verdicts(g, "banach_contraction")[:4]:
+    for c in conjectures_with_verdicts(g, "weighted_conformal")[:4]:
         v = c["verdict"] or "(unjudged)"
         print(f"   [{v:11s}] {c['projection']}  (from {c['from_base']})")
     print()

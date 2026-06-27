@@ -40,6 +40,9 @@ def test_shared_ancestor_walks_the_lineage():
     assert shared_ancestor(G, "margin_generalization", "vc_generalization") == "vc_generalization"
     # two results in different fields share no lineage ancestor
     assert shared_ancestor(G, "weighted_conformal", "banach_contraction") is None
+    # a missing/typoed result name returns None, not a KeyError
+    assert shared_ancestor(G, "weighted_conformal", "does_not_exist") is None
+    assert shared_ancestor(G, "typo", "split_conformal") is None
 
 
 def test_explain_analogy_exposes_the_correspondence():

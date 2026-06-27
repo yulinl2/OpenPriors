@@ -60,12 +60,17 @@ def shortest_path(g: Graph, src: str, dst: str) -> list[dict] | None:
 
 
 def _ancestors(g: Graph, result: str) -> list[str]:
-    chain, cur = [], f"result::{result}"
-    seen = set()
+    cur = f"result::{result}"
+    if cur not in g.nodes:                          # unknown/typoed result -> no lineage
+        return []
+    chain, seen = [], set()
     while cur and cur not in seen:
         seen.add(cur)
         chain.append(g.nodes[cur].label)
         nxt = g.out_edges(cur, "extends")
+        if len(nxt) > 1:                            # ambiguous: align with query.extends_chain
+            raise ValueError(
+                f"{cur} has multiple extends parents {[e.dst for e in nxt]}; lineage is ambiguous")
         cur = nxt[0].dst if nxt else None
     return chain
 
