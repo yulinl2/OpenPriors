@@ -22,6 +22,7 @@ from __future__ import annotations
 
 from pathlib import Path
 
+from .evaluate import attach_verdicts
 from .evaluate import verify as verify_evaluations
 from .model import Graph
 from .multidomain import build_multidomain_graph
@@ -48,14 +49,20 @@ def run_pipeline(repo: Path) -> dict:
             add_conjectures(g, base, target, conj)
             n_conj += len(conj)
 
-    # Stage 6: the committed sub-agent judgment, deterministically gated (Epic Q)
+    # Stage 6: the committed sub-agent judgment, deterministically gated (Epic Q), with the
+    # verdicts written back onto the conjecture nodes so the one graph carries them too.
     evaluation = verify_evaluations(repo)
+    import json
+    evals = json.loads(
+        (repo / "graph" / "evaluations" / "conjecture_evaluations.json").read_text())["evaluations"]
+    n_verdicts = attach_verdicts(g, evals)
 
     results = [n.label for n in g.nodes_of_kind("result")]
     return {
         "graph": g,
         "domains": list(domains),
         "n_results": len(results),
+        "n_verdicts_in_graph": n_verdicts,
         "n_analogies": len(analogies),
         "discovered_roles": ascension,
         "n_conjectures": n_conj,
@@ -96,6 +103,8 @@ def main(argv=None) -> int:
     print(f"\n[6] conjectures judged by an in-session sub-agent, gate "
           f"{'PASSED' if rep['evaluation']['passed'] else 'FAILED'}: "
           f"{rep['evaluation']['verdict_distribution']}")
+    print(f"      ({rep['n_verdicts_in_graph']} verdicts written back onto conjecture nodes "
+          f"-- the one graph carries them too)")
     print(f"\n  --> the headline: by analogy with Banach contraction theory, the system "
           f"conjectures\n      the conformal procedure has a FIXED POINT — judged plausible "
           f"(it recovers\n      full conformal prediction's self-consistency).")
@@ -112,6 +121,10 @@ def main(argv=None) -> int:
         (st["edge_relations"].get("conjectures", 0) > 0
          and st["node_kinds"].get("conjecture", 0) > 0,
          "conjectures are attached to the unified graph"),
+        (rep["n_verdicts_in_graph"] >= 1
+         and all(g.nodes[n.id].attrs.get("verdict") in {"plausible", "uncertain", "implausible"}
+                 for n in g.nodes_of_kind("conjecture") if "verdict" in n.attrs),
+         "evaluated conjectures carry their verdict on the graph node itself"),
         (rep["evaluation"]["passed"]
          and rep["evaluation"]["verdict_distribution"].get("plausible", 0) >= 1
          and rep["evaluation"]["verdict_distribution"].get("implausible", 0) >= 1,

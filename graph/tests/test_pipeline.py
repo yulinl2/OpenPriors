@@ -2,7 +2,8 @@
 
 ingest -> lineage -> unify -> discover analogies -> transfer conjectures -> evaluate, all on
 the three-literature corpus, producing one unified graph that contains results, reified facts,
-relation types, lineages, analogies, conjectures, and the gated verdicts.
+relation types, lineages, analogies, conjectures, and (written back onto the conjecture nodes)
+the gated verdicts.
 """
 
 import pathlib
@@ -57,6 +58,17 @@ def test_evaluation_gate_passes_with_discriminating_verdicts():
     assert ev["passed"]
     dist = ev["verdict_distribution"]
     assert dist.get("plausible", 0) >= 1 and dist.get("implausible", 0) >= 1
+
+
+def test_verdicts_are_written_onto_conjecture_nodes():
+    # the one graph carries the judgment, not just a side report
+    assert REP["n_verdicts_in_graph"] >= 1
+    judged = [n for n in G.nodes_of_kind("conjecture") if "verdict" in n.attrs]
+    assert judged and all(n.attrs["verdict"] in {"plausible", "uncertain", "implausible"}
+                          for n in judged)
+    # the fixed-point conjecture node carries its 'plausible' verdict
+    fp = [n for n in judged if n.attrs.get("projection", "").startswith("BANACH_FIXEDPOINT(cal_test")]
+    assert fp and fp[0].attrs["verdict"] == "plausible"
 
 
 def test_unified_graph_round_trips(tmp_path):

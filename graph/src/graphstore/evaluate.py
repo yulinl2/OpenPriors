@@ -32,6 +32,28 @@ from analogy.predicates import Dgroup
 VERDICTS = {"plausible", "uncertain", "implausible"}
 
 
+def attach_verdicts(g, evaluations: list) -> int:
+    """Write each evaluation's verdict onto the matching conjecture node in the graph, so the
+    unified graph itself carries the gated judgment (not just a side report). Matches a
+    conjecture node to an evaluation by (source_base, target, projection). Returns the count
+    annotated."""
+    from .model import Node
+
+    idx = {(e.get("source_base"), e.get("source_target"), e.get("projection")): e
+           for e in evaluations}
+    annotated = 0
+    for n in g.nodes_of_kind("conjecture"):
+        target = n.provenance.split("->")[-1] if "->" in n.provenance else None
+        e = idx.get((n.attrs.get("source_base"), target, n.attrs.get("projection")))
+        if e is not None:
+            # re-add merges attrs (same id/kind/label/provenance) -> node now carries verdict
+            g.add_node(Node(n.id, n.kind, n.label,
+                            {"verdict": e["verdict"], "evaluation_id": e.get("id")},
+                            n.provenance))
+            annotated += 1
+    return annotated
+
+
 def _load_corpora(repo):
     from retrieval.engine import expr_from_json
 

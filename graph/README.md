@@ -206,8 +206,8 @@ PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bi
 
 Every stage above runs end to end on the three-literature corpus from a single entry point,
 emitting one summary and one unified graph that holds *everything* — results, reified facts,
-relation types, per-field lineages, cross-domain analogies, conjectures, and the gated
-verdicts:
+relation types, per-field lineages, cross-domain analogies, conjectures, and (written back
+onto the conjecture nodes) the gated verdicts:
 
 ```
 OpenPriors — end-to-end pipeline over three literatures
