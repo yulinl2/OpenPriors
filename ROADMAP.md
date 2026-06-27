@@ -86,4 +86,5 @@ the **Argue / Build / Verify** triad and is recorded under `<pkg>/runs/` or `<pk
 | B · concept_graph | ✅ merged (#2), CI green | OAR lift + 17-edge reasoning DAG + SME bridge; all corpora verified |
 | C · matcher (MAC) | ✅ merged (#3), CI green | MAC content-vector retrieval + **renaming-invariance holds for all graphs** + systematicity |
 | C · analogy (FAC) | ✅ merged (#4), CI green | SME structural alignment + candidate-inference **novelty/shortcut detector**; recovers the textbook solar→atom mapping |
-| D · grounding (prose front end) | 🚧 iteration 5 | sub-agent prose→dgroup + **deterministic grounding gate**; solves the 4 riddles end-to-end (1h vs 3h from identical surface) |
+| D · grounding (prose front end) | ✅ merged (#6) | sub-agent prose→dgroup + **deterministic grounding gate**; solves the 4 riddles; Banach case (#8) + discrimination (#9) validate on real math |
+| E · retrieval (MAC/FAC) | 🚧 generalization | **library-scale** novelty retrieval: MAC content-vector filter → SME/FAC rerank → nearest known prior + graded reuse/novelty |

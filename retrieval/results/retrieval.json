@@ -1,0 +1,78 @@
+{
+  "problem_07-Q1": {
+    "fac": [
+      {
+        "mac_cosine": 0.9813,
+        "mapping_size": 5,
+        "novelty_score": 0.0909,
+        "prior": "banach_fixed_point",
+        "structural_score": 22.0,
+        "target_coverage": 0.9091
+      },
+      {
+        "mac_cosine": 0.1491,
+        "mapping_size": 0,
+        "novelty_score": 1.0,
+        "prior": "m_estimator_clt",
+        "structural_score": 0.0,
+        "target_coverage": 0.0
+      }
+    ],
+    "mac_ranking": [
+      [
+        "banach_fixed_point",
+        0.9813
+      ],
+      [
+        "m_estimator_clt",
+        0.1491
+      ],
+      [
+        "cauchy_schwarz",
+        0.0
+      ]
+    ],
+    "nearest_novelty": 0.0909,
+    "nearest_prior": "banach_fixed_point",
+    "target": "problem_07-Q1",
+    "verdict": "INSTANCE of banach_fixed_point (known machinery on relabeled objects)"
+  },
+  "problem_07-Q2": {
+    "fac": [
+      {
+        "mac_cosine": 0.5505,
+        "mapping_size": 5,
+        "novelty_score": 0.7,
+        "prior": "m_estimator_clt",
+        "structural_score": 6.0,
+        "target_coverage": 0.3
+      },
+      {
+        "mac_cosine": 0.1254,
+        "mapping_size": 0,
+        "novelty_score": 1.0,
+        "prior": "banach_fixed_point",
+        "structural_score": 0.0,
+        "target_coverage": 0.0
+      }
+    ],
+    "mac_ranking": [
+      [
+        "m_estimator_clt",
+        0.5505
+      ],
+      [
+        "banach_fixed_point",
+        0.1254
+      ],
+      [
+        "cauchy_schwarz",
+        0.0
+      ]
+    ],
+    "nearest_novelty": 0.7,
+    "nearest_prior": "m_estimator_clt",
+    "target": "problem_07-Q2",
+    "verdict": "largely novel — reuses only the skeleton of m_estimator_clt"
+  }
+}
