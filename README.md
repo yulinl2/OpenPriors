@@ -62,7 +62,7 @@ own runnable demos and `PYTHONPATH` one-liners.
 ## How it's built (governance)
 
 See [`ROADMAP.md`](ROADMAP.md): epic → iteration → step hierarchy, branch strategy, CI as
-the supervision gate (4 workflows), and the backup/redundancy policy (push-after-iteration;
+the supervision gate (8 workflows), and the backup/redundancy policy (push-after-iteration;
 triple JSON/JSONL representations; provenance + content hashes; pinned deps + emitted JSON
 Schema; reproducible outputs via `SOURCE_DATE_EPOCH`). Each epic's `docs/` holds its
 lit-review (sub-agent produced), ADRs, and development log.

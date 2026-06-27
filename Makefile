@@ -1,6 +1,8 @@
 # OpenPriors — turnkey pipeline
-# ingest -> decompose -> ground -> retrieve -> lineage -> unified graph
-#        -> cross-domain analogy -> conjecture -> evaluate -> query
+#   make run       front-end on raw docs: decompose -> concept graph -> match -> ground
+#   make pipeline  graph layer over the already-grounded corpora (grounding/dgroups/,
+#                  retrieval/library/): unify -> lineage -> analogy -> conjecture -> evaluate
+#   make query     interrogate the unified graph    make test  every epic's tests
 # Usage:  make setup  &&  make pipeline  &&  make test
 .PHONY: setup run pipeline query test integration clean
 
