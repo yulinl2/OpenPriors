@@ -107,36 +107,38 @@ premises, so no false analogy is drawn.
 PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.crossdomain
 ```
 
-## Unsupervised role discovery over three literatures (`graphstore.multidomain`, Epic O)
+## Unsupervised role discovery over many literatures (`graphstore.multidomain`, Epics O & U)
 
 The cross-domain step above still needed a **hand-declared** role ascension. That last piece
 of injected knowledge is unnecessary: a relation's role in a "structure ⇒ guarantee" theorem
 is already *encoded* in the data as its position in the shared `CAUSE` glue. `multidomain`
 **discovers** the ascension (`discover_role_ascension`) — for each functor it reads whether it
 appears as a CAUSE *premise* (P), a CAUSE *conclusion* (C), and with what arity — and maps
-functors with the same **role signature** to a shared role token. A third literature
-(statistical learning theory) is added to show it generalizes:
+functors with the same **role signature** to a shared role token. The corpus now spans **four
+literatures** — conformal prediction, optimization, statistical learning theory, and martingale
+concentration — the last added (Epic U) with **zero new design**:
 
 ```
-three-domain graph: 137 nodes, 307 edges (3 literatures)
+multi-domain graph: 176 nodes, 410 edges (4 literatures: conformal, optimization, learning, concentration)
 
 role ascension DISCOVERED from CAUSE structure (no hand-declared map):
     WEIGHTED_EXCHANGEABLE  -> ROLE::PC::2      CONTRACTION         -> ROLE::PC::2
-    UNIFORM_CONVERGENCE    -> ROLE::PC::2      COVERAGE            -> ROLE::C::2
-    LINEAR_CONVERGENCE     -> ROLE::C::2       GENERALIZATION      -> ROLE::C::2   ...
+    UNIFORM_CONVERGENCE    -> ROLE::PC::2      BOUNDED_MARTINGALE  -> ROLE::PC::2
+    COVERAGE / LINEAR_CONVERGENCE / GENERALIZATION / CONCENTRATION -> ROLE::C::2   ...
 
-the three-way analogy:
-  weighted_conformal  ~~  banach_contraction  ~~  vc_generalization
+the four-way analogy:
+  weighted_conformal  ~~  banach_contraction  ~~  vc_generalization  ~~  mcdiarmid_concentration
 ```
 
 The "structural property that earns the guarantee" is recognized as the **same role** —
 `ROLE::PC::2`, caused by a deeper premise and in turn causing the guarantee — across conformal
-prediction (`WEIGHTED_EXCHANGEABLE`), optimization (`CONTRACTION`), and learning theory
-(`UNIFORM_CONVERGENCE`), with **zero hand-coded domain knowledge**. SME then reads off the
-object correspondence in each pair. The discovered ascension reproduces the Epic N analogy
-exactly, and the **deeper** two-step chains score higher: `gd_strong_convexity ~~
-margin_generalization` (both *premise → property → guarantee*) scores 12.0 vs 7.0 for the
-one-step pairs — a more systematic analogy, surfaced automatically.
+prediction (`WEIGHTED_EXCHANGEABLE`), optimization (`CONTRACTION`), learning theory
+(`UNIFORM_CONVERGENCE`), and concentration (`BOUNDED_MARTINGALE`), with **zero hand-coded
+domain knowledge**. SME then reads off the object correspondence in each pair. The discovered
+ascension reproduces the Epic N analogy exactly, and the **deeper** two-step chains score
+higher: `gd_strong_convexity ~~ margin_generalization` (both *premise → property → guarantee*)
+scores 12.0 vs 7.0 for the one-step pairs — a more systematic analogy, surfaced automatically.
+A new field joins the web just by being grounded in the same `CAUSE` schema.
 
 ```bash
 PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.multidomain
@@ -204,20 +206,21 @@ PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bi
 
 ## The whole pipeline in one command (`graphstore.pipeline`, Epic R — capstone)
 
-Every stage above runs end to end on the three-literature corpus from a single entry point,
+Every stage above runs end to end on the four-literature corpus from a single entry point,
 emitting one summary and one unified graph that holds *everything* — results, reified facts,
 relation types, per-field lineages, cross-domain analogies, conjectures, and (written back
 onto the conjecture nodes) the gated verdicts:
 
 ```
-OpenPriors — end-to-end pipeline over three literatures
-[1-3] ingested 8 grounded results across 3 literatures ['conformal', 'optimization', 'learning']
-      unified graph: 197 nodes ({'result': 8, 'fact': 68, 'functor': 17, 'entity': 44, 'conjecture': 60}), 367 edges
+OpenPriors — end-to-end pipeline over 4 literatures
+[1-3] ingested 10 grounded results across 4 literatures ['conformal', 'optimization', 'learning', 'concentration']
+      unified graph: 278 nodes ({'result': 10, 'fact': 90, 'functor': 21, 'entity': 55, 'conjecture': 102}), 512 edges
 [lineage] arxiv-2006.06138-main -> weighted_conformal -> split_conformal
           gd_strong_convexity -> banach_contraction
           margin_generalization -> vc_generalization
-[4] cross-domain analogies discovered (roles read from CAUSE structure, unsupervised): 12
-[5] analogical conjectures generated: 60 (attached as 'conjectures' edges)
+          bernstein_concentration -> mcdiarmid_concentration
+[4] cross-domain analogies discovered (roles read from CAUSE structure, unsupervised): 24
+[5] analogical conjectures generated: 102 (attached as 'conjectures' edges)
 [6] conjectures judged by an in-session sub-agent, gate PASSED: {'plausible': 1, 'uncertain': 2, 'implausible': 1}
   --> the headline: by analogy with Banach contraction theory, the system conjectures
       the conformal procedure has a FIXED POINT — judged plausible.

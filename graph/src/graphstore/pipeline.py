@@ -83,14 +83,15 @@ def main(argv=None) -> int:
 
     st = rep["stats"]
     print("=" * 72)
-    print("OpenPriors — end-to-end pipeline over three literatures")
+    print(f"OpenPriors — end-to-end pipeline over {len(rep['domains'])} literatures")
     print("=" * 72)
     print(f"\n[1-3] ingested {rep['n_results']} grounded results across {len(rep['domains'])} "
           f"literatures {rep['domains']}")
     print(f"      unified graph: {st['n_nodes']} nodes "
           f"({st['node_kinds']}), {st['n_edges']} edges")
     print(f"\n[lineage] each field's development line, recovered from grounded structure:")
-    for r in ("arxiv-2006.06138-main", "gd_strong_convexity", "margin_generalization"):
+    for r in ("arxiv-2006.06138-main", "gd_strong_convexity", "margin_generalization",
+              "bernstein_concentration"):
         chain = extends_chain(g, r)
         if len(chain) > 1:
             print(f"      {' -> '.join(chain)}")
@@ -110,13 +111,14 @@ def main(argv=None) -> int:
           f"(it recovers\n      full conformal prediction's self-consistency).")
 
     # invariants: the whole chain must hold together (CI gate; explicit raise for -O)
+    roles = rep["discovered_roles"]
+    prop_role = {roles.get(f) for f in
+                 ("WEIGHTED_EXCHANGEABLE", "CONTRACTION", "UNIFORM_CONVERGENCE", "BOUNDED_MARTINGALE")}
     checks = [
-        (rep["n_results"] >= 7 and len(rep["domains"]) == 3, "3 literatures, >=7 results"),
-        (rep["discovered_roles"].get("WEIGHTED_EXCHANGEABLE")
-         == rep["discovered_roles"].get("CONTRACTION")
-         == rep["discovered_roles"].get("UNIFORM_CONVERGENCE"),
-         "the structural-property role is discovered identical across all 3 fields"),
-        (rep["n_analogies"] >= 12 and rep["n_conjectures"] > 0,
+        (rep["n_results"] >= 10 and len(rep["domains"]) == 4, "4 literatures, >=10 results"),
+        (len(prop_role) == 1 and None not in prop_role,
+         "the structural-property role is discovered identical across all 4 fields"),
+        (rep["n_analogies"] >= 24 and rep["n_conjectures"] > 0,
          "cross-domain analogies and conjectures are produced"),
         (st["edge_relations"].get("conjectures", 0) > 0
          and st["node_kinds"].get("conjecture", 0) > 0,

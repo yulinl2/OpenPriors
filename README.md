@@ -46,14 +46,15 @@ that discovers analogies *across literatures*, predicts, and self-evaluates.
 | **N–O** | `graph/` | **Cross-domain analogy** edges (a second literature); the role ascension is **discovered unsupervised** from CAUSE structure across a third literature → *weighted-conformal ~~ Banach ~~ VC-generalization*. |
 | **P–Q** | `graph/` | **Analogical conjecture transfer** ("the conformal procedure has a fixed point"); an in-session sub-agent **judges** each conjecture, gated deterministically. |
 | **R–S** | `graph/` | **Capstone driver** (the whole chain as one command + one graph) and a **query DSL** (path / shared-ancestor / explain-analogy / conjecture lookup). |
+| **U** | `graph/` | A **fourth literature** (martingale concentration) joins the analogy web with **no new design** — its bounded-difference martingale is auto-discovered to play the same structural-property role → *…:: bounded-martingale : concentration*. |
 
 ## Run the whole thing
 
 ```bash
 make setup        # one venv, pinned deps
-make pipeline     # the capstone: ingest 3 literatures -> analogies -> conjectures -> verdicts
+make pipeline     # the capstone: ingest 4 literatures -> analogies -> conjectures -> verdicts
 make query        # interrogate the unified graph
-make test         # all 149 tests across every epic
+make test         # all 150 tests across every epic
 ```
 
 The front-end stages (decompose → ground) run via `make run`; each package's README has its
@@ -93,19 +94,19 @@ library- and proof-scale, and the engine itself is deepened:
 | **proof decomposition** (`retrieval.decompose`) | *depth*: explain a **full proof as a composition** of known theorems (greedy set-cover, MDL) | Q1 proof = Banach + strong-convexity + Kantorovich–Rubinstein, with the ε-sensitivity assumption + iteration bound as the **novel residual** |
 | **deeper SME** (`analogy.align`) | *depth*: **minimal ascension** (near-synonym predicates align via a type lattice) + **skolem-penalized** inferences (opt-in) | `MINIMIZE`≈`OPTIMIZE` now align; defaults unchanged |
 
-**149 tests · 8 CI workflows · all green · reproducible · $0 marginal API cost.**
+**150 tests · 8 CI workflows · all green · reproducible · $0 marginal API cost.**
 
 ## The closed loop (graph layer)
 
-The graph layer (M–S) is where the project's thesis lands: one unified graph over **three
-literatures** (conformal prediction, optimization, learning theory) that the system reasons
-over end to end. `make pipeline` prints it in one pass:
+The graph layer (M–U) is where the project's thesis lands: one unified graph over **four
+literatures** (conformal prediction, optimization, learning theory, martingale concentration)
+that the system reasons over end to end. `make pipeline` prints it in one pass:
 
 | Stage | What it does | Result |
 |---|---|---|
-| **unify** (`graphstore.pipeline`) | one (object, attribute, relation) graph, reified facts | 197 nodes, 367 edges, every fact losslessly reconstructable |
-| **lineage** | recover each field's development line | `split → weighted → counterfactual` conformal; analogous chains in optimization & learning |
-| **analogy** (`crossdomain`, `multidomain`) | discover cross-domain analogies, **roles read from CAUSE structure, unsupervised** | *weighted-exchangeability : coverage :: contraction : convergence :: uniform-convergence : generalization* — zero hand-coded knowledge |
+| **unify** (`graphstore.pipeline`) | one (object, attribute, relation) graph, reified facts | 278 nodes, 512 edges, every fact losslessly reconstructable |
+| **lineage** | recover each field's development line | `split → weighted → counterfactual` conformal; analogous chains in optimization, learning & concentration |
+| **analogy** (`crossdomain`, `multidomain`) | discover cross-domain analogies, **roles read from CAUSE structure, unsupervised** | *weighted-exchangeability : coverage :: contraction : convergence :: uniform-convergence : generalization :: bounded-martingale : concentration* — zero hand-coded knowledge, a 4th field joins with no new design |
 | **transfer** (`transfer`) | project candidate inferences as conjectures | *"by analogy with Banach, the conformal procedure has a **fixed point**"* (an invented object) |
 | **evaluate** (`evaluate`) | an in-session sub-agent judges each conjecture; a deterministic gate validates + grounds the verdict | fixed-point conjecture **plausible** (recovers conformal self-consistency); a capacity conjecture **implausible** (conformal is distribution-free) |
 | **query** (`dsl`) | interrogate the graph | one path runs from a conformal theorem through the analogy web into a learning-theory result |

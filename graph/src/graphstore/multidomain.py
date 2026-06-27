@@ -28,6 +28,7 @@ CORPORA = [
     ("conformal", "retrieval/library/conformal_theorems.json"),
     ("optimization", "grounding/dgroups/optimization_corpus.json"),
     ("learning", "grounding/dgroups/learning_corpus.json"),
+    ("concentration", "grounding/dgroups/concentration_corpus.json"),
 ]
 
 
@@ -80,38 +81,45 @@ def main(argv=None) -> int:
     g.save(out / "multidomain_nodes.jsonl", out / "multidomain_edges.jsonl")
 
     st = g.stats()
-    print(f"three-domain graph: {st['n_nodes']} nodes, {st['n_edges']} edges "
-          f"({len(domains)} literatures)")
+    print(f"multi-domain graph: {st['n_nodes']} nodes, {st['n_edges']} edges "
+          f"({len(domains)} literatures: {list(domains)})")
     print(f"  edge relations: {st['edge_relations']}")
     print(f"\nrole ascension DISCOVERED from CAUSE structure (no hand-declared map):")
     for fn, role in sorted(ascension.items()):
         print(f"    {fn:24s} -> {role}")
-    print(f"\ncross-domain analogies (auto-discovered ascension):")
-    for an in analogies:
-        print(f"  {an['a']:22s} ~~ {an['b']}   (score {an['score']})")
+    print(f"\ncross-domain analogies (auto-discovered ascension): {len(analogies)}")
 
-    # the three-way analogy: one representative result per field, pairwise analogous
-    reps = ["weighted_conformal", "banach_contraction", "vc_generalization"]
-    print(f"\nthe three-way analogy — '{' : '.join(reps)}':")
+    # the N-way analogy: one representative result per field, pairwise analogous
+    reps = ["weighted_conformal", "banach_contraction", "vc_generalization",
+            "mcdiarmid_concentration"]
+    print(f"\nthe {len(reps)}-way analogy — '{' : '.join(reps)}':")
     for r in reps:
         peers = [a["result"] for a in analogies_of(g, r)]
-        print(f"  {r:22s} analogous to {sorted(set(peers) & set(reps) - {r})}")
+        print(f"  {r:24s} analogous to {sorted(set(peers) & set(reps) - {r})}")
 
     # invariants (CI gate; explicit raise so it holds under `python -O`)
     pairset = {(a["a"], a["b"]) for a in analogies}
     asc = ascension
+    # the structural-property (PC/2) and guarantee (C/2) roles, discovered identical across ALL
+    # four fields with no hand-declared map
+    prop_roles = {asc.get(f) for f in
+                  ("WEIGHTED_EXCHANGEABLE", "CONTRACTION", "UNIFORM_CONVERGENCE", "BOUNDED_MARTINGALE")}
+    guar_roles = {asc.get(f) for f in
+                  ("COVERAGE", "LINEAR_CONVERGENCE", "GENERALIZATION", "CONCENTRATION")}
+    reps_set = set(reps)
+
+    def _analogous(x, y):
+        return (x, y) in pairset or (y, x) in pairset
+
     checks = [
-        (asc.get("WEIGHTED_EXCHANGEABLE") == asc.get("CONTRACTION") == asc.get("UNIFORM_CONVERGENCE"),
-         "the PC/2 'structural property' role must be discovered identical across all 3 fields"),
-        (asc.get("COVERAGE") == asc.get("LINEAR_CONVERGENCE") == asc.get("GENERALIZATION"),
-         "the C/2 'guarantee' role must be discovered identical across all 3 fields"),
-        (("weighted_conformal", "banach_contraction") in pairset,
-         "conformal ~~ optimization analogy must be found under the discovered ascension"),
-        (any({"weighted_conformal", "vc_generalization"} == {a, b} or
-             ("weighted_conformal", "vc_generalization") == (a, b) for a, b in pairset),
-         "conformal ~~ learning analogy must be found under the discovered ascension"),
+        (len(prop_roles) == 1 and None not in prop_roles,
+         "the PC/2 'structural property' role must be discovered identical across all 4 fields"),
+        (len(guar_roles) == 1 and None not in guar_roles,
+         "the C/2 'guarantee' role must be discovered identical across all 4 fields"),
+        (all(_analogous(a, b) for a in reps_set for b in reps_set if a != b),
+         "every pair of field representatives must be cross-domain analogous"),
         (Graph.load(out / "multidomain_nodes.jsonl", out / "multidomain_edges.jsonl").stats() == st,
-         "save/load round-trip must preserve the three-domain graph"),
+         "save/load round-trip must preserve the multi-domain graph"),
     ]
     for ok, msg in checks:
         if not ok:

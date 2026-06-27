@@ -24,33 +24,35 @@ REP = run_pipeline(REPO)
 G = REP["graph"]
 
 
-def test_three_literatures_ingested_and_unified():
-    assert REP["domains"] == ["conformal", "optimization", "learning"]
-    assert REP["n_results"] >= 7
+def test_four_literatures_ingested_and_unified():
+    assert REP["domains"] == ["conformal", "optimization", "learning", "concentration"]
+    assert REP["n_results"] >= 10
     kinds = G.stats()["node_kinds"]
     # one graph holds every object kind the project produces
     for k in ("result", "fact", "functor", "entity", "conjecture"):
         assert kinds.get(k, 0) > 0, k
 
 
-def test_all_three_lineages_present():
+def test_all_four_lineages_present():
     assert extends_chain(G, "arxiv-2006.06138-main")[:2] == ["arxiv-2006.06138-main", "weighted_conformal"]
     assert extends_chain(G, "gd_strong_convexity") == ["gd_strong_convexity", "banach_contraction"]
     assert extends_chain(G, "margin_generalization") == ["margin_generalization", "vc_generalization"]
+    assert extends_chain(G, "bernstein_concentration") == ["bernstein_concentration", "mcdiarmid_concentration"]
 
 
-def test_unsupervised_roles_unify_the_three_fields():
+def test_unsupervised_roles_unify_the_four_fields():
     asc = REP["discovered_roles"]
-    assert asc["WEIGHTED_EXCHANGEABLE"] == asc["CONTRACTION"] == asc["UNIFORM_CONVERGENCE"]
+    assert (asc["WEIGHTED_EXCHANGEABLE"] == asc["CONTRACTION"] == asc["UNIFORM_CONVERGENCE"]
+            == asc["BOUNDED_MARTINGALE"])
 
 
 def test_analogies_and_conjectures_in_the_unified_graph():
-    assert REP["n_analogies"] >= 12 and REP["n_conjectures"] > 0
+    assert REP["n_analogies"] >= 24 and REP["n_conjectures"] > 0
     rels = G.stats()["edge_relations"]
-    assert rels.get("analogous_to", 0) >= 12 and rels.get("conjectures", 0) > 0
-    # the three-way analogy is reachable from any representative
+    assert rels.get("analogous_to", 0) >= 24 and rels.get("conjectures", 0) > 0
+    # the four-way analogy is reachable from any representative
     peers = {p["result"] for p in analogies_of(G, "weighted_conformal")}
-    assert {"banach_contraction", "vc_generalization"} <= peers
+    assert {"banach_contraction", "vc_generalization", "mcdiarmid_concentration"} <= peers
 
 
 def test_evaluation_gate_passes_with_discriminating_verdicts():
