@@ -1,0 +1,23 @@
+{
+  "_provenance": {
+    "note": "Second real paper end-to-end (Epic V): Nesterov's accelerated gradient method (Nesterov 1983, 'A method for solving the convex programming problem with convergence rate O(1/k^2)') lifted from prose into a grounded dgroup by an in-session Claude Code sub-agent (no API call), in the style of Epic K (arXiv 2006.06138). Decomposed against retrieval/library/nesterov_priors.json: the residual after covering should be the OPTIMAL_RATE leaf (and the MOMENTUM -> ACCELERATED_CONVERGENCE cause) -- the paper's genuine contribution over plain gradient descent. The structural property MOMENTUM plays the same PC/2 role discovered across the four literatures, so the paper also joins the cross-domain analogy web.",
+    "extracted_by": "in-session Claude Code sub-agent (general-purpose), 2026-06-27"
+  },
+  "target": {
+    "name": "nesterov_acceleration",
+    "text": "On a smooth convex function, Nesterov's accelerated gradient method uses a momentum extrapolation step to attain the optimal convergence rate O(1/k^2), quadratically faster than the lower bound achieved by plain gradient descent.",
+    "groundings": {
+      "method": "Nesterov's accelerated gradient method",
+      "function": "smooth convex function",
+      "momentum_step": "momentum extrapolation step",
+      "the_rate": "the optimal convergence rate O(1/k^2)",
+      "faster": "quadratically faster",
+      "the_lower_bound": "the lower bound"
+    },
+    "facts": [
+      ["CAUSE", ["SMOOTH_CONVEX", "function", "method"], ["MOMENTUM", "method", "momentum_step"]],
+      ["CAUSE", ["MOMENTUM", "method", "momentum_step"], ["ACCELERATED_CONVERGENCE", "the_rate", "faster"]],
+      ["OPTIMAL_RATE", "the_rate", "the_lower_bound"]
+    ]
+  }
+}
