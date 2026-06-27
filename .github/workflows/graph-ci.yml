@@ -23,5 +23,7 @@ jobs:
         run: python -m pip install --upgrade pip pytest
       - name: Build unified graph + example queries (gates its own invariants)
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.cli
+      - name: Cross-domain analogy edges over two literatures (gates invariants)
+        run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.crossdomain
       - name: Tests
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m pytest graph/tests -q
