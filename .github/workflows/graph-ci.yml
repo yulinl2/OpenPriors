@@ -25,5 +25,7 @@ jobs:
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.cli
       - name: Cross-domain analogy edges over two literatures (gates invariants)
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.crossdomain
+      - name: Unsupervised role-ascension discovery over three literatures (gates invariants)
+        run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.multidomain
       - name: Tests
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m pytest graph/tests -q

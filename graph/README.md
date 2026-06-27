@@ -107,6 +107,41 @@ premises, so no false analogy is drawn.
 PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.crossdomain
 ```
 
+## Unsupervised role discovery over three literatures (`graphstore.multidomain`, Epic O)
+
+The cross-domain step above still needed a **hand-declared** role ascension. That last piece
+of injected knowledge is unnecessary: a relation's role in a "structure ⇒ guarantee" theorem
+is already *encoded* in the data as its position in the shared `CAUSE` glue. `multidomain`
+**discovers** the ascension (`discover_role_ascension`) — for each functor it reads whether it
+appears as a CAUSE *premise* (P), a CAUSE *conclusion* (C), and with what arity — and maps
+functors with the same **role signature** to a shared role token. A third literature
+(statistical learning theory) is added to show it generalizes:
+
+```
+three-domain graph: 137 nodes, 307 edges (3 literatures)
+
+role ascension DISCOVERED from CAUSE structure (no hand-declared map):
+    WEIGHTED_EXCHANGEABLE  -> ROLE::PC::2      CONTRACTION         -> ROLE::PC::2
+    UNIFORM_CONVERGENCE    -> ROLE::PC::2      COVERAGE            -> ROLE::C::2
+    LINEAR_CONVERGENCE     -> ROLE::C::2       GENERALIZATION      -> ROLE::C::2   ...
+
+the three-way analogy:
+  weighted_conformal  ~~  banach_contraction  ~~  vc_generalization
+```
+
+The "structural property that earns the guarantee" is recognized as the **same role** —
+`ROLE::PC::2`, caused by a deeper premise and in turn causing the guarantee — across conformal
+prediction (`WEIGHTED_EXCHANGEABLE`), optimization (`CONTRACTION`), and learning theory
+(`UNIFORM_CONVERGENCE`), with **zero hand-coded domain knowledge**. SME then reads off the
+object correspondence in each pair. The discovered ascension reproduces the Epic N analogy
+exactly, and the **deeper** two-step chains score higher: `gd_strong_convexity ~~
+margin_generalization` (both *premise → property → guarantee*) scores 12.0 vs 7.0 for the
+one-step pairs — a more systematic analogy, surfaced automatically.
+
+```bash
+PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.multidomain
+```
+
 ## Extend
 
 Add any grounded dgroup (the `grounding` front end) to the corpus and it joins the graph with
