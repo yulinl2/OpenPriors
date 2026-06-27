@@ -69,28 +69,43 @@ class Graph:
 
     def __init__(self) -> None:
         self.nodes: dict[str, Node] = {}
-        self._edge_keys: set[tuple] = set()
+        self._edges_by_key: dict[tuple, Edge] = {}
         self.edges: list[Edge] = []
 
     # -- construction -----------------------------------------------------------------
     def add_node(self, node: Node) -> str:
-        # first writer wins on label/kind; later adds merge attrs (idempotent ingestion)
-        if node.id in self.nodes:
-            merged = dict(self.nodes[node.id].attrs)
-            merged.update(node.attrs)
-            existing = self.nodes[node.id]
-            self.nodes[node.id] = Node(existing.id, existing.kind, existing.label,
-                                       merged, existing.provenance)
-        else:
+        # Re-adding the same id is idempotent and merges attrs, but identity (kind/label/
+        # provenance) must agree — a mismatch means two different logical nodes collided on
+        # an id (an ingestion bug), so we fail loud rather than silently keep the first.
+        existing = self.nodes.get(node.id)
+        if existing is None:
             self.nodes[node.id] = node
+            return node.id
+        if (existing.kind, existing.label, existing.provenance) != \
+                (node.kind, node.label, node.provenance):
+            raise ValueError(
+                f"node id {node.id!r} re-added with conflicting identity: "
+                f"{(existing.kind, existing.label, existing.provenance)} != "
+                f"{(node.kind, node.label, node.provenance)}")
+        merged = dict(existing.attrs)
+        merged.update(node.attrs)
+        self.nodes[node.id] = Node(existing.id, existing.kind, existing.label,
+                                   merged, existing.provenance)
         return node.id
 
     def add_edge(self, edge: Edge) -> None:
         if edge.src not in self.nodes or edge.dst not in self.nodes:
             raise KeyError(f"edge endpoints must exist: {edge.src} -> {edge.dst}")
-        if edge.key() not in self._edge_keys:       # dedupe identical (src,dst,relation)
-            self._edge_keys.add(edge.key())
-            self.edges.append(edge)
+        prev = self._edges_by_key.get(edge.key())   # dedupe identical (src,dst,relation)
+        if prev is not None:
+            # identical re-add is a no-op; same triple with different metadata is a bug
+            if (prev.attrs, prev.provenance) != (edge.attrs, edge.provenance):
+                raise ValueError(
+                    f"edge {edge.key()} re-added with conflicting data: "
+                    f"{(prev.attrs, prev.provenance)} != {(edge.attrs, edge.provenance)}")
+            return
+        self._edges_by_key[edge.key()] = edge
+        self.edges.append(edge)
 
     # -- queries ----------------------------------------------------------------------
     def out_edges(self, node_id: str, relation: str | None = None) -> list[Edge]:

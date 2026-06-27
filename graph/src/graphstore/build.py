@@ -60,9 +60,12 @@ def add_lineage(g: Graph, lineage_report: dict) -> None:
     for e in lineage_report.get("edges", []):
         src, dst = f"result::{e['child']}", f"result::{e['parent']}"
         if src in g.nodes and dst in g.nodes:
+            # "residual" carries the FULL residual (incl. CAUSE glue); novel_contributions is
+            # the CAUSE-filtered view. Keeping both keeps the attribute name honest.
             g.add_edge(Edge(src, dst, "extends",
                             attrs={"novelty": e.get("novelty"),
-                                   "residual": e.get("novel_contributions", [])},
+                                   "residual": e.get("residual", []),
+                                   "novel_contributions": e.get("novel_contributions", [])},
                             provenance="lineage"))
 
 

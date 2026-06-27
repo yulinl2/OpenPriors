@@ -66,6 +66,30 @@ def test_add_node_merges_attrs_idempotently():
     assert g.nodes["x"].attrs == {"a": 1, "b": 2} and len(g.nodes) == 1
 
 
+def test_add_node_raises_on_conflicting_identity():
+    g = Graph()
+    g.add_node(Node("x", "entity", "x"))
+    try:
+        g.add_node(Node("x", "fact", "x"))     # same id, different kind -> collision
+        assert False, "expected ValueError on conflicting node identity"
+    except ValueError:
+        pass
+
+
+def test_add_edge_raises_on_conflicting_metadata():
+    g = Graph()
+    g.add_node(Node("a", "entity", "a"))
+    g.add_node(Node("b", "entity", "b"))
+    g.add_edge(Edge("a", "b", "arg:0", attrs={"w": 1}))
+    g.add_edge(Edge("a", "b", "arg:0", attrs={"w": 1}))   # identical re-add is a no-op
+    assert len(g.edges) == 1
+    try:
+        g.add_edge(Edge("a", "b", "arg:0", attrs={"w": 2}))  # same triple, different data
+        assert False, "expected ValueError on conflicting edge metadata"
+    except ValueError:
+        pass
+
+
 # -- reification is lossless ----------------------------------------------------------
 
 def test_every_fact_reconstructs_to_its_predicate_string():
@@ -137,4 +161,28 @@ def test_extends_edges_carry_novelty_and_residual():
     e = next(e for e in g.out_edges(f"result::{PAPER_NAME}", "extends"))
     assert e.dst == "result::weighted_conformal"
     assert 0.0 < e.attrs["novelty"] < 1.0
+    # "residual" is the full residual; novel_contributions is the CAUSE-filtered view
     assert any(r.startswith("COUNTERFACTUAL") for r in e.attrs["residual"])
+    assert any(r.startswith("COUNTERFACTUAL") for r in e.attrs["novel_contributions"])
+    assert set(e.attrs["novel_contributions"]) <= set(e.attrs["residual"])
+
+
+def test_extends_chain_raises_on_multiple_parents():
+    g = _graph()
+    # inject a second extends parent for the paper -> chain becomes ambiguous
+    g.add_edge(Edge(f"result::{PAPER_NAME}", "result::split_conformal", "extends",
+                    attrs={"novelty": 0.5}, provenance="test"))
+    try:
+        extends_chain(g, PAPER_NAME)
+        assert False, "expected ValueError on ambiguous lineage"
+    except ValueError:
+        pass
+
+
+def test_expr_string_rejects_non_fact_nodes():
+    g = _graph()
+    try:
+        expr_string(g, "functor::COVERAGE")    # a functor node is not an expression
+        assert False, "expected ValueError for a functor node"
+    except ValueError:
+        pass

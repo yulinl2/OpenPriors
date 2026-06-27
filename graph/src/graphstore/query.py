@@ -29,10 +29,18 @@ def entities_of(g: Graph, result: str) -> list[str]:
 
 
 def extends_chain(g: Graph, result: str) -> list[str]:
-    """The ancestor path from ``result`` up its direct-parent ``extends`` edges."""
+    """The ancestor path from ``result`` up its direct-parent ``extends`` edges.
+
+    The lineage backbone is a transitive reduction, so each result has at most one direct
+    parent. If the graph ever holds several ``extends`` edges out of one result the chain is
+    ambiguous, so we raise rather than silently follow an arbitrary one.
+    """
     chain, cur, seen = [result], f"result::{result}", set()
     while True:
         nxt = g.out_edges(cur, "extends")
+        if len(nxt) > 1:
+            raise ValueError(
+                f"{cur} has multiple extends parents {[e.dst for e in nxt]}; chain is ambiguous")
         if not nxt or cur in seen:
             break
         seen.add(cur)
@@ -47,6 +55,9 @@ def expr_string(g: Graph, fact_id: str) -> str:
     node = g.nodes[fact_id]
     if node.kind == "entity":
         return node.label
+    if node.kind != "fact":
+        raise ValueError(
+            f"expr_string expects an entity or fact node, got {node.kind!r} for {fact_id!r}")
     arg_edges = sorted((e for e in g.out_edges(fact_id) if e.relation.startswith("arg:")),
                        key=lambda e: int(e.relation.split(":")[1]))
     inner = ", ".join(expr_string(g, e.dst) for e in arg_edges)

@@ -9,6 +9,8 @@ import json
 from pathlib import Path
 
 from analogy.predicates import Dgroup
+from retrieval.engine import expr_from_json, load_library
+from retrieval.lineage import lineage
 
 from .build import build
 from .model import Graph
@@ -17,11 +19,8 @@ from .query import (entities_of, expr_string, extends_chain, facts_of,
 
 
 def _load_inputs(repo, retr):
-    import sys
-    sys.path.insert(0, str(retr / "src"))
-    from retrieval.engine import expr_from_json, load_library
-    from retrieval.lineage import lineage
-
+    # all external packages (analogy, retrieval) are imported at module top and resolved via
+    # PYTHONPATH — no partial sys.path mutation here.
     lib = load_library(retr / "library" / "conformal_theorems.json")
     lib_raw = json.loads((retr / "library" / "conformal_theorems.json").read_text())
     paper = json.loads(
