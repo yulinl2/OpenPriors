@@ -16,6 +16,8 @@ reads as the actual line of development rather than every transitive reuse.
 
 from __future__ import annotations
 
+from collections import Counter
+
 from analogy.align import align, fmt_expr
 from analogy.predicates import Dgroup
 
@@ -26,10 +28,18 @@ def _coverage(base: Dgroup, target: Dgroup) -> float:
     High coverage of A inside B means B reuses A's machinery — A is structurally contained
     in B. This is asymmetric: c(A,B) != c(B,A), and that asymmetry gives the lineage its
     direction (the more general, fewer-fact result is the ancestor).
+
+    ``align`` enforces consistency over entity correspondences, not 1-1 over expressions, so
+    ``matched_base`` can repeat a base fact when the target holds duplicate matches. We count
+    matches with multiplicity capped by each base fact's own multiplicity, so the result is
+    always in [0, 1] and duplicate facts can't inflate it past full coverage.
     """
     if not base.facts:
         return 0.0
-    return len(align(base, target).matched_base) / len(base.facts)
+    matched = Counter(repr(e) for e in align(base, target).matched_base)
+    base_mult = Counter(repr(f) for f in base.facts)
+    covered = sum(min(matched[k], base_mult[k]) for k in base_mult)
+    return covered / len(base.facts)
 
 
 def lineage(corpus: dict[str, Dgroup], tau: float = 0.5) -> dict:
@@ -52,9 +62,23 @@ def lineage(corpus: dict[str, Dgroup], tau: float = 0.5) -> dict:
                       "ancestors": ancestors, "is_root": parent is None})
         if parent is None:
             continue
-        # residual = p's facts not covered by its direct parent = p's contribution over it
-        matched = {repr(e) for e in align(corpus[parent], corpus[p]).matched_target}
-        residual = sorted(fmt_expr(f) for f in corpus[p].facts if repr(f) not in matched)
+        # residual = p's facts not covered by its direct parent = p's contribution over it.
+        # Consume matched-target occurrences with multiplicity (a Counter, not a set) so that
+        # if p legitimately repeats a fact, one parent match doesn't drop every duplicate.
+        # Cap each fact's matches by the PARENT's own multiplicity: a parent that states a
+        # fact once can explain at most one occurrence of it in p, even if SME matched it
+        # against several duplicates in p.
+        raw = Counter(repr(e) for e in align(corpus[parent], corpus[p]).matched_target)
+        parent_mult = Counter(repr(f) for f in corpus[parent].facts)
+        matched = Counter({k: min(raw[k], parent_mult[k]) for k in raw})
+        residual = []
+        for f in corpus[p].facts:
+            r = repr(f)
+            if matched.get(r, 0) > 0:
+                matched[r] -= 1
+            else:
+                residual.append(fmt_expr(f))
+        residual = sorted(residual)
         novel = [r for r in residual if not r.startswith("CAUSE(")]
         edges.append({
             "child": p,

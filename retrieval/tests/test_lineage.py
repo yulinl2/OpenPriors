@@ -79,3 +79,26 @@ def test_coverage_is_asymmetric():
     # that asymmetry is what orients the lineage.
     assert _coverage(c["weighted_conformal"], c["arxiv-2006.06138-main"]) == 1.0
     assert _coverage(c["arxiv-2006.06138-main"], c["weighted_conformal"]) < 1.0
+
+
+def test_coverage_capped_at_one_with_duplicate_target_matches():
+    # a base fact matching several duplicate target facts must not push coverage past 1.0
+    base = Dgroup("b", [expr_from_json(["P", "x", "y"])])
+    target = Dgroup("t", [expr_from_json(["P", "a", "b"]), expr_from_json(["P", "c", "d"])])
+    assert _coverage(base, target) <= 1.0
+
+
+def test_duplicate_child_facts_are_not_over_dropped():
+    # a child that repeats a fact the parent supplies once keeps the extra occurrence as
+    # residual (multiplicity-aware), instead of a single match erasing all duplicates.
+    parent = Dgroup("parent", [expr_from_json(["P", "x", "y"])])
+    child = Dgroup("child", [
+        expr_from_json(["P", "x", "y"]),
+        expr_from_json(["P", "x", "y"]),   # legitimate duplicate
+        expr_from_json(["Q", "x", "y"]),   # genuinely novel
+    ])
+    rep = lineage({"parent": parent, "child": child}, tau=0.5)
+    edge = next(e for e in rep["edges"] if e["child"] == "child")
+    # one P consumed by the parent; the duplicate P + the novel Q remain as residual
+    assert sum(r.startswith("P(") for r in edge["residual"]) == 1
+    assert any(r.startswith("Q(") for r in edge["residual"])
