@@ -53,7 +53,7 @@ decomposer/
     independent-verify/  _template/
   src/decomposer/
     schema.py                # single source of truth: the data classes (P3)
-    adapters/{latex,markdown}.py   # format adapters -> format-agnostic core
+    adapters/{latex,markdown,html}.py  # format adapters -> format-agnostic core
     verify/{invariants,differential}.py   # build-independent checks (独立检验)
     serialize.py  ids? pipeline.py  cli.py
   corpus/<slug>/...          # raw inputs (tex source + ar5iv HTML + local test cases)
