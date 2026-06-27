@@ -202,6 +202,36 @@ is unit-tested to fail on a tampered or ungrounded judgment, so it can't rot int
 PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.evaluate
 ```
 
+## The whole pipeline in one command (`graphstore.pipeline`, Epic R — capstone)
+
+Every stage above runs end to end on the three-literature corpus from a single entry point,
+emitting one summary and one unified graph that holds *everything* — results, reified facts,
+relation types, per-field lineages, cross-domain analogies, conjectures, and (written back
+onto the conjecture nodes) the gated verdicts:
+
+```
+OpenPriors — end-to-end pipeline over three literatures
+[1-3] ingested 8 grounded results across 3 literatures ['conformal', 'optimization', 'learning']
+      unified graph: 197 nodes ({'result': 8, 'fact': 68, 'functor': 17, 'entity': 44, 'conjecture': 60}), 367 edges
+[lineage] arxiv-2006.06138-main -> weighted_conformal -> split_conformal
+          gd_strong_convexity -> banach_contraction
+          margin_generalization -> vc_generalization
+[4] cross-domain analogies discovered (roles read from CAUSE structure, unsupervised): 12
+[5] analogical conjectures generated: 60 (attached as 'conjectures' edges)
+[6] conjectures judged by an in-session sub-agent, gate PASSED: {'plausible': 1, 'uncertain': 2, 'implausible': 1}
+  --> the headline: by analogy with Banach contraction theory, the system conjectures
+      the conformal procedure has a FIXED POINT — judged plausible.
+```
+
+This is the project's thesis made executable: *ingest grounded results → reconstruct each
+field's reasoning lineage → unify into one (object, attribute, relation) graph → discover
+cross-domain analogies unsupervised → transfer candidate inferences as conjectures → judge and
+gate them.* One pass, grounded end to end, every symbol traceable to its source.
+
+```bash
+PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.pipeline
+```
+
 ## Extend
 
 Add any grounded dgroup (the `grounding` front end) to the corpus and it joins the graph with
