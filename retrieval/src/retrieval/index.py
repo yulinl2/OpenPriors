@@ -50,20 +50,24 @@ class MacIndex:
         seen: set[str] = set()
         for b in self._nearby_buckets(sig, max_hamming):
             seen.update(self.buckets.get(b, ()))
-        ranked = sorted(((n, round(cosine(qvec, self.vectors[n]), 4)) for n in seen),
-                        key=lambda kv: -kv[1])[:top_k]
+        fell_back = not seen
+        if fell_back:                                   # no nearby bucket hit -> exact scan
+            seen = set(self.vectors)
+        # rank on RAW cosine (round only for output) so close candidates can't be misordered
+        ranked = sorted(((n, cosine(qvec, self.vectors[n])) for n in seen), key=lambda kv: -kv[1])
         return {
-            "top_k": ranked,
+            "top_k": [(n, round(s, 4)) for n, s in ranked[:top_k]],
             "candidates_examined": len(seen),
             "library_size": len(self.vectors),
             "fraction_examined": round(len(seen) / max(1, len(self.vectors)), 4),
+            "fell_back": fell_back,
         }
 
 
 def linear_top_k(qvec: dict, vectors: dict[str, dict], top_k: int = 2) -> list[tuple]:
     """Exact O(N) MAC scan, for correctness comparison against the index."""
-    return sorted(((n, round(cosine(qvec, v), 4)) for n, v in vectors.items()),
-                  key=lambda kv: -kv[1])[:top_k]
+    ranked = sorted(((n, cosine(qvec, v)) for n, v in vectors.items()), key=lambda kv: -kv[1])
+    return [(n, round(s, 4)) for n, s in ranked[:top_k]]
 
 
 def _synthetic_vectors(n: int, seed: int = 1) -> dict[str, dict]:

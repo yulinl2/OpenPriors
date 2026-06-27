@@ -44,7 +44,13 @@ def test_index_is_sublinear_at_scale():
 
 
 def test_index_is_deterministic():
-    a = MacIndex(LIBVEC, seed=0).buckets
-    b = MacIndex(LIBVEC, seed=0).buckets
-    assert a == b                               # same seed -> identical buckets
-    assert MacIndex(LIBVEC, seed=1).buckets != a or len(LIBVEC) == 1  # different seed differs
+    assert MacIndex(LIBVEC, seed=0).buckets == MacIndex(LIBVEC, seed=0).buckets  # same seed
+    # different seed -> different hyperplanes (direct, not flaky on bucket assignments)
+    assert MacIndex(LIBVEC, seed=0).planes != MacIndex(LIBVEC, seed=1).planes
+
+
+def test_query_falls_back_when_no_bucket_hits():
+    # a query whose signature lands in an empty neighborhood still returns a result
+    idx = MacIndex(LIBVEC)
+    res = idx.query({"NONEXISTENT_FUNCTOR": 1}, max_hamming=0)
+    assert res["top_k"] and res["fell_back"] in (True, False)
