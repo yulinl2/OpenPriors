@@ -35,6 +35,35 @@ def atom() -> Dgroup:
     ])
 
 
+# --------------------------------------------------------------------------- #
+# Minimal-ascension demo: near-synonym predicates align via a type lattice.    #
+# --------------------------------------------------------------------------- #
+DEFAULT_ASCENSION = {
+    # objective operators
+    "MINIMIZE": "OBJECTIVE_OP", "MAXIMIZE": "OBJECTIVE_OP", "OPTIMIZE": "OBJECTIVE_OP",
+    # monotone changes
+    "DECREASES": "MONOTONE", "INCREASES": "MONOTONE", "CHANGES": "MONOTONE",
+}
+
+
+def synonym_base() -> Dgroup:
+    """An optimizer description phrased with MINIMIZE / DECREASES."""
+    return Dgroup("optimizer-A", [
+        ("OBJECTIVE", "loss"),
+        ("MINIMIZE", "agent", "loss"),
+        ("CAUSE", ("MINIMIZE", "agent", "loss"), ("DECREASES", "loss", "time")),
+    ])
+
+
+def synonym_target() -> Dgroup:
+    """The same structure phrased with the near-synonyms OPTIMIZE / CHANGES."""
+    return Dgroup("optimizer-B", [
+        ("OBJECTIVE", "cost"),
+        ("OPTIMIZE", "system", "cost"),
+        ("CAUSE", ("OPTIMIZE", "system", "cost"), ("CHANGES", "cost", "step")),
+    ])
+
+
 def from_concept_dgroup(path: str | Path) -> Dgroup:
     """Build a Dgroup from a concept_graph ``dgroup.json``.
 

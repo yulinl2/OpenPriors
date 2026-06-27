@@ -30,16 +30,28 @@ class MatchHypothesis:
     order: int
 
 
-def _match(be, te) -> set | None:
-    """Return entity correspondences if be/te are identical under identicality, else None."""
+def _funcs_match(fb: str, ft: str, ascension: dict | None) -> bool:
+    """Identicality, optionally relaxed by *minimal ascension*: two functors also match if
+    they share a parent in the ascension/type lattice (e.g. MINIMIZE and OPTIMIZE both
+    ascend to OBJECTIVE_OP). Fixes SME's brittle strict-identicality (notes §1, §7)."""
+    if fb == ft:
+        return True
+    if ascension:
+        pb, pt = ascension.get(fb), ascension.get(ft)
+        return pb is not None and pb == pt
+    return False
+
+
+def _match(be, te, ascension: dict | None = None) -> set | None:
+    """Return entity correspondences if be/te are identical (under ascension), else None."""
     if is_entity(be) and is_entity(te):
         return {(be, te)}
     if isinstance(be, tuple) and isinstance(te, tuple):
-        if functor(be) != functor(te) or len(be) != len(te):
+        if not _funcs_match(functor(be), functor(te), ascension) or len(be) != len(te):
             return None
         corrs: set = set()
         for ba, ta in zip(args(be), args(te)):
-            sub = _match(ba, ta)
+            sub = _match(ba, ta, ascension)
             if sub is None:
                 return None
             corrs |= sub
@@ -47,11 +59,12 @@ def _match(be, te) -> set | None:
     return None  # entity vs predicate => incompatible (identicality)
 
 
-def match_hypotheses(base: Dgroup, target: Dgroup) -> list[MatchHypothesis]:
+def match_hypotheses(base: Dgroup, target: Dgroup,
+                     ascension: dict | None = None) -> list[MatchHypothesis]:
     mhs = []
     for be in base.facts:
         for te in target.facts:
-            corrs = _match(be, te)
+            corrs = _match(be, te, ascension)
             if corrs is not None:
                 mhs.append(MatchHypothesis(be, te, frozenset(corrs), order(be)))
     return mhs
@@ -84,8 +97,9 @@ def _project(expr, mapping: dict):
     return (functor(expr),) + tuple(_project(a, mapping) for a in args(expr))
 
 
-def align(base: Dgroup, target: Dgroup) -> Gmap:
-    mhs = sorted(match_hypotheses(base, target), key=lambda m: -m.order)  # deep first
+def align(base: Dgroup, target: Dgroup, ascension: dict | None = None,
+          skolem_penalty: float = 0.0) -> Gmap:
+    mhs = sorted(match_hypotheses(base, target, ascension), key=lambda m: -m.order)  # deep first
     corrs: set = set()
     matched_b, matched_t, score = [], [], 0.0
     for mh in mhs:
@@ -105,12 +119,18 @@ def align(base: Dgroup, target: Dgroup) -> Gmap:
         anchored = sum(1 for s in _subfacts(fact) if repr(s) in matched_set)
         ent_overlap = len([e for e in _ent(fact) if e in mapping])
         if anchored > 0 or ent_overlap > 0:
+            projection = _project(fact, mapping)
+            # skolem count (notes §6): projecting an arg with no target image invents a new
+            # ("skolem") entity -> a weaker inference. Reported always; penalized in the score
+            # only when skolem_penalty>0 (default 0.0 keeps scores backward-compatible).
+            n_skolems = sum(1 for e in _ent(projection) if str(e).startswith("skolem:"))
             inferences.append({
                 "base_fact": _fmt(fact),
-                "projection": _fmt(_project(fact, mapping)),
+                "projection": _fmt(projection),
                 "anchored_submatches": anchored,
                 "entity_overlap": ent_overlap,
-                "score": round(anchored * 2.0 + ent_overlap, 3),
+                "n_skolems": n_skolems,
+                "score": round(anchored * 2.0 + ent_overlap - skolem_penalty * n_skolems, 3),
             })
     inferences.sort(key=lambda d: -d["score"])
     return Gmap(mapping, matched_b, matched_t, round(score, 3), inferences)

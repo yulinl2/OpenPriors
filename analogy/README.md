@@ -49,6 +49,20 @@ PYTHONPATH=analogy/src decomposer/.venv/bin/python -m analogy.cli \
 PYTHONPATH=analogy/src decomposer/.venv/bin/python -m pytest analogy/tests -q
 ```
 
+## Deeper engine (Epic G)
+
+Two refinements toward the full SME, both opt-in / backward-compatible:
+
+- **Minimal ascension** (notes §1, §7) — SME's strict identicality is brittle: `MINIMIZE` and
+  `OPTIMIZE` never match. `align(base, target, ascension=...)` relaxes this: two functors also
+  match if they share a parent in a type lattice (`examples.DEFAULT_ASCENSION`). On a
+  near-synonym pair, strict matching recovers only the identical predicate (`{loss:cost}`)
+  while ascension recovers the full mapping (`{loss:cost, agent:system, time:step}`).
+- **Skolem-penalized candidate inferences** (notes §6) — projecting a base fact whose argument
+  has no target image invents a new ("skolem") entity, a weaker inference. `n_skolems` is always
+  reported, but the score subtracts it only under the opt-in `align(..., skolem_penalty=γ)`
+  (default `0.0` keeps scores backward-compatible): `2·anchored + overlap − γ·skolems`.
+
 ## Where this sits
 
 This closes the core loop from `Imports/structure mapping notes.md`: decomposer (encode) →
