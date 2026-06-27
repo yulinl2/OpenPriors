@@ -24,5 +24,7 @@ jobs:
         run: PYTHONPATH=retrieval/src:analogy/src python -m retrieval.cli
       - name: Multi-prior decomposition of a full proof
         run: PYTHONPATH=retrieval/src:analogy/src python -m retrieval.decompose
+      - name: ANN index for MAC at scale (SimHash LSH)
+        run: PYTHONPATH=retrieval/src:analogy/src python -m retrieval.index
       - name: Tests
         run: PYTHONPATH=retrieval/src:analogy/src:grounding/src python -m pytest retrieval/tests -q

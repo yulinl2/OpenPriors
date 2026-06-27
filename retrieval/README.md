@@ -60,6 +60,29 @@ content from the borrowed machinery*, automatically.
 PYTHONPATH=retrieval/src:analogy/src decomposer/.venv/bin/python -m retrieval.decompose
 ```
 
+## Scale: ANN index for the MAC stage (`retrieval.index`)
+
+The MAC content-vector scan is O(N) over the whole library — the "indexing burden over
+millions of sources" (notes §3). `MacIndex` is a pure-Python (no FAISS, deterministic,
+auditable) **SimHash LSH**: K fixed random hyperplanes give each content vector a K-bit
+signature, so similar vectors land in nearby Hamming buckets and a query only exact-scores
+the candidates in those buckets.
+
+On a library scaled to ~1000 priors, querying for `problem_07` Q1:
+
+```
+ANN nearest: ('banach_fixed_point', 0.98)   (== the exact linear nearest)
+candidates examined: 7 (0.7% of the library)
+```
+
+It finds the true nearest prior while exact-scoring **<1%** of the library — the sub-linear
+MAC pre-filter that lets the SME/FAC stage stay expensive but rarely-invoked. Recall is
+tunable via `max_hamming`.
+
+```bash
+PYTHONPATH=retrieval/src:analogy/src decomposer/.venv/bin/python -m retrieval.index
+```
+
 ## Extend
 
 Add a theorem to `library/theorems.json` (a grounded dgroup — symbols traced to its
