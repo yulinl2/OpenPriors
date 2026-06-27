@@ -32,6 +32,11 @@ EPIC D · Prose front end                ── grounding/        [iteration 5]
 EPIC C · Structure-mapping matcher    ── matcher/ (MAC) + analogy/ (FAC)
   content-vectors over relation tuples (MAC, renaming-invariant) + SME-style
   alignment (FAC) + candidate-inference / shortcut detector (the novelty signal)
+
+EPIC E · Generalization (breadth+depth) ── retrieval/ + analogy/ (deeper)
+  E library-scale MAC/FAC retrieval (nearest known prior) · F full-proof multi-prior
+  set-cover decomposition (reused theorems + novel residual) · G deeper SME engine
+  (minimal ascension for near-synonyms + skolem-penalized inferences)
 ```
 
 Each epic is a top-level package; each iteration is one branch + one PR; each step keeps
@@ -87,4 +92,6 @@ the **Argue / Build / Verify** triad and is recorded under `<pkg>/runs/` or `<pk
 | C · matcher (MAC) | ✅ merged (#3), CI green | MAC content-vector retrieval + **renaming-invariance holds for all graphs** + systematicity |
 | C · analogy (FAC) | ✅ merged (#4), CI green | SME structural alignment + candidate-inference **novelty/shortcut detector**; recovers the textbook solar→atom mapping |
 | D · grounding (prose front end) | ✅ merged (#6) | sub-agent prose→dgroup + **deterministic grounding gate**; solves the 4 riddles; Banach case (#8) + discrimination (#9) validate on real math |
-| E · retrieval (MAC/FAC) | 🚧 generalization | **library-scale** novelty retrieval: MAC content-vector filter → SME/FAC rerank → nearest known prior + graded reuse/novelty |
+| E · retrieval (MAC/FAC) | ✅ merged (#11) | **library-scale** novelty retrieval: MAC content-vector filter → SME/FAC rerank → nearest known prior + graded reuse/novelty |
+| F · proof decomposition | ✅ merged (#12) | **multi-prior set-cover**: explain a full proof as composed theorems + isolate the novel residual (MDL framing) |
+| G · deeper SME engine | ✅ merged (#13) | **minimal ascension** (near-synonym predicates align) + **skolem-penalized** inferences; both opt-in |

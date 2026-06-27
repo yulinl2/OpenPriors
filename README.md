@@ -75,11 +75,22 @@ So a result whose structure is a renamed copy of a known theorem scores ~0 novel
 genuinely different theorem scores ~1 — exactly the "shortcut under fancy disguise" signal
 from `Imports/structure mapping notes.md` §6, validated on real mathematics.
 
-**53 tests · 7 CI workflows · all green · reproducible · $0 marginal API cost.**
+## Generalization (breadth & depth)
+
+On top of the validated core, the detector generalizes from pairwise comparison to
+library- and proof-scale, and the engine itself is deepened:
+
+| Stage | What it adds | Result |
+|---|---|---|
+| **retrieval / MAC·FAC** (`retrieval.cli`) | *breadth*: retrieve the **nearest known prior** from a theorem library (cheap content-vector MAC filter → SME/FAC rerank) | Q1 → INSTANCE of Banach (0.09); Q2 → largely-novel extension of the CLT skeleton (0.70); distractor never selected |
+| **proof decomposition** (`retrieval.decompose`) | *depth*: explain a **full proof as a composition** of known theorems (greedy set-cover, MDL) | Q1 proof = Banach + strong-convexity + Kantorovich–Rubinstein, with the ε-sensitivity assumption + iteration bound as the **novel residual** |
+| **deeper SME** (`analogy.align`) | *depth*: **minimal ascension** (near-synonym predicates align via a type lattice) + **skolem-penalized** inferences (opt-in) | `MINIMIZE`≈`OPTIMIZE` now align; defaults unchanged |
+
+**67 tests · 8 CI workflows · all green · reproducible · $0 marginal API cost.**
 
 ## Frontier
 
-The architecture is complete and validated; what remains is **breadth and scale** —
-richer dgroup extraction on full paper proofs, novelty scans across a larger real corpus,
-and more format adapters (HTML-native, PDF). Each plugs into the existing
-loader / grounding-gate / aligner path without new design.
+The system is complete, validated, and generalized in breadth and depth. Remaining work is
+**scale and ingestion** — an ANN index for the MAC stage at true corpus scale, more
+format adapters (HTML-native, PDF), and a larger theorem library — each plugging into the
+existing loader / grounding-gate / aligner / retrieval path without new design.
