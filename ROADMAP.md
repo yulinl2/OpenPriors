@@ -98,4 +98,5 @@ the **Argue / Build / Verify** triad and is recorded under `<pkg>/runs/` or `<pk
 | H · HTML-native ingestion | ✅ merged (#15) | third decomposer path (ar5iv HTML) + **cross-path differential** verification (34/34 sections) |
 | I · trickle-down systematicity | ✅ merged (#16) | reward deep relational webs: candidate-inference score gains with supporting sub-structure depth |
 | J · ANN index for MAC | ✅ merged (#17) | pure-Python **SimHash LSH**; true nearest at **<1%** of the library exact-scored |
-| K · real paper end-to-end | ✅ this PR | **arXiv 2006.06138** (Lei & Candès): MAC→FAC→set-cover reads the paper as *weighted conformal + {COUNTERFACTUAL, NESTED}* — its actual contribution, isolated automatically |
+| K · real paper end-to-end | ✅ merged (#18) | **arXiv 2006.06138** (Lei & Candès): MAC→FAC→set-cover reads the paper as *weighted conformal + {COUNTERFACTUAL, NESTED}* — its actual contribution, isolated automatically |
+| L · reasoning lineage | ✅ this PR | **multi-result *extends* DAG** from grounded structure: recovers split → weighted → counterfactual conformal (novelty 0.71 → 0.22) with no citation metadata; objects = results, relation = extends, attributes = residual |

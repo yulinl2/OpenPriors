@@ -117,6 +117,41 @@ as borrowed and points at the genuinely new structure — on a real paper, autom
 PYTHONPATH=retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m retrieval.realpaper
 ```
 
+## Reasoning lineage: a corpus of results that are each other's priors (`retrieval.lineage`)
+
+Single-paper retrieval asks "what fixed prior is this one result an instance of?". The lineage
+asks the **multi-result** question: given a corpus where every result is both a potential
+ancestor and a potential descendant, **reconstruct the line of development**. For each ordered
+pair it measures how much of one result's structure is reused inside another (SME coverage —
+asymmetric, which is what gives the lineage its direction), then draws an `extends` edge from
+each result to its **most specific ancestor**, annotated with the residual it adds.
+
+Over the conformal corpus (split conformal, weighted conformal, the importance-weighting
+lemma, and the arXiv 2006.06138 paper):
+
+```
+reasoning lineage over 4 results (tau=0.5):
+  importance_weighting  [root]
+  split_conformal  [root]
+    -> weighted_conformal  extends split_conformal (novelty 0.7143; adds COVARIATE_SHIFT, LIKELIHOOD_RATIO, WEIGHTED_EXCHANGEABLE)
+      -> arxiv-2006.06138-main  extends weighted_conformal (novelty 0.2222; adds COUNTERFACTUAL, NESTED)
+```
+
+The system recovers the **actual development line** — split conformal → weighted conformal
+(adds the covariate-shift reweighting machinery) → counterfactual conformal (adds COUNTERFACTUAL
++ the NESTED ITE construction) — purely from the grounded structure, with no citation metadata.
+The paper's *direct* parent is weighted conformal, not split conformal, even though split is
+also reused: the backbone is the **transitive reduction**, so it reads as the real lineage
+rather than every transitive reuse. And `importance_weighting` falls out as an independent
+lemma root that both later results draw on. The **novelty drops along the chain** (0.71 → 0.22)
+— each step is more incremental than the last. This is the project's target shape at the level
+of whole results: an (object, attribute, relation) graph where objects are results, the
+relation is *extends*, and the edge attributes are the residual + novelty.
+
+```bash
+PYTHONPATH=retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m retrieval.lineage
+```
+
 ## Extend
 
 Add a theorem to `library/theorems.json` (a grounded dgroup — symbols traced to its
