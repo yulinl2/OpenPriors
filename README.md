@@ -2,57 +2,62 @@
 
 > *Open-source your ideas, not just your code.*
 
-OpenPriors is a **novelty detector** for ideas: it asks whether a "new" result is genuinely
-novel, or just a known result running on relabeled objects. It does this with **structure
-mapping** — comparing the *relational structure* of arguments, not their surface wording
-("isomorphism under renaming, not lexical overlap"; see `Imports/structure mapping notes.md`).
+OpenPriors reads scientific results, represents their **reasoning** as an (object, attribute,
+relation) graph, and uses **structure mapping** — relational structure, not surface wording
+("isomorphism under renaming, not lexical overlap"; `Imports/structure mapping notes.md`) — to
+do the things a researcher does with ideas: judge what's **novel**, trace how results **build
+on** each other, find **analogies across fields**, **conjecture** what an analogy predicts, and
+**evaluate** those conjectures. It starts as a novelty detector and ends as a closed
+*discover → predict → evaluate* loop, grounded end to end — every symbol traceable to a
+verbatim span of its source.
 
-This repo implements the full pipeline, from raw documents to a structural novelty signal,
-as four independently-verified epics, each grounded in the same doctrine:
-**论证 / 构建 / 独立检验** (Argue / Build / Independently-Verify), with deterministic code
-wherever an invariant is machine-checkable and in-session sub-agents (no API) only where
-natural-language understanding is irreducible.
+Built under one doctrine — **论证 / 构建 / 独立检验** (Argue / Build / Independently-Verify) —
+with deterministic code wherever an invariant is machine-checkable, and in-session sub-agents
+(no API cost) only where natural-language understanding is irreducible. Every claim is gated by
+CI; every gate is unit-tested to fail on broken input.
 
 ## The pipeline
 
 ```
- raw document                                                        novelty signal
-      │                                                                    ▲
-      ▼                                                                    │
-┌───────────────┐   ┌──────────────────┐   ┌──────────────┐   ┌────────────────────┐
-│  decomposer   │──▶│  concept_graph   │──▶│   matcher    │──▶│      analogy       │
-│   (Epic A)    │   │    (Epic B)      │   │  (Epic C·MAC)│   │   (Epic C·FAC)     │
-│ clean nested  │   │ (object,         │   │ content-     │   │ SME alignment +    │
-│ tree + node/  │   │  attribute,      │   │ vector       │   │ candidate-inference│
-│ edge graph    │   │  relation) graph │   │ retrieval,   │   │ "shortcut" novelty │
-│               │   │ + reasoning DAG  │   │ renaming-    │   │ detector           │
-│               │   │ + SME bridge     │   │ invariant    │   │                    │
-└───────────────┘   └──────────────────┘   └──────────────┘   └────────────────────┘
-   #1 ✅ merged        #2 ✅ merged           #3 ✅ merged          #4 ✅ merged
+ raw document ─▶ decompose ─▶ ground ─▶ retrieve/novelty ─▶ lineage
+   (A)            (A·B·C)       (D)         (E·F·K)           (L)
+                                                                │
+            ┌───────────────────────────────────────────────────┘
+            ▼
+   unified (object, attribute, relation) graph ─▶ cross-domain analogy ─▶ conjecture ─▶ evaluate ─▶ query
+              (M)                                    (N·O)                    (P)          (Q)        (S)
+                                          └────────── one command: make pipeline (R) ──────────┘
 ```
 
-| Epic | Dir | What it does | Verified by |
-|---|---|---|---|
-| **A** | [`decomposer/`](decomposer) | Generic, first-principles document decomposition: raw LaTeX/HTML/Markdown → clean **nested hierarchical** structure (tree + node/edge graph). De-redundancy, data-class classification, cross-reference resolution. | char-coverage conservation, schema, reference integrity, idempotence, **differential oracle vs LaTeXML HTML (0.85 recall)** |
-| **B** | [`concept_graph/`](concept_graph) | Lifts that into the **(object, attribute, relation)** representation + a reasoning-chain DAG, plus an SME description-group / content-vector bridge. | edge conservation, traceability, reasoning-DAG acyclicity |
-| **C·MAC** | [`matcher/`](matcher) | MAC content-vector retrieval (dot-product score upper-bounds SME) + the project's linchpin **renaming-invariance** guarantee + systematicity. | renaming-invariance metamorphic test (holds for all graphs), non-vacuity |
-| **C·FAC** | [`analogy/`](analogy) | SME structural alignment + candidate-inference **novelty / "shortcut" detector** — the mechanism the project exists to build. | **textbook solar-system→atom mapping recovered**; systematic inference beats distractor |
-| **D–L** | [`grounding/`](grounding), [`retrieval/`](retrieval) | Prose→dgroup grounding gate; library-scale MAC/FAC retrieval, full-proof set-cover decomposition, real-paper novelty (**arXiv 2006.06138**), and the multi-result reasoning **lineage** DAG. | 4 riddles + Banach/discrimination cases; paper residual = COUNTERFACTUAL+NESTED; lineage split→weighted→counterfactual |
-| **M** | [`graph/`](graph) | The end-goal package: one unified **(object, attribute, relation)** graph — entity/fact/functor/result nodes, **reified facts** (n-ary + nested CAUSE, lossless), JSONL persistence; the project's questions become graph traversals. | reification round-trips every fact; reasoning-subgraph reconstructs nested CAUSE; save/load exact |
+**Front end (A–C)** turns raw text into structure; **middle (D–L)** turns structure into a
+grounded novelty/lineage signal; **graph layer (M–S)** unifies it all into one queryable graph
+that discovers analogies *across literatures*, predicts, and self-evaluates.
+
+| Epic | Dir | What it does |
+|---|---|---|
+| **A** | [`decomposer/`](decomposer) | First-principles document decomposition: raw LaTeX/HTML/Markdown → clean **nested hierarchical** tree + node/edge graph (de-redundancy, data-class classification, cross-ref resolution). Verified by char-coverage conservation, schema, reference integrity, idempotence, **differential oracle vs LaTeXML HTML (0.85 recall)**. |
+| **B** | [`concept_graph/`](concept_graph) | Lifts structure into the **(object, attribute, relation)** representation + a reasoning DAG + SME bridge. |
+| **C** | [`matcher/`](matcher), [`analogy/`](analogy) | MAC content-vector retrieval + linchpin **renaming-invariance**; SME structural alignment + candidate-inference **novelty detector** (recovers the textbook solar→atom mapping). |
+| **D** | [`grounding/`](grounding) | Prose→dgroup **grounding gate** (every symbol a verbatim source substring); solves 4 riddles; Banach/discrimination cases on real math. |
+| **E–G** | [`retrieval/`](retrieval), `analogy/` | Library-scale **MAC/FAC** nearest-prior retrieval; full-proof **set-cover** decomposition (novel residual); deeper SME (minimal ascension, skolem penalty). |
+| **H–J** | `decomposer/`, `analogy/`, `retrieval/` | HTML-native ingestion + cross-path differential; trickle-down systematicity; **SimHash-LSH ANN** for MAC at scale (<1% examined). |
+| **K–L** | `retrieval/`, `grounding/` | Real paper end-to-end (**arXiv 2006.06138** → residual COUNTERFACTUAL+NESTED); multi-result **reasoning lineage** DAG. |
+| **M** | [`graph/`](graph) | The end-goal package: one unified graph — entity/fact/functor/result nodes, **reified facts** (n-ary + nested CAUSE, lossless), JSONL persistence; questions become traversals. |
+| **N–O** | `graph/` | **Cross-domain analogy** edges (a second literature); the role ascension is **discovered unsupervised** from CAUSE structure across a third literature → *weighted-conformal ~~ Banach ~~ VC-generalization*. |
+| **P–Q** | `graph/` | **Analogical conjecture transfer** ("the conformal procedure has a fixed point"); an in-session sub-agent **judges** each conjecture, gated deterministically. |
+| **R–S** | `graph/` | **Capstone driver** (the whole chain as one command + one graph) and a **query DSL** (path / shared-ancestor / explain-analogy / conjecture lookup). |
 
 ## Run the whole thing
 
 ```bash
-cd decomposer && python3 -m venv .venv && . .venv/bin/activate && pip install -r requirements.txt && cd ..
-export SOURCE_DATE_EPOCH=1735689600   # reproducible artifacts
-PYTHONPATH=decomposer/src     python -m decomposer.cli       # A: 4 docs -> runs/
-PYTHONPATH=concept_graph/src  python -m concept_graph.cli    # B: -> concept_graph/graphs/
-PYTHONPATH=matcher/src:concept_graph/src python -m matcher.cli   # C·MAC: retrieval + invariance
-PYTHONPATH=analogy/src        python -m analogy.cli          # C·FAC: solar->atom + corpus pair
-# all tests, all epics:
-PYTHONPATH=decomposer/src:concept_graph/src:matcher/src:analogy/src \
-  python -m pytest decomposer/tests concept_graph/tests matcher/tests analogy/tests -q
+make setup        # one venv, pinned deps
+make pipeline     # the capstone: ingest 3 literatures -> analogies -> conjectures -> verdicts
+make query        # interrogate the unified graph
+make test         # all 149 tests across every epic
 ```
+
+The front-end stages (decompose → ground) run via `make run`; each package's README has its
+own runnable demos and `PYTHONPATH` one-liners.
 
 ## How it's built (governance)
 
@@ -88,11 +93,31 @@ library- and proof-scale, and the engine itself is deepened:
 | **proof decomposition** (`retrieval.decompose`) | *depth*: explain a **full proof as a composition** of known theorems (greedy set-cover, MDL) | Q1 proof = Banach + strong-convexity + Kantorovich–Rubinstein, with the ε-sensitivity assumption + iteration bound as the **novel residual** |
 | **deeper SME** (`analogy.align`) | *depth*: **minimal ascension** (near-synonym predicates align via a type lattice) + **skolem-penalized** inferences (opt-in) | `MINIMIZE`≈`OPTIMIZE` now align; defaults unchanged |
 
-**67 tests · 8 CI workflows · all green · reproducible · $0 marginal API cost.**
+**149 tests · 8 CI workflows · all green · reproducible · $0 marginal API cost.**
+
+## The closed loop (graph layer)
+
+The graph layer (M–S) is where the project's thesis lands: one unified graph over **three
+literatures** (conformal prediction, optimization, learning theory) that the system reasons
+over end to end. `make pipeline` prints it in one pass:
+
+| Stage | What it does | Result |
+|---|---|---|
+| **unify** (`graphstore.pipeline`) | one (object, attribute, relation) graph, reified facts | 197 nodes, 367 edges, every fact losslessly reconstructable |
+| **lineage** | recover each field's development line | `split → weighted → counterfactual` conformal; analogous chains in optimization & learning |
+| **analogy** (`crossdomain`, `multidomain`) | discover cross-domain analogies, **roles read from CAUSE structure, unsupervised** | *weighted-exchangeability : coverage :: contraction : convergence :: uniform-convergence : generalization* — zero hand-coded knowledge |
+| **transfer** (`transfer`) | project candidate inferences as conjectures | *"by analogy with Banach, the conformal procedure has a **fixed point**"* (an invented object) |
+| **evaluate** (`evaluate`) | an in-session sub-agent judges each conjecture; a deterministic gate validates + grounds the verdict | fixed-point conjecture **plausible** (recovers conformal self-consistency); a capacity conjecture **implausible** (conformal is distribution-free) |
+| **query** (`dsl`) | interrogate the graph | one path runs from a conformal theorem through the analogy web into a learning-theory result |
+
+So the system doesn't just detect novelty — it **situates a result among its priors, finds
+what it's structurally analogous to in another field, predicts what that analogy implies, and
+tells the sound predictions from the spurious** — with every step grounded and CI-gated.
 
 ## Frontier
 
-The system is complete, validated, and generalized in breadth and depth. Remaining work is
-**scale and ingestion** — an ANN index for the MAC stage at true corpus scale, more
-format adapters (HTML-native, PDF), and a larger theorem library — each plugging into the
-existing loader / grounding-gate / aligner / retrieval path without new design.
+The discover → predict → evaluate loop is complete and queryable. Remaining work is **scale and
+breadth** — more literatures and a second real paper end-to-end (the unsupervised role
+discovery and analogy machinery already generalize with no new design), richer ingestion (PDF),
+and feeding high-value novel conjectures back to a sub-agent for literature search — each
+plugging into the existing grounded-graph path.
