@@ -48,19 +48,25 @@ def main(argv=None) -> int:
     (out / "real_paper.json").write_text(
         json.dumps(res, sort_keys=True, ensure_ascii=False, indent=2) + "\n", encoding="utf-8")
 
+    mac = ", ".join(f"{n} {round(s, 3)}" for n, s in ret["mac_ranking"])
     print(f"paper '{dec['target']}' ({dec['n_facts']} facts) — arXiv 2006.06138")
-    print("  MAC ranking:", [(n, round(s, 3)) for n, s in ret["mac_ranking"]])
+    print(f"  MAC ranking: {mac}")
     print(f"  nearest prior: {ret['nearest_prior']} (novelty {ret['nearest_novelty']})")
     print(f"  verdict: {ret['verdict']}")
-    print(f"  = composition of known theorems: {dec['covering_priors']}")
+    print(f"  = composition of known theorems: {', '.join(dec['covering_priors'])}")
     print(f"  covered {dec['covered_facts']}/{dec['n_facts']} ({dec['coverage_fraction']})")
-    print(f"  novel contributions (residual): {dec['novel_contributions']}")
+    print(f"  novel contributions (residual): {', '.join(dec['novel_contributions'])}")
 
-    # sanity: the residual must be the paper's actual contribution, not borrowed machinery
+    # sanity: the residual must be the paper's actual contribution, not borrowed machinery.
+    # Explicit raise (not assert) so the CI gate holds even under `python -O`.
     novel = dec["novel_contributions"]
-    assert ret["nearest_prior"] == "weighted_conformal", ret["nearest_prior"]
-    assert any(s.startswith("COUNTERFACTUAL") for s in novel), novel
-    assert any(s.startswith("NESTED") for s in novel), novel
+    for ok, msg in [
+        (ret["nearest_prior"] == "weighted_conformal", f"nearest prior is {ret['nearest_prior']}"),
+        (any(s.startswith("COUNTERFACTUAL") for s in novel), f"no COUNTERFACTUAL residual: {novel}"),
+        (any(s.startswith("NESTED") for s in novel), f"no NESTED residual: {novel}"),
+    ]:
+        if not ok:
+            raise SystemExit(f"real-paper invariant violated: {msg}")
     return 0
 
 

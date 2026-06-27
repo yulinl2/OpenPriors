@@ -96,10 +96,10 @@ shift**, importance weighting).
 
 ```
 paper 'arxiv-2006.06138-main' (9 facts) — arXiv 2006.06138
-  MAC ranking: [('weighted_conformal', 0.959), ('split_conformal', 0.443), ('importance_weighting', 0.4)]
+  MAC ranking: weighted_conformal 0.959, split_conformal 0.443, importance_weighting 0.4
   nearest prior: weighted_conformal (novelty 0.2222)
   verdict: extends weighted_conformal with new structure (partial reuse)
-  = composition of known theorems: ['weighted_conformal']
+  = composition of known theorems: weighted_conformal
   covered 7/9 (0.7778)
   novel contributions (residual): COUNTERFACTUAL(the_interval, the_counterfactual), NESTED(the_interval, the_ite)
 ```
