@@ -170,6 +170,38 @@ genuinely different fields the conjectures are predictions, not recoveries — a
 PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.transfer_cli
 ```
 
+## Closing the loop: conjecture evaluation (`graphstore.evaluate`, Epic Q)
+
+Generating conjectures is only useful if you can tell the good ones from the bad. This stage
+closes the loop **discover → predict → evaluate**: the conjectures from `transfer` are judged
+for plausibility by an **in-session Claude Code sub-agent** acting as a skeptical ML-theory
+expert (no API call — the project's NLP/judgment steps run on in-session sub-agents). The
+judgment is committed as `graph/evaluations/conjecture_evaluations.json`, and
+`graphstore.evaluate` is the **deterministic gate** over it (the same discipline `grounding`
+applies to sub-agent prose): it checks the artifact is well-formed *and* that every evaluated
+conjecture's `projection` is one the `transfer` pipeline actually generates, so a judgment can
+never drift from the system's real output.
+
+```
+conjecture evaluation loop: 4 conjectures judged by an in-session sub-agent
+  verdicts: {'plausible': 1, 'uncertain': 2, 'implausible': 1}
+  all grounded in real transfer output: 4/4
+  [plausible  ] C1: the conformal procedure has a fixed point  ~ full conformal self-consistency (Vovk et al.)
+  [implausible] C3: finite capacity underlies conformal coverage  ~ conformal is distribution-free
+```
+
+The headline: the analogy `banach ~~ weighted_conformal` produced *"conformal prediction has a
+fixed point"*, and the judge found it **plausible** — it recovers full conformal prediction's
+**self-consistency** (a candidate label is included iff it stays non-extreme when added to the
+data: a genuine fixed-point condition). The same judge marked a capacity-control conjecture
+**implausible** because conformal coverage is *distribution-free* and needs no VC assumption.
+The system invents hypotheses **and discriminates the sound from the spurious** — and the gate
+is unit-tested to fail on a tampered or ungrounded judgment, so it can't rot into a no-op.
+
+```bash
+PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.evaluate
+```
+
 ## Extend
 
 Add any grounded dgroup (the `grounding` front end) to the corpus and it joins the graph with
