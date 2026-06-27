@@ -1,0 +1,44 @@
+{
+  "_provenance": {
+    "note": "A FOURTH literature (Epic U): martingale concentration inequalities (McDiarmid / Bernstein), lifted into grounded dgroups with the same higher-order CAUSE(premise -> guarantee) schema as the conformal, optimization, and learning corpora. Used to stress the unsupervised role-discovery and cross-domain analogy at greater scale: if the 'bounded-difference martingale' relation is discovered to play the SAME structural-property role (PC/2) as weighted-exchangeability / contraction / uniform-convergence with no new design, the analogy web extends to four fields automatically. Grounded; every symbol is a verbatim substring of its statement, checked by grounding.verify."
+  },
+  "mcdiarmid_concentration": {
+    "name": "mcdiarmid_concentration",
+    "text": "A function with bounded differences in each coordinate forms a bounded-difference martingale over the independent inputs, and that bounded-difference martingale drives a concentration inequality for the function around its mean deviation.",
+    "groundings": {
+      "the_func": "the function",
+      "the_inputs": "independent inputs",
+      "the_seq": "bounded-difference martingale",
+      "the_bound": "concentration inequality",
+      "the_dev": "mean deviation"
+    },
+    "facts": [
+      ["BOUNDED_DIFFERENCES", "the_func", "the_inputs"],
+      ["BOUNDED_MARTINGALE", "the_seq", "the_inputs"],
+      ["CONCENTRATION", "the_bound", "the_dev"],
+      ["CAUSE", ["BOUNDED_DIFFERENCES", "the_func", "the_inputs"], ["BOUNDED_MARTINGALE", "the_seq", "the_inputs"]],
+      ["CAUSE", ["BOUNDED_MARTINGALE", "the_seq", "the_inputs"], ["CONCENTRATION", "the_bound", "the_dev"]]
+    ]
+  },
+  "bernstein_concentration": {
+    "name": "bernstein_concentration",
+    "text": "Under a variance bound on the increments, a function with bounded differences in each coordinate forms a bounded-difference martingale over the independent inputs; the variance bound sharpens the bounded-difference martingale, which drives a concentration inequality for the function around its mean deviation.",
+    "groundings": {
+      "the_func": "the function",
+      "the_inputs": "independent inputs",
+      "the_seq": "bounded-difference martingale",
+      "the_bound": "concentration inequality",
+      "the_dev": "mean deviation",
+      "the_var": "variance bound"
+    },
+    "facts": [
+      ["VARIANCE_BOUND", "the_var", "the_inputs"],
+      ["BOUNDED_DIFFERENCES", "the_func", "the_inputs"],
+      ["BOUNDED_MARTINGALE", "the_seq", "the_inputs"],
+      ["CONCENTRATION", "the_bound", "the_dev"],
+      ["CAUSE", ["BOUNDED_DIFFERENCES", "the_func", "the_inputs"], ["BOUNDED_MARTINGALE", "the_seq", "the_inputs"]],
+      ["CAUSE", ["BOUNDED_MARTINGALE", "the_seq", "the_inputs"], ["CONCENTRATION", "the_bound", "the_dev"]],
+      ["CAUSE", ["VARIANCE_BOUND", "the_var", "the_inputs"], ["BOUNDED_MARTINGALE", "the_seq", "the_inputs"]]
+    ]
+  }
+}
