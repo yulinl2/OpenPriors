@@ -53,18 +53,23 @@ def discover_role_ascension(*corpora: dict[str, Dgroup]) -> dict:
     is_premise: dict = defaultdict(bool)
     is_conclusion: dict = defaultdict(bool)
     arity: dict = {}
+
+    def _record(side: dict, expr) -> None:
+        # CAUSE itself is the shared higher-order glue and must NEVER be ascended — otherwise
+        # (e.g. with a nested CAUSE-of-CAUSE) it would get a role token and could match a
+        # non-CAUSE functor of the same arity, corrupting alignment. Skip it explicitly.
+        if isinstance(expr, tuple) and functor(expr) != "CAUSE":
+            side[functor(expr)] = True
+            arity[functor(expr)] = len(args(expr))
+
     for corpus in corpora:
         for dg in corpus.values():
             for fact in dg.facts:
                 if functor(fact) != "CAUSE":
                     continue
                 premise, conclusion = args(fact)
-                if isinstance(premise, tuple):
-                    is_premise[functor(premise)] = True
-                    arity[functor(premise)] = len(args(premise))
-                if isinstance(conclusion, tuple):
-                    is_conclusion[functor(conclusion)] = True
-                    arity[functor(conclusion)] = len(args(conclusion))
+                _record(is_premise, premise)
+                _record(is_conclusion, conclusion)
     return {fn: f"ROLE::{'P' if is_premise[fn] else ''}{'C' if is_conclusion[fn] else ''}::{arity[fn]}"
             for fn in arity}
 

@@ -47,6 +47,16 @@ def test_discovered_roles_align_the_three_fields():
     assert asc["EXCHANGEABLE"] != asc["WEIGHTED_EXCHANGEABLE"]
 
 
+def test_cause_is_never_ascended_even_when_nested():
+    # a (hypothetical) corpus with a nested CAUSE-of-CAUSE must NOT give CAUSE a role token,
+    # or it could match a non-CAUSE functor of the same arity and corrupt alignment.
+    from analogy.predicates import Dgroup
+    inner = ("CAUSE", ("A", "x", "y"), ("B", "x", "y"))
+    nested = Dgroup("n", [["CAUSE", inner, ("C", "x", "y")]])
+    asc = discover_role_ascension({"n": nested})
+    assert "CAUSE" not in asc
+
+
 def test_discovered_ascension_reproduces_epic_n_analogy():
     asc = discover_role_ascension(CONF, OPT)
     ans = cross_domain_analogies(CONF, OPT, ascension=asc)
