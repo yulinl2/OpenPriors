@@ -1,0 +1,65 @@
+{
+  "_provenance": {
+    "note": "A small library of KNOWN theorems as grounded predicate-calculus description groups — the 'priors' a novelty detector retrieves against. Functor vocabulary is shared with the targets in grounding/dgroups/ so SME can align a target onto its nearest prior. Authored 2026-06-22; each symbol grounded to a verbatim substring of the theorem statement (checked by grounding/verify.py)."
+  },
+  "banach_fixed_point": {
+    "name": "banach-fixed-point",
+    "text": "Let (X,d) be a complete metric space and let T be a self-map on X that is a contraction: there is a constant k in [0,1) such that d(T(x),T(y)) <= k d(x,y) for all x,y in X. Then T has a unique fixed point x_star, and for any starting point x0 the iterates given by x_{n+1} = T(x_n) converge to x_star at a linear rate.",
+    "groundings": {
+      "the_space": "complete metric space",
+      "the_map": "self-map on X",
+      "k": "constant k in [0,1)",
+      "x_star": "unique fixed point x_star",
+      "x0": "starting point x0",
+      "the_seq": "iterates given by x_{n+1} = T(x_n)"
+    },
+    "facts": [
+      ["COMPLETE", "the_space"],
+      ["SELFMAP", "the_map", "the_space"],
+      ["CONTRACTION", "the_map"],
+      ["MODULUS", "the_map", "k"],
+      ["FIXEDPOINT", "the_map", "x_star"],
+      ["UNIQUE", "x_star"],
+      ["ITERATES", "the_seq", "the_map"],
+      ["CONVERGES", "the_seq", "x_star"],
+      ["LINEAR_RATE", "the_seq", "k"],
+      ["CAUSE", ["AND", ["CONTRACTION", "the_map"], ["COMPLETE", "the_space"]], ["AND", ["FIXEDPOINT", "the_map", "x_star"], ["CONVERGES", "the_seq", "x_star"]]]
+    ]
+  },
+  "m_estimator_clt": {
+    "name": "m-estimator-clt",
+    "text": "An M-estimator theta_hat computed from n i.i.d. samples is asymptotically normal: sqrt(n)(theta_hat - theta_star) converges in distribution to a Gaussian N(0, Sigma), where Sigma is the sandwich covariance H^{-1} V H^{-1} with H the Hessian of the population risk and V the covariance of the gradient.",
+    "groundings": {
+      "estimator": "M-estimator theta_hat",
+      "the_gaussian": "Gaussian N(0, Sigma)",
+      "sigma": "N(0, Sigma)",
+      "hessian": "H the Hessian",
+      "grad_cov": "V the covariance of the gradient"
+    },
+    "facts": [
+      ["ESTIMATOR", "estimator"],
+      ["CLT", "estimator", "the_gaussian"],
+      ["GAUSSIAN", "the_gaussian", "sigma"],
+      ["SANDWICH", "sigma", "hessian", "grad_cov"],
+      ["CAUSE", ["AND", ["ESTIMATOR", "estimator"], ["SANDWICH", "sigma", "hessian", "grad_cov"]], ["CLT", "estimator", "the_gaussian"]]
+    ]
+  },
+  "cauchy_schwarz": {
+    "name": "cauchy-schwarz",
+    "text": "For vectors u and v in an inner product space, the absolute value of the inner product is bounded by the product of the norms: |<u,v>| <= ||u|| ||v||, with equality if and only if u and v are linearly dependent.",
+    "groundings": {
+      "u": "vectors u",
+      "v": "v",
+      "the_ip": "inner product",
+      "norm_u": "||u||",
+      "norm_v": "||v||"
+    },
+    "facts": [
+      ["INNER_PRODUCT", "the_ip", "u", "v"],
+      ["NORM", "norm_u", "u"],
+      ["NORM", "norm_v", "v"],
+      ["ABS_BOUND", "the_ip", "norm_u", "norm_v"],
+      ["EQUALITY_IFF", "u", "v"]
+    ]
+  }
+}

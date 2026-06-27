@@ -1,0 +1,26 @@
+name: retrieval-ci
+
+# Verifies library-scale MAC/FAC novelty retrieval: the right prior is retrieved for each
+# target and reuse-vs-novelty is quantified. Pure-Python (analogy + grounding via PYTHONPATH).
+
+on:
+  push:
+    branches: ["**"]
+    paths: ["retrieval/**", "analogy/**", "grounding/**", ".github/workflows/retrieval-ci.yml"]
+  pull_request:
+    paths: ["retrieval/**", "analogy/**", "grounding/**", ".github/workflows/retrieval-ci.yml"]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pytest
+        run: python -m pip install --upgrade pip pytest
+      - name: Library-scale MAC/FAC retrieval
+        run: PYTHONPATH=retrieval/src:analogy/src python -m retrieval.cli
+      - name: Tests
+        run: PYTHONPATH=retrieval/src:analogy/src:grounding/src python -m pytest retrieval/tests -q

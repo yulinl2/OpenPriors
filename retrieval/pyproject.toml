@@ -1,0 +1,20 @@
+[project]
+name = "openpriors-retrieval"
+version = "0.1.0"
+description = "OpenPriors Epic E: library-scale MAC/FAC novelty retrieval — find the nearest known prior of a result (cheap content-vector MAC filter + SME/FAC rerank)."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = ["openpriors-analogy"]  # wire via PYTHONPATH in this monorepo
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+retrieval = "retrieval.cli:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
