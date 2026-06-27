@@ -29,5 +29,7 @@ jobs:
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.multidomain
       - name: Analogical inference transfer — generate conjectures (gates invariants)
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.transfer_cli
+      - name: Conjecture evaluation gate (deterministic check of the sub-agent judgment)
+        run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.evaluate
       - name: Tests
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m pytest graph/tests -q
