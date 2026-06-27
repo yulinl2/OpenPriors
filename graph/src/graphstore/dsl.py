@@ -108,6 +108,23 @@ def conjectures_with_verdicts(g: Graph, result: str) -> list[dict]:
     return sorted(out, key=lambda c: (c["verdict"] is None, -(c["confidence"] or 0)))
 
 
+def novelty_of(g: Graph, result: str) -> dict | None:
+    """The per-result novelty score + nearest prior recorded on a result node."""
+    n = g.nodes.get(f"result::{result}")
+    if n is None or "novelty" not in n.attrs:
+        return None
+    return {"result": result, "novelty": n.attrs["novelty"],
+            "nearest_prior": n.attrs.get("nearest_prior")}
+
+
+def most_novel(g: Graph, k: int = 3) -> list[dict]:
+    """The k results with the highest recorded novelty (ties broken by name)."""
+    scored = [{"result": n.label, "novelty": n.attrs["novelty"],
+               "nearest_prior": n.attrs.get("nearest_prior")}
+              for n in g.nodes_of_kind("result") if "novelty" in n.attrs]
+    return sorted(scored, key=lambda d: (-d["novelty"], d["result"]))[:k]
+
+
 def fmt_path(steps: list[dict]) -> str:
     if not steps:
         return "(no path)"

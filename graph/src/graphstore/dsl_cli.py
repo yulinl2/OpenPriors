@@ -5,7 +5,7 @@ from __future__ import annotations
 from pathlib import Path
 
 from .dsl import (conjectures_with_verdicts, explain_analogy, fmt_path, find,
-                  shared_ancestor, shortest_path)
+                  most_novel, novelty_of, shared_ancestor, shortest_path)
 from .pipeline import run_pipeline
 
 
@@ -36,6 +36,11 @@ def main(argv=None) -> int:
     for nid in find(g, "FIXEDPOINT"):
         print(f"   {nid}")
 
+    print(f"\nQ: how novel is the arXiv paper, and which results are most novel?")
+    nv = novelty_of(g, "arxiv-2006.06138-main")
+    print(f"   arxiv-2006.06138-main: novelty {nv['novelty']} vs {nv['nearest_prior']}")
+    print(f"   most novel: {[(m['result'], m['novelty']) for m in most_novel(g, 3)]}")
+
     # invariants (CI gate; explicit raise so it holds under `python -O`)
     checks = [
         (p and p[-1]["to"] == "result::vc_generalization" and any(
@@ -50,6 +55,9 @@ def main(argv=None) -> int:
          "weighted_conformal must carry a plausible-judged conjecture"),
         (shortest_path(g, "result::split_conformal", "missing::x") is None,
          "a path to a non-existent node is None, not an error"),
+        (novelty_of(g, "arxiv-2006.06138-main")["novelty"] < 0.3
+         and most_novel(g, 1)[0]["novelty"] == 1.0,
+         "novelty queries return the paper's low score and a base result as most novel"),
     ]
     for ok, msg in checks:
         if not ok:
