@@ -22,5 +22,7 @@ jobs:
         run: python -m pip install --upgrade pip pytest
       - name: Library-scale MAC/FAC retrieval
         run: PYTHONPATH=retrieval/src:analogy/src python -m retrieval.cli
+      - name: Multi-prior decomposition of a full proof
+        run: PYTHONPATH=retrieval/src:analogy/src python -m retrieval.decompose
       - name: Tests
         run: PYTHONPATH=retrieval/src:analogy/src:grounding/src python -m pytest retrieval/tests -q
