@@ -65,6 +65,8 @@ def test_confirmation_classifier_detects_existing_structure():
     assert _confirms(proj, ("BANACH_FIXEDPOINT", "cal_test", "the_fixedpoint"), None)
     assert not _confirms(proj, ("BANACH_FIXEDPOINT", "other", "the_fixedpoint"), None)
     assert not _confirms(proj, ("COVERAGE", "cal_test", "the_fixedpoint"), None)
+    # a skolem (an invented leaf object) must NOT wildcard-match a whole predicate sub-tree
+    assert not _confirms(("R", "a", "skolem:x"), ("R", "a", ("NESTED", "p", "q")), None)
 
 
 def test_a_confirmed_conjecture_when_target_already_has_the_structure():
@@ -78,7 +80,7 @@ def test_a_confirmed_conjecture_when_target_already_has_the_structure():
     assert rel and rel[0]["status"] == "confirmed"
 
 
-def test_conjectures_are_attached_to_the_graph():
+def test_conjectures_are_attached_to_the_graph(tmp_path):
     from graphstore.build import add_result
     g = Graph()
     add_result(g, "weighted_conformal", CONF["weighted_conformal"])
@@ -88,8 +90,6 @@ def test_conjectures_are_attached_to_the_graph():
     assert cnodes and all(n.attrs["source_base"] == "banach_contraction" for n in cnodes)
     edges = g.out_edges("result::weighted_conformal", "conjectures")
     assert len(edges) == len(conj)
-    # round-trips through JSONL
-    import tempfile
-    d = pathlib.Path(tempfile.mkdtemp())
-    g.save(d / "n.jsonl", d / "e.jsonl")
-    assert Graph.load(d / "n.jsonl", d / "e.jsonl").stats() == g.stats()
+    # round-trips through JSONL (pytest tmp_path is auto-cleaned)
+    g.save(tmp_path / "n.jsonl", tmp_path / "e.jsonl")
+    assert Graph.load(tmp_path / "n.jsonl", tmp_path / "e.jsonl").stats() == g.stats()

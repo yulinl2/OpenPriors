@@ -11,7 +11,6 @@ from __future__ import annotations
 
 from pathlib import Path
 
-from .crossdomain import discover_role_ascension
 from .model import Graph
 from .multidomain import build_multidomain_graph
 from .transfer import add_conjectures, transfer

@@ -35,6 +35,10 @@ def _confirms(projection, target_fact, ascension: dict | None) -> bool:
     """Does ``projection`` match an existing ``target_fact``, treating invented (skolem)
     entities as wildcards and functors under the role ascension?"""
     if is_entity(projection):
+        # an entity (incl. an invented skolem) can only correspond to a target ENTITY, never
+        # to a whole predicate sub-tree -- so a skolem wildcards over entities, not structure
+        if not is_entity(target_fact):
+            return False
         return _is_skolem(projection) or projection == target_fact
     if isinstance(projection, tuple) and isinstance(target_fact, tuple):
         if not _funcs_match(functor(projection), functor(target_fact), ascension) \
