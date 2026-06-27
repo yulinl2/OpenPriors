@@ -22,10 +22,12 @@ def test_trickle_default_is_backward_compatible():
 def test_trickle_rewards_systematicity_more_than_flat():
     sb, st = examples.systematic_pair()
     fb, ft = examples.flat_pair()
+    # concrete scores lock in the exact behavior (not just inequalities)
+    assert align(sb, st).score == 12.0 and align(sb, st, trickle=T).score == 15.5
+    assert align(fb, ft).score == 7.0 and align(fb, ft, trickle=T).score == 7.0
     d_sys = align(sb, st, trickle=T).score - align(sb, st).score
     d_flat = align(fb, ft, trickle=T).score - align(fb, ft).score
-    assert d_sys > 0                       # the systematic web gains from trickle-down
-    assert d_flat == 0                     # isolated relations gain nothing (no matched parent)
+    assert d_sys == 3.5 and d_flat == 0.0  # web gains; isolated relations gain nothing
     assert d_sys > d_flat                  # systematicity preferred
 
 

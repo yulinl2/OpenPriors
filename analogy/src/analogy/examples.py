@@ -68,7 +68,7 @@ def synonym_target() -> Dgroup:
 # Trickle-down systematicity demo: a deep relational web vs the same relations  #
 # in isolation. Trickle-down evidence should reward the former disproportionately.
 # --------------------------------------------------------------------------- #
-def _orbit(a: str, b: str, with_cause: bool):
+def _orbit(a: str, b: str, with_cause: bool) -> list:
     facts = [
         ("GREATER", ("MASS", a), ("MASS", b)),
         ("ATTRACTS", a, b),
@@ -81,13 +81,13 @@ def _orbit(a: str, b: str, with_cause: bool):
     return facts
 
 
-def systematic_pair():
+def systematic_pair() -> tuple[Dgroup, Dgroup]:
     """Base & target share a deep CAUSE over the relations (a systematic web)."""
     return (Dgroup("sys-A", _orbit("a", "b", with_cause=True)),
             Dgroup("sys-B", _orbit("c", "d", with_cause=True)))
 
 
-def flat_pair():
+def flat_pair() -> tuple[Dgroup, Dgroup]:
     """The same relations with NO higher-order CAUSE tying them together."""
     return (Dgroup("flat-A", _orbit("a", "b", with_cause=False)),
             Dgroup("flat-B", _orbit("c", "d", with_cause=False)))

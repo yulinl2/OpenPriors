@@ -110,10 +110,11 @@ def align(base: Dgroup, target: Dgroup, ascension: dict | None = None,
             score += 1.0 + mh.order            # systematicity weight: deeper => more
     mapping = {b: t for b, t in corrs}
 
-    # trickle-down evidence (notes §2, opt-in): a matched higher-order relation passes a
-    # fraction of its evidence to the matched sub-relations it contains, so structure deep
-    # inside a systematic web scores more than the same relations in isolation. Default 0.0
-    # keeps scores backward-compatible.
+    # trickle-down evidence (notes §2, opt-in): for every matched sub-relation that is
+    # *contained in* another matched expression, add ``trickle * (1 + order(sub))`` to the
+    # score. So a sub-relation also nested inside a matched higher-order relation accrues
+    # extra evidence, and structure deep inside a systematic web scores more than the same
+    # relations in isolation. Default 0.0 keeps scores backward-compatible.
     if trickle > 0:
         matched_reprs = {repr(e) for e in matched_b}
         for parent in matched_b:
