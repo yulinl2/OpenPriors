@@ -38,9 +38,10 @@ def test_skolem_penalty_lowers_inference_score():
         ("CAUSE", ("REL", "a", "b"), ("PROP", "c")),   # c has no target image -> skolem
     ])
     target = Dgroup("t", [("REL", "x", "y")])
-    g = align(base, target)
-    inf = g.candidate_inferences[0]
-    assert inf["n_skolems"] == 1
-    assert "skolem:c" in inf["projection"]
-    # score = 2*anchored(1) + overlap(2) - skolems(1) = 3 ; without the penalty it would be 4
-    assert inf["score"] == 3.0
+    # default (skolem_penalty=0.0) is backward-compatible: skolems counted but NOT penalized
+    default = align(base, target).candidate_inferences[0]
+    assert default["n_skolems"] == 1 and "skolem:c" in default["projection"]
+    assert default["score"] == 4.0                       # 2*anchored(1) + overlap(2) - 0
+    # opt-in penalty lowers the score
+    penalized = align(base, target, skolem_penalty=1.0).candidate_inferences[0]
+    assert penalized["score"] == 3.0                     # 4 - 1*skolems(1)

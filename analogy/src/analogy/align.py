@@ -97,7 +97,8 @@ def _project(expr, mapping: dict):
     return (functor(expr),) + tuple(_project(a, mapping) for a in args(expr))
 
 
-def align(base: Dgroup, target: Dgroup, ascension: dict | None = None) -> Gmap:
+def align(base: Dgroup, target: Dgroup, ascension: dict | None = None,
+          skolem_penalty: float = 0.0) -> Gmap:
     mhs = sorted(match_hypotheses(base, target, ascension), key=lambda m: -m.order)  # deep first
     corrs: set = set()
     matched_b, matched_t, score = [], [], 0.0
@@ -119,8 +120,9 @@ def align(base: Dgroup, target: Dgroup, ascension: dict | None = None) -> Gmap:
         ent_overlap = len([e for e in _ent(fact) if e in mapping])
         if anchored > 0 or ent_overlap > 0:
             projection = _project(fact, mapping)
-            # skolem penalty (notes §6): projecting an arg with no target image invents a
-            # new ("skolem") entity -> a weaker inference. score = 2*anchored + overlap - skolems
+            # skolem count (notes §6): projecting an arg with no target image invents a new
+            # ("skolem") entity -> a weaker inference. Reported always; penalized in the score
+            # only when skolem_penalty>0 (default 0.0 keeps scores backward-compatible).
             n_skolems = sum(1 for e in _ent(projection) if str(e).startswith("skolem:"))
             inferences.append({
                 "base_fact": _fmt(fact),
@@ -128,7 +130,7 @@ def align(base: Dgroup, target: Dgroup, ascension: dict | None = None) -> Gmap:
                 "anchored_submatches": anchored,
                 "entity_overlap": ent_overlap,
                 "n_skolems": n_skolems,
-                "score": round(anchored * 2.0 + ent_overlap - 1.0 * n_skolems, 3),
+                "score": round(anchored * 2.0 + ent_overlap - skolem_penalty * n_skolems, 3),
             })
     inferences.sort(key=lambda d: -d["score"])
     return Gmap(mapping, matched_b, matched_t, round(score, 3), inferences)

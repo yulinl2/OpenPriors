@@ -59,8 +59,9 @@ Two refinements toward the full SME, both opt-in / backward-compatible:
   near-synonym pair, strict matching recovers only the identical predicate (`{loss:cost}`)
   while ascension recovers the full mapping (`{loss:cost, agent:system, time:step}`).
 - **Skolem-penalized candidate inferences** (notes §6) — projecting a base fact whose argument
-  has no target image invents a new ("skolem") entity, a weaker inference; the inference score
-  is now `2·anchored + overlap − skolems`, so skolem-heavy projections are ranked lower.
+  has no target image invents a new ("skolem") entity, a weaker inference. `n_skolems` is always
+  reported, but the score subtracts it only under the opt-in `align(..., skolem_penalty=γ)`
+  (default `0.0` keeps scores backward-compatible): `2·anchored + overlap − γ·skolems`.
 
 ## Where this sits
 
