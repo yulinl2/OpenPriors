@@ -68,7 +68,7 @@ def _principles_for(adapter: str) -> list[dict]:
          "target": "single-rooted acyclic tree; dangling refs = 0",
          "verifier": "check_acyclic_tree + check_unique_ids + check_reference_integrity"},
     ]
-    if adapter == "latex":
+    if adapter in ("latex", "html"):
         common.append({"principle": "P5", "question": "task-specific (exam/paper)",
                        "conserved": "statement/answer-key separability; bib identity",
                        "target": "answer_key & problem_statement distinct subtrees; bib_reference per \\bibitem",
@@ -123,11 +123,16 @@ def run_document(cfg: dict, corpus_root: Path, runs_root: Path) -> Decomposition
 
     # ---------- Step 20: NORMALIZE (de-redundancy) ---------- P2
     adapter_name = cfg["adapter"]
+    main_path = (corpus_root / slug / cfg["main"]).resolve()
     if adapter_name == "latex":
-        norm, raw = latex_adapter.normalize(corpus_root / slug / cfg["main"])
+        norm, raw = latex_adapter.normalize(main_path)
         normalize_text = lambda t: latex_adapter.normalize_text(t, norm.macros).text
+    elif adapter_name == "html":
+        from .adapters import html as html_adapter
+        norm, raw = html_adapter.normalize(main_path)
+        normalize_text = lambda t: html_adapter.normalize_text(t)
     else:
-        norm, raw = md_adapter.normalize(corpus_root / slug / cfg["main"])
+        norm, raw = md_adapter.normalize(main_path)
         normalize_text = lambda t: md_adapter.normalize_text(t).text
 
     norm_dir = run_dir / "step-20-normalize"
@@ -152,6 +157,9 @@ def run_document(cfg: dict, corpus_root: Path, runs_root: Path) -> Decomposition
             bp = corpus_root / slug / cfg["bbl"]
             bbl_text = bp.read_text(encoding="utf-8") if bp.exists() else None
         root, edges = latex_adapter.extract(norm.text, slug, slug, bbl_text=bbl_text)
+    elif adapter_name == "html":
+        from .adapters import html as html_adapter
+        root, edges = html_adapter.extract(raw, norm.text, slug, slug)
     else:
         root, edges = md_adapter.extract(norm.text, slug, slug)
 
