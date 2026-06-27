@@ -31,5 +31,7 @@ jobs:
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.transfer_cli
       - name: Conjecture evaluation gate (deterministic check of the sub-agent judgment)
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.evaluate
+      - name: End-to-end pipeline (capstone — ingest→lineage→analogy→transfer→evaluate)
+        run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.pipeline
       - name: Tests
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m pytest graph/tests -q
