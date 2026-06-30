@@ -1,0 +1,195 @@
+\section{From Point Estimates To Interval Estimates}
+\label{sec:setup}
+\subsection{Problem setup}
+Throughout the paper we focus on the potential outcome framework
+\citep{neyman1923application, rubin1974estimating} with a binary
+treatment. Extensions to other causal inference frameworks are
+discussed in Section \ref{sec:extension}. Given $n$ subjects, denote
+by $T_{i}\in \{0, 1\}$ the binary treatment indicator, by
+$(Y_{i}(1), Y_{i}(0))$ the pair of potential outcomes and by $X_{i}$
+the vector of other covariates. We assume that
+\[(Y_{i}(1), Y_{i}(0), T_{i}, X_{i})\stackrel{i.i.d.}{\sim}(Y(1), Y(0), T, X),\]
+where $(Y(1), Y(0), T, X)$ denotes a generic random vector. Under the
+{\em stable unit treatment value assumption} (SUTVA) commonly assumed
+in the literature \citep{rubin1990formal}, the observed dataset comprises triples $(Y_{i}^{\obs}, T_{i}, X_{i})$ where
+\[Y_{i}^{\obs} = \begin{cases} Y_{i}(1), & T_{i} = 1,\\
+ Y_{i}(0), & T_i = 0.\end{cases} 
+\]
+The individual treatment effect $\tau_{i}$ is defined as
+\begin{equation}
+\label{eq:ITE}
+\tau_{i} \triangleq  Y_{i}(1) - Y_{i}(0).
+\end{equation}
+By definition, only one potential outcome is observed for every unit while the other is missing. Therefore, the ITE are unobserved and have to be inferred. Throughout the paper we assume the strong ignorability:
+\begin{equation}
+  \label{eq:ignorability}
+  (Y(1), Y(0)) \indep T \mid X.
+\end{equation}
+Strong ignorability rules out any source of unmeasured confounders,
+which affect both the treatment assignment and the potential
+outcomes. Under this assumption, the treatment assignment is purely
+randomized conditional on any covariate values. Although ignorability
+is a strong assumption, it is a widely used starting point to
+formulate statistical theory and methodology \citep{rubin1978bayesian, rosenbaum1983central, imbens2015causal}. % \ejc{Please cite a
+  % couple of authoritative references here.}
+% In absence of \eqref{eq:ignorability}, there are other strategies,
+% such as sensitivity analysis \citep[e.g.][]{zhao2019sensitivity},
+% allowing for partial violation of strong ignorability. The extension
+% of our method to these strategies are discussed in Section
+% \ref{sec:counterfactual}.
+
+\subsection{Traditional inferential targets}
+As mentioned earlier, existing methods mostly focus on CATE, defined
+as
+\begin{equation}
+  \label{eq:CATE}
+  \tau(x) \triangleq \E [Y(1) - Y(0) \mid X = x].
+\end{equation}
+The CATE function $\tau(\cdot)$ can be expressed as
+$\tau(x) = m_{1}(x) - m_{0}(x)$, where
+\[
+m_{1}(x) = \E [Y(1) \mid X = x] \, \text{ and } \,  m_{0}(x) = \E [Y(0) \mid X =
+x].
+\]
+It is standard in the literature to impose modeling restrictions on
+$m_{1}(x)$ and $m_{0}(x)$ (or equivalently $\tau(x)$ and $m_{0}(x)$)
+and estimate these functions using parametric or nonparametric
+techniques. Under the strong ignorability assumption, a standard
+argument shows that
+\[m_{1}(x) = \E [Y^{\obs} \mid X = x, T = 1] \, \text{ and } \,
+  m_{0}(x) = \E [Y^{\obs} \mid X = x, T = 0].\] Thus, the estimation
+problem reduces to that of estimating certain conditional
+  expectations \citep[e.g.][]{nie2017quasi, foster2019orthogonal,
+    kennedy2020optimal}. However, drawing reliable confidence
+bands---which can be trusted in practice---from finite samples around
+estimates of possibly high-dimensional regression functions
+% estimates $\hat{m}_{1}(\cdot)$ and/or $\hat{m}_{0}(\cdot)$
+is delicate,
+to say the least.  As we will show later, many standard techniques,
+e.g. normal approximation and resampling techniques, may significantly
+underestimate the variability of such estimates.
+
+An alternative estimand is the conditional quantile treatment effect
+(CQTE), which happens to be less investigated in the literature
+\citep[e.g.][]{koenker1978regression, fort2016unconditional}. Instead of contrasting the mean
+functions $m_{1}(x)$ and $m_{0}(x)$, % CQTE contrasts the quantiles of
+% the distribution of $Y(1)$ and $Y(0)$ conditional on $X = x$.
+CQTE is defined as the difference between the $\beta$-th quantiles of
+the distributions of $Y(1)$ and $Y(0)$ conditional on $X = x$ for a
+given $\beta$ of interest. 
+% \ejc{I
+%   would give a short definition of CQTE.} \lihua{A formal definition
+%   would require more notation on quantiles so I just used a verbal
+%   description. } 
+CQTE is to be distinguished from the quantiles of
+$Y(1) - Y(0)$; they are not the same at all!
+% which measures the conditional variability of ITE, without
+% unverifiable assumptions on the joint distribution of two potential
+% outcomes.
+It turns out that the conditional quantiles of ITE are unidentifiable
+in general since they involve the joint distribution of $(Y(0), Y(1))$
+and that we can never observe joint outcomes.  Furthermore, the
+difficulties associated with uncertainty quantification
+persist.
+ 
+\subsection{Coverage of interval estimates}
+In this work, we take counterfactuals $(Y_{i}(1), Y_{i}(0))$'s and the
+ITE $\tau_{i}$'s as objects of inference, and attempt to construct
+prediction intervals covering these random variables. Taking the
+potential outcome $Y(1)$ as an example, we wish to construct intervals
+$\hat{C}_{1}(x)$, which depend on the location in covariate space,  and
+obey
+\begin{equation}
+  \label{eq:coverage}
+  \P(Y(1) \in \hat{C}_{1}(X))\ge 1 - \alpha,
+\end{equation}
+for a pre-specified level $\alpha$. 
+% \eqref{eq:coverage} can be equivalently formulated as
+% \begin{equation}
+%   \label{eq:coverage_equivalent}
+%   \E_{X}\E_{Y(1)\mid X}I(Y(1)\not \in \hat{C}_{1}(X))\le \alpha.
+% \end{equation}
+% The indicator function inside the expectation is essentially a $0-1$
+% loss for an interval estimate and thus a reasonable loss function
+% for $\hat{C}_{1}(X)$.  
+% \ejc{I don't like the notation $C_\tau$ and am changing it. Can you
+%   please see it that the change is implemented throughout?} 
+Similarly, we seek $\hat{C}_{0}(x)$ for $Y(0)$ and $\CITE(x)$
+for $Y(1) - Y(0)$ obeying marginal coverage in the same sense, i.e.
+\begin{equation}
+  \label{eq:covITE}
+   \P(Y(1) - Y(0) \in \CITE(X))\ge 1 - \alpha. 
+\end{equation}
+
+If we had perfect knowledge of the the quantiles $q_{\beta}(x)$ of
+$Y(1)$ given $X = x$ for each $\beta\in (0, 1)$, then the oracle
+estimate, 
+\[
+{C}_{1}(x) = [q_{\alpha / 2}(x), q_{1 - \alpha / 2}(x)],
+\]
+would automatically satisfy \eqref{eq:coverage}. This is arguably the
+best prediction interval one could produce. In addition, coverage
+would hold conditionally on $X = x$. In reality, conditional quantiles may
+be hard to estimate due to the limited effective sample size and
+imperfect model knowledge. In this case, substituting the true
+quantiles in $C_1(x)$ with estimates may fail to yield valid coverage.
+
+A typical objection to the criterion \eqref{eq:coverage} is that it
+only controls coverage in an average (marginal) sense---just as the
+root mean squared error (RMSE) measures {\em average}
+performance. Admittedly, it does not say much about the validity of
+the predicted range for a patient with {\em this} $x$.
+% In fact, the mean square error
+% (MSE) metric that is widely used for point estimates is also
+% unconditional. For instance, to evaluate an estimate $\hat{m}_{1}(x)$
+% of $m_{1}(x)$, the MSE can be written as
+% $\E_{X}\E_{Y(1)\mid X}(\hat{m}_{1}(X) - m_{1}(X))^{2}$. This has the
+% same form as \eqref{eq:coverage_equivalent}. 
+Without modeling assumptions, it is known to be impossible to
+construct non-trivial prediction intervals with {\em guaranteed}
+conditional coverage \citep{barber2019limits}. This does not mean that
+conditional coverage cannot be achieved in any particular application;
+in fact, we make conditional coverage a focus point of this work and
+demonstrate reasonable approximations.
+
+% Therefore, we may seek other types of intervals to meet the requirement \eqref{eq:coverage}. From this perspective, our interval estimates are more flexible than the quantile estimates.
+
+\subsection{General coverage criteria}\label{subsec:general_criterion}
+In classical causal inference, it is often argued that the average
+treatment effect on the treated (ATT), defined as
+$\E [Y(1) - Y(0)\mid T = 1]$, is preferrable to the average
+treatment effect (ATE), defined as $\E [Y(1) - Y(0)]$, % because the
+% treatment effect for treated units is more important than that for
+% control units. Analogously, in such settings, the coverage of treated
+% units is arguably more important than that of control units.
+because it is often more plausible to remove treatment from treated units than to assign treatment to control units. Theoretically, the identification of ATT is strictly easier than ATE since the former requires a weaker assumption on the propensity scores \citep[e.g.][]{imbens2015causal}. 
+The criterion \eqref{eq:coverage} can be then modified as
+\begin{equation}
+  \label{eq:coverage_ATT}
+  \P(Y(t) \in \hat{C}_{t}(X) \mid T = 1)\ge 1 - \alpha, \quad (t = 0, 1).
+\end{equation}
+Compared to \eqref{eq:coverage}, \eqref{eq:coverage_ATT} substitutes
+the marginal distribution of $X$ with the conditional distribution of
+$X$ given $T = 1$ (recall that we operate under the strong
+ignorability assumption). Similarly we may consider the counterpart of
+the average treatment effect on the controls (ATC) by conditioning on
+$T = 0$. These considerations motivate the following general
+criterion:
+\begin{equation}
+  \label{eq:coverage_general}
+    \P_{(X, Y(t))\sim Q_{X}\times P_{Y(t)\mid X}}(Y(t) \in \hat{C}_{t}(X))\ge 1 - \alpha, \quad (t = 0, 1).
+  \end{equation}
+  For instance, \eqref{eq:coverage_ATT} is a special case with
+  $Q_{X} = P_{X\mid T = 1}$. The general formulation
+  \eqref{eq:coverage_general} is useful when the study population
+  differs from the target population. In this case, $Q_{X}$ can be
+  chosen to be the covariate distribution in the target
+  population. Inference on ATE and CATE in this setting has been a
+  subject of much recent research, and is known under the name of
+  generalizability, or transportability, or external validity
+  \citep[e.g.][]{tipton2013improving, pearl2014external}.
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: "intro"
+%%% End:

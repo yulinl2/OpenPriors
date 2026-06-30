@@ -1,0 +1,85 @@
+# Problem Review Sidecar
+
+Keep this file paired with the matching `problem_NN.tex` public artifact.
+
+## Problem Metadata
+
+- Title:
+- Contributor:
+- Folder:
+- Problem slot:
+- Current stage: `Stage 1`
+- Current status: `Draft`
+
+## Question Tags
+
+- Question type:
+- Challenged capability:
+- Sub-field:
+- Verification method:
+- Observed failure mode:
+
+## Oracle and Verification Notes
+
+- Why the reference solution is correct:
+- Deterministic verifier or evaluation schema:
+- Known edge cases or acceptable variants:
+
+## Five Sample Model Responses
+
+Paste raw markdown text, not screenshots. Label each response with model, provider, and harness, and mix at least two providers when possible.
+
+### Response 1
+
+- Model:
+- Prompt or harness notes:
+
+```text
+PASTE RESPONSE HERE
+```
+
+### Response 2
+
+- Model:
+- Prompt or harness notes:
+
+```text
+PASTE RESPONSE HERE
+```
+
+### Response 3
+
+- Model:
+- Prompt or harness notes:
+
+```text
+PASTE RESPONSE HERE
+```
+
+### Response 4
+
+- Model:
+- Prompt or harness notes:
+
+```text
+PASTE RESPONSE HERE
+```
+
+### Response 5
+
+- Model:
+- Prompt or harness notes:
+
+```text
+PASTE RESPONSE HERE
+```
+
+## Failure-Mode Summary
+
+Describe the pattern across the five responses, what they got wrong, the hypothesized mechanism, any near-misses or partial successes, and why this exposes a meaningful model weakness.
+
+## Reviewer Notes
+
+- Collision or duplication risk:
+- Questions for Stage 1 reviewers:
+- Suggested next action:

@@ -1,0 +1,270 @@
+{
+  "document": {
+    "attrs": {
+      "adapter": "markdown"
+    },
+    "children": [
+      {
+        "attrs": {
+          "kind": "riddle"
+        },
+        "children": [
+          {
+            "attrs": {
+              "kind": "source_analog"
+            },
+            "children": [],
+            "content_sha256": "sha256:1d5d5d7a8d446315",
+            "depth": 2,
+            "id": "sample-text-riddles/example.1/block.1",
+            "order": 0,
+            "role": "narrate",
+            "span": {
+              "end": 165,
+              "start": 0
+            },
+            "text": "Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that each person spent 100 dollars on the job.",
+            "type": "block"
+          },
+          {
+            "attrs": {
+              "kind": "target_analog"
+            },
+            "children": [],
+            "content_sha256": "sha256:3e956e9a63c185b3",
+            "depth": 2,
+            "id": "sample-text-riddles/example.1/paragraph.1",
+            "order": 1,
+            "role": "narrate",
+            "span": {
+              "end": 318,
+              "start": 167
+            },
+            "text": "Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that each person spent ___ on the job.",
+            "type": "paragraph"
+          }
+        ],
+        "depth": 1,
+        "id": "sample-text-riddles/example.1",
+        "order": 0,
+        "role": "exemplify",
+        "span": {
+          "end": 318,
+          "start": 0
+        },
+        "title": "riddle 1",
+        "type": "example"
+      },
+      {
+        "attrs": {
+          "kind": "riddle"
+        },
+        "children": [
+          {
+            "attrs": {
+              "kind": "source_analog"
+            },
+            "children": [],
+            "content_sha256": "sha256:69c3b3df93acaa33",
+            "depth": 2,
+            "id": "sample-text-riddles/example.2/block.2",
+            "order": 0,
+            "role": "narrate",
+            "span": {
+              "end": 497,
+              "start": 323
+            },
+            "text": "Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that it took each person 100 dollars to finish the job.",
+            "type": "block"
+          },
+          {
+            "attrs": {
+              "kind": "target_analog"
+            },
+            "children": [],
+            "content_sha256": "sha256:cba7132ca197b5b5",
+            "depth": 2,
+            "id": "sample-text-riddles/example.2/paragraph.2",
+            "order": 1,
+            "role": "narrate",
+            "span": {
+              "end": 659,
+              "start": 499
+            },
+            "text": "Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that it took each person ___ to finish the job.",
+            "type": "paragraph"
+          }
+        ],
+        "depth": 1,
+        "id": "sample-text-riddles/example.2",
+        "order": 1,
+        "role": "exemplify",
+        "span": {
+          "end": 659,
+          "start": 323
+        },
+        "title": "riddle 2",
+        "type": "example"
+      },
+      {
+        "attrs": {
+          "kind": "riddle"
+        },
+        "children": [
+          {
+            "attrs": {
+              "kind": "source_analog"
+            },
+            "children": [],
+            "content_sha256": "sha256:090ce890bac8ce08",
+            "depth": 2,
+            "id": "sample-text-riddles/example.3/block.3",
+            "order": 0,
+            "role": "narrate",
+            "span": {
+              "end": 843,
+              "start": 664
+            },
+            "text": "Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that it took each person 300 dollars to finish the same job.",
+            "type": "block"
+          },
+          {
+            "attrs": {
+              "kind": "target_analog"
+            },
+            "children": [],
+            "content_sha256": "sha256:6235705a95e2bfe7",
+            "depth": 2,
+            "id": "sample-text-riddles/example.3/paragraph.3",
+            "order": 1,
+            "role": "narrate",
+            "span": {
+              "end": 1010,
+              "start": 845
+            },
+            "text": "Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that it took each person ___ to finish the same job.",
+            "type": "paragraph"
+          }
+        ],
+        "depth": 1,
+        "id": "sample-text-riddles/example.3",
+        "order": 2,
+        "role": "exemplify",
+        "span": {
+          "end": 1010,
+          "start": 664
+        },
+        "title": "riddle 3",
+        "type": "example"
+      },
+      {
+        "attrs": {
+          "kind": "riddle"
+        },
+        "children": [
+          {
+            "attrs": {
+              "kind": "source_analog"
+            },
+            "children": [],
+            "content_sha256": "sha256:30d4d46a6c98115a",
+            "depth": 2,
+            "id": "sample-text-riddles/example.4/block.4",
+            "order": 0,
+            "role": "narrate",
+            "span": {
+              "end": 1193,
+              "start": 1015
+            },
+            "text": "Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that it took one person 300 dollars to finish the same job.",
+            "type": "block"
+          },
+          {
+            "attrs": {
+              "kind": "target_analog"
+            },
+            "children": [],
+            "content_sha256": "sha256:ac05ef3dca8da827",
+            "depth": 2,
+            "id": "sample-text-riddles/example.4/paragraph.4",
+            "order": 1,
+            "role": "narrate",
+            "span": {
+              "end": 1359,
+              "start": 1195
+            },
+            "text": "Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that it took one person ___ to finish the same job.",
+            "type": "paragraph"
+          }
+        ],
+        "depth": 1,
+        "id": "sample-text-riddles/example.4",
+        "order": 3,
+        "role": "exemplify",
+        "span": {
+          "end": 1359,
+          "start": 1015
+        },
+        "title": "riddle 4",
+        "type": "example"
+      }
+    ],
+    "depth": 0,
+    "id": "sample-text-riddles",
+    "order": 0,
+    "role": "segment",
+    "title": "sample-text-riddles",
+    "type": "document"
+  },
+  "edges": [],
+  "metrics": {
+    "classified_ratio": 0.6667,
+    "max_depth": 2,
+    "n_edges": 0,
+    "n_edges_resolved": 0,
+    "n_nodes": 13,
+    "role_counts": {
+      "exemplify": 4,
+      "narrate": 8,
+      "segment": 1
+    },
+    "type_counts": {
+      "block": 4,
+      "document": 1,
+      "example": 4,
+      "paragraph": 4
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "acyclic_tree": true,
+        "character_coverage": true,
+        "idempotent_normalization": true,
+        "reference_integrity": true,
+        "schema_valid": true,
+        "unique_ids": true
+      }
+    }
+  },
+  "provenance": {
+    "external_ids": {},
+    "formats": [
+      "markdown"
+    ],
+    "origin": "Imports/decomposer-sample-test-cases/sample-text-riddles.md",
+    "retrieved_at": "2025-01-01T00:00:00Z",
+    "slug": "sample-text-riddles",
+    "source_files": [
+      "sample-text-riddles/sample-text-riddles.md"
+    ],
+    "source_sha256": {
+      "sample-text-riddles.md": "sha256:cbeef2442bb35ad8"
+    },
+    "tool_versions": {
+      "pydantic": "2.13.4",
+      "pylatexenc": "2.10",
+      "python": "3.11.15"
+    }
+  },
+  "schema_version": "0.1.0"
+}

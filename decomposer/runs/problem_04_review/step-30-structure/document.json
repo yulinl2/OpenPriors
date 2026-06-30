@@ -1,0 +1,886 @@
+{
+  "document": {
+    "attrs": {
+      "adapter": "markdown"
+    },
+    "children": [
+      {
+        "attrs": {},
+        "children": [
+          {
+            "attrs": {},
+            "children": [],
+            "content_sha256": "sha256:e22745cc52d3dd5f",
+            "depth": 2,
+            "id": "problem_04_review/section.1/paragraph.1",
+            "order": 0,
+            "role": "narrate",
+            "span": {
+              "end": 99,
+              "start": 26
+            },
+            "text": "Keep this file paired with the matching `problem_NN.tex` public artifact.",
+            "type": "paragraph"
+          },
+          {
+            "attrs": {},
+            "children": [
+              {
+                "attrs": {},
+                "children": [
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.2/list.1/metadata_field.1",
+                    "order": 0,
+                    "role": "meta",
+                    "span": {
+                      "end": 130,
+                      "start": 122
+                    },
+                    "title": "Title",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.2/list.1/metadata_field.2",
+                    "order": 1,
+                    "role": "meta",
+                    "span": {
+                      "end": 145,
+                      "start": 131
+                    },
+                    "title": "Contributor",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.2/list.1/metadata_field.3",
+                    "order": 2,
+                    "role": "meta",
+                    "span": {
+                      "end": 155,
+                      "start": 146
+                    },
+                    "title": "Folder",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.2/list.1/metadata_field.4",
+                    "order": 3,
+                    "role": "meta",
+                    "span": {
+                      "end": 171,
+                      "start": 156
+                    },
+                    "title": "Problem slot",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "content_sha256": "sha256:18a9263d0c641778",
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.2/list.1/metadata_field.5",
+                    "order": 4,
+                    "role": "meta",
+                    "span": {
+                      "end": 198,
+                      "start": 172
+                    },
+                    "text": "`Stage 1`",
+                    "title": "Current stage",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "content_sha256": "sha256:970d50b809724cd6",
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.2/list.1/metadata_field.6",
+                    "order": 5,
+                    "role": "meta",
+                    "span": {
+                      "end": 224,
+                      "start": 199
+                    },
+                    "text": "`Draft`",
+                    "title": "Current status",
+                    "type": "metadata_field"
+                  }
+                ],
+                "depth": 3,
+                "id": "problem_04_review/section.1/section.2/list.1",
+                "order": 0,
+                "role": "narrate",
+                "span": {
+                  "end": 224,
+                  "start": 122
+                },
+                "type": "list"
+              }
+            ],
+            "depth": 2,
+            "id": "problem_04_review/section.1/section.2",
+            "order": 1,
+            "role": "segment",
+            "span": {
+              "end": 120,
+              "start": 101
+            },
+            "title": "Problem Metadata",
+            "type": "section"
+          },
+          {
+            "attrs": {},
+            "children": [
+              {
+                "attrs": {},
+                "children": [
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.3/list.2/metadata_field.7",
+                    "order": 0,
+                    "role": "meta",
+                    "span": {
+                      "end": 260,
+                      "start": 244
+                    },
+                    "title": "Question type",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.3/list.2/metadata_field.8",
+                    "order": 1,
+                    "role": "meta",
+                    "span": {
+                      "end": 285,
+                      "start": 261
+                    },
+                    "title": "Challenged capability",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.3/list.2/metadata_field.9",
+                    "order": 2,
+                    "role": "meta",
+                    "span": {
+                      "end": 298,
+                      "start": 286
+                    },
+                    "title": "Sub-field",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.3/list.2/metadata_field.10",
+                    "order": 3,
+                    "role": "meta",
+                    "span": {
+                      "end": 321,
+                      "start": 299
+                    },
+                    "title": "Verification method",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.3/list.2/metadata_field.11",
+                    "order": 4,
+                    "role": "meta",
+                    "span": {
+                      "end": 346,
+                      "start": 322
+                    },
+                    "title": "Observed failure mode",
+                    "type": "metadata_field"
+                  }
+                ],
+                "depth": 3,
+                "id": "problem_04_review/section.1/section.3/list.2",
+                "order": 0,
+                "role": "narrate",
+                "span": {
+                  "end": 346,
+                  "start": 244
+                },
+                "type": "list"
+              }
+            ],
+            "depth": 2,
+            "id": "problem_04_review/section.1/section.3",
+            "order": 2,
+            "role": "segment",
+            "span": {
+              "end": 242,
+              "start": 226
+            },
+            "title": "Question Tags",
+            "type": "section"
+          },
+          {
+            "attrs": {},
+            "children": [
+              {
+                "attrs": {},
+                "children": [
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.4/list.3/metadata_field.12",
+                    "order": 0,
+                    "role": "meta",
+                    "span": {
+                      "end": 422,
+                      "start": 382
+                    },
+                    "title": "Why the reference solution is correct",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.4/list.3/metadata_field.13",
+                    "order": 1,
+                    "role": "meta",
+                    "span": {
+                      "end": 469,
+                      "start": 423
+                    },
+                    "title": "Deterministic verifier or evaluation schema",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.4/list.3/metadata_field.14",
+                    "order": 2,
+                    "role": "meta",
+                    "span": {
+                      "end": 512,
+                      "start": 470
+                    },
+                    "title": "Known edge cases or acceptable variants",
+                    "type": "metadata_field"
+                  }
+                ],
+                "depth": 3,
+                "id": "problem_04_review/section.1/section.4/list.3",
+                "order": 0,
+                "role": "narrate",
+                "span": {
+                  "end": 512,
+                  "start": 382
+                },
+                "type": "list"
+              }
+            ],
+            "depth": 2,
+            "id": "problem_04_review/section.1/section.4",
+            "order": 3,
+            "role": "segment",
+            "span": {
+              "end": 380,
+              "start": 348
+            },
+            "title": "Oracle and Verification Notes",
+            "type": "section"
+          },
+          {
+            "attrs": {},
+            "children": [
+              {
+                "attrs": {},
+                "children": [],
+                "content_sha256": "sha256:3394e8239e8c7d30",
+                "depth": 3,
+                "id": "problem_04_review/section.1/section.5/paragraph.2",
+                "order": 0,
+                "role": "narrate",
+                "span": {
+                  "end": 688,
+                  "start": 546
+                },
+                "text": "Paste raw markdown text, not screenshots. Label each response with model, provider, and harness, and mix at least two providers when possible.",
+                "type": "paragraph"
+              },
+              {
+                "attrs": {},
+                "children": [
+                  {
+                    "attrs": {},
+                    "children": [
+                      {
+                        "attrs": {},
+                        "children": [],
+                        "depth": 5,
+                        "id": "problem_04_review/section.1/section.5/section.6/list.4/metadata_field.15",
+                        "order": 0,
+                        "role": "meta",
+                        "span": {
+                          "end": 714,
+                          "start": 706
+                        },
+                        "title": "Model",
+                        "type": "metadata_field"
+                      },
+                      {
+                        "attrs": {},
+                        "children": [],
+                        "depth": 5,
+                        "id": "problem_04_review/section.1/section.5/section.6/list.4/metadata_field.16",
+                        "order": 1,
+                        "role": "meta",
+                        "span": {
+                          "end": 741,
+                          "start": 715
+                        },
+                        "title": "Prompt or harness notes",
+                        "type": "metadata_field"
+                      }
+                    ],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.5/section.6/list.4",
+                    "order": 0,
+                    "role": "narrate",
+                    "span": {
+                      "end": 741,
+                      "start": 706
+                    },
+                    "type": "list"
+                  },
+                  {
+                    "attrs": {
+                      "kind": "code"
+                    },
+                    "children": [],
+                    "content_sha256": "sha256:cb87664589b8c663",
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.5/section.6/block.1",
+                    "order": 1,
+                    "role": "narrate",
+                    "span": {
+                      "end": 774,
+                      "start": 743
+                    },
+                    "text": "```text\nPASTE RESPONSE HERE\n```",
+                    "type": "block"
+                  }
+                ],
+                "depth": 3,
+                "id": "problem_04_review/section.1/section.5/section.6",
+                "order": 1,
+                "role": "segment",
+                "span": {
+                  "end": 704,
+                  "start": 690
+                },
+                "title": "Response 1",
+                "type": "section"
+              },
+              {
+                "attrs": {},
+                "children": [
+                  {
+                    "attrs": {},
+                    "children": [
+                      {
+                        "attrs": {},
+                        "children": [],
+                        "depth": 5,
+                        "id": "problem_04_review/section.1/section.5/section.7/list.5/metadata_field.17",
+                        "order": 0,
+                        "role": "meta",
+                        "span": {
+                          "end": 800,
+                          "start": 792
+                        },
+                        "title": "Model",
+                        "type": "metadata_field"
+                      },
+                      {
+                        "attrs": {},
+                        "children": [],
+                        "depth": 5,
+                        "id": "problem_04_review/section.1/section.5/section.7/list.5/metadata_field.18",
+                        "order": 1,
+                        "role": "meta",
+                        "span": {
+                          "end": 827,
+                          "start": 801
+                        },
+                        "title": "Prompt or harness notes",
+                        "type": "metadata_field"
+                      }
+                    ],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.5/section.7/list.5",
+                    "order": 0,
+                    "role": "narrate",
+                    "span": {
+                      "end": 827,
+                      "start": 792
+                    },
+                    "type": "list"
+                  },
+                  {
+                    "attrs": {
+                      "kind": "code"
+                    },
+                    "children": [],
+                    "content_sha256": "sha256:cb87664589b8c663",
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.5/section.7/block.2",
+                    "order": 1,
+                    "role": "narrate",
+                    "span": {
+                      "end": 860,
+                      "start": 829
+                    },
+                    "text": "```text\nPASTE RESPONSE HERE\n```",
+                    "type": "block"
+                  }
+                ],
+                "depth": 3,
+                "id": "problem_04_review/section.1/section.5/section.7",
+                "order": 2,
+                "role": "segment",
+                "span": {
+                  "end": 790,
+                  "start": 776
+                },
+                "title": "Response 2",
+                "type": "section"
+              },
+              {
+                "attrs": {},
+                "children": [
+                  {
+                    "attrs": {},
+                    "children": [
+                      {
+                        "attrs": {},
+                        "children": [],
+                        "depth": 5,
+                        "id": "problem_04_review/section.1/section.5/section.8/list.6/metadata_field.19",
+                        "order": 0,
+                        "role": "meta",
+                        "span": {
+                          "end": 886,
+                          "start": 878
+                        },
+                        "title": "Model",
+                        "type": "metadata_field"
+                      },
+                      {
+                        "attrs": {},
+                        "children": [],
+                        "depth": 5,
+                        "id": "problem_04_review/section.1/section.5/section.8/list.6/metadata_field.20",
+                        "order": 1,
+                        "role": "meta",
+                        "span": {
+                          "end": 913,
+                          "start": 887
+                        },
+                        "title": "Prompt or harness notes",
+                        "type": "metadata_field"
+                      }
+                    ],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.5/section.8/list.6",
+                    "order": 0,
+                    "role": "narrate",
+                    "span": {
+                      "end": 913,
+                      "start": 878
+                    },
+                    "type": "list"
+                  },
+                  {
+                    "attrs": {
+                      "kind": "code"
+                    },
+                    "children": [],
+                    "content_sha256": "sha256:cb87664589b8c663",
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.5/section.8/block.3",
+                    "order": 1,
+                    "role": "narrate",
+                    "span": {
+                      "end": 946,
+                      "start": 915
+                    },
+                    "text": "```text\nPASTE RESPONSE HERE\n```",
+                    "type": "block"
+                  }
+                ],
+                "depth": 3,
+                "id": "problem_04_review/section.1/section.5/section.8",
+                "order": 3,
+                "role": "segment",
+                "span": {
+                  "end": 876,
+                  "start": 862
+                },
+                "title": "Response 3",
+                "type": "section"
+              },
+              {
+                "attrs": {},
+                "children": [
+                  {
+                    "attrs": {},
+                    "children": [
+                      {
+                        "attrs": {},
+                        "children": [],
+                        "depth": 5,
+                        "id": "problem_04_review/section.1/section.5/section.9/list.7/metadata_field.21",
+                        "order": 0,
+                        "role": "meta",
+                        "span": {
+                          "end": 972,
+                          "start": 964
+                        },
+                        "title": "Model",
+                        "type": "metadata_field"
+                      },
+                      {
+                        "attrs": {},
+                        "children": [],
+                        "depth": 5,
+                        "id": "problem_04_review/section.1/section.5/section.9/list.7/metadata_field.22",
+                        "order": 1,
+                        "role": "meta",
+                        "span": {
+                          "end": 999,
+                          "start": 973
+                        },
+                        "title": "Prompt or harness notes",
+                        "type": "metadata_field"
+                      }
+                    ],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.5/section.9/list.7",
+                    "order": 0,
+                    "role": "narrate",
+                    "span": {
+                      "end": 999,
+                      "start": 964
+                    },
+                    "type": "list"
+                  },
+                  {
+                    "attrs": {
+                      "kind": "code"
+                    },
+                    "children": [],
+                    "content_sha256": "sha256:cb87664589b8c663",
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.5/section.9/block.4",
+                    "order": 1,
+                    "role": "narrate",
+                    "span": {
+                      "end": 1032,
+                      "start": 1001
+                    },
+                    "text": "```text\nPASTE RESPONSE HERE\n```",
+                    "type": "block"
+                  }
+                ],
+                "depth": 3,
+                "id": "problem_04_review/section.1/section.5/section.9",
+                "order": 4,
+                "role": "segment",
+                "span": {
+                  "end": 962,
+                  "start": 948
+                },
+                "title": "Response 4",
+                "type": "section"
+              },
+              {
+                "attrs": {},
+                "children": [
+                  {
+                    "attrs": {},
+                    "children": [
+                      {
+                        "attrs": {},
+                        "children": [],
+                        "depth": 5,
+                        "id": "problem_04_review/section.1/section.5/section.10/list.8/metadata_field.23",
+                        "order": 0,
+                        "role": "meta",
+                        "span": {
+                          "end": 1058,
+                          "start": 1050
+                        },
+                        "title": "Model",
+                        "type": "metadata_field"
+                      },
+                      {
+                        "attrs": {},
+                        "children": [],
+                        "depth": 5,
+                        "id": "problem_04_review/section.1/section.5/section.10/list.8/metadata_field.24",
+                        "order": 1,
+                        "role": "meta",
+                        "span": {
+                          "end": 1085,
+                          "start": 1059
+                        },
+                        "title": "Prompt or harness notes",
+                        "type": "metadata_field"
+                      }
+                    ],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.5/section.10/list.8",
+                    "order": 0,
+                    "role": "narrate",
+                    "span": {
+                      "end": 1085,
+                      "start": 1050
+                    },
+                    "type": "list"
+                  },
+                  {
+                    "attrs": {
+                      "kind": "code"
+                    },
+                    "children": [],
+                    "content_sha256": "sha256:cb87664589b8c663",
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.5/section.10/block.5",
+                    "order": 1,
+                    "role": "narrate",
+                    "span": {
+                      "end": 1118,
+                      "start": 1087
+                    },
+                    "text": "```text\nPASTE RESPONSE HERE\n```",
+                    "type": "block"
+                  }
+                ],
+                "depth": 3,
+                "id": "problem_04_review/section.1/section.5/section.10",
+                "order": 5,
+                "role": "segment",
+                "span": {
+                  "end": 1048,
+                  "start": 1034
+                },
+                "title": "Response 5",
+                "type": "section"
+              }
+            ],
+            "depth": 2,
+            "id": "problem_04_review/section.1/section.5",
+            "order": 4,
+            "role": "segment",
+            "span": {
+              "end": 544,
+              "start": 514
+            },
+            "title": "Five Sample Model Responses",
+            "type": "section"
+          },
+          {
+            "attrs": {},
+            "children": [
+              {
+                "attrs": {},
+                "children": [],
+                "content_sha256": "sha256:a563ccfadf779ede",
+                "depth": 3,
+                "id": "problem_04_review/section.1/section.11/paragraph.3",
+                "order": 0,
+                "role": "narrate",
+                "span": {
+                  "end": 1329,
+                  "start": 1145
+                },
+                "text": "Describe the pattern across the five responses, what they got wrong, the hypothesized mechanism, any near-misses or partial successes, and why this exposes a meaningful model weakness.",
+                "type": "paragraph"
+              }
+            ],
+            "depth": 2,
+            "id": "problem_04_review/section.1/section.11",
+            "order": 5,
+            "role": "segment",
+            "span": {
+              "end": 1143,
+              "start": 1120
+            },
+            "title": "Failure-Mode Summary",
+            "type": "section"
+          },
+          {
+            "attrs": {},
+            "children": [
+              {
+                "attrs": {},
+                "children": [
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.12/list.9/metadata_field.25",
+                    "order": 0,
+                    "role": "meta",
+                    "span": {
+                      "end": 1382,
+                      "start": 1350
+                    },
+                    "title": "Collision or duplication risk",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.12/list.9/metadata_field.26",
+                    "order": 1,
+                    "role": "meta",
+                    "span": {
+                      "end": 1417,
+                      "start": 1383
+                    },
+                    "title": "Questions for Stage 1 reviewers",
+                    "type": "metadata_field"
+                  },
+                  {
+                    "attrs": {},
+                    "children": [],
+                    "depth": 4,
+                    "id": "problem_04_review/section.1/section.12/list.9/metadata_field.27",
+                    "order": 2,
+                    "role": "meta",
+                    "span": {
+                      "end": 1442,
+                      "start": 1418
+                    },
+                    "title": "Suggested next action",
+                    "type": "metadata_field"
+                  }
+                ],
+                "depth": 3,
+                "id": "problem_04_review/section.1/section.12/list.9",
+                "order": 0,
+                "role": "narrate",
+                "span": {
+                  "end": 1442,
+                  "start": 1350
+                },
+                "type": "list"
+              }
+            ],
+            "depth": 2,
+            "id": "problem_04_review/section.1/section.12",
+            "order": 6,
+            "role": "segment",
+            "span": {
+              "end": 1348,
+              "start": 1331
+            },
+            "title": "Reviewer Notes",
+            "type": "section"
+          }
+        ],
+        "depth": 1,
+        "id": "problem_04_review/section.1",
+        "order": 0,
+        "role": "segment",
+        "span": {
+          "end": 24,
+          "start": 0
+        },
+        "title": "Problem Review Sidecar",
+        "type": "section"
+      }
+    ],
+    "depth": 0,
+    "id": "problem_04_review",
+    "order": 0,
+    "role": "segment",
+    "title": "problem_04_review",
+    "type": "document"
+  },
+  "edges": [],
+  "metrics": {
+    "classified_ratio": 0.9107,
+    "max_depth": 5,
+    "n_edges": 0,
+    "n_edges_resolved": 0,
+    "n_nodes": 57,
+    "role_counts": {
+      "meta": 27,
+      "narrate": 17,
+      "segment": 13
+    },
+    "type_counts": {
+      "block": 5,
+      "document": 1,
+      "list": 9,
+      "metadata_field": 27,
+      "paragraph": 3,
+      "section": 12
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "acyclic_tree": true,
+        "character_coverage": true,
+        "idempotent_normalization": true,
+        "reference_integrity": true,
+        "schema_valid": true,
+        "unique_ids": true
+      }
+    }
+  },
+  "provenance": {
+    "external_ids": {},
+    "formats": [
+      "markdown"
+    ],
+    "origin": "Imports/decomposer-sample-test-cases/problem_04_review.md",
+    "retrieved_at": "2025-01-01T00:00:00Z",
+    "slug": "problem_04_review",
+    "source_files": [
+      "problem_04_review/problem_04_review.md"
+    ],
+    "source_sha256": {
+      "problem_04_review.md": "sha256:b8a5eaf347f7b7d2"
+    },
+    "tool_versions": {
+      "pydantic": "2.13.4",
+      "pylatexenc": "2.10",
+      "python": "3.11.15"
+    }
+  },
+  "schema_version": "0.1.0"
+}

@@ -1,0 +1,80 @@
+{
+  "decompose": {
+    "coverage_fraction": 0.7778,
+    "covered_facts": 7,
+    "covering_detail": [
+      {
+        "covers": [
+          "CAUSE(LIKELIHOOD_RATIO(the_weights, q_dist, p_dist), WEIGHTED_EXCHANGEABLE(cal_test, the_weights))",
+          "CAUSE(WEIGHTED_EXCHANGEABLE(cal_test, the_weights), COVERAGE(the_interval, alpha_level))",
+          "CONFORMAL_INTERVAL(the_interval, the_scores)",
+          "COVARIATE_SHIFT(q_dist, p_dist)",
+          "COVERAGE(the_interval, alpha_level)",
+          "LIKELIHOOD_RATIO(the_weights, q_dist, p_dist)",
+          "WEIGHTED_EXCHANGEABLE(cal_test, the_weights)"
+        ],
+        "covers_n": 7,
+        "prior": "weighted_conformal"
+      }
+    ],
+    "covering_priors": [
+      "weighted_conformal"
+    ],
+    "n_facts": 9,
+    "novel_contributions": [
+      "COUNTERFACTUAL(the_interval, the_counterfactual)",
+      "NESTED(the_interval, the_ite)"
+    ],
+    "residual_facts": [
+      "COUNTERFACTUAL(the_interval, the_counterfactual)",
+      "NESTED(the_interval, the_ite)"
+    ],
+    "target": "arxiv-2006.06138-main"
+  },
+  "retrieve": {
+    "fac": [
+      {
+        "mac_cosine": 0.9592,
+        "mapping_size": 7,
+        "novelty_score": 0.2222,
+        "prior": "weighted_conformal",
+        "structural_score": 16.0,
+        "target_coverage": 0.7778
+      },
+      {
+        "mac_cosine": 0.4427,
+        "mapping_size": 3,
+        "novelty_score": 0.7778,
+        "prior": "split_conformal",
+        "structural_score": 4.0,
+        "target_coverage": 0.2222
+      },
+      {
+        "mac_cosine": 0.4,
+        "mapping_size": 3,
+        "novelty_score": 0.8889,
+        "prior": "importance_weighting",
+        "structural_score": 2.0,
+        "target_coverage": 0.1111
+      }
+    ],
+    "mac_ranking": [
+      [
+        "weighted_conformal",
+        0.9592
+      ],
+      [
+        "split_conformal",
+        0.4427
+      ],
+      [
+        "importance_weighting",
+        0.4
+      ]
+    ],
+    "nearest_novelty": 0.2222,
+    "nearest_prior": "weighted_conformal",
+    "target": "arxiv-2006.06138-main",
+    "verdict": "extends weighted_conformal with new structure (partial reuse)"
+  }
+}

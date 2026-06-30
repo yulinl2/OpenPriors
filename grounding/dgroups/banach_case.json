@@ -1,0 +1,56 @@
+{
+  "_provenance": {
+    "extracted_by": "in-session Claude Code sub-agent (no API call), 2026-06-22",
+    "purpose": "Real-content case study: does the novelty detector recognize that problem_07 Q1 is structurally an instance of the Banach Fixed-Point Theorem (known machinery on a relabeled map)? BASE = abstract Banach theorem; TARGET = problem_07 Q1 (Banach applied to a retraining map T). Shared functor vocabulary lets SME align them; every symbol is grounded to a verbatim source substring (verified by grounding/verify.py)."
+  },
+  "base": {
+    "name": "banach-fixed-point",
+    "text": "Let (X,d) be a complete metric space and let T be a self-map on X that is a contraction: there is a constant k in [0,1) such that d(T(x),T(y)) <= k d(x,y) for all x,y in X. Then T has a unique fixed point x_star, and for any starting point x0 the iterates given by x_{n+1} = T(x_n) converge to x_star at a linear rate, with d(x_n, x_star) <= k^n d(x0, x_star).",
+    "groundings": {
+      "the_space": "complete metric space",
+      "the_map": "self-map on X",
+      "k": "constant k in [0,1)",
+      "x_star": "unique fixed point x_star",
+      "x0": "starting point x0",
+      "the_seq": "iterates given by x_{n+1} = T(x_n)"
+    },
+    "facts": [
+      ["COMPLETE", "the_space"],
+      ["SELFMAP", "the_map", "the_space"],
+      ["CONTRACTION", "the_map"],
+      ["MODULUS", "the_map", "k"],
+      ["FIXEDPOINT", "the_map", "x_star"],
+      ["UNIQUE", "x_star"],
+      ["ITERATES", "the_seq", "the_map"],
+      ["CONVERGES", "the_seq", "x_star"],
+      ["LINEAR_RATE", "the_seq", "k"],
+      ["CAUSE", ["AND", ["CONTRACTION", "the_map"], ["COMPLETE", "the_space"]], ["AND", ["FIXEDPOINT", "the_map", "x_star"], ["CONVERGES", "the_seq", "x_star"]]]
+    ]
+  },
+  "target": {
+    "name": "problem_07-q1",
+    "text": "Consider the retraining mapping T(w) = argmin over theta of L(theta; w). We prove that for any theta, theta', ||T(theta) - T(theta')|| <= (epsilon beta / gamma) ||theta - theta'||. Let kappa = epsilon beta / gamma. Since kappa < 1 and Theta is closed, T is a strict contraction. By the Banach Fixed-Point Theorem there exists a unique fixed point theta_star = T(theta_star). By the contraction property and induction, ||theta_t - theta_star|| <= kappa^t ||theta_0 - theta_star||, so the sequence converges to theta_star at a linear rate. Setting kappa^t ||theta_0 - theta_star|| <= delta and solving gives the minimum number of iterations t >= ln(||theta_0 - theta_star|| / delta) / ln(1/kappa).",
+    "groundings": {
+      "the_map": "retraining mapping T",
+      "theta_space": "Theta is closed",
+      "kappa": "kappa = epsilon beta / gamma",
+      "theta_star": "unique fixed point theta_star",
+      "theta0": "theta_0",
+      "theta_seq": "the sequence converges",
+      "iter_count": "minimum number of iterations t >= ln(||theta_0 - theta_star|| / delta) / ln(1/kappa)"
+    },
+    "facts": [
+      ["COMPLETE", "theta_space"],
+      ["SELFMAP", "the_map", "theta_space"],
+      ["CONTRACTION", "the_map"],
+      ["MODULUS", "the_map", "kappa"],
+      ["FIXEDPOINT", "the_map", "theta_star"],
+      ["UNIQUE", "theta_star"],
+      ["ITERATES", "theta_seq", "the_map"],
+      ["CONVERGES", "theta_seq", "theta_star"],
+      ["LINEAR_RATE", "theta_seq", "kappa"],
+      ["ITERATION_COMPLEXITY", "theta_seq", "iter_count"],
+      ["CAUSE", ["AND", ["CONTRACTION", "the_map"], ["COMPLETE", "theta_space"]], ["AND", ["FIXEDPOINT", "the_map", "theta_star"], ["CONVERGES", "theta_seq", "theta_star"]]]
+    ]
+  }
+}

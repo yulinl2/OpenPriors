@@ -1,0 +1,37 @@
+[
+  {
+    "conserved": "source characters of the normalized body",
+    "principle": "P1",
+    "question": "what must be conserved?",
+    "target": "every content char attributed to exactly one leaf; overlap=0",
+    "verifier": "check_character_coverage"
+  },
+  {
+    "conserved": "content up to a declared presentation equivalence",
+    "principle": "P2",
+    "question": "what is redundant?",
+    "target": "redundancy removed and logged; normalization idempotent",
+    "verifier": "check_idempotent + removal_log"
+  },
+  {
+    "conserved": "the role-based class inventory",
+    "principle": "P3",
+    "question": "which data classes recur?",
+    "target": "classified_ratio high; residual 'block' itemized",
+    "verifier": "check_schema_valid + classified_ratio"
+  },
+  {
+    "conserved": "containment tree + cross-reference graph",
+    "principle": "P4",
+    "question": "what is the hierarchy & reference structure?",
+    "target": "single-rooted acyclic tree; dangling refs = 0",
+    "verifier": "check_acyclic_tree + check_unique_ids + check_reference_integrity"
+  },
+  {
+    "conserved": "form-field identity; source/target analog pairing",
+    "principle": "P5",
+    "question": "task-specific (prose/form)",
+    "target": "metadata_field per Key:value; example holds source_analog+target_analog",
+    "verifier": "type_counts inspection"
+  }
+]

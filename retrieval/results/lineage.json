@@ -1,0 +1,82 @@
+{
+  "edges": [
+    {
+      "child": "weighted_conformal",
+      "novel_contributions": [
+        "COVARIATE_SHIFT(q_dist, p_dist)",
+        "LIKELIHOOD_RATIO(the_weights, q_dist, p_dist)",
+        "WEIGHTED_EXCHANGEABLE(cal_test, the_weights)"
+      ],
+      "novelty": 0.7143,
+      "parent": "split_conformal",
+      "parent_reuse": 0.5,
+      "relation": "extends",
+      "residual": [
+        "CAUSE(LIKELIHOOD_RATIO(the_weights, q_dist, p_dist), WEIGHTED_EXCHANGEABLE(cal_test, the_weights))",
+        "CAUSE(WEIGHTED_EXCHANGEABLE(cal_test, the_weights), COVERAGE(the_interval, alpha_level))",
+        "COVARIATE_SHIFT(q_dist, p_dist)",
+        "LIKELIHOOD_RATIO(the_weights, q_dist, p_dist)",
+        "WEIGHTED_EXCHANGEABLE(cal_test, the_weights)"
+      ]
+    },
+    {
+      "child": "arxiv-2006.06138-main",
+      "novel_contributions": [
+        "COUNTERFACTUAL(the_interval, the_counterfactual)",
+        "NESTED(the_interval, the_ite)"
+      ],
+      "novelty": 0.2222,
+      "parent": "weighted_conformal",
+      "parent_reuse": 1.0,
+      "relation": "extends",
+      "residual": [
+        "COUNTERFACTUAL(the_interval, the_counterfactual)",
+        "NESTED(the_interval, the_ite)"
+      ]
+    }
+  ],
+  "nodes": [
+    {
+      "ancestors": [],
+      "is_root": true,
+      "n_facts": 4,
+      "result": "split_conformal"
+    },
+    {
+      "ancestors": [
+        "split_conformal",
+        "importance_weighting"
+      ],
+      "is_root": false,
+      "n_facts": 7,
+      "result": "weighted_conformal"
+    },
+    {
+      "ancestors": [],
+      "is_root": true,
+      "n_facts": 1,
+      "result": "importance_weighting"
+    },
+    {
+      "ancestors": [
+        "weighted_conformal",
+        "split_conformal",
+        "importance_weighting"
+      ],
+      "is_root": false,
+      "n_facts": 9,
+      "result": "arxiv-2006.06138-main"
+    }
+  ],
+  "parents": {
+    "arxiv-2006.06138-main": "weighted_conformal",
+    "importance_weighting": null,
+    "split_conformal": null,
+    "weighted_conformal": "split_conformal"
+  },
+  "roots": [
+    "split_conformal",
+    "importance_weighting"
+  ],
+  "tau": 0.5
+}

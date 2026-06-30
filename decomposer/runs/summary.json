@@ -1,0 +1,138 @@
+{
+  "arxiv-2006.06138": {
+    "classified_ratio": 0.9548,
+    "max_depth": 5,
+    "n_edges": 167,
+    "n_edges_resolved": 130,
+    "n_nodes": 443,
+    "role_counts": {
+      "assert": 11,
+      "formalize": 112,
+      "narrate": 197,
+      "refer": 88,
+      "segment": 35
+    },
+    "type_counts": {
+      "bib_reference": 88,
+      "block": 20,
+      "document": 1,
+      "equation": 112,
+      "list": 4,
+      "list_item": 11,
+      "paragraph": 162,
+      "remark": 1,
+      "section": 34,
+      "theorem": 10
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "acyclic_tree": true,
+        "character_coverage": true,
+        "idempotent_normalization": true,
+        "reference_integrity": true,
+        "schema_valid": true,
+        "unique_ids": true
+      }
+    }
+  },
+  "problem_04_review": {
+    "classified_ratio": 0.9107,
+    "max_depth": 5,
+    "n_edges": 0,
+    "n_edges_resolved": 0,
+    "n_nodes": 57,
+    "role_counts": {
+      "meta": 27,
+      "narrate": 17,
+      "segment": 13
+    },
+    "type_counts": {
+      "block": 5,
+      "document": 1,
+      "list": 9,
+      "metadata_field": 27,
+      "paragraph": 3,
+      "section": 12
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "acyclic_tree": true,
+        "character_coverage": true,
+        "idempotent_normalization": true,
+        "reference_integrity": true,
+        "schema_valid": true,
+        "unique_ids": true
+      }
+    }
+  },
+  "problem_07": {
+    "classified_ratio": 0.9925,
+    "max_depth": 8,
+    "n_edges": 0,
+    "n_edges_resolved": 0,
+    "n_nodes": 134,
+    "role_counts": {
+      "assert": 2,
+      "formalize": 26,
+      "meta": 15,
+      "narrate": 84,
+      "segment": 7
+    },
+    "type_counts": {
+      "answer_key": 1,
+      "block": 1,
+      "document": 1,
+      "editor_notes": 1,
+      "equation": 26,
+      "grading_scheme": 1,
+      "list": 12,
+      "list_item": 37,
+      "metadata_field": 13,
+      "paragraph": 34,
+      "problem_statement": 1,
+      "section": 6
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "acyclic_tree": true,
+        "character_coverage": true,
+        "idempotent_normalization": true,
+        "reference_integrity": true,
+        "schema_valid": true,
+        "unique_ids": true
+      }
+    }
+  },
+  "sample-text-riddles": {
+    "classified_ratio": 0.6667,
+    "max_depth": 2,
+    "n_edges": 0,
+    "n_edges_resolved": 0,
+    "n_nodes": 13,
+    "role_counts": {
+      "exemplify": 4,
+      "narrate": 8,
+      "segment": 1
+    },
+    "type_counts": {
+      "block": 4,
+      "document": 1,
+      "example": 4,
+      "paragraph": 4
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "acyclic_tree": true,
+        "character_coverage": true,
+        "idempotent_normalization": true,
+        "reference_integrity": true,
+        "schema_valid": true,
+        "unique_ids": true
+      }
+    }
+  }
+}

@@ -1,0 +1,31 @@
+name: grounding-ci
+
+# Verifies the prose->dgroup front end: the deterministic grounding gate on the committed
+# (sub-agent-produced) dgroups + the structure-mapping solve of the four riddles. No LLM in
+# CI — it re-checks the committed extraction and exercises the solver.
+
+on:
+  push:
+    branches: ["**"]
+    paths: ["grounding/**", "analogy/**", ".github/workflows/grounding-ci.yml"]
+  pull_request:
+    paths: ["grounding/**", "analogy/**", ".github/workflows/grounding-ci.yml"]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pytest
+        run: python -m pip install --upgrade pip pytest
+      - name: Grounding gate + structure-mapping solve of the riddles
+        run: PYTHONPATH=grounding/src:analogy/src python -m grounding.cli
+      - name: Real-content case study (novelty detector on problem_07 Q1 vs Banach)
+        run: PYTHONPATH=grounding/src:analogy/src python -m grounding.casestudy
+      - name: Discrimination control (instance vs distinct theorem)
+        run: PYTHONPATH=grounding/src:analogy/src python -m grounding.discrimination
+      - name: Tests
+        run: PYTHONPATH=grounding/src:analogy/src python -m pytest grounding/tests -q

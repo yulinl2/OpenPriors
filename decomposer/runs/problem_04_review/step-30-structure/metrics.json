@@ -1,0 +1,31 @@
+{
+  "classified_ratio": 0.9107,
+  "max_depth": 5,
+  "n_edges": 0,
+  "n_edges_resolved": 0,
+  "n_nodes": 57,
+  "role_counts": {
+    "meta": 27,
+    "narrate": 17,
+    "segment": 13
+  },
+  "type_counts": {
+    "block": 5,
+    "document": 1,
+    "list": 9,
+    "metadata_field": 27,
+    "paragraph": 3,
+    "section": 12
+  },
+  "verification": {
+    "all_passed": true,
+    "checks": {
+      "acyclic_tree": true,
+      "character_coverage": true,
+      "idempotent_normalization": true,
+      "reference_integrity": true,
+      "schema_valid": true,
+      "unique_ids": true
+    }
+  }
+}

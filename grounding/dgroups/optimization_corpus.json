@@ -1,0 +1,41 @@
+{
+  "_provenance": {
+    "note": "A SECOND literature (Epic N): contraction / convex-optimization convergence theorems, lifted into grounded dgroups with the SAME higher-order CAUSE(premise -> guarantee) schema the conformal corpus uses. This lets the lineage run intra-domain here too (domain-agnosticism) AND lets SME — under a declared role ascension (graphstore.crossdomain.ROLE_ASCENSION) — surface CROSS-domain analogy edges between this literature and the conformal one. Grounded; every symbol is a verbatim substring of its statement, checked by grounding.verify."
+  },
+  "banach_contraction": {
+    "name": "banach_contraction",
+    "text": "A contraction map with modulus kappa below one sends its iterates to a unique fixed point; being a contraction causes the iterates to converge at a linear rate set by the modulus kappa.",
+    "groundings": {
+      "the_map": "contraction map",
+      "kappa": "modulus kappa",
+      "the_fixedpoint": "unique fixed point",
+      "the_seq": "iterates",
+      "the_rate": "linear rate"
+    },
+    "facts": [
+      ["CONTRACTION", "the_map", "kappa"],
+      ["BANACH_FIXEDPOINT", "the_map", "the_fixedpoint"],
+      ["LINEAR_CONVERGENCE", "the_seq", "the_rate"],
+      ["CAUSE", ["CONTRACTION", "the_map", "kappa"], ["LINEAR_CONVERGENCE", "the_seq", "the_rate"]]
+    ]
+  },
+  "gd_strong_convexity": {
+    "name": "gd_strong_convexity",
+    "text": "Gradient descent on a strongly convex objective acts as a contraction map with modulus kappa below one on the iterates, so the iterates converge to a unique fixed point at a linear rate; the strong convexity bound is what causes the contraction.",
+    "groundings": {
+      "the_map": "contraction map",
+      "kappa": "modulus kappa",
+      "the_fixedpoint": "unique fixed point",
+      "the_seq": "iterates",
+      "the_rate": "linear rate",
+      "the_bound": "strong convexity bound"
+    },
+    "facts": [
+      ["STRONG_CONVEXITY_BOUND", "the_bound", "kappa"],
+      ["CONTRACTION", "the_map", "kappa"],
+      ["LINEAR_CONVERGENCE", "the_seq", "the_rate"],
+      ["CAUSE", ["CONTRACTION", "the_map", "kappa"], ["LINEAR_CONVERGENCE", "the_seq", "the_rate"]],
+      ["CAUSE", ["STRONG_CONVEXITY_BOUND", "the_bound", "kappa"], ["CONTRACTION", "the_map", "kappa"]]
+    ]
+  }
+}

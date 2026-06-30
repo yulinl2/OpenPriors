@@ -1,0 +1,23 @@
+{
+  "discriminates": true,
+  "grounding_all_passed": true,
+  "novelty_margin": 0.9091,
+  "results": {
+    "q1_contraction": {
+      "grounding_passed": true,
+      "mapping_size": 5,
+      "novelty_score": 0.0909,
+      "structural_score": 22.0,
+      "target_coverage": 0.9091,
+      "verdict": "INSTANCE of the base theorem (known machinery on relabeled objects) — low novelty"
+    },
+    "q2_asymptotic_normality": {
+      "grounding_passed": true,
+      "mapping_size": 0,
+      "novelty_score": 1.0,
+      "structural_score": 0.0,
+      "target_coverage": 0.0,
+      "verdict": "structurally distinct — high novelty"
+    }
+  }
+}

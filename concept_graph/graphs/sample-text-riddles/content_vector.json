@@ -1,0 +1,10 @@
+{
+  "attr:block": 4,
+  "attr:document": 1,
+  "attr:example": 4,
+  "attr:paragraph": 4,
+  "rel:contains": 12,
+  "role:exemplify": 4,
+  "role:narrate": 8,
+  "role:segment": 1
+}

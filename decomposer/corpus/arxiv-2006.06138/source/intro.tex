@@ -1,0 +1,188 @@
+\section{From Average Effects To Individual
+  Effects}\label{sec:introduction}
+
+Estimating the average treatment effect (ATE) for a population of
+interest has been a main focus of a rich literature on causal
+inference, and the last decades have seen the development of extensive
+statistical theory addressing important issues such as identification,
+estimation, and uncertainty quantification
+\citep[e.g.][]{rubin1974estimating, pearl1995causal}. That said, the
+average effect only provides a coarse summary of the distribution of a
+treatment effect, and may be insufficient, or even misleading, to
+validate an intervention. Imagine, for instance, that a drug cures
+70\% of the patients while it makes the symptoms much worse for the remaing
+30\%. It is unclear whether the drug should be approved in spite of the
+positive average effect. This is not an artificial example; 
+trials typically do not give clear cut results and examples of this kind are common.
+% trials
+% typically do not come out black and white and examples of this kind
+% are
+% frequent. 
+% \cite{kent2010assessing} present quite a few examples in medical science For instance, Tissue plasminogen activator, in the treatment of ST-Elevation acute myocardial infarction, significantly improves survival in high-risk patients compared to streptokinase while increase the excessive risk in low-risk patients which may outweigh the benefits.
+On May 31, 2018, the National Academy of Medicine (NAM) held a
+workshop to discuss approaches of examining individual treatment
+effects (ITE) to support individualized patient care. In conjunction
+with this event,  NAM published a report highlighting the importance
+of ITE in medicine.  We quote from this document:
+\begin{quote}
+``The individuality of the patient should be at the core of every treatment decision. One-size-fits-all approaches to treating medical conditions are inadequate; instead, treatments should be tailored to individuals based on heterogeneity of clinical characteristics and their personal preferences.''
+\end{quote}
+Outside of medical science, treatment effect heterogeneity is also of
+great concern to political scientists \citep{imai2011estimation,
+  grimmer2017estimating}, psychologists \citep{bolger2019causal,
+  winkelbeiner2019evaluation}, sociologists \citep{xie2012estimating,
+  breen2015heterogeneous}, economists
+\citep{florens2008identification, djebbari2008heterogeneous}, and
+education researchers \citep{morgan2001counterfactuals,
+  brand2010benefits}. In short, there is a wide range of fields that
+would benefit from a better understanding of ITE. 
+
+% The burst of the
+% demand to understand ITE have created a dizzying array of exciting
+% applications.
+
+% Traditional approaches for ITE typically start with pre-defined subgroups based on a handful of variables, e.g. gender, age and polygenic risk scores, and then estimate the average effect for each group. With the rise of machine learning over the past decade, there has been growing interests in statistics community to develop new methodologies for ITE. In contrast to traditional approaches, machine learning-based approaches define the subgroups in a data-driven manner or even be fully individualized by treating every subject as a separate group. The data-adaptivity of these methods overcomes at least one clear pitfall of traditional methods that the subgroups defined a priori may not be meaningful for the outcome of interest. With more meaningful subgroups, a finer description of treatment effect heterogeneity is available to improve the evaluation of interventions. 
+
+To move past the average treatment effect as the object of inference,
+most existing works have targeted, instead, the {\em conditional
+  average treatment effects} (CATE)---although we will introduce a
+formal definition later in Section \ref{sec:setup}, this is the
+expectation of the ITE conditional on the values of the covariates. % On
+% the one hand, 
+While CATE naturally provide a richer summary than ATE,
+they surely still neglect the inherent variability in the response
+(the conditional variance, if you will) which might be crucial for
+decision-making; unless, of course, the covariates explain away most
+of the variation in ITE. % In practice, however, it is rarely known
+% whether the covariates have sufficient explanatory power.
+% On the  other hand, if sufficiently many covariates explain away a significant
+% fraction of the variability in the response, then uncertainty
+% quantification becomes challenging.
+As a consequence, two types of variability are of immediate concern:
+(1) the variability of the response around the regression function
+and, (2) the variability of CATE estimators due to finite
+samples. Getting both (1) and (2) under control requires having
+sufficiently many covariates to explain away a significant fraction of
+the variability in the response, and at the same time, a nearly
+perfect estimate of CATE for every value of the covariates. Neither of
+these seem to be realistic for everyday causal inference problems.
+
+  In areas like medical science or public policy, point estimates are
+  insufficient to inform decisions due to the huge loss potentially
+  incurred by wrong actions. A confidence interval, or at least a
+  p-value, is required by the U.S.~Food and Drug Administration to
+  approve a drug, in order to guarantee sufficient evidence and
+  confidence in favor of the drug. The issues are that despite the
+  importance of uncertainty quantification, the reliability of modern
+  machine learning methods is typically under-studied, and that
+  theoretical guarantees are hard to come by. For instance, existing
+  theory usually requires strong non-verifiable assumptions and
+  asymptotic regimes one does not encounter in practice. This of
+  course limits the applications of machine learning methods in
+  sensitive causal inference problems.  In addition, we will
+  demonstrate later that the confidence intervals for CATE or prediction intervals for ITE
+  produced by frequently discussed methods (including Bayesian
+  methods) typically have unsatisfactory or unacceptable coverage,
+  even in very simple and smooth models with at most ten
+  covariates.
+% On the other
+%   hand, for frequently discussed methods (including Bayesian methods)
+%   with uncertainty quantification of either CATE or ITE,  we will
+% demonstrate later that their confidence intervals typically have
+% unsatisfactory or unacceptable coverage \changed{for both CATE and
+%   ITE}, even in very simple models with about a dozen of
+% covariates. The lack of uncertainty quantification limits the
+% applications of machine learning methods in sensitive causal inference
+% problems. 
+
+% Ideally, it is desirable to have interval estimates for ITE
+% with guaranteed coverage. \changed{This is more reliable than
+%   intervals of CATE, which ignore the inherent variability. }
+
+In this work, we leverage ideas from conformal inference to construct
+valid prediction intervals for individual treatment effects under the
+potential outcome framework \citep{neyman1923application,
+  rubin1974estimating}. In particular, we address two challenges:
+\begin{enumerate}[(1)]
+\item Construct intervals for ITE with reliable coverage for subjects
+  in the study, for which one of the potential oucomes is missing;
+\item Construct intervals for ITE with reliable coverage for subjects
+  not in the study, and for which both potential oucomes are missing.
+\end{enumerate}
+To be sure, in the case where a method is able to estimate ITE
+accurately, there is no need to distinguish these two tasks. In
+practice, however, this is rarely possible due to insufficient sample
+sizes, model misspecification, and inherent variability. We will thus see that the second challenge is generally far more ambitious since two potential outcomes are never observed simultaneously; consequently we cannot model them jointly.% We will
+% thus see that the second challenge is generally far more ambitious
+% since two potential outcomes are never observed simultaneously so that
+% one cannot model them jointly.
+
+In brief, Section \ref{sec:counterfactual} shows how the first
+challenge reduces to counterfactual inference since one potential
+outcome is observed for each subject; here, an interval for the
+missing outcome can be shifted into an interval for the individual
+treatment effect by contrasting it with the observed outcome.  This
+section also introduces methods with guaranteed coverage even under
+model misspecification. In particular, for completely randomized or
+stratified randomized trials with perfect compliance so that the
+propensity score is known but may not be constant, our method
+achieves coverage in finite samples \emph{without any assumption other
+  than that of operating on ~i.i.d.~samples}. 
+% \lihua{By randomized trials I meant either completely randomized
+%   trials where the propensity score is a constant or the general
+%   blocking experiments where the propensity score is known but varying
+%   with $x$.  In the latter case, weighted conformal inference is used
+%   and so ~i.i.d.~ samples are required (of course this can be
+%   generalized to weighted exchangeable samples but I felt this may be
+%   distractive)}. 
+For general observational studies under the strong
+ignorability assumption \citep{rubin1974estimating}, or randomized
+experiments with ignorable compliance, our methods have guaranteed
+coverage provided that either the outcome model or the treatment model
+is accurately estimated. This is analogous to the \emph{doubly robust}
+property applicable to average treatment effect
+\citep[e.g.][]{robins1994estimation, kang2007demystifying} which
+speaks to the consistency of point
+estimates. % , although we emphasize that our double robustness is a novel
+% concept for the coverage of interval estimates
+ % \ejc{Do we need to say
+ %  the last piece?}\lihua{I think it is not needed so I deleted it.}
+
+Having addressed the first challenge, we will see in Section
+\ref{sec:effect} that our methods can serve as a stepping stone for
+the second. A naive approach, here, would be to apply the
+counterfactual inference on both potential outcomes and contrast the
+two intervals to induce an interval for ITE.
+% Such an approach would
+% entirely decouple the pair of potential outcomes and would likely be
+% overly conservative. Instead, we introduce a less conservative 
+% approach which can exploit any solution to the first task.
+Moreover, we introduce another approach 
+% \changed{It
+%   starts by splitting the data into two folds and applying the counterfactual
+%   inference on the second fold,  with the first fold being the training data,  to construct intervals for ITE, which have guaranteed coverage with appropriately chosen
+%   counterfactual intervals. It then generalizes and calibrates these intervals
+%   to the testing points with both potential outcomes missing. 
+% }
+%   It
+which applies the counterfactual inference to generate intervals for ITE
+applicable to subjects in the dataset as an intermediate step, and
+trains a model to generalize these intervals to subjects not in the
+study.
+
+Finally, our methods easily extend to a widely studied problem which
+goes by the name of generalizability, or transportability, or external
+validity, and which concerns settings in which there is a
+distributional shift between the target population and the study
+population \citep[e.g.][]{stuart2011use, tipton2014generalizable}, see
+Sections \ref{sec:setup}--\ref{sec:effect}. Furthermore, as explained
+in Section \ref{sec:extension}, our methods also naturally adapt to
+other causal inference frameworks, such as causal diagrams
+\citep{pearl1995causal} and invariant prediction
+\citep{peters2016causal}.
+
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

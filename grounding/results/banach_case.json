@@ -1,0 +1,21 @@
+{
+  "base": "banach-fixed-point",
+  "candidate_inferences": [],
+  "grounding_all_passed": true,
+  "mapping": {
+    "k": "kappa",
+    "the_map": "the_map",
+    "the_seq": "theta_seq",
+    "the_space": "theta_space",
+    "x_star": "theta_star"
+  },
+  "novel_target_facts": [
+    "ITERATION_COMPLEXITY(theta_seq, iter_count)"
+  ],
+  "novelty_score": 0.0909,
+  "shortcut_signal": 0.6061,
+  "structural_score": 22.0,
+  "target": "problem_07-q1",
+  "target_coverage": 0.9091,
+  "verdict": "INSTANCE of the base theorem (known machinery on relabeled objects) — low novelty"
+}

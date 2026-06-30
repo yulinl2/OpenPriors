@@ -1,0 +1,34 @@
+{
+  "riddle_1": {
+    "answer_maps_to_blank": true,
+    "blank_defining_relation": "DIVIDES",
+    "mapped_to": "time_each",
+    "numeric_answer": "1 hour",
+    "structural_answer": "time_each = total_time ÷ num_people",
+    "structural_score": 11.0
+  },
+  "riddle_2": {
+    "answer_maps_to_blank": true,
+    "blank_defining_relation": "DIVIDES",
+    "mapped_to": "time_each",
+    "numeric_answer": "1 hour",
+    "structural_answer": "time_each = total_time ÷ num_people",
+    "structural_score": 11.0
+  },
+  "riddle_3": {
+    "answer_maps_to_blank": true,
+    "blank_defining_relation": "EQUALS",
+    "mapped_to": "time_each",
+    "numeric_answer": "3 hours",
+    "structural_answer": "time_each = total_time (the whole total, undivided)",
+    "structural_score": 13.0
+  },
+  "riddle_4": {
+    "answer_maps_to_blank": true,
+    "blank_defining_relation": "EQUALS",
+    "mapped_to": "time_each",
+    "numeric_answer": "3 hours",
+    "structural_answer": "time_each = total_time (the whole total, undivided)",
+    "structural_score": 13.0
+  }
+}

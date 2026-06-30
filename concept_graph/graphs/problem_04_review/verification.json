@@ -1,0 +1,44 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "detail": "",
+      "metrics": {},
+      "name": "schema_valid",
+      "passed": true,
+      "principle": "P3"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "n_decomposer_edges": 0,
+        "n_missing": 0,
+        "n_relations": 56
+      },
+      "name": "edge_conservation",
+      "passed": true,
+      "principle": "P1"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "n_concepts": 57,
+        "n_dangling": 0,
+        "n_unsourced": 0
+      },
+      "name": "traceability",
+      "passed": true,
+      "principle": "P4"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "cycle": false,
+        "n_reasoning_edges": 0
+      },
+      "name": "reasoning_dag_acyclic",
+      "passed": true,
+      "principle": "P4"
+    }
+  ]
+}

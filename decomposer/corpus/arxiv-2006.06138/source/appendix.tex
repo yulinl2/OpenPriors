@@ -1,0 +1,632 @@
+\section{Nonasymptotic Theory for Double Robustness of Weighted Split-CQR}\label{app:proofs}
+This section establishes the double robustness of general weighted
+split-CQR. We first prove nonasymptotic results for two sides of the double robustness and then present a simpler asymptotic result as a corollary in Section \ref{subsec:asymptotic}.
+
+% \ejc{Why do we need to restate the paper from the main text? Please do
+% not change anything yet. Just let me know why you feel this is needed.}\lihua{This is a more general version of Theorem \ref{thm:double_robustness_ATE} in the main text. Theorem \ref{thm:double_robustness_ATE} only focuses on ATE-type coverage.}
+\begin{theorem}\label{thm:double_robustness_w}
+  Let
+  $(X_{i}, Y_{i})\stackrel{i.i.d.}{\sim}(X, Y) \sim P_{X}\times
+  P_{Y\mid X}$ and $Q_{X}$ be another distribution on the domain of
+  $X$. Set $N = |\Z_{\tr}|$ and $n = |\Z_{\ca}|$. Further, let
+  $\hat{q}_{\beta, N}(x) = \hat{q}_{\beta, N}(x; \Z_{\tr})$ be an
+  estimate of the $\beta$-th conditional quantile $q_{\beta}(x)$ of
+  $Y \mid X = x$, $\hat{w}_{N}(x) = \hat{w}_{N}(x; \Z_{\tr})$ be an
+  estimate of $w(x) = (dQ_{X} / dP_{X})(x)$, and $\hat{C}_{N, n}(x)$
+  be the conformal interval resulting from Algorithm
+  \ref{algo:split-CQR}. Assume that
+  $\E[\hat{w}_{N}(X) \mid \Z_{\tr}] < \infty$, where $\E$ denotes
+  expectation over $X\sim P_{X}$. Redefine
+  $\hat{w}_{N}(x)$ as
+  $\hat{w}_{N}(x) / \E[\hat{w}_{N}(X) \mid \Z_{\tr}]$ so that
+  $\E[\hat{w}_{N}(X) \mid \Z_{\tr}] = 1$. Then
+  \begin{equation}\label{eq:unconditional_coverage_rate_w}
+    \P_{(X, Y)\sim Q_{X}\times P_{Y\mid X}}\lb Y\in \hat{C}_{N, n}(X)\rb\ge 1 - \alpha - \frac{1}{2}\E_{X\sim P_{X}}|\hat{w}_{N}(X) - w(X)|.
+  \end{equation}
+  % \ejc{I would conclude the theorem right here. The rest is a separate
+  %   result, e.g. a corollary. It would start with this: ``In the
+  %   setting of Theorem A.1., assume further that...''. I also feel
+  %   that A.1 can also perhaps be stated in the main text.}
+
+  % \lihua{Very good suggestion! I splitted them into two. To be clear, Theorem \ref{thm:double_robustness_q} is not a corollary of Thoerem \ref{thm:double_robustness_w}; they are corresponding to two sides of the double robustness. I think we can probably replace Proposition 1 (the special case assuming $\hat{w} = w$) to this theorem with simpler notation. I wrote a tentative version in the main text. Which one would you prefer?}
+  \end{theorem}
+
+  \begin{theorem}\label{thm:double_robustness_q}
+  In the setting of Theorem \ref{thm:double_robustness_w}, assume further that
+    \begin{enumerate}[(1)]
+    \item $\alpha_{\hi} - \alpha_{\lo} = 1 - \alpha$;
+    \item there exist $r, b_{1}, b_{2} > 0$ such that $\P(Y = y \mid X = x) \in [b_{1}, b_{2}]$ uniformly over all $(x, y)$ with $y\in [q_{\alpha_{\lo}}(x) - r, q_{\alpha_{\lo}}(x) + r]\cup [q_{\alpha_{\hi}}(x) - r, q_{\alpha_{\hi}}(x) + r]$;
+    \item $\P_{X\sim Q_{X}}(w(X) < \infty) = 1$, and there exist $\delta, M > 0$ such that $\lb\E\left[\hat{w}_{N}(X)^{1 + \delta}\right]\rb^{1 / (1 + \delta)} \le M$;
+    \item there exist $k, \ell > 0$ such that $\displaystyle \lim_{N\rightarrow \infty} \E[\hat{w}_{N}(X)H_{N}^{k}(X)] = \lim_{N\rightarrow \infty} \E[w(X)H_{N}^{\ell}(X)] = 0$, where
+      \[\displaystyle H_{N}(x) = \max\{|\hat{q}_{\alpha_{\lo}, N}(x) - q_{\alpha_{\lo}}(x)|, |\hat{q}_{\alpha_{\hi}, N}(x) - q_{\alpha_{\hi}}(x)|\}.\]
+    \end{enumerate}
+    Then there is a constant $\const_{1}$ that only depends on $r, b_1, b_2, \delta, M, k, \ell$ such that
+    \begin{multline}
+      \P_{(X, Y)\sim Q_{X}\times P_{Y\mid X}}(Y \in \hat{C}_{N, n}(X))\ge 1 - \alpha \\
+       -\const_{1} \left\{\frac{(\log n)^{(1 + \delta') / 2(2 + \delta')}}{n^{\delta' / (2 + \delta')}} + \lb\E[\hat{w}_{N}(X)H_{N}^{k}(X)]\rb^{1 / (2+k)} + \lb\E[w(X)H_{N}^{\ell}(X)]\rb^{1/ (1+\ell)}\right\},\label{eq:unconditional_coverage_rate_q}
+    \end{multline}
+    where $\delta' = \min\{\delta, 1\}$. Furthermore, for any $\beta\in (0, 1)$, there is a constant $\const_{2}$ that only depends on $r, b_1, b_2, \delta, M, k, \ell, \beta$ such that, with probability at least $1 - \beta$, 
+    \begin{multline}
+      \P_{(X, Y)\sim Q_{X}\times P_{Y\mid X}}(Y \in \hat{C}_{N, n}(X) \mid X )\ge 1 - \alpha \\
+       - \const_{2}\left\{\frac{(\log n)^{(1 + \delta') / 2(2 + \delta')}}{n^{\delta' / (2 + \delta')}} + \lb\E[\hat{w}_{N}(X)H_{N}^{k}(X)]\rb^{1 / (2+k)} + \lb\E[w(X)H_{N}^{\ell}(X)]\rb^{1/ \ell}\right\}.\label{eq:conditional_coverage_rate_q}
+    \end{multline}
+  \end{theorem}
+
+  % \ejc{I have made a lot of stylistic corrections when I edited the
+  %   paper. The best way to break long equations is with}
+% \begin{verbatim}
+%  \begin{multine} 
+%    ...
+%  \end{multline}
+% \end{verbatim}
+  % \ejc{Please change above and elsewhere.}
+
+  % \lihua{Thanks for the suggestion! I've updated the environments.}
+
+  \begin{remark}
+    If $\delta \ge 1$ and $H_{N}(X)\le \Delta_{N}$ almost surely for some deterministic sequence $\Delta_{N} = o(1)$, by letting $k, \ell\rightarrow \infty$, the RHS of \eqref{eq:unconditional_coverage_rate_q} and \eqref{eq:conditional_coverage_rate_q} reduce to
+    \[1 - \alpha - \const \left\{\lb\frac{\log n}{n}\rb^{1/3} + \Delta_{N}\right\}.\]
+  \end{remark}
+
+
+\subsection{Proof of Theorem \ref{thm:double_robustness_w}}
+Let $\qt(\beta; F)$ denote the $\beta$-th quantile of a distribution
+function $F$, i.e.
+\[
+\qt(\beta; F) = \inf\{z: F(z)\ge \beta\} = \sup\{z: F(z) < \beta\}.
+\]
+We start with two lemmas. 
+\begin{lemma}[Equation (2) in Lemma 1 from \cite{barber2019conformal}]\label{lem:delta_infty}
+  Let $v_{1}, \ldots, v_{n+1} \in \R$ and $(p_{1}, \ldots,
+  p_{n+1}) \in \R$ be non-negative reals summing to
+  $1$. Then for any $\beta \in [0, 1]$ and
+  \begin{multline*}
+    v_{n+1}\le \qt\lb\beta; \sum_{i=1}^{n+1}p_{i}\delta_{v_{i}}\rb
+    \quad \Longleftrightarrow \quad v_{n+1}\le \qt\lb \beta; \sum_{i=1}^{n}p_{i}\delta_{v_{i}} + p_{n+1}\delta_{\infty}\rb.
+  \end{multline*}
+\end{lemma}
+
+% \ejc{Does this need a proof? Again, do not change anything. Also, a
+%   proof by coupling might be more elegant.  Consider a coupling $Z_1 =
+%   (X_1, Y_1)$ and $Z_2 = (X_2, Y_2)$. First it is obvious that 
+% \[
+% \P(X_1 \neq X_2) \leq \P(Z_1 \neq Z_2) 
+% \]
+% so that the TV distance between the joints is dominated by that between
+% the marginals. By setting $Y_2 = Y_1$ whenever $X_1 = X_2$, we can see
+% that we achieve equality. }\lihua{Nice proof! I just found a reference. Maybe we can remove the proof to make the appendix shorter?}
+\begin{lemma}[Equation (10) from \cite{berrett2019conditional}]\label{lem:tv}
+  Let $\tv(Q_{1X}, Q_{2X})$ denote the total-variation distance between $Q_{1X}$ and $Q_{2X}$. Then
+  \[\tv(Q_{1X}\times P_{Y\mid X}, Q_{2X}\times P_{Y\mid X}) = \tv(Q_{1X}, Q_{2X}).\]
+\end{lemma}
+% \begin{proof}
+%   Let $\nu$ be a dominating measure of $Q_{1X}\times P_{Y\mid X}$ and $Q_{2X}\times P_{Y\mid X}$ and denote by $q_{1}(x)$ the density of $Q_{1X}$, by $q_{2}(x)$ the density of $Q_{2X}$, and by $p(y\mid x)$ the conditional density of $Y$ given $X$. Using the integral representation of total-variation distance, we have
+%   \begin{align*}
+%     &\tv\lb Q_{1X}\times P_{Y\mid X}, Q_{2X}\times P_{Y\mid X} \rb = \frac{1}{2}\int |q_{1}(x)p(y\mid x) - q_{2}(x)p(y\mid x)|\nu(dx, dy)\\
+%     = & \frac{1}{2}\int |
+%        q_{1}(x) - q_{2}(x)|p(y\mid x)\nu(dx, dy) = \frac{1}{2}\int |q_{1}(x) - q_{2}(x)|\nu(dx) = \tv(Q_{1X}, Q_{2X}).
+%  \end{align*}
+% \end{proof}
+
+Returning to the proof of Theorem \ref{thm:double_robustness_w}, we first consider the case where $Q_{X}$ is absolutely continuous with respect to $P_{X}$, i.e.
+  \[\P_{X \sim Q_{X}}(w(X) < \infty) = 1.\]
+  In this case, for any measurable function $f$,
+  \begin{equation}
+    \label{eq:transformation}
+    \E_{X\sim Q_{X}}[f(X)] = \E_{X\sim P_{X}}[w(X)f(X)].
+  \end{equation}
+  On the other hand, it always holds that $\P_{X\sim P_{X}}(w(X) < \infty) = 1$. In addition, the assumption $\E_{X\sim P_{X}}[\hat{w}(X)\mid \Z_{\tr}] < \infty$ implies that $\P_{X\sim P_{X}}(\hat{w}(X) < \infty) = 1$. By \eqref{eq:transformation},
+  \[\P_{X\sim Q_{X}}(\hat{w}(X) < \infty) = 1 - \E_{X\sim P_{X}}[w(X)I(\hat{w}(X) = \infty)].\]
+  Since the integrand is non-negative,
+  \begin{multline*}
+    \E_{X\sim P_{X}}[w(X)I(\hat{w}(X) = \infty)]\\
+    = \lim_{K\rightarrow \infty}\E_{X\sim P_{X}}[w(X)I(w(X)\le K, \hat{w}(X) = \infty)]
+     \le \lim_{K\rightarrow \infty} K \P_{X\sim P_{X}}(\hat{w}(X) = \infty) = 0.
+  \end{multline*}
+  Thus, we also have
+  \[\P_{X\sim Q_{X}}(\hat{w}(X) < \infty) = 1.\]
+
+Index the calibration fold by $\{1, \ldots, n\}$ and let
+$(X_{n+1}, Y_{n+1})\sim Q_{X}\times P_{Y\mid X}$. Write $Z_{i}$ for
+$(X_{i}, Y_{i})$ and $V$ for $(V_{1}, \ldots, V_{n + 1})$. For
+notational convenience, we suppress the subscripts $N$ and $n$ in
+$\hat{q}, \hat{w}, \hat{C}$ as well as in $\hat{p}_{i}(x)$ and $\eta(x)$.
+Next, for any permutation $\pi$ on $\{1, \ldots, n + 1\}$ and
+$v^{*}\in \R^{n+1}$, let
+$v_{\pi}^{*} = (v_{\pi(1)}^{*}, \ldots, v_{\pi(n+1)}^{*})$. Further,
+let $\ell(z)$ be the joint density of
+$\Z = (Z_{1}, \ldots, Z_{n + 1})$ and $p(z)$ be the density of $Z_{1}$
+(with respect to a dominating measure). Letting $\cE(v)$ denote the
+unordered set of $v$, it is easy to see that
+\begin{equation}
+  \label{eq:weighted_conformal_cond}
+  \lb V \mid \cE(V) = \cE(v^{*}), \Z_{\tr}\rb \stackrel{d}{=} v_{\Pi}^{*},
+\end{equation}
+where $\Pi$ is a random permutation with
+\[\P\lb\Pi = \pi\mid \Z_{\tr}\rb = \frac{p(z_{\pi}^{*})}{\sum_{\pi}p(z_{\pi}^{*})} = \frac{w(X_{\pi(n + 1)})}{\sum_{\pi}w(X_{\pi(n + 1)})} = \frac{w(X_{\pi(n + 1)})}{n!\sum_{i=1}^{n+1}w(X_{i})}.\]
+Note that this conditional probability is well-defined because $w(X) < \infty$ almost surely under both $P_{X}$ and $Q_{X}$. As a result, for any $j\in \{1, 2, \ldots, n + 1\}$,
+\[\P\lb\Pi(n+1) = j\mid \Z_{\tr}\rb = \frac{w(X_{j})}{\sum_{i=1}^{n+1}w(X_{i})} = p_{j}(X_{n+1}),\]
+where $p_{n+1}$ denotes $p_{\infty}$ for notational convenience. This
+gives 
+\begin{equation}
+  \label{eq:Vn+1}
+  \lb V_{n+1} \mid \cE(V) = \cE(v^{*}), \Z_{\tr}\rb \stackrel{d}{=} v_{\Pi(n+1)}^{*}\sim \sum_{i=1}^{n+1}p_{i}(X_{n+1})\delta_{v_{i}^{*}}.
+\end{equation}
+Note that $p_{i}$ involves the true likelihood ratio function $w(x)$ and thus is different from $\hat{p}_{i}$.
+
+Let $\td{Q}_{X}$ be a measure with
+\[d\td{Q}_{X}(x) = \hat{w}(x) dP_{X}(x).\]
+Since $\E_{X\sim P_{X}}[\hat{w}(X)] = 1$, $\P_{X\sim P_{X}}(\hat{w}(X) < \infty) = 1$. As a result, $\td{Q}_{X}$ is a
+probability measure.
+% Now let $\td{Q}_{X}$ be a new distribution, conditional on the
+% training fold \ejc{we should explain what this means}, with
+% \[d\td{Q}_{X}(x) \propto \hat{w}(x) dP_{X}(x).\]
+% Since $\E_{X\sim P_{X}}[\hat{w}(X)] = 1$, we have
+% \[d\td{Q}_{X}(x) = \hat{w}(x) dP_{X}(x).\]
+Consider now a new sample
+$(\td{X}_{n+1}, \td{Y}_{n+1})\sim \td{Q}_{X}\times P_{Y \mid X}$. Let
+$\td{V}_{n+1}$ denote the non-conformity score of
+$(\td{X}_{n+1}, \td{Y}_{n+1})$ and set
+$\td{V} = (V_{1}, \ldots, V_{n}, \td{V}_{n+1})$. Using the same
+argument as for \eqref{eq:Vn+1}, we have
+\begin{equation}
+  \label{eq:Vn+1hat}
+  \lb \td{V}_{n+1} \mid \cE(\td{V})= \cE(v^{*}), \Z_{\tr}\rb \sim \sum_{i=1}^{n+1}\hat{p}_{i}(\td{X}_{n+1})\delta_{v_{i}^{*}}.
+\end{equation}
+Note that each $\hat{p}_{i}(\td{X}_{n+1})$,
+  $i = 1,\ldots, n+1$ is well-defined since $\hat{w}(X_i)$ is almost
+  surely finite under both $P_{X}$ and $Q_{X}$. As a consequence,
+\begin{align}
+  & \P\lb\td{Y}_{n+1}\in \hat{C}(\td{X}_{n+1})\mid \Z_{\tr}\rb\nonumber\\
+  & = \P\lb \td{V}_{n + 1}\le \eta(\td{X}_{n+1})\mid \Z_{\tr}\rb\nonumber\\
+  & = \P\lb \td{V}_{n + 1}\le \qt\lb 1 - \alpha; \sum_{i=1}^{n}\hat{p}_{i}(\td{X}_{n+1})\delta_{V_{i}} + \hat{p}_{\infty}(\td{X}_{n+1})\delta_{\infty}\rb\mid \Z_{\tr}\rb\nonumber\\
+  & \stackrel{(i)}{=} \P\lb \td{V}_{n + 1}\le \qt\lb 1 - \alpha; \sum_{i=1}^{n}\hat{p}_{i}(\td{X}_{n+1})\delta_{V_{i}} + \hat{p}_{\infty}(\td{X}_{n+1})\delta_{\td{V}_{n+1}}\rb\mid \Z_{\tr}\rb\nonumber\\
+  & = \E \P\lb \td{V}_{n + 1}\le \qt\lb 1 - \alpha; \sum_{i=1}^{n}\hat{p}_{i}(\td{X}_{n+1})\delta_{V_{i}} + \hat{p}_{\infty}(\td{X}_{n+1})\delta_{\td{V}_{n+1}}\rb \mid \cE(\td{V}), \Z_{\tr}\rb\nonumber\\
+  & \stackrel{(ii)}{\ge} 1 - \alpha, \label{eq:coverage_tilde}
+\end{align}
+where (i) uses Lemma \ref{lem:delta_infty} and (ii) uses \eqref{eq:Vn+1hat} and the
+definition of $\qt(\beta; F)$.  By Lemma \ref{lem:tv},
+\[\tv\lb Q_{X}\times P_{Y\mid X}, \td{Q}_{X}\times P_{Y\mid X}\rb = \tv\lb Q_{X}, \td{Q}_{X}\rb,\]
+% Note that one equivalent definition of the total-variation distance is 
+% \[\tv(Q_{X}, \td{Q}_{X}) = \sup_{A}|Q_{X}(A) - \td{Q}_{X}(A)|\]
+and as a consequence,
+\begin{equation}
+  \label{eq:tv_Q_tdQ}
+  \big|\P\lb Y_{n+1}\in \hat{C}(X_{n+1})\mid \Z_{\tr}, \Z_{\ca}\rb - \P\lb\td{Y}_{n+1}\in \hat{C}(\td{X}_{n+1})\mid \Z_{\tr}, \Z_{\ca}\rb\big|\le \tv(Q_{X}, \td{Q}_{X}),
+\end{equation}
+which implies that 
+\[\P\lb Y_{n+1}\in \hat{C}(X_{n+1})\mid \Z_{\tr}, \Z_{\ca}\rb\ge \P\lb \td{Y}_{n+1}\in \hat{C}(\td{X}_{n+1})\mid \Z_{\tr}, \Z_{\ca}\rb - \tv(Q_{X}, \td{Q}_{X}).\]
+Taking expectation over $\Z_{\ca}$, we have
+\[\P\lb Y_{n+1}\in \hat{C}(X_{n+1})\mid \Z_{\tr}\rb \ge \P\lb \td{Y}_{n+1}\in \hat{C}(\td{X}_{n+1})\mid \Z_{\tr}\rb - \tv(Q_{X}, \td{Q}_{X})\ge 1 - \alpha - \tv(Q_{X}, \td{Q}_{X}).\]
+Using the integral definition of total-variation distance and \eqref{eq:transformation},
+\begin{align*}
+  \tv(Q_{X}, \td{Q}_{X}) & = \frac{1}{2}\int |\hat{w}(x)dP_{X}(x) - dQ_{X}(x)| = \frac{1}{2}\int |\hat{w}(x)dP_{X}(x) - w(x)dP_{X}(x)|\\
+  & = \frac{1}{2}\E_{X\sim P_{X}}|\hat{w}(X) - w(X)|
+\end{align*}
+Taking expectation over $\Z_{\tr}$, we have
+\[\P\lb Y_{n+1}\in \hat{C}(X_{n+1})\rb\ge 1 - \alpha - \frac{1}{2}\E_{X\sim P_{X}}|\hat{w}(X) - w(X)|.\]
+This proves \eqref{eq:unconditional_coverage_rate_w} when $\P_{X\sim Q_{X}}(w(X) < \infty) = 1$.
+
+Next, we extend the result to the case where $\P_{X\sim Q_{X}}(w(X) < \infty) < 1$. If $\P_{X\sim P_{X}}(\hat{w}(X) < \infty) < 1$, it is clear that $\E_{X\sim P_{X}}|\hat{w}(X) - w(X)| = \infty$ and \eqref{eq:unconditional_coverage_rate_w} holds trivially. Thus, we assume $\P_{X\sim P_{X}}(\hat{w}(X) < \infty) = 1$ in the remainder.
+
+Let $Q'_{X}$ denote the distribution $Q_{X}$ conditional on the event $E_{\infty} \triangleq \{x: w(x) < \infty\}$; that is, 
+\[dQ'_{X}(x) = \frac{I(x\in
+    E_{\infty})dQ_{X}(x)}{\P_{X\sim Q_{X}}(E_{\infty})}.\] Further, set
+$w'(x) = dQ'_{X}(x) / dP_{X}(x)$ and
+$\hat{w}'(x) = \hat{w}(x)I(x \in E_{\infty}) / \P_{X\sim Q_{X}}(E_{\infty})$. Note
+that $\hat{C}(x)$ remains the same on $E_{\infty}$ when $\hat{w}$ is
+replaced by $\hat{w}'$ and $Q_{X}$ is replaced by $Q'_{X}$, because
+the weighted-split-CQR algorithm is invariant with respect to
+rescalings of the covariate shift estimate. Since
+$\P_{X\sim Q'_{X}}(w(X) < \infty) = 1$, \eqref{eq:unconditional_coverage_rate_w}
+implies that
+\[\P_{(X, Y)\sim Q'_{X}\times P_{Y\mid X}}\lb Y\in \hat{C}(X)\rb\ge 1 - \alpha - \frac{1}{2}\E_{X\sim P_{X}}|\hat{w}'(X) - w'(X)|.\]
+It can be reformulated as
+\[\P\lb Y_{n+1}\in \hat{C}(X_{n+1})\mid w(X_{n+1}) < \infty\rb\ge 1 - \alpha - \frac{1}{2\P_{X\sim Q_{X}}(E_{\infty})}\E_{X\sim P_{X}}|\hat{w}(X) - w(X)|.\]
+On the other hand, when $w(X_{n+1}) = \infty$, $\eta(X_{n+1}) = \infty$, implying that $\hat{C}(X_{n+1}) = (-\infty, \infty)$. As a result,
+\[\P\lb Y_{n+1}\in \hat{C}(X_{n+1})\mid w(X_{n+1}) = \infty\rb = 1.\]
+Putting the two pieces together, we conclude that
+% \ejc{Arrange the display below}
+\begin{align*}
+  & \P\lb Y_{n+1}\in \hat{C}(X_{n+1})\rb\\
+  & \begin{multlined}
+    = \P\lb Y_{n+1}\in \hat{C}(X_{n+1})\mid w(X_{n+1}) < \infty\rb \P\lb w(X_{n+1}) < \infty\rb\\
+    + \P\lb Y_{n+1}\in \hat{C}(X_{n+1})\mid w(X_{n+1}) = \infty\rb \P\lb w(X_{n+1}) = \infty\rb
+  \end{multlined}\\
+  & \ge  (1 - \alpha)\P_{X\sim Q_{X}}(E_{\infty}) + \P_{X\sim Q_{X}}(E_{\infty}^{c}) - \frac{1}{2}\E_{X\sim P_{X}}|\hat{w}(X) - w(X)|\\
+  & \ge 1 - \alpha - \frac{1}{2}\E_{X\sim P_{X}}|\hat{w}(X) - w(X)|.
+\end{align*}
+
+% The proof follows from assumption \textbf{B}1.
+
+\subsection{Proof of Theorem \ref{thm:double_robustness_q}}
+
+We start with the following two Rosenthal-type inequalities for sums of independent random variables with finite $(1 + \delta)$-th moments.
+
+\begin{proposition}[Theorem 3 of \cite{rosenthal1970subspaces}]\label{prop:rosenthal}
+  Let $\{Z_{i}\}_{i = 1, \ldots, n}$ be independent mean-zero random
+  variables. Then for any $\delta \ge 1$, there exists $L(\delta) > 0$
+  that only depends on $\delta$ such that
+\[\E \bigg|\sum_{i=1}^{n}Z_{i}\bigg|^{1 + \delta}\le L(\delta)\left\{\sum_{i=1}^{n}\E |Z_{i}|^{1 + \delta} + \lb\sum_{i=1}^{n}\E |Z_{i}|^{2}\rb^{(1 + \delta) / 2}\right\}.\]
+\end{proposition}
+
+\begin{proposition}[Theorem 2 of \cite{vonbahr65}]\label{prop:vonbahresseen}
+ Let $\{Z_{i}\}_{i = 1, \ldots, n}$ be independent mean-zero random variables. Then for any $\delta \in [0, 1)$,
+\[\E \bigg|\sum_{i=1}^{n}Z_{i}\bigg|^{1 + \delta}\le 2\sum_{i=1}^{n}\E |Z_{i}|^{1 + \delta}.\]
+\end{proposition}
+
+% \revision{We also need a simple lemma for the case $\delta <
+%   1$. \ejc{Is the lemma below needed? Isn't this obvious? I mean your
+%     lemma is exactly the same as saying that for $p \ge 1$,
+%     $\|x\|_p \le \|x\|_1$ which I assume can be taken for granted.} \lihua{You are absolutely right! I deleted this lemma and added an explanation in the place where it was invoked. }
+  % \begin{lemma}\label{lem:AMGM}
+  %   For any non-negative numbers $a_{1}, \ldots, a_{n}$ and $b \in (0, 1]$,
+  %     \[\lb\sum_{i=1}^{n}a_{i}\rb^{b}\le \sum_{i=1}^{n}a_{i}^{b}\]
+  % \end{lemma}
+  % \begin{proof}
+  %   Assume that $\sum_{i=1}^{n}a_i = 1$. Since $x\mapsto x^{b}$ is concave on $[0, \infty)$, $\sum_{i=1}^{n}a_{i}^{b}$ is concave in $(a_1, \ldots, a_{n})$. The minimum of a concave function must be achieved at an extremal point of the constraint. For the simplex, the extremal points are permutations of $(1, 0, \ldots, 0)$, at which $\sum_{i=1}^{n}a_{i}^{b} = 1$.
+  % \end{proof}
+% }
+
+For notational convenience, we suppress the subcripts $N$ and $n$ in $\hat{q}, \hat{w}, \hat{C}$ as well as in $\hat{p}_{i}(x)$ and $\eta(x)$. Note that Assumption (3) implies that $w(X)$ is almost surely finite under $Q_{X}$ and $\hat{w}(X)$ is almost surely finite under $P_{X}$. By the same reasoning as in the proof of \eqref{eq:unconditional_coverage_rate_w}, $w(X)$ is almost surely finite under $P_{X}$ and $\hat{w}(X)$ is almost surely finite under $Q_{X}$. 
+% We will prove the following result on $\eta(x)$:
+% \begin{equation}
+%   \label{eq:eta}
+%   \lim_{N, n \rightarrow \infty}\P_{X\sim Q_{X}}(\eta(X)\ge -\eps) = 1, \quad \mbox{for any }\eps \in (0, r / 2).
+% \end{equation}
+
+Let $\eps < r / 2$ and $(\td{X}, \td{Y})$ denote a generic random vector drawn from
+$Q_{X}\times P_{Y\mid X}$, which is independent of the data. Then
+\begin{align}
+  &\P(\td{Y} \in \hat{C}(\td{X}) \mid \td{X})\nonumber\\
+  & = \P\lb\max\{\hat{q}_{\alpha_{\lo}}(\td{X}) - \td{Y}, \td{Y} - \hat{q}_{\alpha_{\hi}}(\td{X})\}\le \eta(\td{X})\mid \td{X}\rb\nonumber\\
+  &\ge \P\lb\max\{q_{\alpha_{\lo}}(\td{X}) - \td{Y}, \td{Y} - q_{\alpha_{\hi}}(\td{X})\}\le \eta(\td{X}) - H(\td{X})\mid \td{X}\rb\nonumber\\
+  & \ge \P\lb\max\{q_{\alpha_{\lo}}(\td{X}) - \td{Y}, \td{Y} - q_{\alpha_{\hi}}(\td{X})\}\le -\eps - H(\td{X})\mid \td{X}\rb - \P(\eta(\td{X}) < -\eps\mid \td{X})\nonumber\\
+  & \ge \P\lb\max\{q_{\alpha_{\lo}}(\td{X}) - \td{Y}, \td{Y} - q_{\alpha_{\hi}}(\td{X})\}\le -\eps - H(\td{X})I(H(\td{X})\le \eps)\mid \td{X}\rb\nonumber\\
+  & \quad - I(H(\td{X}) > \eps) - \P(\eta(\td{X}) < -\eps\mid \td{X})\nonumber\\
+  & \stackrel{(i)}{\ge}\P\lb\max\{q_{\alpha_{\lo}}(\td{X}) - \td{Y}, \td{Y} - q_{\alpha_{\hi}}(\td{X})\}\le 0 \mid \td{X}\rb - b_{2}\left\{\eps + H(\td{X})I(H(\td{X})\le \eps)\right\}\nonumber\\
+  & \quad - I(H(\td{X}) > \eps) - \P(\eta(\td{X}) < -\eps\mid \td{X})\nonumber\\
+  & \ge \P\lb\max\{q_{\alpha_{\lo}}(\td{X}) - \td{Y}, \td{Y} - q_{\alpha_{\hi}}(\td{X})\}\le 0 \mid \td{X}\rb - b_{2}\left\{\eps + H(\td{X})\right\}\nonumber\\
+  & \quad - I(H(\td{X}) > \eps) - \P(\eta(\td{X}) < -\eps \mid \td{X})\nonumber\\
+  & \stackrel{(ii)}{=} 1 - \alpha - b_{2}\left\{\eps + H(\td{X})\right\} - I(H(\td{X}) > \eps) - \P(\eta(\td{X}) < -\eps \mid \td{X}); \label{eq:conditional_coverage}
+\end{align}
+above, (i) uses the condition that $2\eps < r$ and the assumption
+(2), and (ii) follows from the assumption (1) and the definitions of $q_{\alpha_{\lo}}$ and $q_{\alpha_{\hi}}$ that $\P(\td{Y}\in [q_{\alpha_{\lo}}(\td{X}), q_{\alpha_{\hi}}(\td{X})]) = \alpha_{\hi} - \alpha_{\lo} = 1 - \alpha$. % \ejc{Same
+  % (2)?} \lihua{yes, assumption \textbf{B}2 (2) implies that the conditional density exists and is positive so the probability lying in the interval is exactly $1 - \alpha$}
+% that
+% $\td{Y}$ has positive conditional densities at $q_{\alpha_{\lo}}(x)$
+% and $q_{\alpha_{\hi}}(x)$.
+
+Next, we derive an upper bound on
+  $\P(\eta(\td{X}) < -\eps \mid \td{X})$. Let $G$ denote the
+  cumulative distribution function of the random distribution
+  $\sum_{i=1}^{n}\hat{p}_{i}(\td{X})\delta_{V_{i}} +
+  \hat{p}_{\infty}(\td{X})\delta_{\infty}$. Again, $G$ implicitly
+  depends on $N$, $n$ and $\td{X}$. Then $\eta(\td{X}) < -\eps$
+  implies $G(-\eps)\ge 1 - \alpha$, and thus,
+\[\P\lb\eta(\td{X}) < -\eps\mid \td{X}\rb\le \P\lb G(-\eps)\ge 1 - \alpha \mid \td{X}\rb, \,\, \text{a.s.}.\]
+Let $G^{*}(-\eps)$ denote the expectation of $G(-\eps)$ conditional on
+$\D = \{\Z_{\tr}, (X_{i})_{i=1}^{n}, \td{X}\}$, namely,
+\[G^{*}(-\eps) = \E[G(-\eps)\mid \D] = \sum_{i=1}^{n}\hat{p}_{i}(\td{X})\P(V_{i}\le -\eps\mid \D).\]
+For any $t > 0$, the triangle inequality implies that
+\begin{equation}
+  \label{eq:etaX1}
+  \P\lb\eta(\td{X}) < -\eps\mid \td{X}\rb\le \P\lb G(-\eps) - G^{*}(-\eps)\ge t \mid \td{X}\rb + \P\lb G^{*}(-\eps)\ge 1 - \alpha - t \mid \td{X}\rb, \,\, \text{a.s.}.
+\end{equation}
+To bound the first term, we note that
+\[G(-\eps) - G^{*}(-\eps) = \sum_{i=1}^{n}\hat{p}_{i}(\td{X})\lb
+  I(V_{i}\le - \eps) - \P(V_{i}\le -\eps\mid \D)\rb.\] Conditional on
+$\D$, $G(-\eps) - G^{*}(-\eps)$ is sub-Gaussian with
+parameter
+\[\hat{\sigma}^{2} = \sum_{i=1}^{n}\hat{p}_{i}(\td{X})^{2}.\]
+For any $t > 0$,
+\[\P\lb G(-\eps) - G^{*}(-\eps) \ge t\mid \D\rb\le \exp\lb
+  -\frac{t^{2}}{2\hat{\sigma}^{2}}\rb.\]
+Let $\gamma_{n}$ be any fixed sequence with $\gamma_{n} = O(1)$. Taking expectation over $\D\setminus \{\td{X}\}$, we obtain that
+% \ejc{Arrange display a bit}
+\begin{align*}
+  &\P\lb G(-\eps) - G^{*}(-\eps) \ge t \mid \td{X}\rb\\
+  & \le \E\left[\exp\lb -\frac{t^{2}}{2\hat{\sigma}^{2}}\rb\mid \td{X}\right] \\
+  & \le \exp\lb - \frac{t^2}{2\gamma_{n}}\rb + \P\lb\hat{\sigma}^2 \ge \gamma_{n}\mid \td{X}\rb\\
+  & = \exp\lb - \frac{t^2}{2\gamma_{n}}\rb + \P\lb \frac{\sum_{i=1}^{n}\hat{w}(X_i)^2}{\lb\sum_{i=1}^{n}\hat{w}(X_i) + \hat{w}(\td{X})\rb^2}\ge \gamma_{n}\mid \td{X}\rb\\
+  & \le \exp\lb - \frac{t^2}{2\gamma_{n}}\rb + \P\lb \frac{\sum_{i=1}^{n}\hat{w}(X_i)^2}{\lb\sum_{i=1}^{n}\hat{w}(X_i)\rb^2}\ge \gamma_{n}\mid \td{X}\rb\\
+  & \stackrel{(i)}{=} \exp\lb - \frac{t^2}{2\gamma_{n}}\rb + \P\lb \frac{\sum_{i=1}^{n}\hat{w}(X_i)^2}{\lb\sum_{i=1}^{n}\hat{w}(X_i)\rb^2}\ge \gamma_{n}\rb\\
+  & \le \exp\lb - \frac{t^2}{2\gamma_{n}}\rb + \P\lb\sum_{i=1}^{n}\hat{w}(X_i)\le \frac{n}{2}\rb + \P\lb\sum_{i=1}^{n}\hat{w}(X_i)^2\ge \frac{n^2\gamma_{n}}{4}\rb\\
+  & \le \exp\lb - \frac{t^2}{2\gamma_{n}}\rb + \P\lb\sum_{i=1}^{n}|\hat{w}(X_i) - 1|\ge \frac{n}{2}\rb + \P\lb\sum_{i=1}^{n}\hat{w}(X_i)^2\ge \frac{n^2\gamma_{n}}{4}\rb,
+\end{align*}
+where (i) uses the fact that $\td{X}$ is independent of
+$(\hat{w}(X_i))_{i=1}^{n}$. Note that this bound holds uniformly with $\td{X}$. Throughout the rest of the proof, we write
+$a_{1n}\preceq a_{2n}$ if there exists a constant $\const$ that only
+depends on $r, b_1, b_2, \delta, M, k, \ell$ such that
+$a_{1n}\le \const a_{2n}$ for all $n$. We consider two cases:
+% \ejc{Arrange displays below}
+\begin{enumerate}[(1)]
+\item If $\delta \ge 1$, then by Markov's inequality,
+  \[\P\lb\sum_{i=1}^{n}\hat{w}(X_i)^2\ge \frac{n^2\gamma_{n}}{4}\rb\le \frac{4\E[\sum_{i=1}^{n}\hat{w}(X_i)^2]}{n^2\gamma_{n}} = \frac{4\E[\hat{w}(X_1)^2]}{n\gamma_{n}}\preceq \frac{1}{n\gamma_{n}}.\]
+  Since $\E[\hat{w}(X_i)\mid \Z_\tr] = 1$, we have $\E[\hat{w}(X_i)] = 1$. By Markov's inequality and Proposition \ref{prop:rosenthal},
+  \begin{align}
+    &\P\lb \sum_{i=1}^{n}|\hat{w}(X_i) - 1|\ge \frac{n}{2}\rb \nonumber\\
+    & \le \frac{2^{1 + \delta}}{n^{1 + \delta}}\E\lb\sum_{i=1}^{n}|\hat{w}(X_i) - \E[\hat{w}(X_i)]|\rb^{1 + \delta}\nonumber\\
+    & \preceq \frac{1}{n^{1 + \delta}}\left\{ n\E|\hat{w}(X_i) - \E[\hat{w}(X_i)]|^{1 + \delta} + n^{(1 + \delta) / 2}\lb\E|\hat{w}(X_i) - \E[\hat{w}(X_i)]|^{2}\rb^{(1 + \delta) / 2}\right\}\nonumber\\
+    & \stackrel{(i)}{\preceq} \frac{1}{n^{1 + \delta}}\left\{ n\E|\hat{w}(X_i)|^{1 + \delta} + n^{(1 + \delta) / 2}(\E|\hat{w}(X_i)|^2)^{(1 + \delta) / 2}\right\}\nonumber\\
+    & \preceq \frac{1}{n^{(1 + \delta) / 2}},\label{eq:denom_case1}
+  \end{align}
+  where (i) follows from the H\"{o}lder's
+  inequality which gives 
+  \[\E|\hat{w}(X_i) - \E[\hat{w}(X_i)]|^{1 + \delta}\le 2^{\delta}\lb \E|\hat{w}(X_i)|^{1+\delta} + |\E[\hat{w}(X_i)]|^{1+\delta}\rb\le 2^{1 + \delta}\E|\hat{w}(X_i)|^{1+\delta}.\]
+  Piecing things together yields
+  \[\P\lb G(-\eps) - G^{*}(-\eps) \ge t \mid \td{X}\rb\preceq \exp\lb - \frac{t^2}{2\gamma_{n}}\rb + \frac{1}{n^{(1 + \delta) / 2}} + \frac{1}{n\gamma_{n}} \preceq \exp\lb - \frac{t^2}{2\gamma_{n}}\rb + \frac{1}{n\gamma_{n}},\]
+  where the last step follows from the fact that $\delta\ge 1$ and $\gamma_{n} = O(1)$.
+\item If $\delta < 1$, then by Markov's inequality,
+  \begin{align*}
+    &\P\lb\sum_{i=1}^{n}\hat{w}(X_i)^2\ge \frac{n^2\gamma_{n}}{4}\rb\le \frac{\E\left[\lb\sum_{i=1}^{n}\hat{w}(X_i)^2\rb^{(1 + \delta) / 2}\right]}{(n^2\gamma_{n})^{(1 + \delta) / 2}}
+  \le \frac{\E\left[\sum_{i=1}^{n}\hat{w}(X_i)^{1 + \delta}\right]}{(n^2\gamma_{n})^{(1 + \delta) / 2}}\preceq \frac{1}{n^{\delta}\gamma_{n}^{(1 + \delta)/2}},
+  \end{align*}
+  where the last step follows from the simple fact that $\|x\|_{p}\le \|x\|_{1}$ for $p\ge 1$, with $p = 2 / (1 + \delta)$ and $x_i = \hat{w}(X_i)^{1 + \delta}$. By Markov's inequality and Proposition \ref{prop:vonbahresseen},
+  \begin{multline}
+    \P\lb \sum_{i=1}^{n}|\hat{w}(X_i) - 1|\ge \frac{n}{2}\rb \\
+    \le \frac{2^{1 + \delta}}{n^{1 + \delta}}\E\lb\sum_{i=1}^{n}|\hat{w}(X_i) - \E[\hat{w}(X_i)]|\rb^{1 + \delta} \preceq \frac{2n\E|\hat{w}(X_i) - \E[\hat{w}(X_i)]|^{1 + \delta}}{n^{1 + \delta}} \preceq \frac{1}{n^{\delta}}.\label{eq:denom_case2}
+  \end{multline}
+  Piecing things together yields 
+  \[\P\lb G(-\eps) - G^{*}(-\eps) \ge t \mid \td{X}\rb\preceq \exp\lb - \frac{t^2}{2\gamma_{n}}\rb + \frac{1}{n^{\delta}} + \frac{1}{n^{\delta}\gamma_{n}^{(1 + \delta) / 2}} \preceq \exp\lb - \frac{t^2}{2\gamma_{n}}\rb + \frac{1}{n^{\delta}\gamma_{n}^{(1 + \delta) / 2}},\]
+  where the last step follows from $\gamma_{n} = O(1)$.
+\end{enumerate}
+In all cases, 
+\begin{equation}
+  \label{eq:etaX2}
+  \P\lb G(-\eps) - G^{*}(-\eps) \ge t \mid \td{X}\rb\preceq 
+\exp\lb - \frac{t^2}{2\gamma_{n}}\rb + \frac{1}{n^{\delta'}\gamma_{n}^{(1 + \delta') / 2}}, \quad \delta' = \min\{\delta, 1\}.
+\end{equation}
+
+~\\
+\noindent Next, we almost surely bound the term
+$\P\lb G^{*}(-\eps)\ge 1 - \alpha - t \mid \td{X}\rb$. By the triangle
+inequality and definition of $H(\cdot)$,
+\[V_{i}\ge \max\{q_{\alpha_{\lo}}(X_{i}) - Y_{i}, Y_{i} - q_{\alpha_{\hi}}(X_{i})\} - H(X_{i})\triangleq V_{i}^{*} - H(X_{i}).\]
+By Assumptions (1) and (2), $\P(V_{i}^{*}\le 0\mid \D) = \alpha_{\hi} - \alpha_{\lo} = 1 - \alpha$. Conditioning on $\D$, $H(X_{i})$ is deterministic. Since $\eps < r / 2 < 2r$,
+\begin{align}
+  G^{*}(-\eps)
+  &\le \sum_{i=1}^{n}\hat{p}_{i}(\td{X})\left\{ I\lb H(X_{i})\ge \frac{\eps}{2}\rb + \P\lb V_{i}^{*}\le -\frac{\eps}{2}\mid \D\rb\right\}\nonumber\\
+  & \le \sum_{i=1}^{n}\hat{p}_{i}(\td{X})\left\{ I\lb H(X_{i})\ge \frac{\eps}{2}\rb + \P\lb V_{i}^{*}\le -\frac{\eps}{2}\mid \D\rb\right\}\nonumber\\
+  & \le \sum_{i=1}^{n}\hat{p}_{i}(\td{X})\left\{ I\lb H(X_{i})\ge \frac{\eps}{2}\rb + \P\lb V_{i}^{*}\le 0\mid \D\rb - \frac{\eps b_{1}}{2}\right\}\nonumber\\
+  & = \sum_{i=1}^{n}\hat{p}_{i}(\td{X})\left\{ I\lb H(X_{i})\ge \frac{\eps}{2}\rb + 1 - \alpha - \frac{\eps b_{1}}{2}\right\}\nonumber\\
+  & \le 1 - \alpha - \frac{\eps b_{1}}{2} + \sum_{i=1}^{n}\hat{p}_{i}(\td{X})I\lb H(X_{i})\ge \frac{\eps}{2}\rb,\label{eq:Gstar1}
+\end{align}
+where the last step follows from the fact that $\sum_{i=1}^{n}\hat{p}_{i}(\td{X})\le 1$. If $t \le \eps b_1 / 4$, \eqref{eq:Gstar1} implies that 
+\begin{align*}
+  &\P\lb G^{*}(-\eps)\ge 1 - \alpha - t \mid \td{X}\rb\\
+  & \le \P\lb\sum_{i=1}^{n}\hat{p}_{i}(\td{X})I\lb H(X_i)\ge \frac{\eps}{2}\rb\ge \frac{\eps b_1}{2} - t\mid \td{X}\rb\\
+  & = \P\lb\frac{\sum_{i=1}^{n}\hat{w}(X_i)I(H(X_i)\ge \eps / 2)}{\sum_{i=1}^{n}\hat{w}(X_i) + \hat{w}(\td{X})}\ge \frac{\eps b_1}{2} - t\mid \td{X}\rb\\
+  & \le \P\lb\frac{\sum_{i=1}^{n}\hat{w}(X_i)I(H(X_i)\ge \eps / 2)}{\sum_{i=1}^{n}\hat{w}(X_i)}\ge \frac{\eps b_1}{2} - t\mid \td{X}\rb\\
+  & \stackrel{(i)}{=} \P\lb\frac{\sum_{i=1}^{n}\hat{w}(X_i)I(H(X_i)\ge \eps / 2)}{\sum_{i=1}^{n}\hat{w}(X_i)}\ge \frac{\eps b_1}{2} - t\rb\\
+  & \le \P\lb\sum_{i=1}^{n}\hat{w}(X_i)\le \frac{n}{2}\rb + \P\lb \sum_{i=1}^{n}\hat{w}(X_i)I\lb H(X_i)\ge \frac{\eps}{2}\rb\ge \frac{n(\eps b_1 - 2t)}{4}\rb\\
+  & \stackrel{(ii)}{\le} \P\lb\sum_{i=1}^{n}|\hat{w}(X_i) - 1|\ge \frac{n}{2}\rb + \P\lb \sum_{i=1}^{n}\hat{w}(X_i)I\lb H(X_i)\ge \frac{\eps}{2}\rb\ge \frac{n\eps b_1}{8}\rb,
+\end{align*}
+where (i) follows from the independence between $\td{X}$ and $\D\setminus\{\td{X}\}$ and (ii) follows from the fact that $t \le \eps b_1 / 4$. By \eqref{eq:denom_case1} and \eqref{eq:denom_case2}, we have that
+\[\P\lb\sum_{i=1}^{n}|\hat{w}(X_i) - 1|\ge \frac{n}{2}\rb\preceq \frac{1}{n^{(\delta + \delta') / 2}},\]
+where $\delta' = \min\{\delta, 1\}$. By Markov's inequality,
+\begin{align*}
+  \P\lb \sum_{i=1}^{n}\hat{w}(X_i)I\lb H(X_i)\ge \frac{\eps}{2}\rb\ge \frac{n\eps b_1}{8}\rb &\preceq \frac{1}{\eps}\E\left[\hat{w}(X)I\lb H(X)\ge \frac{\eps}{2}\rb\right]\preceq \frac{\E[\hat{w}(X)H^{k}(X)]}{\eps^{1+k}},
+\end{align*}
+where the last step uses the simple fact that $I(H(X_i)\ge \eps / 2)\le (2/\eps)^{k}H^{k}(X_i)$. Therefore, for any $t\le \eps b_1 / 4$, we obtain an almost sure bound of the form 
+\begin{equation}
+  \label{eq:etaX3}
+  \P\lb G^{*}(-\eps)\ge 1 - \alpha - t \mid \td{X}\rb \preceq \frac{1}{n^{(\delta + \delta') / 2}} + \frac{\E[\hat{w}(X)H^{k}(X)]}{\eps^{1+k}}.
+\end{equation}
+
+~\\
+Combining \eqref{eq:etaX1}, \eqref{eq:etaX2} and \eqref{eq:etaX3} together and setting $t = \eps b_1 / 4$, we obtain that for any sequence $\gamma_{n} = O(1)$, 
+\begin{align}
+  \P\lb\eta(\td{X}) < -\eps\mid \td{X}\rb &\preceq \exp\lb - \frac{b_1^2}{32}\frac{\eps^2}{\gamma_{n}}\rb + \frac{1}{n^{\delta'}\gamma_{n}^{(1 + \delta') / 2}} + \frac{1}{n^{(\delta + \delta') / 2}} + \frac{\E[\hat{w}(X)H^{k}(X)]}{\eps^{1+k}}\nonumber\\
+  & \preceq \exp\lb - \frac{b_1^2}{32}\frac{\eps^2}{\gamma_{n}}\rb + \frac{1}{n^{\delta'}\gamma_{n}^{(1 + \delta') / 2}} + \frac{\E[\hat{w}(X)H^{k}(X)]}{\eps^{1+k}}.  \label{eq:etaX4}
+\end{align}
+Substitute $\eps$ with $\eps_{n}$ and assume $\eps_{n} \le r / 2$
+(recall the beginning of the proof). Set
+\begin{equation}
+  \label{eq:gamman}
+  \gamma_{n} = \frac{32}{b_1^2}\frac{\eps_{n}^2}{\log n}.
+\end{equation}
+Clearly, $\gamma_{n} = o(1)$. Then the first term of \eqref{eq:etaX4} is $1 / n$, and thus, 
+\[\P\lb\eta(\td{X}) < -\eps_{n}\mid \td{X}\rb \preceq \frac{(\log n)^{(1 + \delta') / 2}}{n^{\delta'}\eps_{n}^{1 + \delta'}} + \frac{\E[\hat{w}(X)H^{k}(X)]}{\eps_{n}^{1+k}}.\]
+Equivalently, there exists a constant $\const$ that only depends on $r, b_1, b_2, \delta, M, k, \ell$, such that
+\[\P\lb\eta(\td{X}) < -\eps_{n}\mid \td{X}\rb \le \const\left\{\frac{(\log n)^{(1 + \delta') / 2}}{n^{\delta'}\eps_{n}^{1 + \delta'}} + \frac{\E[\hat{w}(X)H^{k}(X)]}{\eps_{n}^{1+k}}\right\}, \,\, \text{a.s.}.\]
+Together with \eqref{eq:conditional_coverage}, it implies that
+% \ejc{displays}
+\begin{multline*}
+  \P(\td{Y} \in \hat{C}(\td{X}) \mid \td{X})\\
+  \ge  1 - \alpha - b_{2}(\eps_{n} + H(\td{X})) - I(H(\td{X}) > \eps_{n}) - \const\left\{\frac{(\log n)^{(1 + \delta') / 2}}{n^{\delta'}\eps_{n}^{1 + \delta'}} + \frac{\E[\hat{w}(X)H^{k}(X)]}{\eps_{n}^{1+k}}\right\},
+\end{multline*}
+almost surely. Assume $\const\ge 2b_2$ without loss of generality. Then
+\begin{multline}
+  \P\lb\P(\td{Y} \in \hat{C}(\td{X}) \mid \td{X}) \le 1 - \alpha - \const\left\{\eps_{n} + \frac{(\log n)^{(1 + \delta') / 2}}{n^{\delta'}\eps_{n}^{1 + \delta'}} + \frac{\E[\hat{w}(X)H^{k}(X)]}{\eps_{n}^{1+k}}\right\}\rb\\
+  \quad \le \P(H(\td{X}) > \eps_{n}).\label{eq:conditional_coverage2}
+\end{multline}
+For any $\beta\in (0, 1)$, let
+\[\eps_{n} = \frac{(\log n)^{(1 + \delta') / 2(2 + \delta')}}{n^{\delta' / (2 + \delta')}} + \lb\E[\hat{w}(X)H^{k}(X)]\rb^{1 / (2+k)} + \frac{\lb\E[w(X)H^{\ell}(X)]\rb^{1/\ell}}{\beta^{1/\ell}}.\]
+Then
+\begin{equation}
+  \label{eq:eps_cond}
+  \frac{(\log n)^{(1 + \delta') / 2}}{n^{\delta'}\eps_{n}^{1 + \delta'}}, \frac{\E[\hat{w}(X)H^{k}(X)]}{\eps_{n}^{1+k}}\le \eps_{n},
+\end{equation}
+and by Markov's inequality and \eqref{eq:transformation},
+\[\P(H(\td{X}) > \eps_{n})\le \frac{\E[H^{\ell}(\td{X})]}{\eps_{n}^{\ell}} = \frac{\E[w(X)H^{\ell}(X)]}{\eps_{n}^{\ell}}\le \beta.\]
+Furthermore, the Assumption (4) implies that $\eps_{n}\le r / 2$ when $N\ge N(r)$ and $n\ge n(r)$ for some constants $N(r), n(r)$ that only depend on $r$. Replacing $\const$ by $3\const$, we obtain that, for $N\ge N(r), n\ge n(r)$, 
+\[\P\lb\P(\td{Y} \in \hat{C}(\td{X}) \mid \td{X}) \le 1 - \alpha - \const\eps_{n}\rb\le \beta.\]
+We can further enlarge $\const$ so that $B\eps_{n} \ge 1 - \alpha$ when $N < N(r)$ or $n < n(r)$, in which case \eqref{eq:conditional_coverage_rate_q} trivially holds.
+% Since it holds for any $\beta \in (0, 1)$, we conclude that
+% \begin{align*}
+%   &\left\{1 - \alpha - \P(\td{Y} \in \hat{C}(\td{X}) \mid \td{X})\right\}_{+} = O_\P(\eps_{n})\\
+%   & = O_\P\lb \frac{(\log n)^{(1 + \delta') / 2(2 + \delta')}}{n^{\delta' / (2 + \delta')}} + \lb\E[\hat{w}(X)H^{k}(X)]\rb^{1 / (2+k)} + \lb\E[w(X)H^{\ell}(X)]\rb^{1/\ell}\rb.
+% \end{align*}
+
+~\\
+\noindent To prove the unconditional result, we note that \eqref{eq:conditional_coverage2} implies
+\[\P(\td{Y} \in \hat{C}(\td{X}))\ge \lb 1 - \alpha - \const\left\{\eps_{n} + \frac{(\log n)^{(1 + \delta') / 2}}{n^{\delta'}\eps_{n}^{1 + \delta'}} + \frac{\E[\hat{w}(X)H^{k}(X)]}{\eps_{n}^{1+k}}\right\}\rb(1 - \P(H(\td{X}) > \eps_{n})).\]
+Let
+\[\eps_{n} = \frac{(\log n)^{(1 + \delta') / 2(2 + \delta')}}{n^{\delta' / (2 + \delta')}} + \lb\E[\hat{w}(X)H^{k}(X)]\rb^{1 / (2+k)} + \lb\E[w(X)H^{\ell}(X)]\rb^{1/ (1+\ell)}.\]
+Then \eqref{eq:eps_cond} remains to hold. % \ejc{I don't understand what the last sentence mean.} \lihua{(A.19) implies that the first term $\eps_{n}$ denominates the other two terms in the expression $B\{\eps_{n} + \ldots + \ldots\}$. That's why we can rewrite the whole term as $3B\eps_{n}$. } 
+By Markov's inequality and \eqref{eq:transformation},
+\[\P(H(\td{X}) > \eps_{n})\le \frac{\E[H^{\ell}(\td{X})]}{\eps_{n}^{\ell}} = \frac{\E[w(X)H^{\ell}(X)]}{\eps_{n}^{\ell}}\le \eps_{n}.\]
+Furthermore, Assumption (4) implies that $\eps_{n}\le r / 2$ when $N$ and $n$ are sufficiently large, in which case,
+\[\P(\td{Y} \in \hat{C}(\td{X}))\ge \lb 1 - \alpha - 3\const\eps_{n}\rb(1 - \eps_{n})\ge 1 - \alpha - (3\const+1)\eps_{n}.\]
+Similar to \eqref{eq:conditional_coverage_rate_q}, we can enlarge the constant to make \eqref{eq:unconditional_coverage_rate_q} hold % \ejc{To make (A.2)?}\lihua{``to make (A.2) hold''}
+when $N$ or $n$ is not sufficiently large.
+
+
+  \subsection{An asymptotic result}\label{subsec:asymptotic}
+
+  Theorem \ref{thm:double_robustness_w} and Theorem \ref{thm:double_robustness_q} together imply the following asymptotic
+  result, which is a generalization of Theorem
+  \ref{thm:double_robustness_ATE} from Section
+  \ref{subsec:double_robustness}.
+\begin{corollary}\label{cor:double_robustness}
+With the same notation as in Theorem \ref{thm:double_robustness_w}, assume
+  that either B1 or B2 (or both) is satisfied:
+  \begin{enumerate}[\textbf{B}1]
+  \item $\displaystyle \lim_{N\rightarrow \infty}\E |\hat{w}_{N}(X) - w(X)| = 0$;
+  \item the conditions (1)-(4) in Theorem \ref{thm:double_robustness_q} hold.
+  \end{enumerate}
+  Then
+  \begin{equation}
+    \label{eq:unconditional_coverage_general}
+    \lim_{N, n\rightarrow\infty}\P_{(X, Y)\sim Q_{X}\times P_{Y\mid X}}(Y \in \hat{C}_{N, n}(X))\ge 1 - \alpha.
+  \end{equation}
+  Furthermore, under \textbf{B}2, for any $\eps > 0$,
+    \begin{equation}
+    \label{eq:conditional_coverage_general}
+    \lim_{N, n\rightarrow\infty}\P_{X\sim Q_{X}}\lb \P(Y\in \hat{C}_{N, n}(X)\mid X)\le 1 - \alpha - \eps\rb = 0.
+  \end{equation}
+\end{corollary}
+
+\section{Proofs of Other Results}\label{app:miscellaneous}
+\subsection{Proof of Proposition \ref{prop:equal}}
+
+Note that it remains to prove the general result since (1) and (2) are special cases. The lower bound is proved by \eqref{eq:unconditional_coverage_rate_w}. For the upper bound, we first note that $\E[\hat{w}(X)^{\r}] < \infty$ implies that $\P_{X\sim P_{X}}(\hat{w}(X) < \infty) = 1$ and $\E[\hat{w}(X)] < \infty$. Thus, we can assume $\E[\hat{w}(X)] = 1$ without loss of generality due to the invariance to rescalings of weighted split-CQR. Let $\td{Q}_{X}$ be a probability measure with $d\td{Q}_{X} = \hat{w}(X)dP_{X}$ and $(\td{X}, \td{Y})$ be a sample from $\td{Q}_{X}\times P_{Y\mid X}$ that is independent of the data. By H\"{o}lder's inequality, 
+\[\E [\hat{w}(\td{X})] = \int \frac{d\td{Q}_{X}}{dP_{X}}d\td{Q}_{X} = \E_{X\sim P_{X}}[\hat{w}(X)^{2}] \le M_{\r}^2 < \infty,\]
+By \eqref{eq:coverage_tilde} again with $(\td{X}, \td{Y})$ denoting $(\td{X}_{n+1}, \td{Y}_{n+1})$ for simplicity,
+\begin{align*}
+  &\P\lb\td{Y}\in \hat{C}(\td{X})\mid \Z_{\tr}\rb\\
+  & = \E \P\lb \td{V}_{n + 1}\le \qt\lb 1 - \alpha; \sum_{i=1}^{n}\hat{p}_{i}(\td{X})\delta_{V_{i}^{*}} + \hat{p}_{\infty}(\td{X})\delta_{\td{V}_{n+1}}\rb \mid \cE(\td{V}), \Z_{\tr}\rb\nonumber\\
+ & \le \E \lb 1 - \alpha + \max_{i\in [n]\cup \{\infty\}}\hat{p}_{i}(\td{X})\rb.
+\end{align*}
+ Let $\A$ denote the event that
+ \[\sum_{i=1}^{n}\hat{w}(X_{i}) \le \frac{n}{2}.\]
+ By \eqref{eq:denom_case1} with $\delta = 1$, we have that
+ \[\P\lb\sum_{i=1}^{n}\hat{w}(X_i)\le \frac{n}{2}\rb \le \frac{c_{1}M_{\r}^{2}}{n},\]
+ where $c_1$ is an absolute constant. Note that
+ \[\max_{i\in [n]\cup \{\infty\}}\hat{p}_{i}(\td{X}) = \frac{\max\{\hat{w}(\td{X}), \max_{i}\hat{w}(X_{i})\}}{\hat{w}(\td{X}) + \sum_{i=1}^{n}\hat{w}(X_{i})}\le 1.\]
+ Then
+ \begin{align*}
+   &\E \left[\frac{\max\{\hat{w}(\td{X}), \max_{i}\hat{w}(X_{i})\}}{\hat{w}(\td{X}) + \sum_{i=1}^{n}\hat{w}(X_{i})}\right]\\
+   & \le \E\left[\frac{\max\{\hat{w}(\td{X}), \max_{i}\hat{w}(X_{i})\}}{\hat{w}(\td{X}) + \sum_{i=1}^{n}\hat{w}(X_{i})}I_{\A^{c}}\right] + \P(\A)\\
+   & \le \E\left[\frac{2\max\{\hat{w}(\td{X}), \max_{i}\hat{w}(X_{i})\}}{n}I_{\A^{c}}\right] + \frac{c_{1}M_{\r}^{2}}{n}\\
+   & \le \frac{2}{n}\lb \E \hat{w}(\td{X}) + \E \max_{i}\hat{w}(X_{i})\rb + \frac{c_{1}M_{\r}^{2}}{n}\\
+   & \le \frac{2}{n}\lb \E \hat{w}(\td{X}) + \lb\E\sum_{i=1}^{n}\hat{w}(X_{i})^{\r}\rb^{1/\r}\rb + \frac{c_{1}M_{\r}^{2}}{n}\\
+   & \le \frac{2}{n}\lb M_{\r}^{2} + n^{1 / \r}M_{\r}\rb + \frac{c_{1}M_{\r}^{2}}{n}.
+ \end{align*}
+This implies that
+ \[\P_{(X, Y)\sim \td{Q}_{X}\times P_{Y\mid X}}(Y\in \hat{C}(X))\le 1 - \alpha + cn^{1/\r - 1}\]
+ for some constant $c$ that only depends on $M_{\r}$ and $\r$. The upper bound is then proved by \eqref{eq:tv_Q_tdQ} and the same steps following \eqref{eq:tv_Q_tdQ}. 
+
+
+% Since $\hat{w}(x) = w(x)$, (1) is proved by \eqref{eq:unconditional_coverage_rate_w}. For (2), we first note that
+% \[\E w(X_{i}) = \int \frac{dQ}{dP_{X}}dP_{X} = 1, \quad \E w(\td{X}) = \int \frac{dQ}{dP_{X}}dQ = \chi^{2}\divpq{Q}{P_{X}} = \E w(X_{i})^{2} < \infty,\]
+% because $Q_{X}$ is absolutely continuous with respect to $P_{X}$ and $\r\ge 1$. By \eqref{eq:coverage_tilde} again with $(\td{X}, \td{Y})$ denoting $(\td{X}_{n+1}, \td{Y}_{n+1})$ for simplicity,
+% \begin{align*}
+%   &\P\lb\td{Y}\in \hat{C}(\td{X})\mid \Z_{\tr}\rb\\
+%   & = \E \P\lb \td{V}_{n + 1}\le \qt\lb 1 - \alpha; \sum_{i=1}^{n}p_{i}(\td{X})\delta_{V_{i}^{*}} + p_{\infty}(\td{X})\delta_{\td{V}_{n+1}}\rb \mid \cE(\td{V}), \Z_{\tr}\rb\nonumber\\
+%  & \le \E \lb 1 - \alpha + \max_{i\in [n]\cup \{\infty\}}p_{i}(\td{X})\rb.
+% \end{align*}
+%  Let $\A$ denote the event that
+%  \[\sum_{i=1}^{n}w(X_{i}) \le \frac{n}{2}.\]
+%  By \eqref{eq:denom_case1}, we have that
+% \[\P\lb\sum_{i=1}^{n}\hat{w}(X_i)\le \frac{n}{2}\rb = O\lb\frac{1}{n^{\r / 2}}\rb.\]
+%  Note that
+%  \[\max_{i\in [n]\cup \{\infty\}}p_{i}(\td{X}) = \frac{\max\{w(\td{X}), \max_{i}w(X_{i})\}}{w(\td{X}) + \sum_{i=1}^{n}w(X_{i})}\le 1.\]
+%  Then
+%  \begin{align*}
+%    &\E \left[\frac{\max\{w(\td{X}), \max_{i}w(X_{i})\}}{w(\td{X}) + \sum_{i=1}^{n}w(X_{i})}\right]\\
+%    & \le \E\left[\frac{\max\{w(\td{X}), \max_{i}w(X_{i})\}}{w(\td{X}) + \sum_{i=1}^{n}w(X_{i})}I_{\A^{c}}\right] + \P(\A)\\
+%    & \le \E\left[\frac{2\max\{w(\td{X}), \max_{i}w(X_{i})\}}{n}I_{\A^{c}}\right] + \O\lb n^{-\r/2}\rb\\
+%    & \le \frac{2}{n}\lb \E w(\td{X}) + \E \max_{i}w(X_{i})\rb + \O\lb n^{-\r/2}\rb\\
+%    & \le \frac{2}{n}\lb \chi^{2}\divpq{Q}{P_{X}} + \lb\E\sum_{i=1}^{n}w(X_{i})^{\r}\rb^{1/\r}\rb + \O\lb n^{-\r/2}\rb\\
+%    & = \O\lb \frac{1}{n}\lb 1 + n^{1 / \r}\rb + n^{-\r / 2}\rb\\
+%    & = \O\lb n^{1 / \r - 1} + n^{-\r / 2}\rb = \O\lb n^{1/\r - 1}\rb,
+%  \end{align*}
+%  where the last line uses the fact that $\r \ge 2$ and thus $1 / \r - 1 \ge -\r/2$.
+
+
+\subsection{Proof of Theorem \ref{thm:double_robustness_ATE}}
+Since $\E[1 / \hat{e}_{N}(X)\mid \Z_{\tr}] < \infty$ and
+$\E[1 / e(X)] < \infty$, we can here set
+$$\hat{w}_{N}(x) = \frac{1 / \hat{e}_{N}(x)}{\E[1 / \hat{e}_{N}(X)\mid
+  \Z_{\tr}]}, \,\, w(x) = \frac{dP_{X}(x)}{dP_{X\mid T=1}(x)} = \frac{1 / e(x)}{\E[1 / e(X)]}$$
+$$\Longrightarrow \E[\hat{w}_{N}(X)\mid \Z_{\tr}] = 1 = \E[w(X)].$$ 
+Thus, the assumption
+\textbf{B}1 of Corollary \ref{cor:double_robustness} reduces to
+\[\lim_{N\rightarrow \infty}\E\bigg|\frac{1 / \hat{e}_{N}(X)}{\E[1 / \hat{e}_{N}(X)\mid \Z_{\tr}]} - \frac{1 / e(X)}{\E[1 / e(X)]}\bigg| = 0,\]
+and the assumptions \textbf{B}2 (3)-(4) of Corollary \ref{cor:double_robustness} reduce to
+\[\limsup_{N\rightarrow\infty}\frac{\E [1 / \hat{e}(X)^{1 + \delta}]}{\lb\E [1 / \hat{e}(X)]\rb^{1 + \delta}} < \infty, \quad \lim_{N\rightarrow \infty}\frac{\E[H_{N}(X) / \hat{e}_{N}(X)]}{\E[1 / \hat{e}_{N}(X)]} = \lim_{N\rightarrow \infty}\frac{\E[H_{N}(X) / e(X)]}{\E[1 / e(X)]} = 0.\]
+Clearly, \textbf{A}2 implies \textbf{B}2 since
+$e(x), \hat{e}_{N}(x)\in [0, 1]$. Now we prove that \textbf{A}1
+implies \textbf{B}1. In fact,
+\begin{align*}
+  &\lim_{N\rightarrow \infty}\E\bigg|\frac{1 / \hat{e}_{N}(X)}{\E[1 / \hat{e}_{N}(X)\mid \Z_{\tr}]} - \frac{1 / e(X)}{\E[1 / e(X)]}\bigg| \\
+  \le & \limsup_{N\rightarrow \infty}\frac{1}{\E[1 / \hat{e}_{N}(X)\mid \Z_{\tr}]}\E\bigg|\frac{1}{\hat{e}_{N}(X)} - \frac{1}{e(X)}\bigg| + \limsup_{N\rightarrow \infty}\E \left[\frac{1}{e(X)}\right]\E\bigg|\frac{1}{\E[1 / \hat{e}_{N}(X)\mid \Z_{\tr}]} - \frac{1}{\E[1 / e(X)]}\bigg|\\
+  \stackrel{(i)}{\le} & \limsup_{N\rightarrow \infty}\E\bigg|\frac{1}{\hat{e}_{N}(X)} - \frac{1}{e(X)}\bigg| + \limsup_{N\rightarrow \infty}\E \left[\frac{1}{e(X)}\right]\E \bigg|\E\left[\frac{1}{\hat{e}_{N}(X)}\mid \Z_{\tr}\right] - \E\left[\frac{1}{e(X)}\right]\bigg|\\
+  \le & \limsup_{N\rightarrow \infty}\E\bigg|\frac{1}{\hat{e}_{N}(X)} - \frac{1}{e(X)}\bigg| + \limsup_{N\rightarrow \infty}\E \left[\frac{1}{e(X)}\right]\E\lb \E\left[\bigg|\frac{1}{\hat{e}_{N}(X)} - \frac{1}{e(X)}\bigg|\mid \Z_{\tr}\right]\rb\\
+  \stackrel{(ii)}{=} & \lb 1 + \E \left[\frac{1}{e(X)}\right]\rb\limsup_{N\rightarrow \infty}\E\bigg|\frac{1}{\hat{e}_{N}(X)} - \frac{1}{e(X)}\bigg|;
+\end{align*}
+(i) above uses the fact that $e(x), \hat{e}_{N}(x)\in [0, 1]$ and (ii)
+uses assumption \textbf{A}1 and the condition that
+$\E [1 / e(X)] < \infty$.
+
+\subsection{Proof of Theorem \ref{thm:int_conformal}}
+Let $n = |\Z_{\ca}|$ and $(X_{n+1}, C_{n+1})$ be an independent
+copy of $(X, C)$. Further let
+\[V_{n+1} = \max\{\hat{m}^{L}(X_{n+1}; \Z_{\tr}) - C_{n+1}^{L}, C_{n+1}^{R} - \hat{m}^{R}(X_{n+1}; \Z_{\tr})\}.\]
+Conditional on $\Z_{\tr}$, $V_{1}, \ldots, V_{n}, V_{n + 1}$ are exchangeable. Then
+\[\P\lb V_{n+1}\le \qt\lb 1 - \gamma; \frac{1}{n+1}\sum_{i=1}^{n+1}\delta_{V_{i}}\rb\rb\ge 1 - \gamma.\]
+By definition,
+\[\qt\lb 1 - \gamma; \frac{1}{n+1}\sum_{i=1}^{n+1}\delta_{V_{i}}\rb = \qt\lb (1 - \gamma)\frac{n + 1}{n}; \frac{1}{n}\sum_{i=1}^{n}\delta_{V_{i}}\rb = \eta.\]
+As a consequence,
+\[\P\lb C_{n+1}\in \hat{\cC}(X_{n+1})\rb = \P\lb V_{n+1}\le \eta\rb\ge 1 - \gamma.\]
+
+\section{Additional Experimental Results}\label{app:expr}
+
+\begin{figure}[hbp]
+  \centering
+  \includegraphics[width = 0.9\textwidth]{simul_synthetic_cond_d100_std_paper.pdf}
+  \caption{Estimated conditional coverage of ITE as a function of the
+    conditional variance $\sigma^{2}(x)$ for the heteroscedastic cases
+    from Section \ref{subsec:simul}. Here, $d = 100$ and
+    $\alpha = 0.05$. The blue curves correspond to the median and the 
+    boundaries of the blue confidence bands correspond to the $95\%$
+    and $5\%$ quantiles of these estimates across $100$ replicates.}
+\label{fig:extra1}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.9\textwidth]{simul_synthetic_cond_d10_tau_paper.pdf}
+  \caption{Estimated conditional coverage of ITE as a function of the
+    CATE $\tau(x)$ for all scenarios with $d = 10$ from Section \ref{subsec:simul}. Everything else is as in Figure \ref{fig:extra1}.} 
+\label{fig:extra2}
+\end{figure}
+
+\begin{figure}
+  \centering
+  \includegraphics[width = 0.9\textwidth]{simul_synthetic_cond_d100_tau_paper.pdf}
+  \caption{Estimated conditional coverage of ITE as a function of the
+    CATE $\tau(x)$ for all scenarios with $d = 100$ from Section
+    \ref{subsec:simul}. Everything else is as in Figure
+    \ref{fig:extra1}. The difference with Figure \ref{fig:extra2} is
+    the value of the dimension $d$. Yet, we can observe a very similar
+    behavior.}
+\label{fig:extra3}
+\end{figure}
+
+%%% Local Variables:
+%%% mode: latex
+%%% TeX-master: t
+%%% End:

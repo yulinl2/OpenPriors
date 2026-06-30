@@ -1,0 +1,32 @@
+name: concept-graph-ci
+
+# Continuous verification of the concept-graph lift (Epic B). Regenerates the decomposer
+# outputs first (the on-disk contract), then builds + verifies + tests the OAR graph.
+
+on:
+  push:
+    branches: ["**"]
+    paths: ["concept_graph/**", "decomposer/**", ".github/workflows/concept-graph-ci.yml"]
+  pull_request:
+    paths: ["concept_graph/**", "decomposer/**", ".github/workflows/concept-graph-ci.yml"]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    env:
+      SOURCE_DATE_EPOCH: "1735689600"  # 2025-01-01Z: deterministic provenance timestamps
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r decomposer/requirements.txt pytest
+      - name: Regenerate decomposer outputs (the Epic A -> B contract)
+        run: PYTHONPATH=decomposer/src python -m decomposer.cli
+      - name: Build + verify concept graphs
+        run: PYTHONPATH=concept_graph/src python -m concept_graph.cli
+      - name: Tests
+        run: PYTHONPATH=concept_graph/src python -m pytest concept_graph/tests -q

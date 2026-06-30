@@ -1,0 +1,52 @@
+[
+  {
+    "slug": "arxiv-2006.06138",
+    "adapter": "latex",
+    "origin": "arxiv:2006.06138 (Lei & Candes, Conformal Inference of Counterfactuals and ITE)",
+    "formats": ["latex", "html"],
+    "main": "source/conformal_causal_arxiv_final.tex",
+    "bbl": "source/conformal_causal_arxiv_final.bbl",
+    "html": "ar5iv.html",
+    "external_ids": { "arxiv": "2006.06138" },
+    "source_files": [
+      "source/conformal_causal_arxiv_final.tex",
+      "source/intro.tex",
+      "source/setup.tex",
+      "source/counterfactual.tex",
+      "source/effect.tex",
+      "source/extension.tex",
+      "source/appendix.tex",
+      "source/conformal_causal.bib",
+      "source/conformal_causal_arxiv_final.bbl",
+      "ar5iv.html"
+    ],
+    "min_coverage": 0.55
+  },
+  {
+    "slug": "problem_07",
+    "adapter": "latex",
+    "origin": "Imports/decomposer-sample-test-cases/problem_07.tex",
+    "formats": ["latex"],
+    "main": "problem_07.tex",
+    "source_files": ["problem_07.tex"],
+    "min_coverage": 0.55
+  },
+  {
+    "slug": "sample-text-riddles",
+    "adapter": "markdown",
+    "origin": "Imports/decomposer-sample-test-cases/sample-text-riddles.md",
+    "formats": ["markdown"],
+    "main": "sample-text-riddles.md",
+    "source_files": ["sample-text-riddles.md"],
+    "min_coverage": 0.6
+  },
+  {
+    "slug": "problem_04_review",
+    "adapter": "markdown",
+    "origin": "Imports/decomposer-sample-test-cases/problem_04_review.md",
+    "formats": ["markdown"],
+    "main": "problem_04_review.md",
+    "source_files": ["problem_04_review.md"],
+    "min_coverage": 0.45
+  }
+]

@@ -1,0 +1,75 @@
+{
+  "all_passed": true,
+  "checks": [
+    {
+      "detail": "bundle validates against Pydantic schema",
+      "metrics": {},
+      "name": "schema_valid",
+      "passed": true,
+      "principle": "P3"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "n_duplicates": 0,
+        "n_nodes": 443
+      },
+      "name": "unique_ids",
+      "passed": true,
+      "principle": "P4"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "cycle": false,
+        "n_edges": 442
+      },
+      "name": "acyclic_tree",
+      "passed": true,
+      "principle": "P4"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "coverage_ratio": 0.9833,
+        "covered_chars": 125578,
+        "min_ratio": 0.55,
+        "n_leaf_spans": 312,
+        "normalized_len": 127715,
+        "overlap_chars": 0
+      },
+      "name": "character_coverage",
+      "passed": true,
+      "principle": "P1"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "n_dangling": 0,
+        "n_edges": 167,
+        "n_external": 37
+      },
+      "name": "reference_integrity",
+      "passed": true,
+      "principle": "P4"
+    },
+    {
+      "detail": "",
+      "metrics": {
+        "len_once": 127559,
+        "len_twice": 127559
+      },
+      "name": "idempotent_normalization",
+      "passed": true,
+      "principle": "P2"
+    }
+  ],
+  "differential_html": {
+    "html_theorem_like": 4,
+    "matched": 28,
+    "n_html_sections": 32,
+    "n_our_sections": 33,
+    "our_theorem_like": 11,
+    "title_recall": 0.848
+  }
+}

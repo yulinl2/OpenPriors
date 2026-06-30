@@ -1,0 +1,27 @@
+{
+  "dir": "step-30-structure",
+  "id": "30-40",
+  "metrics": {
+    "classified_ratio": 0.9107,
+    "n_edges": 0,
+    "n_nodes": 57,
+    "outputs": [
+      "document",
+      "nodes",
+      "edges",
+      "metrics"
+    ],
+    "type_counts": {
+      "block": 5,
+      "document": 1,
+      "list": 9,
+      "metadata_field": 27,
+      "paragraph": 3,
+      "section": 12
+    }
+  },
+  "name": "classify_and_split",
+  "principle": "P3+P4",
+  "status": "ok",
+  "tool": "markdown adapter -> Pydantic schema -> canonical JSON/JSONL"
+}

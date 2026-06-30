@@ -1,0 +1,333 @@
+{
+  "concepts": [
+    {
+      "attributes": {
+        "depth": 0,
+        "kind": "document",
+        "order": 0,
+        "role": "segment",
+        "x_adapter": "markdown"
+      },
+      "id": "sample-text-riddles",
+      "kind": "document",
+      "name": "sample-text-riddles",
+      "role": "segment",
+      "source_node": "sample-text-riddles"
+    },
+    {
+      "attributes": {
+        "depth": 1,
+        "kind": "example",
+        "order": 0,
+        "role": "exemplify",
+        "x_kind": "riddle"
+      },
+      "id": "sample-text-riddles/example.1",
+      "kind": "example",
+      "name": "riddle 1",
+      "role": "exemplify",
+      "source_node": "sample-text-riddles/example.1"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:1d5d5d7a8d446315",
+        "depth": 2,
+        "kind": "block",
+        "order": 0,
+        "role": "narrate",
+        "x_kind": "source_analog"
+      },
+      "id": "sample-text-riddles/example.1/block.1",
+      "kind": "block",
+      "name": "Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that each person spent 100 dollars on the j",
+      "role": "narrate",
+      "source_node": "sample-text-riddles/example.1/block.1"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:3e956e9a63c185b3",
+        "depth": 2,
+        "kind": "paragraph",
+        "order": 1,
+        "role": "narrate",
+        "x_kind": "target_analog"
+      },
+      "id": "sample-text-riddles/example.1/paragraph.1",
+      "kind": "paragraph",
+      "name": "Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that each person spent ___ on the job.",
+      "role": "narrate",
+      "source_node": "sample-text-riddles/example.1/paragraph.1"
+    },
+    {
+      "attributes": {
+        "depth": 1,
+        "kind": "example",
+        "order": 1,
+        "role": "exemplify",
+        "x_kind": "riddle"
+      },
+      "id": "sample-text-riddles/example.2",
+      "kind": "example",
+      "name": "riddle 2",
+      "role": "exemplify",
+      "source_node": "sample-text-riddles/example.2"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:69c3b3df93acaa33",
+        "depth": 2,
+        "kind": "block",
+        "order": 0,
+        "role": "narrate",
+        "x_kind": "source_analog"
+      },
+      "id": "sample-text-riddles/example.2/block.2",
+      "kind": "block",
+      "name": "Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that it took each person 100 dollars to fin",
+      "role": "narrate",
+      "source_node": "sample-text-riddles/example.2/block.2"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:cba7132ca197b5b5",
+        "depth": 2,
+        "kind": "paragraph",
+        "order": 1,
+        "role": "narrate",
+        "x_kind": "target_analog"
+      },
+      "id": "sample-text-riddles/example.2/paragraph.2",
+      "kind": "paragraph",
+      "name": "Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that it took each person ___ to finish the job.",
+      "role": "narrate",
+      "source_node": "sample-text-riddles/example.2/paragraph.2"
+    },
+    {
+      "attributes": {
+        "depth": 1,
+        "kind": "example",
+        "order": 2,
+        "role": "exemplify",
+        "x_kind": "riddle"
+      },
+      "id": "sample-text-riddles/example.3",
+      "kind": "example",
+      "name": "riddle 3",
+      "role": "exemplify",
+      "source_node": "sample-text-riddles/example.3"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:090ce890bac8ce08",
+        "depth": 2,
+        "kind": "block",
+        "order": 0,
+        "role": "narrate",
+        "x_kind": "source_analog"
+      },
+      "id": "sample-text-riddles/example.3/block.3",
+      "kind": "block",
+      "name": "Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that it took each person 300 dollars to fin",
+      "role": "narrate",
+      "source_node": "sample-text-riddles/example.3/block.3"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:6235705a95e2bfe7",
+        "depth": 2,
+        "kind": "paragraph",
+        "order": 1,
+        "role": "narrate",
+        "x_kind": "target_analog"
+      },
+      "id": "sample-text-riddles/example.3/paragraph.3",
+      "kind": "paragraph",
+      "name": "Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that it took each person ___ to finish the same",
+      "role": "narrate",
+      "source_node": "sample-text-riddles/example.3/paragraph.3"
+    },
+    {
+      "attributes": {
+        "depth": 1,
+        "kind": "example",
+        "order": 3,
+        "role": "exemplify",
+        "x_kind": "riddle"
+      },
+      "id": "sample-text-riddles/example.4",
+      "kind": "example",
+      "name": "riddle 4",
+      "role": "exemplify",
+      "source_node": "sample-text-riddles/example.4"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:30d4d46a6c98115a",
+        "depth": 2,
+        "kind": "block",
+        "order": 0,
+        "role": "narrate",
+        "x_kind": "source_analog"
+      },
+      "id": "sample-text-riddles/example.4/block.4",
+      "kind": "block",
+      "name": "Suppose it took 3 people a total of 300 dollars to finish a job. If the rate of the three was the same, then we know that it took one person 300 dollars to fini",
+      "role": "narrate",
+      "source_node": "sample-text-riddles/example.4/block.4"
+    },
+    {
+      "attributes": {
+        "content_sha256": "sha256:ac05ef3dca8da827",
+        "depth": 2,
+        "kind": "paragraph",
+        "order": 1,
+        "role": "narrate",
+        "x_kind": "target_analog"
+      },
+      "id": "sample-text-riddles/example.4/paragraph.4",
+      "kind": "paragraph",
+      "name": "Suppose it took 3 people a total of 3 hours to finish a job. If the rate of the three was the same, then we know that it took one person ___ to finish the same ",
+      "role": "narrate",
+      "source_node": "sample-text-riddles/example.4/paragraph.4"
+    }
+  ],
+  "metrics": {
+    "concept_kind_counts": {
+      "block": 4,
+      "document": 1,
+      "example": 4,
+      "paragraph": 4
+    },
+    "n_concepts": 13,
+    "n_reasoning_edges": 0,
+    "n_relations": 12,
+    "n_resolved": 12,
+    "predicate_counts": {
+      "contains": 12
+    }
+  },
+  "relations": [
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.1",
+      "object": "sample-text-riddles/example.1",
+      "predicate": "contains",
+      "provenance": "sample-text-riddles/example.1",
+      "resolved": true,
+      "subject": "sample-text-riddles"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.2",
+      "object": "sample-text-riddles/example.1/block.1",
+      "predicate": "contains",
+      "provenance": "sample-text-riddles/example.1/block.1",
+      "resolved": true,
+      "subject": "sample-text-riddles/example.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.3",
+      "object": "sample-text-riddles/example.1/paragraph.1",
+      "predicate": "contains",
+      "provenance": "sample-text-riddles/example.1/paragraph.1",
+      "resolved": true,
+      "subject": "sample-text-riddles/example.1"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.4",
+      "object": "sample-text-riddles/example.2",
+      "predicate": "contains",
+      "provenance": "sample-text-riddles/example.2",
+      "resolved": true,
+      "subject": "sample-text-riddles"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.5",
+      "object": "sample-text-riddles/example.2/block.2",
+      "predicate": "contains",
+      "provenance": "sample-text-riddles/example.2/block.2",
+      "resolved": true,
+      "subject": "sample-text-riddles/example.2"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.6",
+      "object": "sample-text-riddles/example.2/paragraph.2",
+      "predicate": "contains",
+      "provenance": "sample-text-riddles/example.2/paragraph.2",
+      "resolved": true,
+      "subject": "sample-text-riddles/example.2"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.7",
+      "object": "sample-text-riddles/example.3",
+      "predicate": "contains",
+      "provenance": "sample-text-riddles/example.3",
+      "resolved": true,
+      "subject": "sample-text-riddles"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.8",
+      "object": "sample-text-riddles/example.3/block.3",
+      "predicate": "contains",
+      "provenance": "sample-text-riddles/example.3/block.3",
+      "resolved": true,
+      "subject": "sample-text-riddles/example.3"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.9",
+      "object": "sample-text-riddles/example.3/paragraph.3",
+      "predicate": "contains",
+      "provenance": "sample-text-riddles/example.3/paragraph.3",
+      "resolved": true,
+      "subject": "sample-text-riddles/example.3"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.10",
+      "object": "sample-text-riddles/example.4",
+      "predicate": "contains",
+      "provenance": "sample-text-riddles/example.4",
+      "resolved": true,
+      "subject": "sample-text-riddles"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.11",
+      "object": "sample-text-riddles/example.4/block.4",
+      "predicate": "contains",
+      "provenance": "sample-text-riddles/example.4/block.4",
+      "resolved": true,
+      "subject": "sample-text-riddles/example.4"
+    },
+    {
+      "attributes": {},
+      "higher_order": false,
+      "id": "r.12",
+      "object": "sample-text-riddles/example.4/paragraph.4",
+      "predicate": "contains",
+      "provenance": "sample-text-riddles/example.4/paragraph.4",
+      "resolved": true,
+      "subject": "sample-text-riddles/example.4"
+    }
+  ],
+  "schema_version": "0.1.0",
+  "slug": "sample-text-riddles"
+}

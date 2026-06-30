@@ -1,0 +1,53 @@
+{
+  "coverage_fraction": 0.3571,
+  "covered_facts": 5,
+  "covering_detail": [
+    {
+      "covers": [
+        "BANACH_FIXEDPOINT(the_map, theta_star)",
+        "CONTRACTION(the_map, kappa)",
+        "LINEAR_CONVERGENCE(the_seq, theta_star, kappa)"
+      ],
+      "covers_n": 3,
+      "prior": "banach_fixed_point"
+    },
+    {
+      "covers": [
+        "STRONG_CONVEXITY_BOUND(diff_T, grad_diff)"
+      ],
+      "covers_n": 1,
+      "prior": "strong_convexity"
+    },
+    {
+      "covers": [
+        "KR_BOUND(grad_diff, the_w1)"
+      ],
+      "covers_n": 1,
+      "prior": "kantorovich_rubinstein"
+    }
+  ],
+  "covering_priors": [
+    "banach_fixed_point",
+    "strong_convexity",
+    "kantorovich_rubinstein"
+  ],
+  "n_facts": 14,
+  "novel_contributions": [
+    "ITERATION_COMPLEXITY(the_seq, iter_count)",
+    "OPTIMALITY(the_map, theta)",
+    "OPTIMALITY(the_map, theta_prime)",
+    "SENSITIVITY(the_w1, theta_diff)"
+  ],
+  "residual_facts": [
+    "CAUSE(CONTRACTION(the_map, kappa), BANACH_FIXEDPOINT(the_map, theta_star))",
+    "CAUSE(KR_BOUND(grad_diff, the_w1), CONTRACTION(the_map, kappa))",
+    "CAUSE(LINEAR_CONVERGENCE(the_seq, theta_star, kappa), ITERATION_COMPLEXITY(the_seq, iter_count))",
+    "CAUSE(SENSITIVITY(the_w1, theta_diff), CONTRACTION(the_map, kappa))",
+    "CAUSE(STRONG_CONVEXITY_BOUND(diff_T, grad_diff), CONTRACTION(the_map, kappa))",
+    "ITERATION_COMPLEXITY(the_seq, iter_count)",
+    "OPTIMALITY(the_map, theta)",
+    "OPTIMALITY(the_map, theta_prime)",
+    "SENSITIVITY(the_w1, theta_diff)"
+  ],
+  "target": "problem_07-q1-full"
+}

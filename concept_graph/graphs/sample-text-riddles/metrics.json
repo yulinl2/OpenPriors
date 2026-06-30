@@ -1,0 +1,15 @@
+{
+  "concept_kind_counts": {
+    "block": 4,
+    "document": 1,
+    "example": 4,
+    "paragraph": 4
+  },
+  "n_concepts": 13,
+  "n_reasoning_edges": 0,
+  "n_relations": 12,
+  "n_resolved": 12,
+  "predicate_counts": {
+    "contains": 12
+  }
+}

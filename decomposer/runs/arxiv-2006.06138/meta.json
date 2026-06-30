@@ -1,0 +1,88 @@
+{
+  "adapter": "latex",
+  "generated_at": "2025-01-01T00:00:00Z",
+  "metrics": {
+    "classified_ratio": 0.9548,
+    "max_depth": 5,
+    "n_edges": 167,
+    "n_edges_resolved": 130,
+    "n_nodes": 443,
+    "role_counts": {
+      "assert": 11,
+      "formalize": 112,
+      "narrate": 197,
+      "refer": 88,
+      "segment": 35
+    },
+    "type_counts": {
+      "bib_reference": 88,
+      "block": 20,
+      "document": 1,
+      "equation": 112,
+      "list": 4,
+      "list_item": 11,
+      "paragraph": 162,
+      "remark": 1,
+      "section": 34,
+      "theorem": 10
+    },
+    "verification": {
+      "all_passed": true,
+      "checks": {
+        "acyclic_tree": true,
+        "character_coverage": true,
+        "idempotent_normalization": true,
+        "reference_integrity": true,
+        "schema_valid": true,
+        "unique_ids": true
+      }
+    }
+  },
+  "provenance": {
+    "external_ids": {
+      "arxiv": "2006.06138"
+    },
+    "formats": [
+      "latex",
+      "html"
+    ],
+    "origin": "arxiv:2006.06138 (Lei & Candes, Conformal Inference of Counterfactuals and ITE)",
+    "retrieved_at": "2025-01-01T00:00:00Z",
+    "slug": "arxiv-2006.06138",
+    "source_files": [
+      "arxiv-2006.06138/source/conformal_causal_arxiv_final.tex",
+      "arxiv-2006.06138/source/intro.tex",
+      "arxiv-2006.06138/source/setup.tex",
+      "arxiv-2006.06138/source/counterfactual.tex",
+      "arxiv-2006.06138/source/effect.tex",
+      "arxiv-2006.06138/source/extension.tex",
+      "arxiv-2006.06138/source/appendix.tex",
+      "arxiv-2006.06138/source/conformal_causal.bib",
+      "arxiv-2006.06138/source/conformal_causal_arxiv_final.bbl",
+      "arxiv-2006.06138/ar5iv.html"
+    ],
+    "source_sha256": {
+      "appendix.tex": "sha256:c4ff08e389ddf929",
+      "ar5iv.html": "sha256:143da132a69e4388",
+      "conformal_causal.bib": "sha256:78af3c25177bc7c4",
+      "conformal_causal_arxiv_final.bbl": "sha256:c3d455cd0ed16c62",
+      "conformal_causal_arxiv_final.tex": "sha256:3d86ab6ecc2626ce",
+      "counterfactual.tex": "sha256:16aeaa2f1fc64f85",
+      "effect.tex": "sha256:cdc29e27449a84b2",
+      "extension.tex": "sha256:49d493d43b5ab6d0",
+      "intro.tex": "sha256:07e43d328e782d1f",
+      "setup.tex": "sha256:5f2303bb84bf5e0d"
+    },
+    "tool_versions": {
+      "pydantic": "2.13.4",
+      "pylatexenc": "2.10",
+      "python": "3.11.15"
+    }
+  },
+  "slug": "arxiv-2006.06138",
+  "tool_versions": {
+    "pydantic": "2.13.4",
+    "pylatexenc": "2.10",
+    "python": "3.11.15"
+  }
+}

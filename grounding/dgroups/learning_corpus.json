@@ -1,0 +1,44 @@
+{
+  "_provenance": {
+    "note": "A THIRD literature (Epic O): statistical-learning-theory generalization bounds, lifted into grounded dgroups with the same higher-order CAUSE(premise -> guarantee) schema as the conformal and optimization corpora. Used to show (a) the lineage and graph are domain-agnostic across a third field, and (b) the role ascension that powers cross-domain analogy can be DISCOVERED automatically from each functor's position in the CAUSE structure, with no hand-declared map. Grounded; every symbol is a verbatim substring of its statement, checked by grounding.verify."
+  },
+  "vc_generalization": {
+    "name": "vc_generalization",
+    "text": "A hypothesis class with finite VC dimension drives uniform convergence of the empirical risk over the class dimension, and that uniform convergence causes a generalization bound on the excess risk.",
+    "groundings": {
+      "the_class": "hypothesis class",
+      "the_dim": "class dimension",
+      "the_risk": "empirical risk",
+      "the_bound": "generalization bound",
+      "the_excess": "excess risk"
+    },
+    "facts": [
+      ["FINITE_VC", "the_class", "the_dim"],
+      ["UNIFORM_CONVERGENCE", "the_risk", "the_dim"],
+      ["GENERALIZATION", "the_bound", "the_excess"],
+      ["CAUSE", ["FINITE_VC", "the_class", "the_dim"], ["UNIFORM_CONVERGENCE", "the_risk", "the_dim"]],
+      ["CAUSE", ["UNIFORM_CONVERGENCE", "the_risk", "the_dim"], ["GENERALIZATION", "the_bound", "the_excess"]]
+    ]
+  },
+  "margin_generalization": {
+    "name": "margin_generalization",
+    "text": "For a large-margin classifier the margin bound controls the class dimension; the hypothesis class still has finite VC dimension and drives uniform convergence of the empirical risk over the class dimension, the margin bound also causes that uniform convergence, and the uniform convergence causes a generalization bound on the excess risk.",
+    "groundings": {
+      "the_class": "hypothesis class",
+      "the_dim": "class dimension",
+      "the_risk": "empirical risk",
+      "the_bound": "generalization bound",
+      "the_excess": "excess risk",
+      "the_margin": "margin bound"
+    },
+    "facts": [
+      ["MARGIN_BOUND", "the_margin", "the_dim"],
+      ["FINITE_VC", "the_class", "the_dim"],
+      ["UNIFORM_CONVERGENCE", "the_risk", "the_dim"],
+      ["GENERALIZATION", "the_bound", "the_excess"],
+      ["CAUSE", ["FINITE_VC", "the_class", "the_dim"], ["UNIFORM_CONVERGENCE", "the_risk", "the_dim"]],
+      ["CAUSE", ["UNIFORM_CONVERGENCE", "the_risk", "the_dim"], ["GENERALIZATION", "the_bound", "the_excess"]],
+      ["CAUSE", ["MARGIN_BOUND", "the_margin", "the_dim"], ["UNIFORM_CONVERGENCE", "the_risk", "the_dim"]]
+    ]
+  }
+}

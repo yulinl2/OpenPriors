@@ -1,0 +1,21 @@
+{
+  "attr:bib_reference": 88,
+  "attr:block": 20,
+  "attr:document": 1,
+  "attr:equation": 112,
+  "attr:list": 4,
+  "attr:list_item": 11,
+  "attr:paragraph": 162,
+  "attr:remark": 1,
+  "attr:section": 34,
+  "attr:theorem": 10,
+  "rel:cites": 103,
+  "rel:contains": 442,
+  "rel:derives_from": 17,
+  "rel:refers_to": 64,
+  "role:assert": 11,
+  "role:formalize": 112,
+  "role:narrate": 197,
+  "role:refer": 88,
+  "role:segment": 35
+}

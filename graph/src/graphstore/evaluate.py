@@ -1,0 +1,165 @@
+"""Conjecture evaluation loop (Epic Q): close discover -> predict -> EVALUATE.
+
+Epic P generated analogical conjectures; this stage judges them. The judgment is done by an
+**in-session Claude Code sub-agent** acting as a skeptical ML-theory expert (no API call — the
+project methodology requires NLP/judgment steps to use in-session sub-agents), and the result
+is committed as ``graph/evaluations/conjecture_evaluations.json``.
+
+This module is the **deterministic gate** over that artifact — the same discipline the
+``grounding`` package applies to sub-agent prose. It does NOT call a model. It checks that:
+
+  1. the artifact is well-formed (every entry has a verdict in the allowed set, non-empty
+     reasoning, and a named related-work anchor); and
+  2. every evaluated conjecture is **grounded in the system's real output** — its
+     ``projection`` is a conjecture the ``transfer`` pipeline actually generates for the named
+     analogy. So an evaluation can never drift from, or be invented independently of, the
+     conjectures the system really produced.
+
+The payoff is the closed loop: the analogy ``banach ~~ weighted_conformal`` produced the
+conjecture "conformal prediction has a fixed point", and an independent judge found it
+**plausible** — recovering full conformal prediction's self-consistency — while rejecting a
+capacity-control conjecture as **implausible** (conformal coverage is distribution-free). The
+system invents hypotheses *and* tells the good ones from the bad.
+"""
+
+from __future__ import annotations
+
+import json
+from pathlib import Path
+
+from analogy.predicates import Dgroup
+
+VERDICTS = {"plausible", "uncertain", "implausible"}
+
+
+def attach_verdicts(g, evaluations: list) -> int:
+    """Write each evaluation's verdict onto the matching conjecture node in the graph, so the
+    unified graph itself carries the gated judgment (not just a side report). Matches a
+    conjecture node to an evaluation by (source_base, target, projection). Returns the count
+    annotated."""
+    from .model import Node
+
+    idx = {(e.get("source_base"), e.get("source_target"), e.get("projection")): e
+           for e in evaluations}
+    annotated = 0
+    for n in g.nodes_of_kind("conjecture"):
+        target = n.provenance.split("->")[-1] if "->" in n.provenance else None
+        e = idx.get((n.attrs.get("source_base"), target, n.attrs.get("projection")))
+        if e is not None:
+            # re-add merges attrs (same id/kind/label/provenance) -> node now carries verdict
+            g.add_node(Node(n.id, n.kind, n.label,
+                            {"verdict": e["verdict"], "evaluation_id": e.get("id")},
+                            n.provenance))
+            annotated += 1
+    return annotated
+
+
+def _load_corpora(repo):
+    from retrieval.engine import expr_from_json
+
+    from .crossdomain import _load_corpus
+
+    conf, _, _ = _load_corpus(repo / "retrieval" / "library" / "conformal_theorems.json")
+    opt, _, _ = _load_corpus(repo / "grounding" / "dgroups" / "optimization_corpus.json")
+    learn, _, _ = _load_corpus(repo / "grounding" / "dgroups" / "learning_corpus.json")
+    paper = json.loads(
+        (repo / "grounding" / "dgroups" / "arxiv_2006_06138_main.json").read_text())["target"]
+    conf[paper["name"]] = Dgroup(paper["name"], [expr_from_json(f) for f in paper["facts"]])
+    by_name = {}
+    for corpus in (conf, opt, learn):
+        by_name.update(corpus)
+    return by_name, (conf, opt, learn)
+
+
+def verify(repo: Path) -> dict:
+    """Deterministically validate the committed evaluation artifact against the real
+    conjectures the transfer pipeline generates. Returns a structured report."""
+    from .crossdomain import discover_role_ascension
+    from .transfer import transfer
+
+    art = repo / "graph" / "evaluations" / "conjecture_evaluations.json"
+
+    def _fail(problem: str) -> dict:
+        return {"n_evaluations": 0, "grounded_ok": [], "verdict_distribution": {},
+                "problems": [problem], "passed": False}
+
+    # the gate must REPORT malformed input, not crash on it
+    try:
+        data = json.loads(art.read_text())
+    except (OSError, json.JSONDecodeError) as ex:
+        return _fail(f"cannot read/parse evaluation artifact: {ex}")
+    evals = data.get("evaluations")
+    if not isinstance(evals, list):
+        return _fail("artifact has no 'evaluations' list")
+
+    by_name, (conf, opt, learn) = _load_corpora(repo)
+    ascension = discover_role_ascension(conf, opt, learn)
+
+    cache: dict[tuple, set] = {}                     # transfer() once per (base, target) pair
+
+    def _projections(base: str, target: str) -> set:
+        key = (base, target)
+        if key not in cache:
+            cache[key] = {c["projection"]
+                          for c in transfer(by_name[base], by_name[target], ascension)}
+        return cache[key]
+
+    problems, checked = [], []
+    for e in evals:
+        eid = e.get("id", "?")
+        # 1. schema
+        if e.get("verdict") not in VERDICTS:
+            problems.append(f"{eid}: verdict {e.get('verdict')!r} not in {sorted(VERDICTS)}")
+        if not e.get("reasoning", "").strip():
+            problems.append(f"{eid}: empty reasoning")
+        if not e.get("related_known_work", "").strip():
+            problems.append(f"{eid}: empty related_known_work")
+        # 2. grounding: the projection must be a real transfer-generated conjecture
+        base, target = e.get("source_base"), e.get("source_target")
+        if base not in by_name or target not in by_name:
+            problems.append(f"{eid}: unknown analogy {base} -> {target}")
+            continue
+        if e.get("projection") not in _projections(base, target):
+            problems.append(f"{eid}: projection not generated by transfer({base}->{target})")
+        else:
+            checked.append(eid)
+
+    dist: dict[str, int] = {}
+    for e in evals:
+        dist[e.get("verdict", "?")] = dist.get(e.get("verdict", "?"), 0) + 1
+    return {
+        "n_evaluations": len(evals),
+        "grounded_ok": checked,
+        "verdict_distribution": dist,
+        "problems": problems,
+        "passed": not problems and len(checked) == len(evals),
+    }
+
+
+def main(argv=None) -> int:
+    here = Path(__file__).resolve().parents[2]
+    repo = here.parent
+    rep = verify(repo)
+    data = json.loads(
+        (repo / "graph" / "evaluations" / "conjecture_evaluations.json").read_text())
+
+    print(f"conjecture evaluation loop: {rep['n_evaluations']} conjectures judged by an "
+          f"in-session sub-agent")
+    print(f"  verdicts: {rep['verdict_distribution']}")
+    print(f"  all grounded in real transfer output: {len(rep['grounded_ok'])}/{rep['n_evaluations']}")
+    for e in data["evaluations"]:
+        print(f"  [{e['verdict']:11s}] {e['id']}: {e['statement']}")
+        print(f"               ~ {e['related_known_work'][:80]}")
+
+    if not rep["passed"]:
+        raise SystemExit(f"evaluation gate failed: {rep['problems']}")
+    # the headline: the fixed-point conjecture was judged plausible (a real recovery)
+    c1 = next(e for e in data["evaluations"] if e["id"] == "C1")
+    if c1["verdict"] != "plausible":
+        raise SystemExit("expected the conformal fixed-point conjecture to be judged plausible")
+    return 0
+
+
+if __name__ == "__main__":
+    import sys
+    sys.exit(main())

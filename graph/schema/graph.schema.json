@@ -1,0 +1,231 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "oneOf": [
+    {
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "entity"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attrs": {
+                "properties": {
+                  "grounding": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "grounding"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "const": "entity"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "fact"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attrs": {
+                "properties": {
+                  "arity": {
+                    "type": "integer"
+                  },
+                  "functor": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "arity",
+                  "functor"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "const": "fact"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "functor"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attrs": {
+                "properties": {},
+                "required": [],
+                "type": "object"
+              },
+              "kind": {
+                "const": "functor"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "result"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attrs": {
+                "properties": {
+                  "n_facts": {
+                    "type": "integer"
+                  },
+                  "text": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "n_facts",
+                  "text"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "const": "result"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "kind": {
+                "const": "conjecture"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "attrs": {
+                "properties": {
+                  "projection": {
+                    "type": "string"
+                  },
+                  "source_base": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "projection",
+                  "source_base",
+                  "status"
+                ],
+                "type": "object"
+              },
+              "kind": {
+                "const": "conjecture"
+              }
+            }
+          }
+        }
+      ],
+      "properties": {
+        "attrs": {
+          "type": "object"
+        },
+        "id": {
+          "type": "string"
+        },
+        "kind": {
+          "enum": [
+            "entity",
+            "fact",
+            "functor",
+            "result",
+            "conjecture"
+          ]
+        },
+        "label": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "provenance": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "id",
+        "kind",
+        "label",
+        "attrs",
+        "provenance"
+      ],
+      "title": "node",
+      "type": "object"
+    },
+    {
+      "properties": {
+        "attrs": {
+          "type": "object"
+        },
+        "dst": {
+          "type": "string"
+        },
+        "provenance": {
+          "type": "string"
+        },
+        "relation": {
+          "oneOf": [
+            {
+              "enum": [
+                "instance_of",
+                "asserts",
+                "in",
+                "extends",
+                "analogous_to",
+                "conjectures"
+              ]
+            },
+            {
+              "pattern": "^arg:\\d+$"
+            }
+          ],
+          "type": "string"
+        },
+        "src": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "src",
+        "dst",
+        "relation",
+        "attrs",
+        "provenance"
+      ],
+      "title": "edge",
+      "type": "object"
+    }
+  ],
+  "title": "OpenPriors unified-graph record"
+}

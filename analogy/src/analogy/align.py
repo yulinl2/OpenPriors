@@ -1,0 +1,181 @@
+"""SME-style structural alignment (Falkenhainer, Forbus & Gentner 1989, simplified).
+
+Pipeline (see `Imports/structure mapping notes.md` §2):
+  1. **Match hypotheses (MHs):** pair a base expression with a target expression when they
+     are structurally identical under *identicality* (same functor, same arity, recursively)
+     — entity leaves induce *correspondences*.
+  2. **Structural consistency:** two MHs conflict if their correspondences violate
+     one-to-one (a base entity to two targets, or vice versa).
+  3. **Greedy merge:** add MHs deepest-first into a maximal consistent **Gmap**, scoring by
+     order (systematicity: deep, interconnected structure scores more).
+  4. **Candidate inferences:** unmatched base facts whose sub-structure *is* matched get
+     projected onto the target (the trace of "target = base machinery on relabeled objects").
+
+No backtracking, like SME's greedy variant. The result is a global mapping + a structural
+evaluation score + scored candidate inferences.
+"""
+
+from __future__ import annotations
+
+from dataclasses import dataclass, field
+
+from .predicates import Dgroup, args, functor, is_entity, order
+
+
+@dataclass
+class MatchHypothesis:
+    base: object
+    target: object
+    corrs: frozenset  # frozenset[(base_entity, target_entity)]
+    order: int
+
+
+def _funcs_match(fb: str, ft: str, ascension: dict | None) -> bool:
+    """Identicality, optionally relaxed by *minimal ascension*: two functors also match if
+    they share a parent in the ascension/type lattice (e.g. MINIMIZE and OPTIMIZE both
+    ascend to OBJECTIVE_OP). Fixes SME's brittle strict-identicality (notes §1, §7)."""
+    if fb == ft:
+        return True
+    if ascension:
+        pb, pt = ascension.get(fb), ascension.get(ft)
+        return pb is not None and pb == pt
+    return False
+
+
+def _match(be, te, ascension: dict | None = None) -> set | None:
+    """Return entity correspondences if be/te are identical (under ascension), else None."""
+    if is_entity(be) and is_entity(te):
+        return {(be, te)}
+    if isinstance(be, tuple) and isinstance(te, tuple):
+        if not _funcs_match(functor(be), functor(te), ascension) or len(be) != len(te):
+            return None
+        corrs: set = set()
+        for ba, ta in zip(args(be), args(te)):
+            sub = _match(ba, ta, ascension)
+            if sub is None:
+                return None
+            corrs |= sub
+        return corrs
+    return None  # entity vs predicate => incompatible (identicality)
+
+
+def _is_bijective(corrs) -> bool:
+    """A correspondence set is a valid (partial) 1-1 map: no base entity to two targets and
+    no target from two bases. SME requires structural matches to be 1-1; an MH whose own
+    corrs collapse two entities onto one (e.g. a target that reuses a symbol both arguments
+    map to) is not a clean isomorphism — and, left in, makes greedy acceptance depend on set
+    iteration order. Rejecting it is both SME-correct and what makes alignment deterministic."""
+    b2t, t2b = {}, {}
+    for b, t in corrs:
+        if b2t.setdefault(b, t) != t or t2b.setdefault(t, b) != b:
+            return False
+    return True
+
+
+def match_hypotheses(base: Dgroup, target: Dgroup,
+                     ascension: dict | None = None) -> list[MatchHypothesis]:
+    mhs = []
+    for be in base.facts:
+        for te in target.facts:
+            corrs = _match(be, te, ascension)
+            if corrs is not None and _is_bijective(corrs):
+                mhs.append(MatchHypothesis(be, te, frozenset(corrs), order(be)))
+    return mhs
+
+
+def _consistent(corrs: set, new: frozenset) -> bool:
+    b2t = {b: t for b, t in corrs}
+    t2b = {t: b for b, t in corrs}
+    for b, t in new:
+        if b in b2t and b2t[b] != t:
+            return False
+        if t in t2b and t2b[t] != b:
+            return False
+    return True
+
+
+@dataclass
+class Gmap:
+    correspondences: dict          # base_entity -> target_entity
+    matched_base: list             # matched base expressions
+    matched_target: list           # matched target expressions
+    score: float
+    candidate_inferences: list = field(default_factory=list)
+
+
+def _project(expr, mapping: dict):
+    """Substitute base entities by their target images; unmapped -> skolem:<name>."""
+    if is_entity(expr):
+        return mapping.get(expr, f"skolem:{expr}")
+    return (functor(expr),) + tuple(_project(a, mapping) for a in args(expr))
+
+
+def align(base: Dgroup, target: Dgroup, ascension: dict | None = None,
+          skolem_penalty: float = 0.0, trickle: float = 0.0) -> Gmap:
+    mhs = sorted(match_hypotheses(base, target, ascension), key=lambda m: -m.order)  # deep first
+    corrs: set = set()
+    matched_b, matched_t, score = [], [], 0.0
+    for mh in mhs:
+        if _consistent(corrs, mh.corrs):
+            corrs |= set(mh.corrs)
+            matched_b.append(mh.base)
+            matched_t.append(mh.target)
+            score += 1.0 + mh.order            # systematicity weight: deeper => more
+    mapping = {b: t for b, t in corrs}
+
+    # trickle-down evidence (notes §2, opt-in): for every matched sub-relation that is
+    # *contained in* another matched expression, add ``trickle * (1 + order(sub))`` to the
+    # score. So a sub-relation also nested inside a matched higher-order relation accrues
+    # extra evidence, and structure deep inside a systematic web scores more than the same
+    # relations in isolation. Default 0.0 keeps scores backward-compatible.
+    if trickle > 0:
+        matched_reprs = {repr(e) for e in matched_b}
+        for parent in matched_b:
+            for sub in _subfacts(parent):
+                if repr(sub) in matched_reprs:
+                    score += trickle * (1.0 + order(sub))
+
+    # candidate inferences: unmatched base facts anchored to the matched structure
+    matched_set = {repr(e) for e in matched_b}
+    inferences = []
+    for fact in base.facts:
+        if repr(fact) in matched_set:
+            continue
+        anchored = sum(1 for s in _subfacts(fact) if repr(s) in matched_set)
+        ent_overlap = len([e for e in _ent(fact) if e in mapping])
+        if anchored > 0 or ent_overlap > 0:
+            projection = _project(fact, mapping)
+            # skolem count (notes §6): projecting an arg with no target image invents a new
+            # ("skolem") entity -> a weaker inference. Reported always; penalized in the score
+            # only when skolem_penalty>0 (default 0.0 keeps scores backward-compatible).
+            n_skolems = sum(1 for e in _ent(projection) if str(e).startswith("skolem:"))
+            inferences.append({
+                "base_fact": _fmt(fact),
+                "projection": _fmt(projection),
+                "anchored_submatches": anchored,
+                "entity_overlap": ent_overlap,
+                "n_skolems": n_skolems,
+                "score": round(anchored * 2.0 + ent_overlap - skolem_penalty * n_skolems, 3),
+            })
+    inferences.sort(key=lambda d: -d["score"])
+    return Gmap(mapping, matched_b, matched_t, round(score, 3), inferences)
+
+
+def _subfacts(e):
+    from .predicates import subexprs
+    return [s for s in subexprs(e) if isinstance(s, tuple) and s is not e]
+
+
+def _ent(e):
+    from .predicates import entities
+    return entities(e)
+
+
+def fmt_expr(e) -> str:
+    """Public, human-readable formatter for a predicate-calculus expression."""
+    if is_entity(e):
+        return e
+    return f"{functor(e)}(" + ", ".join(fmt_expr(a) for a in args(e)) + ")"
+
+
+_fmt = fmt_expr  # internal alias (kept for existing call sites)

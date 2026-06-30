@@ -1,0 +1,2151 @@
+{
+  "attributes": [
+    {
+      "arg": "problem_07",
+      "pred": "document"
+    },
+    {
+      "arg": "problem_07",
+      "pred": "role:segment"
+    },
+    {
+      "arg": "problem_07/metadata_field.1",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.1",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.2",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.2",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.3",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.3",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.4",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.4",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.5",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.5",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.6",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.6",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.7",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.7",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.8",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.1/metadata_field.8",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/metadata_field.9",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.9",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/metadata_field.9/metadata_field.10",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.9/metadata_field.10",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/metadata_field.9/metadata_field.11",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.9/metadata_field.11",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/metadata_field.9/metadata_field.12",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.9/metadata_field.12",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/metadata_field.9/metadata_field.13",
+      "pred": "metadata_field"
+    },
+    {
+      "arg": "problem_07/metadata_field.9/metadata_field.13",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/block.1",
+      "pred": "block"
+    },
+    {
+      "arg": "problem_07/block.1",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1",
+      "pred": "msbproblem"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1",
+      "pred": "problem_statement"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1",
+      "pred": "role:assert"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1",
+      "pred": "section"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1",
+      "pred": "role:segment"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1/paragraph.1",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1/paragraph.1",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1/equation.1",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1/equation.1",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1/paragraph.2",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1/paragraph.2",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1/equation.2",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1/equation.2",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1/paragraph.3",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1/paragraph.3",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1/equation.3",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.1/equation.3",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2",
+      "pred": "section"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2",
+      "pred": "role:segment"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/paragraph.4",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/paragraph.4",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1",
+      "pred": "list"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.1",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.1",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.2",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.2",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.3",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.3",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.4",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.4",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/paragraph.5",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/paragraph.5",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/equation.4",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/equation.4",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.6",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.6",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3",
+      "pred": "section"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3",
+      "pred": "role:segment"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3/paragraph.6",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3/paragraph.6",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3/list.2",
+      "pred": "list"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3/list.2",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/paragraph.7",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/paragraph.7",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/equation.5",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/equation.5",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.8",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.8",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.4",
+      "pred": "section"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.4",
+      "pred": "role:segment"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.4/paragraph.8",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.4/paragraph.8",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.4/list.3",
+      "pred": "list"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.4/list.3",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.9",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.9",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.10",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.10",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1",
+      "pred": "answer_key"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1",
+      "pred": "role:assert"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5",
+      "pred": "section"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5",
+      "pred": "role:segment"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4",
+      "pred": "list"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.9",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.9",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.6",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.6",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.10",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.10",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.7",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.7",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.11",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.11",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.8",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.8",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.12",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.12",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.9",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.9",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.13",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.13",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.10",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.10",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6",
+      "pred": "section"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6",
+      "pred": "role:segment"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5",
+      "pred": "list"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.14",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.14",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.11",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.11",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.15",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.15",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.12",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.12",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.16",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.16",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.13",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.13",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.17",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.17",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.14",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.14",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.18",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.18",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.15",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.15",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.19",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.19",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.16",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.16",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6",
+      "pred": "list"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.20",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.20",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.17",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.17",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.21",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.21",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.18",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.18",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.22",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.22",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.19",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.19",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.23",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.23",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.20",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.20",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.24",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.24",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.21",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.21",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.25",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.25",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.22",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.22",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.26",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.26",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.23",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.23",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.27",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.27",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.24",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.24",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.28",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.28",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.25",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.25",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.29",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.29",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.26",
+      "pred": "equation"
+    },
+    {
+      "arg": "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.26",
+      "pred": "role:formalize"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1",
+      "pred": "grading_scheme"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7",
+      "pred": "list"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.18",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.18",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/paragraph.30",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/paragraph.30",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8",
+      "pred": "list"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.19",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.19",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.20",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.20",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.21",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.21",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.22",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.22",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/paragraph.31",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/paragraph.31",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9",
+      "pred": "list"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.23",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.23",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.24",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.24",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.25",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.25",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/paragraph.32",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/paragraph.32",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10",
+      "pred": "list"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.26",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.26",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.27",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.27",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.28",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.28",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.29",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.29",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/paragraph.33",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/paragraph.33",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11",
+      "pred": "list"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.30",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.30",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.31",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.31",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.32",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.32",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1",
+      "pred": "editor_notes"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1",
+      "pred": "role:meta"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/paragraph.34",
+      "pred": "paragraph"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/paragraph.34",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/list.12",
+      "pred": "list"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/list.12",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/list.12/list_item.33",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/list.12/list_item.33",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/list.12/list_item.34",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/list.12/list_item.34",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/list.12/list_item.35",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/list.12/list_item.35",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/list.12/list_item.36",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/list.12/list_item.36",
+      "pred": "role:narrate"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/list.12/list_item.37",
+      "pred": "list_item"
+    },
+    {
+      "arg": "problem_07/block.1/editor_notes.1/list.12/list_item.37",
+      "pred": "role:narrate"
+    }
+  ],
+  "entities": [
+    "problem_07",
+    "problem_07/metadata_field.1",
+    "problem_07/metadata_field.1/metadata_field.2",
+    "problem_07/metadata_field.1/metadata_field.3",
+    "problem_07/metadata_field.1/metadata_field.4",
+    "problem_07/metadata_field.1/metadata_field.5",
+    "problem_07/metadata_field.1/metadata_field.6",
+    "problem_07/metadata_field.1/metadata_field.7",
+    "problem_07/metadata_field.1/metadata_field.8",
+    "problem_07/metadata_field.9",
+    "problem_07/metadata_field.9/metadata_field.10",
+    "problem_07/metadata_field.9/metadata_field.11",
+    "problem_07/metadata_field.9/metadata_field.12",
+    "problem_07/metadata_field.9/metadata_field.13",
+    "problem_07/block.1",
+    "problem_07/block.1/problem_statement.1",
+    "problem_07/block.1/problem_statement.1/section.1",
+    "problem_07/block.1/problem_statement.1/section.1/paragraph.1",
+    "problem_07/block.1/problem_statement.1/section.1/equation.1",
+    "problem_07/block.1/problem_statement.1/section.1/paragraph.2",
+    "problem_07/block.1/problem_statement.1/section.1/equation.2",
+    "problem_07/block.1/problem_statement.1/section.1/paragraph.3",
+    "problem_07/block.1/problem_statement.1/section.1/equation.3",
+    "problem_07/block.1/problem_statement.1/section.2",
+    "problem_07/block.1/problem_statement.1/section.2/paragraph.4",
+    "problem_07/block.1/problem_statement.1/section.2/list.1",
+    "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.1",
+    "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.2",
+    "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.3",
+    "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.4",
+    "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5",
+    "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/paragraph.5",
+    "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/equation.4",
+    "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.6",
+    "problem_07/block.1/problem_statement.1/section.3",
+    "problem_07/block.1/problem_statement.1/section.3/paragraph.6",
+    "problem_07/block.1/problem_statement.1/section.3/list.2",
+    "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7",
+    "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/paragraph.7",
+    "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/equation.5",
+    "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.8",
+    "problem_07/block.1/problem_statement.1/section.4",
+    "problem_07/block.1/problem_statement.1/section.4/paragraph.8",
+    "problem_07/block.1/problem_statement.1/section.4/list.3",
+    "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.9",
+    "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.10",
+    "problem_07/block.1/answer_key.1",
+    "problem_07/block.1/answer_key.1/section.5",
+    "problem_07/block.1/answer_key.1/section.5/list.4",
+    "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11",
+    "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.9",
+    "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.6",
+    "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.10",
+    "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.7",
+    "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.11",
+    "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.8",
+    "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12",
+    "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.12",
+    "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.9",
+    "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.13",
+    "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.10",
+    "problem_07/block.1/answer_key.1/section.6",
+    "problem_07/block.1/answer_key.1/section.6/list.5",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.14",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.11",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.15",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.12",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.16",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.13",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.17",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.14",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.18",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.15",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.19",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.16",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.20",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.17",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.21",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.18",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.22",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.19",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.23",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.20",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.24",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.21",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.25",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.22",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.26",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.23",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.27",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.24",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.28",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.25",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.29",
+    "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.26",
+    "problem_07/block.1/grading_scheme.1",
+    "problem_07/block.1/grading_scheme.1/list.7",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.18",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.18/paragraph.30",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.19",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.20",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.21",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.22",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.22/paragraph.31",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.23",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.24",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.25",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.25/paragraph.32",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.26",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.27",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.28",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.29",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.29/paragraph.33",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.30",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.31",
+    "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.32",
+    "problem_07/block.1/editor_notes.1",
+    "problem_07/block.1/editor_notes.1/paragraph.34",
+    "problem_07/block.1/editor_notes.1/list.12",
+    "problem_07/block.1/editor_notes.1/list.12/list_item.33",
+    "problem_07/block.1/editor_notes.1/list.12/list_item.34",
+    "problem_07/block.1/editor_notes.1/list.12/list_item.35",
+    "problem_07/block.1/editor_notes.1/list.12/list_item.36",
+    "problem_07/block.1/editor_notes.1/list.12/list_item.37"
+  ],
+  "higher_order": [],
+  "relations": [
+    {
+      "args": [
+        "problem_07",
+        "problem_07/metadata_field.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/metadata_field.1",
+        "problem_07/metadata_field.1/metadata_field.2"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/metadata_field.1",
+        "problem_07/metadata_field.1/metadata_field.3"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/metadata_field.1",
+        "problem_07/metadata_field.1/metadata_field.4"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/metadata_field.1",
+        "problem_07/metadata_field.1/metadata_field.5"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/metadata_field.1",
+        "problem_07/metadata_field.1/metadata_field.6"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/metadata_field.1",
+        "problem_07/metadata_field.1/metadata_field.7"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/metadata_field.1",
+        "problem_07/metadata_field.1/metadata_field.8"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07",
+        "problem_07/metadata_field.9"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/metadata_field.9",
+        "problem_07/metadata_field.9/metadata_field.10"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/metadata_field.9",
+        "problem_07/metadata_field.9/metadata_field.11"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/metadata_field.9",
+        "problem_07/metadata_field.9/metadata_field.12"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/metadata_field.9",
+        "problem_07/metadata_field.9/metadata_field.13"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07",
+        "problem_07/block.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1",
+        "problem_07/block.1/problem_statement.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1",
+        "problem_07/block.1/problem_statement.1/section.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.1",
+        "problem_07/block.1/problem_statement.1/section.1/paragraph.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.1",
+        "problem_07/block.1/problem_statement.1/section.1/equation.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.1",
+        "problem_07/block.1/problem_statement.1/section.1/paragraph.2"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.1",
+        "problem_07/block.1/problem_statement.1/section.1/equation.2"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.1",
+        "problem_07/block.1/problem_statement.1/section.1/paragraph.3"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.1",
+        "problem_07/block.1/problem_statement.1/section.1/equation.3"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1",
+        "problem_07/block.1/problem_statement.1/section.2"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.2",
+        "problem_07/block.1/problem_statement.1/section.2/paragraph.4"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.2",
+        "problem_07/block.1/problem_statement.1/section.2/list.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.2/list.1",
+        "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.2/list.1",
+        "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.2"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.2/list.1",
+        "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.3"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.2/list.1",
+        "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.4"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.2/list.1",
+        "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5",
+        "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/paragraph.5"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5",
+        "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.5/equation.4"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.2/list.1",
+        "problem_07/block.1/problem_statement.1/section.2/list.1/list_item.6"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1",
+        "problem_07/block.1/problem_statement.1/section.3"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.3",
+        "problem_07/block.1/problem_statement.1/section.3/paragraph.6"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.3",
+        "problem_07/block.1/problem_statement.1/section.3/list.2"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.3/list.2",
+        "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7",
+        "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/paragraph.7"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7",
+        "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.7/equation.5"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.3/list.2",
+        "problem_07/block.1/problem_statement.1/section.3/list.2/list_item.8"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1",
+        "problem_07/block.1/problem_statement.1/section.4"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.4",
+        "problem_07/block.1/problem_statement.1/section.4/paragraph.8"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.4",
+        "problem_07/block.1/problem_statement.1/section.4/list.3"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.4/list.3",
+        "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.9"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/problem_statement.1/section.4/list.3",
+        "problem_07/block.1/problem_statement.1/section.4/list.3/list_item.10"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1",
+        "problem_07/block.1/answer_key.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1",
+        "problem_07/block.1/answer_key.1/section.5"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5",
+        "problem_07/block.1/answer_key.1/section.5/list.4"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5/list.4",
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11",
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.9"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11",
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.6"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11",
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.10"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11",
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.7"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11",
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/paragraph.11"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11",
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.11/equation.8"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5/list.4",
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12",
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.12"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12",
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.9"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12",
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/paragraph.13"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12",
+        "problem_07/block.1/answer_key.1/section.5/list.4/list_item.12/equation.10"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1",
+        "problem_07/block.1/answer_key.1/section.6"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6",
+        "problem_07/block.1/answer_key.1/section.6/list.5"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.14"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.11"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.15"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.12"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.16"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.13"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.17"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.14"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.18"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.15"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/paragraph.19"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.13/equation.16"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.20"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.17"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/paragraph.21"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.15/equation.18"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.22"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.19"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.23"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.20"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/paragraph.24"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.16/equation.21"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.25"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.22"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.26"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.23"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.27"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.24"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.28"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.25"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/paragraph.29"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17",
+        "problem_07/block.1/answer_key.1/section.6/list.5/list_item.14/list.6/list_item.17/equation.26"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1",
+        "problem_07/block.1/grading_scheme.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1",
+        "problem_07/block.1/grading_scheme.1/list.7"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.18"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.18",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.18/paragraph.30"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.18",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.19"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.20"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.18/list.8/list_item.21"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.22"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.22",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.22/paragraph.31"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.22",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.23"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.22/list.9/list_item.24"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.25"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.25",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.25/paragraph.32"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.25",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.26"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.27"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.25/list.10/list_item.28"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.29"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.29",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.29/paragraph.33"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.29",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.30"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.31"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11",
+        "problem_07/block.1/grading_scheme.1/list.7/list_item.29/list.11/list_item.32"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1",
+        "problem_07/block.1/editor_notes.1"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/editor_notes.1",
+        "problem_07/block.1/editor_notes.1/paragraph.34"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/editor_notes.1",
+        "problem_07/block.1/editor_notes.1/list.12"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/editor_notes.1/list.12",
+        "problem_07/block.1/editor_notes.1/list.12/list_item.33"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/editor_notes.1/list.12",
+        "problem_07/block.1/editor_notes.1/list.12/list_item.34"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/editor_notes.1/list.12",
+        "problem_07/block.1/editor_notes.1/list.12/list_item.35"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/editor_notes.1/list.12",
+        "problem_07/block.1/editor_notes.1/list.12/list_item.36"
+      ],
+      "pred": "contains"
+    },
+    {
+      "args": [
+        "problem_07/block.1/editor_notes.1/list.12",
+        "problem_07/block.1/editor_notes.1/list.12/list_item.37"
+      ],
+      "pred": "contains"
+    }
+  ],
+  "slug": "problem_07"
+}

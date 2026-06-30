@@ -1,0 +1,30 @@
+{
+  "_provenance": {
+    "note": "Library priors for the full-proof set-cover decomposition (Epic F). Shares functor + entity vocabulary with grounding/dgroups/q1_full_proof.json so each theorem's statement appears verbatim as a sub-structure of the proof. Separate from theorems.json (Epic E) which uses a different functor granularity. Grounded; checked by grounding.verify."
+  },
+  "strong_convexity": {
+    "name": "strong_convexity",
+    "text": "For a gamma-strongly convex function, the distance between two points is bounded by the gradient difference: gamma ||x - y|| <= ||grad f(x) - grad f(y)||.",
+    "groundings": { "diff_T": "x - y", "grad_diff": "grad f(x) - grad f(y)" },
+    "facts": [ ["STRONG_CONVEXITY_BOUND", "diff_T", "grad_diff"] ]
+  },
+  "kantorovich_rubinstein": {
+    "name": "kantorovich_rubinstein",
+    "text": "For a beta-Lipschitz function, the difference of its expectations under two distributions is bounded by beta times the Wasserstein-1 distance: ||E_P f - E_Q f|| <= beta W1(P, Q).",
+    "groundings": { "grad_diff": "E_P f - E_Q f", "the_w1": "W1(P, Q)" },
+    "facts": [ ["KR_BOUND", "grad_diff", "the_w1"] ]
+  },
+  "banach_fixed_point": {
+    "name": "banach_fixed_point",
+    "text": "A contraction map T with modulus kappa < 1 has a unique fixed point theta_star, and its iterates converge to theta_star at a linear rate kappa^t.",
+    "groundings": {
+      "the_map": "contraction map T", "kappa": "modulus kappa",
+      "theta_star": "unique fixed point theta_star", "the_seq": "its iterates converge"
+    },
+    "facts": [
+      ["CONTRACTION", "the_map", "kappa"],
+      ["BANACH_FIXEDPOINT", "the_map", "theta_star"],
+      ["LINEAR_CONVERGENCE", "the_seq", "theta_star", "kappa"]
+    ]
+  }
+}

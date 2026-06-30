@@ -1,0 +1,20 @@
+[project]
+name = "openpriors-analogy"
+version = "0.1.0"
+description = "OpenPriors Epic C / FAC: SME-style structural alignment + candidate-inference novelty ('shortcut') detector over predicate-calculus description groups."
+readme = "README.md"
+requires-python = ">=3.10"
+dependencies = []  # pure-Python, stdlib only
+
+[project.optional-dependencies]
+dev = ["pytest>=7"]
+
+[project.scripts]
+analogy = "analogy.cli:main"
+
+[build-system]
+requires = ["setuptools>=68", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["src"]
