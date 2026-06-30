@@ -59,6 +59,15 @@ def test_experiment_is_deterministic():
     assert run_experiment(seed=0) != run_experiment(seed=1)
 
 
+def test_sweep_below_two_is_rejected_clearly():
+    for bad in (0, 1):
+        try:
+            run_experiment(sweep=bad)
+            assert False, "expected ValueError for sweep < 2"
+        except ValueError:
+            pass
+
+
 def test_experiment_realizes_the_committed_c2_research_direction():
     # tie-back: the experiment is exactly what research direction C2's next_step proposed
     art = json.loads((REPO / "graph" / "evaluations" / "research_directions.json").read_text())

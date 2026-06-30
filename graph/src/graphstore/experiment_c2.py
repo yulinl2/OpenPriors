@@ -76,6 +76,8 @@ def chi2(d: list, mu: list) -> float:
 
 def run_experiment(n: int = 6, gamma: float = 0.9, trials: int = 5, sweep: int = 6,
                    seed: int = 0) -> dict:
+    if sweep < 2:
+        raise ValueError(f"sweep must be >= 2 (need at least the endpoints), got {sweep}")
     rng = random.Random(seed)
     results = []
     for _ in range(trials):
@@ -102,6 +104,8 @@ def main(argv=None) -> int:
           f"{rep['n_states']}-state Markov chains (gamma={gamma}):")
     print(f"  claim: the L2(mu) contraction modulus is governed by chi^2(d || mu), the "
           f"change-of-measure mismatch between mu and the stationary d.\n")
+    print(f"  one representative chain (trial 0 of {len(rep['trials'])}; the gate below checks "
+          f"all {len(rep['trials'])}):")
     print(f"  {'chi2(d||mu)':>14}   {'L2(mu) modulus':>14}")
     t0 = rep["trials"][0]
     for p in t0["points"]:
