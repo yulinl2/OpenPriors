@@ -39,36 +39,56 @@ def _relation_ok(rel: str) -> bool:
 
 
 def validate(graph) -> dict:
-    """Structural + referential validation. Returns {'ok': bool, 'errors': [...]}.."""
+    """Structural + referential validation. Returns {'ok': bool, 'errors': [...]}.
+
+    A validator must never crash on the malformed input it exists to catch, so every field is
+    type-checked defensively before use. Integer fields use a strict check that rejects
+    booleans, matching the emitted schema's ``type: integer`` (JSON has no bool-is-int)."""
     errors: list[str] = []
+
+    def _is_int(v) -> bool:
+        return isinstance(v, int) and not isinstance(v, bool)
 
     for nid, n in graph.nodes.items():
         if n.kind not in NODE_KINDS:
             errors.append(f"node {nid!r}: unknown kind {n.kind!r}")
-            continue
         if not isinstance(n.label, str) or not n.label:
             errors.append(f"node {nid!r}: label must be a non-empty string")
-        for key, typ in REQUIRED_ATTRS[n.kind].items():
-            if key not in n.attrs:
-                errors.append(f"node {nid!r} ({n.kind}): missing required attr {key!r}")
-            elif not isinstance(n.attrs[key], typ):
-                errors.append(f"node {nid!r}: attr {key!r} must be {typ.__name__}")
+        if not isinstance(n.provenance, str):
+            errors.append(f"node {nid!r}: provenance must be a string")
+        if not isinstance(n.attrs, dict):
+            errors.append(f"node {nid!r}: attrs must be an object")
+        else:
+            for key, typ in REQUIRED_ATTRS.get(n.kind, {}).items():
+                if key not in n.attrs:
+                    errors.append(f"node {nid!r} ({n.kind}): missing required attr {key!r}")
+                elif not (_is_int(n.attrs[key]) if typ is int else isinstance(n.attrs[key], typ)):
+                    errors.append(f"node {nid!r}: attr {key!r} must be {typ.__name__}")
 
     for e in graph.edges:
-        if not _relation_ok(e.relation):
-            errors.append(f"edge {e.key()}: unknown relation {e.relation!r}")
+        if not isinstance(e.relation, str) or not _relation_ok(e.relation):
+            errors.append(f"edge {e.key()}: unknown or non-string relation {e.relation!r}")
+        if not isinstance(e.attrs, dict):
+            errors.append(f"edge {e.key()}: attrs must be an object")
+        if not isinstance(e.provenance, str):
+            errors.append(f"edge {e.key()}: provenance must be a string")
         if e.src not in graph.nodes:
             errors.append(f"edge {e.key()}: src {e.src!r} is not a node")        # referential
         if e.dst not in graph.nodes:
             errors.append(f"edge {e.key()}: dst {e.dst!r} is not a node")        # integrity
 
-    # arg-edge well-formedness: each fact's arg:i indices are a contiguous 0..n-1
+    # arg-edge well-formedness: a fact's arg:i indices must be exactly 0..arity-1 (the declared
+    # arity). Falls back to a contiguity check only when arity itself is invalid (already flagged).
     for nid, n in graph.nodes.items():
         if n.kind != "fact":
             continue
-        idxs = sorted(int(_ARG_RE.match(e.relation).group(1))
-                      for e in graph.out_edges(nid) if _ARG_RE.match(e.relation))
-        if idxs and idxs != list(range(len(idxs))):
+        idxs = sorted(int(m.group(1)) for e in graph.out_edges(nid)
+                      if isinstance(e.relation, str) and (m := _ARG_RE.match(e.relation)))
+        arity = n.attrs.get("arity") if isinstance(n.attrs, dict) else None
+        if _is_int(arity):
+            if idxs != list(range(arity)):
+                errors.append(f"fact {nid!r}: arg indices {idxs} != 0..{arity - 1} (declared arity)")
+        elif idxs and idxs != list(range(len(idxs))):
             errors.append(f"fact {nid!r}: arg indices not contiguous from 0: {idxs}")
 
     return {"ok": not errors, "errors": errors, "n_nodes": len(graph.nodes),

@@ -83,8 +83,38 @@ def test_unknown_relation_fails():
 
 def test_noncontiguous_arg_indices_fail():
     g = _valid_min()
-    # add arg:2 without arg:1 -> a gap in the fact's argument structure
+    # add arg:2 without arg:1 -> a gap in the fact's argument structure (arity says 1)
     g.add_node(Node("r::ent::y", "entity", "y", attrs={"grounding": "y"}, provenance="r"))
     g.edges.append(Edge("r::fact::1::P", "r::ent::y", "arg:2"))
     rep = validate(g)
-    assert not rep["ok"] and any("contiguous" in e for e in rep["errors"])
+    assert not rep["ok"] and any("arg indices" in e for e in rep["errors"])
+
+
+def test_arg_edges_must_match_declared_arity():
+    g = _valid_min()
+    # the fact declares arity 1 and has arg:0 -> fine; bump arity to 2 with no arg:1 -> fail
+    n = g.nodes["r::fact::1::P"]
+    g.nodes["r::fact::1::P"] = Node(n.id, n.kind, n.label, {"functor": "P", "arity": 2}, n.provenance)
+    rep = validate(g)
+    assert not rep["ok"] and any("declared arity" in e for e in rep["errors"])
+
+
+# --- the validator must not CRASH on malformed input (it exists to catch it) ----------
+
+def test_validator_does_not_crash_on_bad_types():
+    g = Graph()
+    g.nodes["n1"] = Node("n1", "result", "r", attrs=None, provenance=None)         # attrs/prov None
+    g.nodes["n2"] = Node("n2", "fact", "F", attrs={"functor": "F", "arity": True}, provenance="p")
+    g.edges.append(Edge("n1", "n2", 123))                                          # non-str relation
+    rep = validate(g)                                                              # must not raise
+    assert not rep["ok"]
+    assert any("attrs must be an object" in e for e in rep["errors"])
+    assert any("arity" in e for e in rep["errors"])           # True rejected for integer field
+    assert any("non-string relation" in e for e in rep["errors"])
+
+
+def test_boolean_is_rejected_for_integer_attr():
+    g = Graph()
+    g.add_node(Node("result::r", "result", "r", attrs={"text": "t", "n_facts": True}, provenance="r"))
+    rep = validate(g)
+    assert not rep["ok"] and any("n_facts" in e for e in rep["errors"])
