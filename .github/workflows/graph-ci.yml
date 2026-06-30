@@ -37,5 +37,7 @@ jobs:
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.dsl_cli
       - name: Second real paper end-to-end (Nesterov acceleration)
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.realpaper2
+      - name: Formal schema — emit + validate the unified graph
+        run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.schema
       - name: Tests
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m pytest graph/tests -q
