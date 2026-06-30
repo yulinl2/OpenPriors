@@ -48,11 +48,25 @@ Q3 lineage chain of the paper (extends edges):
 - **Q2** is one traversal `functor ← fact ← result`: the relation type is first-class.
 - **Q3** follows `extends` edges (the Epic L lineage) through the same graph.
 
-## Persistence
+## Persistence & schema
 
 A graph *is* its `nodes.jsonl` + `edges.jsonl` (the repo's redundant-representation /
 reconstructability policy). `Graph.save` / `Graph.load` round-trip exactly (asserted in CI),
 and every node/edge carries provenance back to the result and grounding it came from.
+
+The format is a **formal contract** (`graphstore.schema`, Epic X) — the same doctrine the
+decomposer applies to its outputs. `graph/schema/graph.schema.json` is an emitted draft-2020-12
+JSON Schema for external consumers, and `schema.validate(graph)` is the dependency-free in-repo
+checker that enforces everything the JSON Schema does (node kinds, per-kind required attrs, the
+relation vocabulary) **plus** the two things a per-record schema can't express: **referential
+integrity** (every edge endpoint is a real node) and **arg-edge well-formedness** (a fact's
+`arg:i` edges are a contiguous `0..n-1`). The capstone graph validates against it in CI, and
+the validator is unit-tested to fail on each violation, so a graph that validates is genuinely
+well-formed.
+
+```bash
+PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.schema
+```
 
 ## Run
 
