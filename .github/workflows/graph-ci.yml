@@ -33,6 +33,8 @@ jobs:
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.evaluate
       - name: Discovery gate (research directions refined from the open conjectures)
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.discover
+      - name: Numerical experiment for research direction C2 (finite-MDP contraction modulus)
+        run: PYTHONPATH=graph/src python -m graphstore.experiment_c2
       - name: End-to-end pipeline (capstone — ingest→lineage→analogy→transfer→evaluate)
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.pipeline
       - name: Query DSL over the unified graph (path / ancestor / analogy / conjecture lookup)
