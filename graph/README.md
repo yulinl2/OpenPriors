@@ -245,6 +245,38 @@ The scores agree exactly with the validated lineage and real-paper cases (the pa
 extension of weighted conformal; a field's base result scores 1.0), now assigned to **every**
 node automatically. `graphstore.dsl` exposes `novelty_of(result)` and `most_novel(k)`.
 
+## From evaluation to discovery (`graphstore.discover`, Epic Y)
+
+Epic Q sorted the conjectures into plausible / uncertain / implausible. The **uncertain** ones
+are the interesting residue — neither clearly known nor clearly false, i.e. genuinely *open*.
+This stage sharpens them: an in-session sub-agent (no API call) refines each open conjecture
+into a precise **research direction** — a technically-sharpened statement, what's already
+established (with citations), the precise open question, and one concrete next step — committed
+as `graph/evaluations/research_directions.json` and gated deterministically (each direction
+must anchor to a conjecture the evaluation flagged `uncertain`).
+
+```
+discovery loop: 2 open conjectures refined into research directions
+  scope: {'narrow': 1, 'promising': 1}
+  [promising] C4: ... many M-estimators are defined by an estimating-equation/self-consistency
+                  fixed point T_n(theta)=theta ... uniform convergence transfers the population
+                  fixed point to the empirical one
+      open: can uniform-convergence rates be packaged as a perturbation bound on fixed points,
+            ||theta_n - theta*|| <= eps_n/(1-kappa), and what's the weakest condition on the
+            OPERATOR class (vs the loss class) that yields it?
+      next: prove a 'fixed-point uniform convergence' theorem; instantiate for Gaussian-mixture
+            EM to recover the Balakrishnan–Wainwright–Yu rate from an operator-class argument
+```
+
+So the analogy `banach ~~ vc-generalization` — whose raw conjecture "the uniform-convergence
+operator has a fixed point" the judge called type-incorrect — is *refined* into a real,
+citable research program about fixed-point uniform convergence of M-estimators. The loop now
+runs **discover → predict → evaluate → investigate**, every step grounded and gated.
+
+```bash
+PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.discover
+```
+
 ## The whole pipeline in one command (`graphstore.pipeline`, Epic R — capstone)
 
 Every stage above runs end to end on the four-literature corpus from a single entry point,
