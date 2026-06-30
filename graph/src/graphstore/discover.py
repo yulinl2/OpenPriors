@@ -24,9 +24,15 @@ REQUIRED_FIELDS = ("precise_statement", "whats_established", "open_question", "n
 
 
 def _uncertain_ids(repo: Path) -> set:
-    data = json.loads(
-        (repo / "graph" / "evaluations" / "conjecture_evaluations.json").read_text())
-    return {e["id"] for e in data.get("evaluations", []) if e.get("verdict") == "uncertain"}
+    # the dependency artifact; returns None on unreadable/malformed input so verify() can
+    # report it as a structured failure instead of crashing
+    try:
+        data = json.loads(
+            (repo / "graph" / "evaluations" / "conjecture_evaluations.json").read_text())
+    except (OSError, json.JSONDecodeError):
+        return None
+    return {e["id"] for e in data.get("evaluations", [])
+            if isinstance(e, dict) and e.get("verdict") == "uncertain" and e.get("id")}
 
 
 def verify(repo: Path) -> dict:
@@ -36,6 +42,9 @@ def verify(repo: Path) -> dict:
         return {"n_directions": 0, "anchored_ok": [], "scope_distribution": {},
                 "problems": [problem], "passed": False}
 
+    open_ids = _uncertain_ids(repo)
+    if open_ids is None:
+        return _fail("cannot read/parse conjecture_evaluations dependency")
     try:
         data = json.loads(art.read_text())
     except (OSError, json.JSONDecodeError) as ex:
@@ -44,10 +53,13 @@ def verify(repo: Path) -> dict:
     if not isinstance(directions, list):
         return _fail("artifact has no 'directions' list")
 
-    open_ids = _uncertain_ids(repo)
-    problems, checked = [], []
+    problems, checked, refined = [], [], []
     for d in directions:
+        if not isinstance(d, dict):
+            problems.append(f"a direction entry is not an object: {d!r}")
+            continue
         did = d.get("id", "?")
+        refined.append(did)
         # 1. anchoring: the direction must refine a conjecture the evaluation flagged uncertain
         if did not in open_ids:
             problems.append(f"{did}: not an 'uncertain'-judged conjecture {sorted(open_ids)}")
@@ -61,9 +73,17 @@ def verify(repo: Path) -> dict:
                 and d.get("scope_verdict") in SCOPE_VERDICTS:
             checked.append(did)
 
+    # 3. completeness: refine EXACTLY the open set, once each (no omissions, no duplicates)
+    if len(refined) != len(set(refined)):
+        problems.append(f"duplicate conjecture ids in directions: {refined}")
+    if set(refined) != open_ids:
+        problems.append(f"directions must refine exactly the open set {sorted(open_ids)}, "
+                        f"got {sorted(set(refined))}")
+
     dist: dict[str, int] = {}
     for d in directions:
-        dist[d.get("scope_verdict", "?")] = dist.get(d.get("scope_verdict", "?"), 0) + 1
+        if isinstance(d, dict):
+            dist[d.get("scope_verdict", "?")] = dist.get(d.get("scope_verdict", "?"), 0) + 1
     return {
         "n_directions": len(directions),
         "anchored_ok": checked,
@@ -77,21 +97,22 @@ def main(argv=None) -> int:
     here = Path(__file__).resolve().parents[2]
     repo = here.parent
     rep = verify(repo)
-    data = json.loads(
-        (repo / "graph" / "evaluations" / "research_directions.json").read_text())
-
     print(f"discovery loop: {rep['n_directions']} open conjectures refined into research "
           f"directions by an in-session sub-agent")
     print(f"  scope: {rep['scope_distribution']}")
     print(f"  all anchored to 'uncertain'-judged conjectures: "
           f"{len(rep['anchored_ok'])}/{rep['n_directions']}")
+    # the gate validated the artifact parses; only now read it for the detailed printout
+    if not rep["passed"]:
+        for p in rep["problems"][:10]:
+            print(f"    - {p}")
+        raise SystemExit(f"discovery gate failed: {rep['problems']}")
+    data = json.loads(
+        (repo / "graph" / "evaluations" / "research_directions.json").read_text())
     for d in data["directions"]:
         print(f"\n  [{d['scope_verdict']:9s}] {d['id']}: {d['precise_statement']}")
         print(f"      open: {d['open_question']}")
         print(f"      next: {d['next_step']}")
-
-    if not rep["passed"]:
-        raise SystemExit(f"discovery gate failed: {rep['problems']}")
     return 0
 
 

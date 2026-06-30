@@ -69,6 +69,20 @@ def test_gate_fails_on_bad_scope_verdict():
     assert not rep["passed"]
 
 
+def test_gate_fails_on_duplicate_or_incomplete_cover():
+    data = json.loads(ART.read_text())
+    one = data["directions"][0]
+    # duplicate one direction and drop the rest -> not a 1:1 cover of the open set
+    rep = _verify_mutated(lambda d: d.__setitem__("directions", [one, dict(one)]))
+    assert not rep["passed"]
+    assert any("duplicate" in p or "exactly the open set" in p for p in rep["problems"])
+
+
+def test_gate_fails_on_non_dict_direction_entry():
+    rep = _verify_mutated(lambda d: d["directions"].append("not an object"))
+    assert not rep["passed"] and any("not an object" in p for p in rep["problems"])
+
+
 def test_gate_reports_malformed_artifact_without_crashing():
     import graphstore.discover as dv
     orig = pathlib.Path.read_text
@@ -82,3 +96,21 @@ def test_gate_reports_malformed_artifact_without_crashing():
     finally:
         pathlib.Path.read_text = orig
     assert not rep["passed"] and rep["problems"]
+
+
+def test_gate_reports_malformed_DEPENDENCY_without_crashing():
+    # if conjecture_evaluations.json (the dependency that supplies the open set) is unreadable,
+    # the gate reports it rather than raising
+    import graphstore.discover as dv
+    dep = REPO / "graph" / "evaluations" / "conjecture_evaluations.json"
+    orig = pathlib.Path.read_text
+
+    def fake(self, *a, **k):
+        return "{ not json" if self == dep else orig(self, *a, **k)
+
+    pathlib.Path.read_text = fake
+    try:
+        rep = dv.verify(REPO)
+    finally:
+        pathlib.Path.read_text = orig
+    assert not rep["passed"] and any("dependency" in p for p in rep["problems"])
