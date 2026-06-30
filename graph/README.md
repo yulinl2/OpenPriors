@@ -204,6 +204,33 @@ is unit-tested to fail on a tampered or ungrounded judgment, so it can't rot int
 PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.evaluate
 ```
 
+## Per-result novelty, on every node (`graphstore.novelty_graph`, Epic W)
+
+The project began as a novelty detector; this closes that thread at graph scale. Every result
+gets a precise **novelty score** — the IP-judge / MDL framing — against the most-covering known
+prior:
+
+> `novelty(R) = 1 − maxₚ coverage(P → R)` over priors `P ≠ R` with `|P| ≤ |R|`
+
+where `coverage(P → R)` is the fraction of `R`'s facts that `P` explains (exact-functor SME,
+multiplicity-capped). The `|P| ≤ |R|` constraint stops a larger *descendant* from spuriously
+"covering" a smaller ancestor — a prior must be at least as general. The score is written onto
+each result node, and the remainder is the result's **residual** (its contribution over the
+nearest prior):
+
+```
+[7] per-result novelty (1 - best-prior coverage), written onto every result node:
+      arxiv-2006.06138-main    0.2222 vs weighted_conformal
+      margin_generalization    0.2857 vs vc_generalization
+      ...
+      weighted_conformal       0.7143 vs split_conformal
+      split_conformal          1.0    vs (base result — nothing covers it)
+```
+
+The scores agree exactly with the validated lineage and real-paper cases (the paper is a 0.22
+extension of weighted conformal; a field's base result scores 1.0), now assigned to **every**
+node automatically. `graphstore.dsl` exposes `novelty_of(result)` and `most_novel(k)`.
+
 ## The whole pipeline in one command (`graphstore.pipeline`, Epic R — capstone)
 
 Every stage above runs end to end on the four-literature corpus from a single entry point,

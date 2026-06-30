@@ -26,6 +26,7 @@ from .evaluate import attach_verdicts
 from .evaluate import verify as verify_evaluations
 from .model import Graph
 from .multidomain import build_multidomain_graph
+from .novelty_graph import annotate_novelty, result_novelty
 from .query import analogies_of, extends_chain
 from .transfer import add_conjectures, transfer
 
@@ -57,6 +58,14 @@ def run_pipeline(repo: Path) -> dict:
         (repo / "graph" / "evaluations" / "conjecture_evaluations.json").read_text())["evaluations"]
     n_verdicts = attach_verdicts(g, evals)
 
+    # Stage 7: a precise per-result novelty score against the best-covering prior (Epic W),
+    # written onto every result node so the graph carries the novelty signal too.
+    pooled = {}
+    for corpus, _, _ in domains.values():
+        pooled.update(corpus)
+    novelty = result_novelty(pooled)
+    annotate_novelty(g, novelty)
+
     results = [n.label for n in g.nodes_of_kind("result")]
     return {
         "graph": g,
@@ -67,6 +76,7 @@ def run_pipeline(repo: Path) -> dict:
         "discovered_roles": ascension,
         "n_conjectures": n_conj,
         "evaluation": evaluation,
+        "novelty": novelty,
         "stats": g.stats(),
     }
 
@@ -106,6 +116,12 @@ def main(argv=None) -> int:
           f"{rep['evaluation']['verdict_distribution']}")
     print(f"      ({rep['n_verdicts_in_graph']} verdicts written back onto conjecture nodes "
           f"-- the one graph carries them too)")
+    print(f"\n[7] per-result novelty (1 - best-prior coverage), written onto every result node:")
+    for name in sorted(rep["novelty"], key=lambda n: rep["novelty"][n]["novelty"]):
+        sc = rep["novelty"][name]
+        prior = sc["nearest_prior"] or "(base result — nothing covers it)"
+        print(f"      {name:24s} {sc['novelty']:<6} vs {prior}")
+
     print(f"\n  --> the headline: by analogy with Banach contraction theory, the system "
           f"conjectures\n      the conformal procedure has a FIXED POINT — judged plausible "
           f"(it recovers\n      full conformal prediction's self-consistency).")
@@ -131,6 +147,10 @@ def main(argv=None) -> int:
          and rep["evaluation"]["verdict_distribution"].get("plausible", 0) >= 1
          and rep["evaluation"]["verdict_distribution"].get("implausible", 0) >= 1,
          "the evaluation gate passes with a discriminating mix of verdicts"),
+        (rep["novelty"]["split_conformal"]["novelty"] == 1.0
+         and rep["novelty"]["arxiv-2006.06138-main"]["novelty"] < 0.3
+         and g.nodes["result::arxiv-2006.06138-main"].attrs.get("novelty") is not None,
+         "per-result novelty: a base result scores 1.0, the paper scores low, and it's on the node"),
         (Graph.load(out / "pipeline_nodes.jsonl", out / "pipeline_edges.jsonl").stats() == st,
          "the unified pipeline graph round-trips through JSONL"),
     ]
