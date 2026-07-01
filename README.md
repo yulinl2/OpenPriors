@@ -18,7 +18,7 @@ CI; every gate is unit-tested to fail on broken input.
 
 ## 🎈 See it, don't read it
 
-**[▶ Open the interactive dashboard](https://yulinl2.github.io/OpenPriors/)** — a single
+**[▶ Open the interactive dashboard](https://openpriors.open-priors.org/)** — a single
 self-contained page ([`docs/index.html`](docs/index.html)) with **four zoom levels**, from a
 10-year-old's story to the raw audit graph:
 
