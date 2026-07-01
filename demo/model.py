@@ -22,6 +22,8 @@ DOMAINS = {
                       "kid": "When does studying examples actually work?"},
     "concentration": {"color": "#f59e0b", "emoji": "🎲", "nice": "Concentration",
                       "kid": "Lots of small randomness averages out"},
+    "online":        {"color": "#ec4899", "emoji": "🎮", "nice": "Online learning",
+                      "kid": "Getting better as you play, round by round"},
 }
 
 

@@ -129,11 +129,12 @@ def main(argv=None) -> int:
     # invariants: the whole chain must hold together (CI gate; explicit raise for -O)
     roles = rep["discovered_roles"]
     prop_role = {roles.get(f) for f in
-                 ("WEIGHTED_EXCHANGEABLE", "CONTRACTION", "UNIFORM_CONVERGENCE", "BOUNDED_MARTINGALE")}
+                 ("WEIGHTED_EXCHANGEABLE", "CONTRACTION", "UNIFORM_CONVERGENCE",
+                  "BOUNDED_MARTINGALE", "NO_REGRET")}
     checks = [
-        (rep["n_results"] >= 10 and len(rep["domains"]) == 4, "4 literatures, >=10 results"),
+        (rep["n_results"] >= 12 and len(rep["domains"]) == 5, "5 literatures, >=12 results"),
         (len(prop_role) == 1 and None not in prop_role,
-         "the structural-property role is discovered identical across all 4 fields"),
+         "the structural-property role is discovered identical across all 5 fields"),
         (rep["n_analogies"] >= 24 and rep["n_conjectures"] > 0,
          "cross-domain analogies and conjectures are produced"),
         (st["edge_relations"].get("conjectures", 0) > 0
