@@ -1,0 +1,28 @@
+name: report-ci
+
+# Rebuilds REPORT.md from the live pipeline output and checks it is populated and in sync with the
+# committed sources. Keeps the consolidated research report from drifting from what the system produces.
+
+on:
+  push:
+    branches: ["**"]
+    paths: ["report/**", "graph/**", "retrieval/**", "analogy/**", "grounding/**", "demo/model.py", "REPORT.md", ".github/workflows/report-ci.yml"]
+  pull_request:
+    paths: ["report/**", "graph/**", "retrieval/**", "analogy/**", "grounding/**", "demo/model.py", "REPORT.md", ".github/workflows/report-ci.yml"]
+
+jobs:
+  verify:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+      - name: Install pytest
+        run: python -m pip install --upgrade pip pytest
+      - name: Rebuild REPORT.md from live output
+        run: PYTHONPATH=demo:graph/src:retrieval/src:analogy/src:grounding/src python report/build_report.py
+      - name: Tests (report in sync + populated)
+        run: PYTHONPATH=report:demo:graph/src:retrieval/src:analogy/src:grounding/src python -m pytest report/test_report.py -q
+      - name: Fail if REPORT.md is stale (out of sync with committed sources)
+        run: git diff --exit-code REPORT.md

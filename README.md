@@ -30,6 +30,11 @@ It reads live from the pipeline's own output (`make demo` rebuilds it), so it ne
 what the system actually found. *(If the Pages link isn't live yet, open `docs/index.html`
 directly — it needs no server and no network.)*
 
+Prefer prose? **[📄 Read the audit report](REPORT.md)** — a consolidated, technical write-up of
+every literature, lineage, analogy, discovered role, conjecture, research direction, and both
+numerical experiments, with **every figure computed live** from the pipeline (`make report`
+rebuilds it; CI fails if it's stale).
+
 ## The pipeline
 
 ```
