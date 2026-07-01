@@ -277,6 +277,35 @@ runs **discover → predict → evaluate → investigate**, every step grounded 
 PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src decomposer/.venv/bin/python -m graphstore.discover
 ```
 
+## Closing the loop with computation (`graphstore.experiment_c2`, Epic Z)
+
+The discovery loop *proposed* research directions; this **runs one of them**. Direction C2's
+next step was to "test tightness numerically on small finite MDPs by comparing the operator
+Lipschitz modulus against the candidate functionals across a sweep of sampling distributions."
+So the system tests its own proposal — in pure Python (no numpy) — on random finite Markov
+chains:
+
+```
+research direction C2 — numerical test on 5 random 6-state Markov chains (gamma=0.9):
+     chi2(d||mu)   L2(mu) modulus
+          0.0000           0.9000 <- mu = d (stationary)
+          0.1539           0.9567
+          0.3252           1.0167  (no longer a contraction: modulus > 1)
+          1.0131           1.2281  (no longer a contraction: modulus > 1)
+```
+
+At `mu = d` (the stationary/visitation distribution) the L2(mu) modulus is **exactly gamma** —
+the Bertsekas–Tsitsiklis weighted-norm contraction (`||P||_{L2(d)} = 1`) — and it rises
+**monotonically with `chi^2(d || mu)`**, the change-of-measure functional, until the operator
+is no longer a contraction at all. So the contraction modulus *is* governed by the
+likelihood-ratio mismatch, exactly as the system's own research direction proposed — now backed
+by actual numerical evidence, not just asserted. The full loop is **discover → predict →
+evaluate → investigate → experiment**.
+
+```bash
+PYTHONPATH=graph/src decomposer/.venv/bin/python -m graphstore.experiment_c2
+```
+
 ## The whole pipeline in one command (`graphstore.pipeline`, Epic R — capstone)
 
 Every stage above runs end to end on the four-literature corpus from a single entry point,
