@@ -1,0 +1,943 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>OpenPriors</title>
+<style>
+/* ============================================================
+   OpenPriors dashboard — self-contained, no external requests
+   ============================================================ */
+
+/* ---------- Design tokens ---------- */
+:root{
+  --bg0:#0f1226; --bg1:#171a3a; --bg2:#221a4a;
+  --panel:rgba(255,255,255,0.06);
+  --panel-solid:#1c1f3d;
+  --card:rgba(255,255,255,0.08);
+  --ink:#f3f4ff;
+  --ink-dim:#b9bce0;
+  --ink-faint:#8286b8;
+  --stroke:rgba(255,255,255,0.14);
+  --good:#22c55e; --warn:#f59e0b; --bad:#ef4444;
+  --radius:18px;
+  --shadow:0 10px 30px rgba(0,0,0,0.35), 0 2px 8px rgba(0,0,0,0.25);
+  --font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji", sans-serif;
+  --mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+*{box-sizing:border-box;}
+html,body{margin:0;padding:0;}
+
+/* Respect users who ask for reduced motion: kill all animation/transition. */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
+body{
+  font-family:var(--font);
+  color:var(--ink);
+  background:var(--bg0);
+  line-height:1.5;
+  -webkit-font-smoothing:antialiased;
+  min-height:100vh;
+  overflow-x:hidden;
+}
+
+/* Subtle animated gradient background */
+body::before{
+  content:"";
+  position:fixed; inset:-20%;
+  z-index:-1;
+  background:
+    radial-gradient(40% 40% at 20% 20%, rgba(59,130,246,0.25), transparent 60%),
+    radial-gradient(40% 40% at 80% 15%, rgba(168,85,247,0.22), transparent 60%),
+    radial-gradient(45% 45% at 75% 85%, rgba(34,197,94,0.20), transparent 60%),
+    radial-gradient(40% 40% at 15% 85%, rgba(245,158,11,0.18), transparent 60%),
+    linear-gradient(135deg, var(--bg0), var(--bg2));
+  filter:saturate(1.1);
+  animation:drift 24s ease-in-out infinite alternate;
+}
+@keyframes drift{
+  0%{transform:translate(0,0) scale(1);}
+  100%{transform:translate(-3%,-2%) scale(1.06);}
+}
+
+/* ---------- Top nav (sticky tabs) ---------- */
+header.nav{
+  position:sticky; top:0; z-index:50;
+  backdrop-filter:blur(14px);
+  background:rgba(15,18,38,0.72);
+  border-bottom:1px solid var(--stroke);
+  padding:10px 16px;
+}
+.nav-inner{
+  max-width:1200px; margin:0 auto;
+  display:flex; align-items:center; gap:14px; flex-wrap:wrap;
+}
+.brand{
+  font-weight:800; font-size:20px; letter-spacing:.5px;
+  display:flex; align-items:center; gap:8px;
+  margin-right:auto;
+}
+.brand .dot{
+  width:14px;height:14px;border-radius:50%;
+  background:conic-gradient(#3b82f6,#a855f7,#22c55e,#f59e0b,#3b82f6);
+  box-shadow:0 0 12px rgba(168,85,247,.7);
+  animation:spin 8s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg);}}
+.tabs{display:flex; gap:8px; flex-wrap:wrap;}
+.tab{
+  border:1px solid var(--stroke);
+  background:var(--panel);
+  color:var(--ink-dim);
+  padding:9px 14px; border-radius:999px;
+  font-size:14px; font-weight:600; cursor:pointer;
+  transition:transform .15s ease, background .2s, color .2s, box-shadow .2s;
+  display:flex; align-items:center; gap:7px;
+}
+.tab:hover{transform:translateY(-2px); color:var(--ink);}
+.tab:focus-visible{outline:3px solid #a855f7; outline-offset:2px;}
+.tab.active{
+  background:linear-gradient(135deg,#3b82f6,#a855f7);
+  color:#fff; border-color:transparent;
+  box-shadow:0 6px 18px rgba(120,80,240,.45);
+}
+.tab .num{font-size:11px; opacity:.7;}
+
+/* ---------- Layout ---------- */
+main{max-width:1200px; margin:0 auto; padding:26px 16px 80px;}
+.view{display:none; animation:fadeUp .45s ease both;}
+.view.active{display:block;}
+@keyframes fadeUp{from{opacity:0; transform:translateY(14px);} to{opacity:1; transform:none;}}
+
+h1,h2,h3{margin:0 0 .4em;}
+.section-title{font-size:22px; font-weight:800; margin:34px 0 14px; display:flex; align-items:center; gap:10px;}
+.section-sub{color:var(--ink-dim); margin:-6px 0 16px; font-size:14px;}
+
+/* ---------- Generic card ---------- */
+.card{
+  background:var(--card);
+  border:1px solid var(--stroke);
+  border-radius:var(--radius);
+  padding:18px;
+  box-shadow:var(--shadow);
+  backdrop-filter:blur(6px);
+}
+
+/* ============================================================
+   1. STORY VIEW
+   ============================================================ */
+.hero{
+  text-align:center; padding:40px 16px 20px;
+}
+.hero h1{
+  font-size:clamp(44px,9vw,86px);
+  font-weight:900; letter-spacing:-1px;
+  background:linear-gradient(120deg,#60a5fa,#c084fc,#4ade80,#fbbf24);
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  filter:drop-shadow(0 6px 20px rgba(120,80,240,.4));
+  animation:pop .8s ease both;
+}
+@keyframes pop{from{transform:scale(.8); opacity:0;} to{transform:scale(1); opacity:1;}}
+.hero .tagline{font-size:clamp(16px,3vw,24px); color:var(--ink-dim); max-width:640px; margin:0 auto;}
+
+.steps{
+  display:grid; grid-template-columns:repeat(3,1fr); gap:18px; margin-top:30px;
+}
+.step{
+  position:relative; overflow:hidden;
+  text-align:center; padding:26px 18px;
+  transition:transform .2s;
+}
+.step:hover{transform:translateY(-6px) rotate(-.4deg);}
+.step .big-emoji{font-size:54px; display:block; margin-bottom:10px; animation:bob 3s ease-in-out infinite;}
+.step:nth-child(2) .big-emoji{animation-delay:.5s;}
+.step:nth-child(3) .big-emoji{animation-delay:1s;}
+@keyframes bob{0%,100%{transform:translateY(0);}50%{transform:translateY(-8px);}}
+.step h3{font-size:20px;}
+.step p{color:var(--ink-dim); font-size:15px;}
+
+/* animated bubble pair for step 2 */
+.bubble-pair{display:flex; align-items:center; justify-content:center; gap:14px; margin:14px 0 4px;}
+.bubble{
+  width:62px;height:62px;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-size:26px; font-weight:800; color:#fff;
+  box-shadow:0 6px 16px rgba(0,0,0,.4);
+  animation:bob 3s ease-in-out infinite;
+}
+.approx{
+  font-size:34px; font-weight:900; color:#fff;
+  animation:glowpulse 1.6s ease-in-out infinite;
+}
+@keyframes glowpulse{
+  0%,100%{text-shadow:0 0 6px #fff, 0 0 12px #a855f7; transform:scale(1);}
+  50%{text-shadow:0 0 16px #fff, 0 0 28px #4ade80; transform:scale(1.18);}
+}
+.verdict-demo{display:flex; gap:10px; justify-content:center; font-size:30px; margin-top:8px;}
+.verdict-demo span{animation:bob 2.4s ease-in-out infinite;}
+.verdict-demo span:nth-child(2){animation-delay:.3s;}
+.verdict-demo span:nth-child(3){animation-delay:.6s;}
+
+/* by the numbers */
+.numbers{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:34px;
+}
+.numtile{
+  text-align:center; padding:22px 10px;
+  background:linear-gradient(160deg,rgba(255,255,255,.10),rgba(255,255,255,.03));
+}
+.numtile .n{font-size:clamp(30px,6vw,52px); font-weight:900; line-height:1;
+  background:linear-gradient(120deg,#60a5fa,#c084fc); -webkit-background-clip:text; background-clip:text; color:transparent;}
+.numtile .lbl{color:var(--ink-dim); font-size:14px; margin-top:6px;}
+
+.cta-wrap{text-align:center; margin-top:38px;}
+.cta{
+  font-size:18px; font-weight:800;
+  padding:14px 28px; border-radius:999px; border:none; cursor:pointer;
+  color:#fff; background:linear-gradient(135deg,#3b82f6,#a855f7);
+  box-shadow:0 10px 28px rgba(120,80,240,.5);
+  transition:transform .15s;
+}
+.cta:hover{transform:translateY(-3px) scale(1.03);}
+.cta:focus-visible{outline:3px solid #4ade80; outline-offset:3px;}
+
+/* ============================================================
+   2. THE MAP VIEW
+   ============================================================ */
+.discovery-row{
+  display:flex; align-items:center; justify-content:center;
+  gap:0; flex-wrap:wrap; position:relative;
+}
+.disc-svg-wrap{width:100%; overflow-x:auto;}
+.disc-node text{font-family:var(--font);}
+.disc-caption{text-align:center; color:var(--ink-dim); margin-top:8px; font-size:15px; font-weight:600;}
+
+.domain-cols{
+  display:grid; grid-template-columns:repeat(4,1fr); gap:16px; margin-top:8px;
+}
+.domain-col{padding:0; overflow:hidden;}
+.dc-head{
+  padding:14px; color:#fff; font-weight:800;
+  display:flex; flex-direction:column; gap:2px;
+}
+.dc-head .kid{font-size:12px; font-weight:600; opacity:.9;}
+.dc-body{padding:12px; display:flex; flex-direction:column; gap:10px;}
+.res-card{
+  border:1px solid var(--stroke); border-radius:14px; padding:12px;
+  background:rgba(255,255,255,.05); cursor:pointer;
+  transition:transform .15s, border-color .2s, background .2s;
+}
+.res-card:hover{transform:translateY(-3px); background:rgba(255,255,255,.10);}
+.res-card:focus-visible{outline:3px solid #a855f7; outline-offset:2px;}
+.res-card .rc-name{font-weight:700; font-size:14px; word-break:break-word;}
+.res-card .rc-meta{font-size:12px; color:var(--ink-faint); margin-top:2px;}
+.builds{font-size:11px; color:var(--ink-dim); margin-bottom:6px; display:flex; align-items:center; gap:4px;}
+.meter{height:9px; border-radius:6px; background:rgba(255,255,255,.10); margin-top:8px; overflow:hidden;}
+.meter > i{display:block; height:100%; border-radius:6px; transition:width .6s ease;}
+.meter-lbl{font-size:11px; color:var(--ink-dim); margin-top:3px; display:flex; justify-content:space-between;}
+.empty{color:var(--ink-faint); font-size:13px; font-style:italic; padding:10px;}
+
+/* detail side panel */
+.side-panel{
+  position:fixed; top:0; right:0; height:100%; width:min(420px,92vw);
+  background:var(--panel-solid); border-left:1px solid var(--stroke);
+  box-shadow:-14px 0 40px rgba(0,0,0,.5);
+  transform:translateX(105%); transition:transform .35s cubic-bezier(.2,.8,.2,1);
+  z-index:100; padding:22px; overflow-y:auto;
+}
+.side-panel.open{transform:none;}
+.side-panel .close{
+  position:absolute; top:14px; right:14px;
+  border:none; background:rgba(255,255,255,.1); color:#fff;
+  width:34px;height:34px;border-radius:50%; cursor:pointer; font-size:18px;
+}
+.side-panel .close:hover{background:rgba(255,255,255,.2);}
+.sp-tag{display:inline-block; padding:3px 10px; border-radius:999px; font-size:12px; font-weight:700; color:#fff;}
+.sp-text{color:var(--ink-dim); font-size:14px; margin:14px 0;}
+.chips{display:flex; flex-wrap:wrap; gap:6px; margin-top:8px;}
+.chip{
+  font-family:var(--mono); font-size:11px;
+  padding:4px 9px; border-radius:999px;
+  background:rgba(168,85,247,.18); border:1px solid rgba(168,85,247,.4);
+  color:#e9d5ff; word-break:break-all;
+}
+.overlay{
+  position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:99;
+  opacity:0; pointer-events:none; transition:opacity .3s;
+}
+.overlay.show{opacity:1; pointer-events:auto;}
+
+/* ============================================================
+   3. DISCOVERIES VIEW
+   ============================================================ */
+.grid-2{display:grid; grid-template-columns:repeat(2,1fr); gap:16px;}
+.conj-card{border-left:5px solid #666; position:relative;}
+.conj-card.star{box-shadow:0 0 0 2px #fbbf24, var(--shadow);}
+.conj-card .star-badge{position:absolute; top:-10px; right:-8px; font-size:26px; filter:drop-shadow(0 2px 6px rgba(0,0,0,.5));}
+.verdict-chip{
+  display:inline-flex; align-items:center; gap:6px;
+  padding:4px 12px; border-radius:999px; font-weight:800; font-size:13px; color:#fff;
+}
+.v-plausible{background:var(--good);}
+.v-uncertain{background:var(--warn); color:#3a2a00;}
+.v-implausible{background:var(--bad);}
+.proj-pill{
+  font-family:var(--mono); font-size:12px; color:#bfdbfe;
+  background:rgba(59,130,246,.15); border:1px solid rgba(59,130,246,.4);
+  padding:6px 10px; border-radius:10px; margin:10px 0; word-break:break-all; display:block;
+}
+.expand-btn{
+  margin-top:8px; border:1px solid var(--stroke); background:var(--panel);
+  color:var(--ink-dim); border-radius:10px; padding:6px 12px; cursor:pointer; font-size:13px; font-weight:600;
+}
+.expand-btn:hover{color:var(--ink);}
+.expand-body{display:none; margin-top:12px; padding-top:12px; border-top:1px dashed var(--stroke); font-size:13px; color:var(--ink-dim);}
+.expand-body.open{display:block;}
+.expand-body b{color:var(--ink);}
+.scope-badge{padding:3px 10px; border-radius:999px; font-weight:700; font-size:12px; color:#fff;}
+.s-promising{background:var(--good);}
+.s-narrow{background:var(--warn); color:#3a2a00;}
+.s-ill_posed{background:var(--bad);}
+.quest-card h3{font-size:16px;}
+.quest-field{margin:8px 0; font-size:13px;}
+.quest-field .q-lbl{font-weight:700; color:var(--ink); display:block; font-size:12px; text-transform:uppercase; letter-spacing:.5px; color:var(--ink-faint);}
+
+.chart-caption{color:var(--ink-dim); font-size:14px; margin-top:10px; text-align:center;}
+
+/* novelty bars */
+.nbar-row{display:flex; align-items:center; gap:10px; margin:7px 0;}
+.nbar-name{width:190px; font-size:13px; text-align:right; color:var(--ink-dim); flex-shrink:0; word-break:break-word;}
+.nbar-track{flex:1; height:22px; background:rgba(255,255,255,.07); border-radius:8px; overflow:hidden;}
+.nbar-fill{height:100%; border-radius:8px; display:flex; align-items:center; justify-content:flex-end; padding-right:8px; color:#fff; font-size:12px; font-weight:800; transition:width .8s ease; min-width:2px;}
+
+/* ============================================================
+   4. UNDER THE HOOD VIEW
+   ============================================================ */
+.stat-tiles{display:grid; grid-template-columns:repeat(auto-fit,minmax(160px,1fr)); gap:14px;}
+.stat-tile{text-align:center; padding:18px;}
+.stat-tile .sv{font-size:38px; font-weight:900; color:#fff;}
+.stat-tile .sl{color:var(--ink-dim); font-size:13px;}
+.breakdown{display:flex; flex-direction:column; gap:6px; margin-top:12px;}
+.bd-row{display:flex; align-items:center; gap:8px; font-size:13px;}
+.bd-row .bd-lbl{width:120px; color:var(--ink-dim); text-align:right; font-family:var(--mono); font-size:12px;}
+.bd-bar{flex:1; height:14px; background:rgba(255,255,255,.07); border-radius:6px; overflow:hidden;}
+.bd-bar > i{display:block; height:100%; background:linear-gradient(90deg,#3b82f6,#a855f7); border-radius:6px;}
+.bd-row .bd-n{width:44px; text-align:right; font-weight:700;}
+
+.roles-table{width:100%; border-collapse:collapse; margin-top:10px; font-size:13px;}
+.roles-table th, .roles-table td{padding:8px 10px; text-align:left; border-bottom:1px solid var(--stroke);}
+.roles-table th{color:var(--ink-faint); font-size:12px; text-transform:uppercase; letter-spacing:.5px;}
+.role-token{font-family:var(--mono); font-size:12px;}
+.role-tag{font-family:var(--mono); font-size:11px; padding:2px 8px; border-radius:6px; background:rgba(255,255,255,.08); margin:2px; display:inline-block;}
+.role-group.shared{background:rgba(34,197,94,.10); border-left:3px solid var(--good);}
+.role-group.shared td:first-child::after{content:" ← shared skeleton"; color:var(--good); font-weight:700; font-size:11px; font-family:var(--font);}
+
+.footer{margin-top:40px; text-align:center; color:var(--ink-dim); font-size:14px;}
+.footer code{font-family:var(--mono); background:rgba(255,255,255,.08); padding:2px 8px; border-radius:6px; color:#c084fc;}
+.footer a{color:#93c5fd;}
+
+/* ---------- Responsive ---------- */
+@media (max-width:820px){
+  .steps, .numbers, .domain-cols, .grid-2{grid-template-columns:1fr;}
+  .nbar-name{width:120px; font-size:12px;}
+  .bd-row .bd-lbl{width:90px;}
+}
+@media (max-width:520px){
+  .numbers{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- ================= NAV ================= -->
+<header class="nav">
+  <div class="nav-inner">
+    <div class="brand"><span class="dot"></span>OpenPriors</div>
+    <nav class="tabs" role="tablist" aria-label="Views">
+      <button class="tab active" role="tab" id="tab-story" aria-controls="view-story" data-view="story" aria-selected="true">🎈 Story</button>
+      <button class="tab" role="tab" id="tab-map" aria-controls="view-map" data-view="map" aria-selected="false">🗺️ The Map</button>
+      <button class="tab" role="tab" id="tab-disc" aria-controls="view-disc" data-view="disc" aria-selected="false">💡 Discoveries</button>
+      <button class="tab" role="tab" id="tab-hood" aria-controls="view-hood" data-view="hood" aria-selected="false">🔧 Under the Hood</button>
+    </nav>
+  </div>
+</header>
+
+<main>
+  <!-- ===== VIEW 1: STORY ===== -->
+  <section class="view active" id="view-story" role="tabpanel" aria-labelledby="tab-story" tabindex="0">
+    <div class="hero">
+      <h1>OpenPriors</h1>
+      <p class="tagline">A machine that reads hard science, draws it as <b>dots &amp; arrows</b>, and notices when two different fields are secretly telling the <b>same story</b>.</p>
+    </div>
+
+    <div class="steps">
+      <div class="card step">
+        <span class="big-emoji">📚</span>
+        <h3>1. It reads science</h3>
+        <p>Tough math &amp; ML papers go in. Each result comes out as tiny <b>dots &amp; arrows</b> — objects and how they connect.</p>
+      </div>
+      <div class="card step">
+        <span class="big-emoji">🔗</span>
+        <h3>2. Same hidden shape</h3>
+        <div class="bubble-pair" id="storyBubbles">
+          <div class="bubble" style="background:#3b82f6">🎯</div>
+          <div class="approx">≈</div>
+          <div class="bubble" style="background:#22c55e">⛰️</div>
+        </div>
+        <p><b>Different words. Same skeleton.</b> It found this with <b>zero hints</b>.</p>
+      </div>
+      <div class="card step">
+        <span class="big-emoji">💡</span>
+        <h3>3. It guesses new ideas</h3>
+        <p>It carries a shape into a new field to invent a fresh idea — and a checker rates each guess:</p>
+        <div class="verdict-demo"><span>👍</span><span>🤔</span><span>👎</span></div>
+      </div>
+    </div>
+
+    <div class="numbers" id="numbers"><!-- filled by JS --></div>
+
+    <div class="cta-wrap">
+      <button class="cta" id="toMap">See the map →</button>
+    </div>
+  </section>
+
+  <!-- ===== VIEW 2: THE MAP ===== -->
+  <section class="view" id="view-map" role="tabpanel" aria-labelledby="tab-map" tabindex="0">
+    <div class="section-title">🌟 The big discovery</div>
+    <div class="card">
+      <div class="disc-svg-wrap" id="discoveryGraph"><!-- SVG injected --></div>
+      <div class="disc-caption">These 4 play the <b>SAME role</b> — discovered with zero hints.</div>
+    </div>
+
+    <div class="section-title">🗺️ The map of results</div>
+    <p class="section-sub">One column per field. Cards sorted simplest → richest. A novelty meter shows how brand-new each result is (100% = a field's base result, low% = a small tweak of something known).</p>
+    <div class="domain-cols" id="domainCols"><!-- filled by JS --></div>
+  </section>
+
+  <!-- ===== VIEW 3: DISCOVERIES ===== -->
+  <section class="view" id="view-disc" role="tabpanel" aria-labelledby="tab-disc" tabindex="0">
+    <div class="section-title">💭 Guesses it made</div>
+    <p class="section-sub">It carried a shape from one field into another to invent an idea. A checker judged each one.</p>
+    <div class="grid-2" id="conjectures"><!-- filled --></div>
+
+    <div class="section-title">🧭 Open quests</div>
+    <p class="section-sub">The plausible guesses that became real research questions.</p>
+    <div class="grid-2" id="directions"><!-- filled --></div>
+
+    <div class="section-title">🔬 It ran an experiment!</div>
+    <div class="card">
+      <div id="expChart"><!-- SVG injected --></div>
+      <div class="chart-caption">The system tested its <b>OWN</b> idea. The dots climb past the red line — exactly as it predicted.</div>
+    </div>
+
+    <div class="section-title">📊 Novelty-o-meter</div>
+    <p class="section-sub">Every result ranked by how new its structure is.</p>
+    <div class="card" id="noveltyChart"><!-- filled --></div>
+  </section>
+
+  <!-- ===== VIEW 4: UNDER THE HOOD ===== -->
+  <section class="view" id="view-hood" role="tabpanel" aria-labelledby="tab-hood" tabindex="0">
+    <div class="section-title">🔧 The knowledge graph</div>
+    <div class="stat-tiles" id="statTiles"><!-- filled --></div>
+
+    <div class="section-title">🧩 One fact, fully unpacked</div>
+    <div class="card">
+      <div id="factDiagram"><!-- SVG injected --></div>
+      <div class="chart-caption">Every result is stored as reified dots &amp; arrows — n-ary and nested — so a whole reasoning chain is literally a little graph. And every symbol traces back to a real sentence in the source.</div>
+    </div>
+
+    <div class="section-title">🎭 Roles discovered</div>
+    <p class="section-sub">Grouped by role token. The <code style="font-family:var(--mono)">::PC::2</code> role is the "structural property that earns the guarantee" — and it shows up across every field.</p>
+    <div class="card"><div id="rolesTable"></div></div>
+
+    <div class="footer card" style="margin-top:30px;">
+      <div>Built by <b>OpenPriors</b> — grounded end to end, every claim CI-gated.</div>
+      <div style="margin-top:6px;"><a href="https://github.com/yulinl2/OpenPriors">github.com/yulinl2/OpenPriors</a></div>
+      <div style="margin-top:10px;">Run it yourself: <code>make setup &amp;&amp; make pipeline</code></div>
+    </div>
+  </section>
+</main>
+
+<!-- side panel + overlay for result detail -->
+<div class="overlay" id="overlay"></div>
+<aside class="side-panel" id="sidePanel" aria-hidden="true">
+  <button class="close" id="closePanel" aria-label="Close">✕</button>
+  <div id="spContent"></div>
+</aside>
+
+<!-- ================= DATA (build script replaces token) ================= -->
+<script>const DATA = __DATA__;</script>
+
+<!-- ================= APP LOGIC ================= -->
+<script>
+(function(){
+  "use strict";
+
+  // ---- safe accessors / defaults ----
+  const D = DATA || {};
+  const domains   = D.domains   || {};
+  const counts    = D.counts    || {};
+  const stats     = D.stats     || {};
+  const results   = Array.isArray(D.results)     ? D.results     : [];
+  const analogies = Array.isArray(D.analogies)   ? D.analogies   : [];
+  const roles     = D.roles     || {};
+  const conjectures = Array.isArray(D.conjectures) ? D.conjectures : [];
+  const directions  = Array.isArray(D.directions)  ? D.directions  : [];
+  const experiment  = D.experiment || {points:[]};
+
+  const esc = s => String(s==null?"":s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+  const domColor = d => (domains[d] && domains[d].color) || "#8b8fb8";
+  const domEmoji = d => (domains[d] && domains[d].emoji) || "•";
+  const domNice  = d => (domains[d] && domains[d].nice)  || d || "field";
+  const domKid   = d => (domains[d] && domains[d].kid)   || "";
+
+  // ================= TAB SWITCHING =================
+  const tabs = Array.from(document.querySelectorAll('.tab'));
+  const views = {
+    story: document.getElementById('view-story'),
+    map:   document.getElementById('view-map'),
+    disc:  document.getElementById('view-disc'),
+    hood:  document.getElementById('view-hood')
+  };
+  let countedUp = false;
+  function switchView(name){
+    tabs.forEach(t=>{
+      const on = t.dataset.view===name;
+      t.classList.toggle('active', on);
+      t.setAttribute('aria-selected', on?'true':'false');
+    });
+    Object.keys(views).forEach(k=>views[k].classList.toggle('active', k===name));
+    if(name==='story' && !countedUp){ runCountUp(); countedUp=true; }
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
+  }
+  tabs.forEach(t=>{
+    t.addEventListener('click', ()=>switchView(t.dataset.view));
+    t.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault(); switchView(t.dataset.view);} });
+  });
+  const toMap = document.getElementById('toMap');
+  if(toMap) toMap.addEventListener('click', ()=>switchView('map'));
+
+  // ================= STORY: by the numbers =================
+  const numData = [
+    {n: counts.literatures, lbl:'fields'},
+    {n: counts.results,     lbl:'results'},
+    {n: counts.analogies,   lbl:'analogies'},
+    {n: counts.conjectures, lbl:'guesses'}
+  ];
+  const numWrap = document.getElementById('numbers');
+  numData.forEach(d=>{
+    const el = document.createElement('div');
+    el.className='card numtile';
+    el.innerHTML = `<div class="n" data-target="${Number(d.n)||0}">0</div><div class="lbl">${esc(d.lbl)}</div>`;
+    numWrap.appendChild(el);
+  });
+  function runCountUp(){
+    document.querySelectorAll('.numtile .n').forEach(el=>{
+      const target = +el.dataset.target || 0;
+      const dur = 900; const start = performance.now();
+      function frame(now){
+        const p = Math.min(1,(now-start)/dur);
+        const eased = 1-Math.pow(1-p,3);
+        el.textContent = Math.round(eased*target);
+        if(p<1) requestAnimationFrame(frame);
+      }
+      requestAnimationFrame(frame);
+    });
+  }
+  runCountUp(); countedUp = true; // story is default view
+
+  // color story bubbles from real domains if available
+  (function(){
+    const bs = document.getElementById('storyBubbles');
+    if(!bs) return;
+    const keys = Object.keys(domains);
+    if(keys.length>=2){
+      const b = bs.querySelectorAll('.bubble');
+      b[0].style.background = domColor(keys[0]); b[0].textContent = domEmoji(keys[0]);
+      b[1].style.background = domColor(keys[1]); b[1].textContent = domEmoji(keys[1]);
+    }
+  })();
+
+  // ================= MAP: big discovery graph =================
+  // Canonical PC::2 relation per domain (per spec).
+  const pcRelByDomain = {
+    conformal:'WEIGHTED_EXCHANGEABLE',
+    optimization:'CONTRACTION',
+    learning:'UNIFORM_CONVERGENCE',
+    concentration:'BOUNDED_MARTINGALE'
+  };
+  function buildDiscoveryGraph(){
+    const wrap = document.getElementById('discoveryGraph');
+    const keys = Object.keys(domains);
+    if(!keys.length){ wrap.innerHTML='<div class="empty">No fields yet.</div>'; return; }
+    const W = Math.max(520, keys.length*230), H = 240, cy = 115;
+    const n = keys.length;
+    const nodes = keys.map((k,i)=>({
+      k, x: (W/(n+1))*(i+1), y: cy,
+      color: domColor(k), emoji: domEmoji(k), nice: domNice(k),
+      rel: pcRelByDomain[k] || (function(){ // fallback: first PC::2 role token
+        for(const rk in roles){ if(String(roles[rk]).endsWith('::PC::2')) return rk; } return '';
+      })()
+    }));
+    let edges='';
+    for(let i=0;i<nodes.length;i++)for(let j=i+1;j<nodes.length;j++){
+      edges += `<line x1="${nodes[i].x}" y1="${nodes[i].y}" x2="${nodes[j].x}" y2="${nodes[j].y}"
+        stroke="url(#glow)" stroke-width="2.5" opacity="0.5"/>`;
+    }
+    let circ='';
+    nodes.forEach((nd,i)=>{
+      circ += `<g class="disc-node" tabindex="0" data-i="${i}" style="cursor:pointer">
+        <circle cx="${nd.x}" cy="${nd.y}" r="42" fill="${nd.color}" opacity="0.9">
+          <animate attributeName="r" values="42;45;42" dur="${3+i*0.3}s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="${nd.x}" cy="${nd.y}" r="42" fill="none" stroke="#fff" stroke-opacity="0.25" stroke-width="2"/>
+        <text x="${nd.x}" y="${nd.y-2}" text-anchor="middle" font-size="30">${nd.emoji}</text>
+        <text x="${nd.x}" y="${nd.y+64}" text-anchor="middle" fill="#f3f4ff" font-size="13" font-weight="700">${esc(nd.nice)}</text>
+        <text x="${nd.x}" y="${nd.y+82}" text-anchor="middle" fill="#b9bce0" font-size="10" font-family="ui-monospace,monospace">${esc(nd.rel)}</text>
+      </g>`;
+    });
+    wrap.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%" style="min-width:${Math.min(W,760)}px" role="img" aria-label="Four fields sharing the same role">
+      <defs>
+        <linearGradient id="glow" x1="0" y1="0" x2="1" y2="0">
+          <stop offset="0" stop-color="#60a5fa"/><stop offset="0.5" stop-color="#c084fc"/><stop offset="1" stop-color="#4ade80"/>
+        </linearGradient>
+      </defs>
+      ${edges}${circ}
+      <g id="discTip"></g>
+    </svg>`;
+    // hover tooltip
+    const tip = wrap.querySelector('#discTip');
+    wrap.querySelectorAll('.disc-node').forEach(g=>{
+      const nd = nodes[+g.dataset.i];
+      function show(){
+        tip.innerHTML = `<rect x="${nd.x-95}" y="${nd.y-92}" width="190" height="40" rx="8" fill="#0f1226" stroke="${nd.color}"/>
+          <text x="${nd.x}" y="${nd.y-76}" text-anchor="middle" fill="#fff" font-size="12" font-weight="700">${esc(nd.nice)}</text>
+          <text x="${nd.x}" y="${nd.y-61}" text-anchor="middle" fill="#b9bce0" font-size="10" font-family="ui-monospace,monospace">role: ${esc(nd.rel)}</text>`;
+      }
+      function hide(){ tip.innerHTML=''; }
+      g.addEventListener('mouseenter',show);
+      g.addEventListener('mouseleave',hide);
+      g.addEventListener('focus',show);
+      g.addEventListener('blur',hide);
+    });
+  }
+  buildDiscoveryGraph();
+
+  // ================= MAP: domain columns =================
+  function novPct(v){ return Math.round((Number(v)||0)*100); }
+  function buildColumns(){
+    const wrap = document.getElementById('domainCols');
+    const keys = Object.keys(domains);
+    if(!keys.length){ wrap.innerHTML='<div class="empty">No fields yet.</div>'; return; }
+    wrap.innerHTML='';
+    keys.forEach(k=>{
+      const col = document.createElement('div');
+      col.className='card domain-col';
+      const c = domColor(k);
+      let body='';
+      const rs = results.filter(r=>r.domain===k).sort((a,b)=>(a.n_facts||0)-(b.n_facts||0));
+      if(!rs.length){ body = `<div class="empty">No results yet.</div>`; }
+      rs.forEach(r=>{
+        const pct = novPct(r.novelty);
+        const base = (r.parent===null && Number(r.novelty)===1);
+        body += `<div class="res-card" tabindex="0" data-name="${esc(r.name)}" role="button" aria-label="Open ${esc(r.name)}">
+          ${r.parent? `<div class="builds">builds on ↑ <b>${esc(r.parent)}</b></div>`:''}
+          <div class="rc-name">${esc(r.name)}${base?' <span title="base result">🌱</span>':''}</div>
+          <div class="rc-meta">${Number(r.n_facts)||0} facts</div>
+          <div class="meter"><i style="width:${pct}%; background:${c}"></i></div>
+          <div class="meter-lbl"><span>novelty</span><span>${pct}%</span></div>
+        </div>`;
+      });
+      col.innerHTML = `<div class="dc-head" style="background:${c}">
+          <div>${domEmoji(k)} ${esc(domNice(k))}</div>
+          <div class="kid">${esc(domKid(k))}</div>
+        </div>
+        <div class="dc-body">${body}</div>`;
+      wrap.appendChild(col);
+    });
+    // wire cards
+    wrap.querySelectorAll('.res-card').forEach(card=>{
+      const open = ()=>openPanel(card.dataset.name);
+      card.addEventListener('click', open);
+      card.addEventListener('keydown', e=>{ if(e.key==='Enter'||e.key===' '){e.preventDefault(); open();} });
+    });
+  }
+  buildColumns();
+
+  // ---- side panel ----
+  const overlay = document.getElementById('overlay');
+  const panel = document.getElementById('sidePanel');
+  const spContent = document.getElementById('spContent');
+  function openPanel(name){
+    const r = results.find(x=>x.name===name);
+    if(!r) return;
+    const c = domColor(r.domain);
+    const pct = novPct(r.novelty);
+    let bits='';
+    if(Array.isArray(r.novel_bits) && r.novel_bits.length){
+      bits = `<div style="margin-top:14px"><b>Novel structure</b><div class="chips">`
+        + r.novel_bits.map(b=>`<span class="chip">${esc(b)}</span>`).join('') + `</div></div>`;
+    }else{
+      bits = `<div style="margin-top:14px; color:var(--ink-faint); font-size:13px">No new structure — this is a base result. 🌱</div>`;
+    }
+    spContent.innerHTML = `
+      <span class="sp-tag" style="background:${c}">${domEmoji(r.domain)} ${esc(domNice(r.domain))}</span>
+      <h2 style="margin-top:12px; word-break:break-word">${esc(r.name)}</h2>
+      <div class="meter" style="margin-top:6px"><i style="width:${pct}%; background:${c}"></i></div>
+      <div class="meter-lbl"><span>novelty</span><span>${pct}%</span></div>
+      <p class="sp-text">${esc(r.text)}</p>
+      <div style="font-size:13px; color:var(--ink-dim)">
+        <div><b>Facts:</b> ${Number(r.n_facts)||0}</div>
+        ${r.parent? `<div><b>Builds on:</b> ${esc(r.parent)}</div>`:`<div><b>Builds on:</b> nothing — it's a base result 🌱</div>`}
+        ${r.nearest_prior? `<div><b>Nearest prior:</b> ${esc(r.nearest_prior)}</div>`:''}
+      </div>
+      ${bits}`;
+    panel.classList.add('open'); panel.setAttribute('aria-hidden','false');
+    overlay.classList.add('show');
+  }
+  function closePanel(){
+    panel.classList.remove('open'); panel.setAttribute('aria-hidden','true');
+    overlay.classList.remove('show');
+  }
+  document.getElementById('closePanel').addEventListener('click', closePanel);
+  overlay.addEventListener('click', closePanel);
+  document.addEventListener('keydown', e=>{ if(e.key==='Escape') closePanel(); });
+
+  // ================= DISCOVERIES: conjectures =================
+  function verdictClass(v){ return 'v-'+String(v||'uncertain'); }
+  function verdictEmoji(v){ return v==='plausible'?'👍':v==='implausible'?'👎':'🤔'; }
+  function buildConjectures(){
+    const wrap = document.getElementById('conjectures');
+    if(!conjectures.length){ wrap.innerHTML='<div class="empty">No guesses yet.</div>'; return; }
+    wrap.innerHTML='';
+    conjectures.forEach((c,i)=>{
+      const star = (c.id==='C1');
+      const el = document.createElement('div');
+      el.className='card conj-card'+(star?' star':'');
+      const bc = c.base? domColor((results.find(r=>r.name===c.base)||{}).domain):null;
+      el.style.borderLeftColor = bc || domColor((results.find(r=>r.name===c.target)||{}).domain) || '#666';
+      el.innerHTML = `
+        ${star?'<div class="star-badge">⭐</div>':''}
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap">
+          <span style="font-weight:800; font-size:13px; color:var(--ink-faint)">${esc(c.id)}</span>
+          <span class="verdict-chip ${verdictClass(c.verdict)}">${verdictEmoji(c.verdict)} ${esc(c.verdict)}</span>
+        </div>
+        <p style="margin:10px 0 4px; font-size:15px">${esc(c.statement)}</p>
+        ${c.base&&c.target? `<div style="font-size:12px; color:var(--ink-dim)">carried <b>${esc(c.base)}</b> → <b>${esc(c.target)}</b></div>`:''}
+        ${c.projection? `<code class="proj-pill">${esc(c.projection)}</code>`:''}
+        <button class="expand-btn" data-i="${i}">Why? ▾</button>
+        <div class="expand-body" id="cbody-${i}">
+          ${c.reasoning? `<div><b>Reasoning.</b> ${esc(c.reasoning)}</div>`:''}
+          ${c.related? `<div style="margin-top:8px"><b>Related work.</b> ${esc(c.related)}</div>`:''}
+        </div>`;
+      wrap.appendChild(el);
+    });
+    wrap.querySelectorAll('.expand-btn').forEach(b=>{
+      b.addEventListener('click', ()=>{
+        const body = document.getElementById('cbody-'+b.dataset.i);
+        const open = body.classList.toggle('open');
+        b.textContent = open ? 'Why? ▴' : 'Why? ▾';
+      });
+    });
+  }
+  buildConjectures();
+
+  // ================= DISCOVERIES: directions / quests =================
+  function scopeClass(s){ return 's-'+String(s||'narrow'); }
+  function buildDirections(){
+    const wrap = document.getElementById('directions');
+    if(!directions.length){ wrap.innerHTML='<div class="empty">No open quests yet.</div>'; return; }
+    wrap.innerHTML='';
+    directions.forEach(d=>{
+      const el = document.createElement('div');
+      el.className='card quest-card';
+      el.innerHTML = `
+        <div style="display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap">
+          <span style="font-weight:800; font-size:13px; color:var(--ink-faint)">${esc(d.id)} 🧭</span>
+          <span class="scope-badge ${scopeClass(d.scope)}">${esc(d.scope)}</span>
+        </div>
+        <h3 style="margin-top:8px">${esc(d.precise)}</h3>
+        ${d.established? `<div class="quest-field"><span class="q-lbl">Known ground</span>${esc(d.established)}</div>`:''}
+        ${d.open? `<div class="quest-field"><span class="q-lbl">Open question</span>${esc(d.open)}</div>`:''}
+        ${d.next? `<div class="quest-field"><span class="q-lbl">Next step</span>${esc(d.next)}</div>`:''}`;
+      wrap.appendChild(el);
+    });
+  }
+  buildDirections();
+
+  // ================= DISCOVERIES: experiment chart =================
+  function buildExpChart(){
+    const wrap = document.getElementById('expChart');
+    const pts = Array.isArray(experiment.points)? experiment.points.slice():[];
+    if(!pts.length){ wrap.innerHTML='<div class="empty">No experiment data.</div>'; return; }
+    pts.sort((a,b)=>(a.chi2||0)-(b.chi2||0));
+    const W=640, H=340, pad={l:60,r:24,t:24,b:52};
+    const xs = pts.map(p=>Number(p.chi2)||0), ys = pts.map(p=>Number(p.modulus)||0);
+    const xmin=0, xmax=Math.max(...xs, 0.1);
+    const ymin=Math.min(...ys, 0.8), ymax=Math.max(...ys, 1.05);
+    const X = v => pad.l + (v-xmin)/(xmax-xmin)*(W-pad.l-pad.r);
+    const Y = v => H-pad.b - (v-ymin)/(ymax-ymin)*(H-pad.t-pad.b);
+    // grid + axes
+    let g='';
+    // y=1.0 danger line
+    const yDanger = Y(1.0);
+    // path
+    const path = pts.map((p,i)=>(i?'L':'M')+X(xs[i])+' '+Y(ys[i])).join(' ');
+    let dots='';
+    pts.forEach((p,i)=>{
+      dots += `<circle cx="${X(xs[i])}" cy="${Y(ys[i])}" r="5" fill="#c084fc" stroke="#fff" stroke-width="1.5"/>`;
+    });
+    // axis ticks
+    let ticks='';
+    for(let t=0;t<=4;t++){
+      const yv = ymin+(ymax-ymin)*t/4;
+      ticks += `<line x1="${pad.l}" y1="${Y(yv)}" x2="${W-pad.r}" y2="${Y(yv)}" stroke="rgba(255,255,255,0.08)"/>
+        <text x="${pad.l-8}" y="${Y(yv)+4}" text-anchor="end" fill="#8286b8" font-size="11">${yv.toFixed(2)}</text>`;
+    }
+    for(let t=0;t<=4;t++){
+      const xv = xmin+(xmax-xmin)*t/4;
+      ticks += `<text x="${X(xv)}" y="${H-pad.b+18}" text-anchor="middle" fill="#8286b8" font-size="11">${xv.toFixed(2)}</text>`;
+    }
+    // first point label
+    const first = pts[0];
+    const flabel = `<text x="${X(xs[0])+10}" y="${Y(ys[0])+4}" fill="#4ade80" font-size="12" font-weight="700">μ = d → modulus = γ</text>`;
+    wrap.innerHTML = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Experiment: modulus vs chi-squared">
+      ${ticks}
+      <line x1="${pad.l}" y1="${pad.t}" x2="${pad.l}" y2="${H-pad.b}" stroke="rgba(255,255,255,0.25)"/>
+      <line x1="${pad.l}" y1="${H-pad.b}" x2="${W-pad.r}" y2="${H-pad.b}" stroke="rgba(255,255,255,0.25)"/>
+      <line x1="${pad.l}" y1="${yDanger}" x2="${W-pad.r}" y2="${yDanger}" stroke="#ef4444" stroke-width="2" stroke-dasharray="7 5"/>
+      <text x="${W-pad.r}" y="${yDanger-8}" text-anchor="end" fill="#ef4444" font-size="12" font-weight="800">contraction breaks (modulus = 1.0)</text>
+      <path d="${path}" fill="none" stroke="#c084fc" stroke-width="2.5"/>
+      ${dots}${flabel}
+      <text x="${(pad.l+W-pad.r)/2}" y="${H-8}" text-anchor="middle" fill="#b9bce0" font-size="12">χ²  (perturbation)</text>
+      <text transform="translate(16,${(pad.t+H-pad.b)/2}) rotate(-90)" text-anchor="middle" fill="#b9bce0" font-size="12">contraction modulus</text>
+    </svg>`;
+  }
+  buildExpChart();
+
+  // ================= DISCOVERIES: novelty-o-meter =================
+  function buildNovelty(){
+    const wrap = document.getElementById('noveltyChart');
+    if(!results.length){ wrap.innerHTML='<div class="empty">No results yet.</div>'; return; }
+    const sorted = results.slice().sort((a,b)=>(Number(b.novelty)||0)-(Number(a.novelty)||0));
+    wrap.innerHTML = sorted.map(r=>{
+      const pct = novPct(r.novelty);
+      const c = domColor(r.domain);
+      return `<div class="nbar-row">
+        <div class="nbar-name" title="${esc(r.name)}">${domEmoji(r.domain)} ${esc(r.name)}</div>
+        <div class="nbar-track"><div class="nbar-fill" style="width:${pct}%; background:${c}">${pct}%</div></div>
+      </div>`;
+    }).join('');
+  }
+  buildNovelty();
+
+  // ================= UNDER THE HOOD: stat tiles =================
+  function buildStats(){
+    const wrap = document.getElementById('statTiles');
+    const tiles = [];
+    tiles.push({v:stats.n_nodes, l:'nodes'});
+    tiles.push({v:stats.n_edges, l:'edges'});
+    let html = tiles.map(t=>`<div class="card stat-tile"><div class="sv">${Number(t.v)||0}</div><div class="sl">${esc(t.l)}</div></div>`).join('');
+    // node_kinds breakdown
+    html += breakdownTile('node kinds', stats.node_kinds||{});
+    html += breakdownTile('edge relations', stats.edge_relations||{});
+    wrap.innerHTML = html;
+  }
+  function breakdownTile(title, obj){
+    const entries = Object.entries(obj).sort((a,b)=>b[1]-a[1]);
+    const max = entries.length? Math.max(...entries.map(e=>e[1])):1;
+    let rows = entries.map(([k,v])=>`<div class="bd-row">
+        <span class="bd-lbl">${esc(k)}</span>
+        <span class="bd-bar"><i style="width:${Math.round(v/max*100)}%"></i></span>
+        <span class="bd-n">${v}</span></div>`).join('');
+    if(!entries.length) rows = '<div class="empty">none</div>';
+    return `<div class="card" style="grid-column:span 2; min-width:260px">
+      <div class="sl" style="font-weight:700; color:var(--ink); margin-bottom:6px">${esc(title)}</div>
+      <div class="breakdown">${rows}</div></div>`;
+  }
+  buildStats();
+
+  // ================= UNDER THE HOOD: fact diagram =================
+  // Hardcoded representative reified fact:
+  // CAUSE( WEIGHTED_EXCHANGEABLE(cal_test, the_weights), COVERAGE(the_interval, alpha_level) )
+  function buildFactDiagram(){
+    const wrap = document.getElementById('factDiagram');
+    const W=700, H=360;
+    const box = (x,y,w,h,fill,stroke,label,fs)=>`
+      <g>
+        <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="10" fill="${fill}" stroke="${stroke}" stroke-width="2"/>
+        <text x="${x+w/2}" y="${y+h/2+4}" text-anchor="middle" fill="#fff" font-size="${fs||13}" font-weight="700" font-family="ui-monospace,monospace">${label}</text>
+      </g>`;
+    const arrow=(x1,y1,x2,y2)=>`<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#8286b8" stroke-width="2" marker-end="url(#ah)"/>`;
+    // positions
+    // root
+    const root = {x:290,y:20,w:120,h:44};
+    const subL = {x:110,y:130,w:250,h:44};
+    const subR = {x:400,y:130,w:200,h:44};
+    const leaves = [
+      {x:70,y:270,w:120,h:40,l:'cal_test'},
+      {x:210,y:270,w:130,h:40,l:'the_weights'},
+      {x:390,y:270,w:120,h:40,l:'the_interval'},
+      {x:530,y:270,w:120,h:40,l:'alpha_level'}
+    ];
+    let svg = `<svg viewBox="0 0 ${W} ${H}" width="100%" role="img" aria-label="Reified fact diagram">
+      <defs><marker id="ah" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+        <path d="M0,0 L8,3 L0,6 Z" fill="#8286b8"/></marker></defs>`;
+    // arrows root -> subs
+    svg += arrow(root.x+root.w/2, root.y+root.h, subL.x+subL.w/2, subL.y);
+    svg += arrow(root.x+root.w/2, root.y+root.h, subR.x+subR.w/2, subR.y);
+    // arrows sub -> leaves
+    svg += arrow(subL.x+subL.w*0.3, subL.y+subL.h, leaves[0].x+leaves[0].w/2, leaves[0].y);
+    svg += arrow(subL.x+subL.w*0.7, subL.y+subL.h, leaves[1].x+leaves[1].w/2, leaves[1].y);
+    svg += arrow(subR.x+subR.w*0.3, subR.y+subR.h, leaves[2].x+leaves[2].w/2, leaves[2].y);
+    svg += arrow(subR.x+subR.w*0.7, subR.y+subR.h, leaves[3].x+leaves[3].w/2, leaves[3].y);
+    // boxes
+    svg += box(root.x,root.y,root.w,root.h,'#a855f7','#c084fc','CAUSE',15);
+    svg += box(subL.x,subL.y,subL.w,subL.h,'#3b82f6','#60a5fa','WEIGHTED_EXCHANGEABLE',12);
+    svg += box(subR.x,subR.y,subR.w,subR.h,'#22c55e','#4ade80','COVERAGE',13);
+    leaves.forEach(lf=> svg += box(lf.x,lf.y,lf.w,lf.h,'#1c1f3d','#8286b8',lf.l,11));
+    svg += `</svg>`;
+    wrap.innerHTML = svg;
+  }
+  buildFactDiagram();
+
+  // ================= UNDER THE HOOD: roles table =================
+  function buildRoles(){
+    const wrap = document.getElementById('rolesTable');
+    const entries = Object.entries(roles);
+    if(!entries.length){ wrap.innerHTML='<div class="empty">No roles yet.</div>'; return; }
+    // group by role token
+    const groups = {};
+    entries.forEach(([rel,token])=>{ (groups[token]=groups[token]||[]).push(rel); });
+    // sort: shared PC::2 first, then by size
+    const tokens = Object.keys(groups).sort((a,b)=>{
+      const ap=a.endsWith('::PC::2')?0:1, bp=b.endsWith('::PC::2')?0:1;
+      if(ap!==bp) return ap-bp;
+      return groups[b].length-groups[a].length;
+    });
+    let rows = tokens.map(tk=>{
+      const shared = tk.endsWith('::PC::2');
+      const tags = groups[tk].map(r=>`<span class="role-tag">${esc(r)}</span>`).join('');
+      return `<tr class="role-group ${shared?'shared':''}">
+        <td class="role-token">${esc(tk)}</td>
+        <td>${tags}</td>
+      </tr>`;
+    }).join('');
+    wrap.innerHTML = `<table class="roles-table">
+      <thead><tr><th>Role token</th><th>Relations that fill it</th></tr></thead>
+      <tbody>${rows}</tbody></table>`;
+  }
+  buildRoles();
+
+})();
+</script>
+</body>
+</html>
