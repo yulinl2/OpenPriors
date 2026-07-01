@@ -55,20 +55,26 @@ def attach_verdicts(g, evaluations: list) -> int:
 
 
 def _load_corpora(repo):
+    """Load every pipeline corpus, from the same registry the pipeline itself uses
+    (``multidomain.CORPORA`` + the arXiv paper folded into conformal). Keeping the gate's
+    corpus set in lockstep with the pipeline means an evaluation of ANY field's conjectures —
+    including literatures added later — can be grounded, and the gate can't silently lag."""
     from retrieval.engine import expr_from_json
 
     from .crossdomain import _load_corpus
+    from .multidomain import CORPORA
 
-    conf, _, _ = _load_corpus(repo / "retrieval" / "library" / "conformal_theorems.json")
-    opt, _, _ = _load_corpus(repo / "grounding" / "dgroups" / "optimization_corpus.json")
-    learn, _, _ = _load_corpus(repo / "grounding" / "dgroups" / "learning_corpus.json")
+    corpora = []
+    for _name, rel in CORPORA:
+        corpus, _, _ = _load_corpus(repo / rel)
+        corpora.append(corpus)
     paper = json.loads(
         (repo / "grounding" / "dgroups" / "arxiv_2006_06138_main.json").read_text())["target"]
-    conf[paper["name"]] = Dgroup(paper["name"], [expr_from_json(f) for f in paper["facts"]])
+    corpora[0][paper["name"]] = Dgroup(paper["name"], [expr_from_json(f) for f in paper["facts"]])
     by_name = {}
-    for corpus in (conf, opt, learn):
+    for corpus in corpora:
         by_name.update(corpus)
-    return by_name, (conf, opt, learn)
+    return by_name, tuple(corpora)
 
 
 def verify(repo: Path) -> dict:
@@ -92,8 +98,8 @@ def verify(repo: Path) -> dict:
     if not isinstance(evals, list):
         return _fail("artifact has no 'evaluations' list")
 
-    by_name, (conf, opt, learn) = _load_corpora(repo)
-    ascension = discover_role_ascension(conf, opt, learn)
+    by_name, corpora = _load_corpora(repo)
+    ascension = discover_role_ascension(*corpora)
 
     cache: dict[tuple, set] = {}                     # transfer() once per (base, target) pair
 
