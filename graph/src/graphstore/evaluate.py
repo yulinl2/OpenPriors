@@ -64,17 +64,20 @@ def _load_corpora(repo):
     from .crossdomain import _load_corpus
     from .multidomain import CORPORA
 
-    corpora = []
-    for _name, rel in CORPORA:
+    corpora = {}
+    for name, rel in CORPORA:
         corpus, _, _ = _load_corpus(repo / rel)
-        corpora.append(corpus)
+        corpora[name] = corpus
+    # fold the real paper into the conformal corpus — selected by name, not position, so a
+    # reordering of CORPORA can't silently move it into the wrong field
     paper = json.loads(
         (repo / "grounding" / "dgroups" / "arxiv_2006_06138_main.json").read_text())["target"]
-    corpora[0][paper["name"]] = Dgroup(paper["name"], [expr_from_json(f) for f in paper["facts"]])
+    corpora["conformal"][paper["name"]] = Dgroup(paper["name"],
+                                                 [expr_from_json(f) for f in paper["facts"]])
     by_name = {}
-    for corpus in corpora:
+    for corpus in corpora.values():
         by_name.update(corpus)
-    return by_name, tuple(corpora)
+    return by_name, tuple(corpora.values())
 
 
 def verify(repo: Path) -> dict:
