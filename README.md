@@ -123,11 +123,15 @@ that the system reasons over end to end. `make pipeline` prints it in one pass:
 | **analogy** (`crossdomain`, `multidomain`) | discover cross-domain analogies, **roles read from CAUSE structure, unsupervised** | *weighted-exchangeability : coverage :: contraction : convergence :: uniform-convergence : generalization :: bounded-martingale : concentration* — zero hand-coded knowledge, a 4th field joins with no new design |
 | **transfer** (`transfer`) | project candidate inferences as conjectures | *"by analogy with Banach, the conformal procedure has a **fixed point**"* (an invented object) |
 | **evaluate** (`evaluate`) | an in-session sub-agent judges each conjecture; a deterministic gate validates + grounds the verdict | fixed-point conjecture **plausible** (recovers conformal self-consistency); a capacity conjecture **implausible** (conformal is distribution-free) |
+| **investigate** (`discover`) | refine the *uncertain*-judged conjectures into precise, citation-grounded research directions | the "ERM operator fixed point" conjecture becomes a *fixed-point uniform-convergence* program (C4) |
+| **experiment** (`experiment_c2`, `experiment_c4`) | **run** a proposed direction's own numerical test, pure-Python | C2: the L2(μ) contraction modulus is governed by `χ²(d‖μ)`; **C4**: the Banach bound `‖θ̂ₙ−θ*‖ ≤ εₙ/(1−κ)` holds for all samples on the BWY Gaussian-mixture EM operator, at the `1/√n` rate |
 | **query** (`dsl`) | interrogate the graph | one path runs from a conformal theorem through the analogy web into a learning-theory result |
 
 So the system doesn't just detect novelty — it **situates a result among its priors, finds
-what it's structurally analogous to in another field, predicts what that analogy implies, and
-tells the sound predictions from the spurious** — with every step grounded and CI-gated.
+what it's structurally analogous to in another field, predicts what that analogy implies, tells
+the sound predictions from the spurious, refines the open ones into research directions, and
+runs their proposed experiments** — the full *discover → predict → evaluate → investigate →
+experiment* loop, with every step grounded and CI-gated.
 
 ## Frontier
 

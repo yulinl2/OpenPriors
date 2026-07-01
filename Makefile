@@ -31,6 +31,10 @@ pipeline:                  ## the capstone: full graph pipeline over three liter
 query:                     ## interrogate the unified graph (path / ancestor / analogy / conjecture)
 	PYTHONPATH=$(GPP) $(PY) -m graphstore.dsl_cli
 
+experiment:                ## run the proposed research-direction experiments (C2 finite-MDP, C4 EM)
+	PYTHONPATH=graph/src $(PY) -m graphstore.experiment_c2
+	PYTHONPATH=graph/src $(PY) -m graphstore.experiment_c4
+
 demo:                      ## rebuild the interactive dashboard docs/index.html from live output
 	$(PY) demo/build_demo.py
 
