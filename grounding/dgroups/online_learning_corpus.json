@@ -1,0 +1,45 @@
+{
+  "_provenance": {
+    "note": "A FIFTH literature (Epic AC): online learning / regret minimization (online gradient descent; strongly-convex online learning). Lifted into grounded dgroups with the SAME higher-order CAUSE(premise -> guarantee) schema as the conformal, optimization, learning, and concentration corpora. Used to push the unsupervised role-discovery and cross-domain analogy to FIVE fields with no new design: if the 'no-regret play' relation is discovered to play the same structural-property role (PC/2) as weighted-exchangeability / contraction / uniform-convergence / bounded-martingale, the analogy web extends automatically. Grounded; every symbol is a verbatim substring of its statement, checked by grounding.verify.",
+    "sources": "Zinkevich (2003), 'Online Convex Programming and Generalized Infinitesimal Gradient Ascent' (sublinear regret for OGD under bounded gradients); Hazan, Agarwal & Kale (2007), 'Logarithmic Regret Algorithms for Online Convex Optimization' (curvature/strong convexity sharpens the regret)."
+  },
+  "online_gradient_descent": {
+    "name": "online_gradient_descent",
+    "text": "An online loss sequence with bounded gradients drives a no-regret play over the horizon length, and that no-regret play causes a sublinear regret bound on the competitive gap.",
+    "groundings": {
+      "the_losses": "online loss sequence",
+      "the_horizon": "horizon length",
+      "the_play": "no-regret play",
+      "the_bound": "sublinear regret bound",
+      "the_gap": "competitive gap"
+    },
+    "facts": [
+      ["BOUNDED_GRADIENTS", "the_losses", "the_horizon"],
+      ["NO_REGRET", "the_play", "the_horizon"],
+      ["SUBLINEAR_REGRET", "the_bound", "the_gap"],
+      ["CAUSE", ["BOUNDED_GRADIENTS", "the_losses", "the_horizon"], ["NO_REGRET", "the_play", "the_horizon"]],
+      ["CAUSE", ["NO_REGRET", "the_play", "the_horizon"], ["SUBLINEAR_REGRET", "the_bound", "the_gap"]]
+    ]
+  },
+  "online_strong_convexity": {
+    "name": "online_strong_convexity",
+    "text": "For a strongly convex online loss sequence the curvature bound controls the horizon length; the online loss sequence still has bounded gradients and drives a no-regret play over the horizon length, the curvature bound also causes that no-regret play, and the no-regret play causes a sublinear regret bound on the competitive gap.",
+    "groundings": {
+      "the_losses": "online loss sequence",
+      "the_horizon": "horizon length",
+      "the_play": "no-regret play",
+      "the_bound": "sublinear regret bound",
+      "the_gap": "competitive gap",
+      "the_curv": "curvature bound"
+    },
+    "facts": [
+      ["CURVATURE_BOUND", "the_curv", "the_horizon"],
+      ["BOUNDED_GRADIENTS", "the_losses", "the_horizon"],
+      ["NO_REGRET", "the_play", "the_horizon"],
+      ["SUBLINEAR_REGRET", "the_bound", "the_gap"],
+      ["CAUSE", ["BOUNDED_GRADIENTS", "the_losses", "the_horizon"], ["NO_REGRET", "the_play", "the_horizon"]],
+      ["CAUSE", ["NO_REGRET", "the_play", "the_horizon"], ["SUBLINEAR_REGRET", "the_bound", "the_gap"]],
+      ["CAUSE", ["CURVATURE_BOUND", "the_curv", "the_horizon"], ["NO_REGRET", "the_play", "the_horizon"]]
+    ]
+  }
+}

@@ -29,6 +29,7 @@ CORPORA = [
     ("optimization", "grounding/dgroups/optimization_corpus.json"),
     ("learning", "grounding/dgroups/learning_corpus.json"),
     ("concentration", "grounding/dgroups/concentration_corpus.json"),
+    ("online", "grounding/dgroups/online_learning_corpus.json"),
 ]
 
 
@@ -91,7 +92,7 @@ def main(argv=None) -> int:
 
     # the N-way analogy: one representative result per field, pairwise analogous
     reps = ["weighted_conformal", "banach_contraction", "vc_generalization",
-            "mcdiarmid_concentration"]
+            "mcdiarmid_concentration", "online_gradient_descent"]
     print(f"\nthe {len(reps)}-way analogy — '{' : '.join(reps)}':")
     for r in reps:
         peers = [a["result"] for a in analogies_of(g, r)]
@@ -101,11 +102,13 @@ def main(argv=None) -> int:
     pairset = {(a["a"], a["b"]) for a in analogies}
     asc = ascension
     # the structural-property (PC/2) and guarantee (C/2) roles, discovered identical across ALL
-    # four fields with no hand-declared map
+    # five fields with no hand-declared map
     prop_roles = {asc.get(f) for f in
-                  ("WEIGHTED_EXCHANGEABLE", "CONTRACTION", "UNIFORM_CONVERGENCE", "BOUNDED_MARTINGALE")}
+                  ("WEIGHTED_EXCHANGEABLE", "CONTRACTION", "UNIFORM_CONVERGENCE",
+                   "BOUNDED_MARTINGALE", "NO_REGRET")}
     guar_roles = {asc.get(f) for f in
-                  ("COVERAGE", "LINEAR_CONVERGENCE", "GENERALIZATION", "CONCENTRATION")}
+                  ("COVERAGE", "LINEAR_CONVERGENCE", "GENERALIZATION", "CONCENTRATION",
+                   "SUBLINEAR_REGRET")}
     reps_set = set(reps)
 
     def _analogous(x, y):
@@ -113,9 +116,9 @@ def main(argv=None) -> int:
 
     checks = [
         (len(prop_roles) == 1 and None not in prop_roles,
-         "the PC/2 'structural property' role must be discovered identical across all 4 fields"),
+         "the PC/2 'structural property' role must be discovered identical across all 5 fields"),
         (len(guar_roles) == 1 and None not in guar_roles,
-         "the C/2 'guarantee' role must be discovered identical across all 4 fields"),
+         "the C/2 'guarantee' role must be discovered identical across all 5 fields"),
         (all(_analogous(a, b) for a in reps_set for b in reps_set if a != b),
          "every pair of field representatives must be cross-domain analogous"),
         (Graph.load(out / "multidomain_nodes.jsonl", out / "multidomain_edges.jsonl").stats() == st,

@@ -52,6 +52,7 @@
 {"attrs": {"arity": 2, "functor": "BOUNDED_MARTINGALE"}, "id": "bernstein_concentration::fact::9::BOUNDED_MARTINGALE", "kind": "fact", "label": "BOUNDED_MARTINGALE", "provenance": "bernstein_concentration"}
 {"attrs": {}, "id": "functor::BANACH_FIXEDPOINT", "kind": "functor", "label": "BANACH_FIXEDPOINT", "provenance": ""}
 {"attrs": {}, "id": "functor::BOUNDED_DIFFERENCES", "kind": "functor", "label": "BOUNDED_DIFFERENCES", "provenance": ""}
+{"attrs": {}, "id": "functor::BOUNDED_GRADIENTS", "kind": "functor", "label": "BOUNDED_GRADIENTS", "provenance": ""}
 {"attrs": {}, "id": "functor::BOUNDED_MARTINGALE", "kind": "functor", "label": "BOUNDED_MARTINGALE", "provenance": ""}
 {"attrs": {}, "id": "functor::CAUSE", "kind": "functor", "label": "CAUSE", "provenance": ""}
 {"attrs": {}, "id": "functor::CONCENTRATION", "kind": "functor", "label": "CONCENTRATION", "provenance": ""}
@@ -60,6 +61,7 @@
 {"attrs": {}, "id": "functor::COUNTERFACTUAL", "kind": "functor", "label": "COUNTERFACTUAL", "provenance": ""}
 {"attrs": {}, "id": "functor::COVARIATE_SHIFT", "kind": "functor", "label": "COVARIATE_SHIFT", "provenance": ""}
 {"attrs": {}, "id": "functor::COVERAGE", "kind": "functor", "label": "COVERAGE", "provenance": ""}
+{"attrs": {}, "id": "functor::CURVATURE_BOUND", "kind": "functor", "label": "CURVATURE_BOUND", "provenance": ""}
 {"attrs": {}, "id": "functor::EXCHANGEABLE", "kind": "functor", "label": "EXCHANGEABLE", "provenance": ""}
 {"attrs": {}, "id": "functor::FINITE_VC", "kind": "functor", "label": "FINITE_VC", "provenance": ""}
 {"attrs": {}, "id": "functor::GENERALIZATION", "kind": "functor", "label": "GENERALIZATION", "provenance": ""}
@@ -67,7 +69,9 @@
 {"attrs": {}, "id": "functor::LINEAR_CONVERGENCE", "kind": "functor", "label": "LINEAR_CONVERGENCE", "provenance": ""}
 {"attrs": {}, "id": "functor::MARGIN_BOUND", "kind": "functor", "label": "MARGIN_BOUND", "provenance": ""}
 {"attrs": {}, "id": "functor::NESTED", "kind": "functor", "label": "NESTED", "provenance": ""}
+{"attrs": {}, "id": "functor::NO_REGRET", "kind": "functor", "label": "NO_REGRET", "provenance": ""}
 {"attrs": {}, "id": "functor::STRONG_CONVEXITY_BOUND", "kind": "functor", "label": "STRONG_CONVEXITY_BOUND", "provenance": ""}
+{"attrs": {}, "id": "functor::SUBLINEAR_REGRET", "kind": "functor", "label": "SUBLINEAR_REGRET", "provenance": ""}
 {"attrs": {}, "id": "functor::UNIFORM_CONVERGENCE", "kind": "functor", "label": "UNIFORM_CONVERGENCE", "provenance": ""}
 {"attrs": {}, "id": "functor::VARIANCE_BOUND", "kind": "functor", "label": "VARIANCE_BOUND", "provenance": ""}
 {"attrs": {}, "id": "functor::WEIGHTED_EXCHANGEABLE", "kind": "functor", "label": "WEIGHTED_EXCHANGEABLE", "provenance": ""}
@@ -122,6 +126,39 @@
 {"attrs": {"arity": 2, "functor": "CAUSE"}, "id": "mcdiarmid_concentration::fact::7::CAUSE", "kind": "fact", "label": "CAUSE", "provenance": "mcdiarmid_concentration"}
 {"attrs": {"arity": 2, "functor": "BOUNDED_MARTINGALE"}, "id": "mcdiarmid_concentration::fact::8::BOUNDED_MARTINGALE", "kind": "fact", "label": "BOUNDED_MARTINGALE", "provenance": "mcdiarmid_concentration"}
 {"attrs": {"arity": 2, "functor": "CONCENTRATION"}, "id": "mcdiarmid_concentration::fact::9::CONCENTRATION", "kind": "fact", "label": "CONCENTRATION", "provenance": "mcdiarmid_concentration"}
+{"attrs": {"grounding": "sublinear regret bound"}, "id": "online_gradient_descent::ent::the_bound", "kind": "entity", "label": "the_bound", "provenance": "online_gradient_descent"}
+{"attrs": {"grounding": "competitive gap"}, "id": "online_gradient_descent::ent::the_gap", "kind": "entity", "label": "the_gap", "provenance": "online_gradient_descent"}
+{"attrs": {"grounding": "horizon length"}, "id": "online_gradient_descent::ent::the_horizon", "kind": "entity", "label": "the_horizon", "provenance": "online_gradient_descent"}
+{"attrs": {"grounding": "online loss sequence"}, "id": "online_gradient_descent::ent::the_losses", "kind": "entity", "label": "the_losses", "provenance": "online_gradient_descent"}
+{"attrs": {"grounding": "no-regret play"}, "id": "online_gradient_descent::ent::the_play", "kind": "entity", "label": "the_play", "provenance": "online_gradient_descent"}
+{"attrs": {"arity": 2, "functor": "BOUNDED_GRADIENTS"}, "id": "online_gradient_descent::fact::1::BOUNDED_GRADIENTS", "kind": "fact", "label": "BOUNDED_GRADIENTS", "provenance": "online_gradient_descent"}
+{"attrs": {"arity": 2, "functor": "NO_REGRET"}, "id": "online_gradient_descent::fact::2::NO_REGRET", "kind": "fact", "label": "NO_REGRET", "provenance": "online_gradient_descent"}
+{"attrs": {"arity": 2, "functor": "SUBLINEAR_REGRET"}, "id": "online_gradient_descent::fact::3::SUBLINEAR_REGRET", "kind": "fact", "label": "SUBLINEAR_REGRET", "provenance": "online_gradient_descent"}
+{"attrs": {"arity": 2, "functor": "CAUSE"}, "id": "online_gradient_descent::fact::4::CAUSE", "kind": "fact", "label": "CAUSE", "provenance": "online_gradient_descent"}
+{"attrs": {"arity": 2, "functor": "BOUNDED_GRADIENTS"}, "id": "online_gradient_descent::fact::5::BOUNDED_GRADIENTS", "kind": "fact", "label": "BOUNDED_GRADIENTS", "provenance": "online_gradient_descent"}
+{"attrs": {"arity": 2, "functor": "NO_REGRET"}, "id": "online_gradient_descent::fact::6::NO_REGRET", "kind": "fact", "label": "NO_REGRET", "provenance": "online_gradient_descent"}
+{"attrs": {"arity": 2, "functor": "CAUSE"}, "id": "online_gradient_descent::fact::7::CAUSE", "kind": "fact", "label": "CAUSE", "provenance": "online_gradient_descent"}
+{"attrs": {"arity": 2, "functor": "NO_REGRET"}, "id": "online_gradient_descent::fact::8::NO_REGRET", "kind": "fact", "label": "NO_REGRET", "provenance": "online_gradient_descent"}
+{"attrs": {"arity": 2, "functor": "SUBLINEAR_REGRET"}, "id": "online_gradient_descent::fact::9::SUBLINEAR_REGRET", "kind": "fact", "label": "SUBLINEAR_REGRET", "provenance": "online_gradient_descent"}
+{"attrs": {"grounding": "sublinear regret bound"}, "id": "online_strong_convexity::ent::the_bound", "kind": "entity", "label": "the_bound", "provenance": "online_strong_convexity"}
+{"attrs": {"grounding": "curvature bound"}, "id": "online_strong_convexity::ent::the_curv", "kind": "entity", "label": "the_curv", "provenance": "online_strong_convexity"}
+{"attrs": {"grounding": "competitive gap"}, "id": "online_strong_convexity::ent::the_gap", "kind": "entity", "label": "the_gap", "provenance": "online_strong_convexity"}
+{"attrs": {"grounding": "horizon length"}, "id": "online_strong_convexity::ent::the_horizon", "kind": "entity", "label": "the_horizon", "provenance": "online_strong_convexity"}
+{"attrs": {"grounding": "online loss sequence"}, "id": "online_strong_convexity::ent::the_losses", "kind": "entity", "label": "the_losses", "provenance": "online_strong_convexity"}
+{"attrs": {"grounding": "no-regret play"}, "id": "online_strong_convexity::ent::the_play", "kind": "entity", "label": "the_play", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "SUBLINEAR_REGRET"}, "id": "online_strong_convexity::fact::10::SUBLINEAR_REGRET", "kind": "fact", "label": "SUBLINEAR_REGRET", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "CAUSE"}, "id": "online_strong_convexity::fact::11::CAUSE", "kind": "fact", "label": "CAUSE", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "CURVATURE_BOUND"}, "id": "online_strong_convexity::fact::12::CURVATURE_BOUND", "kind": "fact", "label": "CURVATURE_BOUND", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "NO_REGRET"}, "id": "online_strong_convexity::fact::13::NO_REGRET", "kind": "fact", "label": "NO_REGRET", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "CURVATURE_BOUND"}, "id": "online_strong_convexity::fact::1::CURVATURE_BOUND", "kind": "fact", "label": "CURVATURE_BOUND", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "BOUNDED_GRADIENTS"}, "id": "online_strong_convexity::fact::2::BOUNDED_GRADIENTS", "kind": "fact", "label": "BOUNDED_GRADIENTS", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "NO_REGRET"}, "id": "online_strong_convexity::fact::3::NO_REGRET", "kind": "fact", "label": "NO_REGRET", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "SUBLINEAR_REGRET"}, "id": "online_strong_convexity::fact::4::SUBLINEAR_REGRET", "kind": "fact", "label": "SUBLINEAR_REGRET", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "CAUSE"}, "id": "online_strong_convexity::fact::5::CAUSE", "kind": "fact", "label": "CAUSE", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "BOUNDED_GRADIENTS"}, "id": "online_strong_convexity::fact::6::BOUNDED_GRADIENTS", "kind": "fact", "label": "BOUNDED_GRADIENTS", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "NO_REGRET"}, "id": "online_strong_convexity::fact::7::NO_REGRET", "kind": "fact", "label": "NO_REGRET", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "CAUSE"}, "id": "online_strong_convexity::fact::8::CAUSE", "kind": "fact", "label": "CAUSE", "provenance": "online_strong_convexity"}
+{"attrs": {"arity": 2, "functor": "NO_REGRET"}, "id": "online_strong_convexity::fact::9::NO_REGRET", "kind": "fact", "label": "NO_REGRET", "provenance": "online_strong_convexity"}
 {"attrs": {"domain": "conformal", "n_facts": 9, "text": "Under unconfoundedness, weighted split conformal prediction with weights given by the likelihood ratio between the test covariate distribution and the calibration distribution (the inverse propensity score) yields a prediction interval for the counterfactual outcome with valid marginal coverage at level 1 minus alpha; combined with a nested procedure this produces intervals for the individual treatment effect."}, "id": "result::arxiv-2006.06138-main", "kind": "result", "label": "arxiv-2006.06138-main", "provenance": "arxiv-2006.06138-main"}
 {"attrs": {"domain": "optimization", "n_facts": 4, "text": "A contraction map with modulus kappa below one sends its iterates to a unique fixed point; being a contraction causes the iterates to converge at a linear rate set by the modulus kappa."}, "id": "result::banach_contraction", "kind": "result", "label": "banach_contraction", "provenance": "banach_contraction"}
 {"attrs": {"domain": "concentration", "n_facts": 7, "text": "Under a variance bound on the increments, a function with bounded differences in each coordinate forms a bounded-difference martingale over the independent inputs; the variance bound sharpens the bounded-difference martingale, which drives a concentration inequality for the function around its mean deviation."}, "id": "result::bernstein_concentration", "kind": "result", "label": "bernstein_concentration", "provenance": "bernstein_concentration"}
@@ -129,6 +166,8 @@
 {"attrs": {"domain": "conformal", "n_facts": 1, "text": "Importance weighting: the likelihood ratio between a target distribution and a source distribution is the density ratio whose expectation reweights source samples to the target."}, "id": "result::importance_weighting", "kind": "result", "label": "importance_weighting", "provenance": "importance_weighting"}
 {"attrs": {"domain": "learning", "n_facts": 7, "text": "For a large-margin classifier the margin bound controls the class dimension; the hypothesis class still has finite VC dimension and drives uniform convergence of the empirical risk over the class dimension, the margin bound also causes that uniform convergence, and the uniform convergence causes a generalization bound on the excess risk."}, "id": "result::margin_generalization", "kind": "result", "label": "margin_generalization", "provenance": "margin_generalization"}
 {"attrs": {"domain": "concentration", "n_facts": 5, "text": "A function with bounded differences in each coordinate forms a bounded-difference martingale over the independent inputs, and that bounded-difference martingale drives a concentration inequality for the function around its mean deviation."}, "id": "result::mcdiarmid_concentration", "kind": "result", "label": "mcdiarmid_concentration", "provenance": "mcdiarmid_concentration"}
+{"attrs": {"domain": "online", "n_facts": 5, "text": "An online loss sequence with bounded gradients drives a no-regret play over the horizon length, and that no-regret play causes a sublinear regret bound on the competitive gap."}, "id": "result::online_gradient_descent", "kind": "result", "label": "online_gradient_descent", "provenance": "online_gradient_descent"}
+{"attrs": {"domain": "online", "n_facts": 7, "text": "For a strongly convex online loss sequence the curvature bound controls the horizon length; the online loss sequence still has bounded gradients and drives a no-regret play over the horizon length, the curvature bound also causes that no-regret play, and the no-regret play causes a sublinear regret bound on the competitive gap."}, "id": "result::online_strong_convexity", "kind": "result", "label": "online_strong_convexity", "provenance": "online_strong_convexity"}
 {"attrs": {"domain": "conformal", "n_facts": 4, "text": "Split conformal prediction: given exchangeable calibration and test data, the prediction interval built from the empirical quantile of the calibration nonconformity scores attains valid marginal coverage at level 1 minus alpha."}, "id": "result::split_conformal", "kind": "result", "label": "split_conformal", "provenance": "split_conformal"}
 {"attrs": {"domain": "learning", "n_facts": 5, "text": "A hypothesis class with finite VC dimension drives uniform convergence of the empirical risk over the class dimension, and that uniform convergence causes a generalization bound on the excess risk."}, "id": "result::vc_generalization", "kind": "result", "label": "vc_generalization", "provenance": "vc_generalization"}
 {"attrs": {"domain": "conformal", "n_facts": 7, "text": "Weighted conformal prediction under covariate shift: when the test covariate distribution differs from the calibration distribution, reweighting the calibration scores by the likelihood ratio between the two distributions restores weighted exchangeability of the calibration and test data, so the resulting prediction interval attains valid marginal coverage at level 1 minus alpha."}, "id": "result::weighted_conformal", "kind": "result", "label": "weighted_conformal", "provenance": "weighted_conformal"}

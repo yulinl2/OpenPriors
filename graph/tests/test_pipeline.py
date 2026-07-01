@@ -25,8 +25,8 @@ G = REP["graph"]
 
 
 def test_four_literatures_ingested_and_unified():
-    assert REP["domains"] == ["conformal", "optimization", "learning", "concentration"]
-    assert REP["n_results"] >= 10
+    assert REP["domains"] == ["conformal", "optimization", "learning", "concentration", "online"]
+    assert REP["n_results"] >= 12
     kinds = G.stats()["node_kinds"]
     # one graph holds every object kind the project produces
     for k in ("result", "fact", "functor", "entity", "conjecture"):
@@ -38,21 +38,23 @@ def test_all_four_lineages_present():
     assert extends_chain(G, "gd_strong_convexity") == ["gd_strong_convexity", "banach_contraction"]
     assert extends_chain(G, "margin_generalization") == ["margin_generalization", "vc_generalization"]
     assert extends_chain(G, "bernstein_concentration") == ["bernstein_concentration", "mcdiarmid_concentration"]
+    assert extends_chain(G, "online_strong_convexity") == ["online_strong_convexity", "online_gradient_descent"]
 
 
 def test_unsupervised_roles_unify_the_four_fields():
     asc = REP["discovered_roles"]
     assert (asc["WEIGHTED_EXCHANGEABLE"] == asc["CONTRACTION"] == asc["UNIFORM_CONVERGENCE"]
-            == asc["BOUNDED_MARTINGALE"])
+            == asc["BOUNDED_MARTINGALE"] == asc["NO_REGRET"])
 
 
 def test_analogies_and_conjectures_in_the_unified_graph():
     assert REP["n_analogies"] >= 24 and REP["n_conjectures"] > 0
     rels = G.stats()["edge_relations"]
     assert rels.get("analogous_to", 0) >= 24 and rels.get("conjectures", 0) > 0
-    # the four-way analogy is reachable from any representative
+    # the five-way analogy is reachable from any representative
     peers = {p["result"] for p in analogies_of(G, "weighted_conformal")}
-    assert {"banach_contraction", "vc_generalization", "mcdiarmid_concentration"} <= peers
+    assert {"banach_contraction", "vc_generalization", "mcdiarmid_concentration",
+            "online_gradient_descent"} <= peers
 
 
 def test_evaluation_gate_passes_with_discriminating_verdicts():

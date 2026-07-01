@@ -17,16 +17,16 @@ from model import DOMAINS, build_model
 
 def test_model_reflects_the_live_pipeline():
     m = build_model()
-    assert m["counts"]["literatures"] == 4
-    assert m["counts"]["results"] == len(m["results"]) >= 10
+    assert m["counts"]["literatures"] == 5
+    assert m["counts"]["results"] == len(m["results"]) >= 12
     assert m["counts"]["analogies"] == len(m["analogies"]) >= 24
     # every result is tagged with a known domain and a numeric novelty in [0,1]
     for r in m["results"]:
         assert r["domain"] in DOMAINS and 0.0 <= r["novelty"] <= 1.0
-    # the shared PC::2 role is present across all four fields
+    # the shared PC::2 role is present across all five fields
     pc2 = {f for f, role in m["roles"].items() if role.endswith("::PC::2")}
     assert {"WEIGHTED_EXCHANGEABLE", "CONTRACTION", "UNIFORM_CONVERGENCE",
-            "BOUNDED_MARTINGALE"} <= pc2
+            "BOUNDED_MARTINGALE", "NO_REGRET"} <= pc2
     # the judged conjectures carry a discriminating mix of verdicts
     verdicts = {c["verdict"] for c in m["conjectures"]}
     assert {"plausible", "implausible"} <= verdicts

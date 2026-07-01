@@ -66,14 +66,15 @@ that discovers analogies *across literatures*, predicts, and self-evaluates.
 | **P–Q** | `graph/` | **Analogical conjecture transfer** ("the conformal procedure has a fixed point"); an in-session sub-agent **judges** each conjecture, gated deterministically. |
 | **R–S** | `graph/` | **Capstone driver** (the whole chain as one command + one graph) and a **query DSL** (path / shared-ancestor / explain-analogy / conjecture lookup). |
 | **U** | `graph/` | A **fourth literature** (martingale concentration) joins the analogy web with **no new design** — its bounded-difference martingale is auto-discovered to play the same structural-property role → *…:: bounded-martingale : concentration*. |
+| **AC** | `graph/` | A **fifth literature** (online learning / regret) joins the same way — its **no-regret play** is auto-discovered at the identical `PC/2` structural-property role → *…:: no-regret play : sublinear regret*. Five fields, one mechanism, zero engine changes. |
 
 ## Run the whole thing
 
 ```bash
 make setup        # one venv, pinned deps
-make pipeline     # the capstone: ingest 4 literatures -> analogies -> conjectures -> verdicts
+make pipeline     # the capstone: ingest 5 literatures -> analogies -> conjectures -> verdicts
 make query        # interrogate the unified graph
-make test         # all 150 tests across every epic
+make test         # all 201 tests across every epic
 ```
 
 The front-end stages (decompose → ground) run via `make run`; each package's README has its
@@ -82,7 +83,7 @@ own runnable demos and `PYTHONPATH` one-liners.
 ## How it's built (governance)
 
 See [`ROADMAP.md`](ROADMAP.md): epic → iteration → step hierarchy, branch strategy, CI as
-the supervision gate (8 workflows), and the backup/redundancy policy (push-after-iteration;
+the supervision gate (10 workflows), and the backup/redundancy policy (push-after-iteration;
 triple JSON/JSONL representations; provenance + content hashes; pinned deps + emitted JSON
 Schema; reproducible outputs via `SOURCE_DATE_EPOCH`). Each epic's `docs/` holds its
 lit-review (sub-agent produced), ADRs, and development log.
@@ -113,7 +114,7 @@ library- and proof-scale, and the engine itself is deepened:
 | **proof decomposition** (`retrieval.decompose`) | *depth*: explain a **full proof as a composition** of known theorems (greedy set-cover, MDL) | Q1 proof = Banach + strong-convexity + Kantorovich–Rubinstein, with the ε-sensitivity assumption + iteration bound as the **novel residual** |
 | **deeper SME** (`analogy.align`) | *depth*: **minimal ascension** (near-synonym predicates align via a type lattice) + **skolem-penalized** inferences (opt-in) | `MINIMIZE`≈`OPTIMIZE` now align; defaults unchanged |
 
-**150 tests · 8 CI workflows · all green · reproducible · $0 marginal API cost.**
+**201 tests · 10 CI workflows · all green · reproducible · $0 marginal API cost.**
 
 ## The closed loop (graph layer)
 

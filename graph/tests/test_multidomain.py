@@ -26,6 +26,7 @@ CONF, _, _ = _load_corpus(REPO / "retrieval" / "library" / "conformal_theorems.j
 OPT, _, _ = _load_corpus(REPO / "grounding" / "dgroups" / "optimization_corpus.json")
 LEARN, _, _ = _load_corpus(REPO / "grounding" / "dgroups" / "learning_corpus.json")
 CONC, _, _ = _load_corpus(REPO / "grounding" / "dgroups" / "concentration_corpus.json")
+ONLINE, _, _ = _load_corpus(REPO / "grounding" / "dgroups" / "online_learning_corpus.json")
 
 
 def test_learning_corpus_is_grounded():
@@ -44,14 +45,22 @@ def test_concentration_corpus_is_grounded():
             assert check_section(v)["passed"], k
 
 
+def test_online_learning_corpus_is_grounded():
+    from grounding.verify import check_section
+    raw = json.loads((REPO / "grounding" / "dgroups" / "online_learning_corpus.json").read_text())
+    for k, v in raw.items():
+        if not k.startswith("_"):
+            assert check_section(v)["passed"], k
+
+
 def test_discovered_roles_align_the_four_fields():
-    asc = discover_role_ascension(CONF, OPT, LEARN, CONC)
-    # the "structural property" relation gets the SAME discovered role in all FOUR fields
+    asc = discover_role_ascension(CONF, OPT, LEARN, CONC, ONLINE)
+    # the "structural property" relation gets the SAME discovered role in all FIVE fields
     assert (asc["WEIGHTED_EXCHANGEABLE"] == asc["CONTRACTION"] == asc["UNIFORM_CONVERGENCE"]
-            == asc["BOUNDED_MARTINGALE"])
+            == asc["BOUNDED_MARTINGALE"] == asc["NO_REGRET"])
     # so does the "guarantee" relation
     assert (asc["COVERAGE"] == asc["LINEAR_CONVERGENCE"] == asc["GENERALIZATION"]
-            == asc["CONCENTRATION"])
+            == asc["CONCENTRATION"] == asc["SUBLINEAR_REGRET"])
     # the role token encodes CAUSE-position (P/C) and arity, and CAUSE itself is not a role
     assert asc["WEIGHTED_EXCHANGEABLE"].endswith("::2") and "CAUSE" not in asc
     # a premise-only 1-ary relation is a distinct role (won't match the 2-ary structural ones)
@@ -87,17 +96,18 @@ def test_no_hand_declared_ascension_needed():
 
 def test_four_way_analogy_in_one_graph():
     g, domains, asc, analogies = build_multidomain_graph(REPO)
-    assert set(domains) == {"conformal", "optimization", "learning", "concentration"}
+    assert set(domains) == {"conformal", "optimization", "learning", "concentration", "online"}
     # one representative per field, all pairwise analogous
     reps = {"weighted_conformal", "banach_contraction", "vc_generalization",
-            "mcdiarmid_concentration"}
+            "mcdiarmid_concentration", "online_gradient_descent"}
     for r in reps:
         peers = {a["result"] for a in analogies_of(g, r)}
         assert reps - {r} <= peers, r
-    # all four lineages coexist
+    # all five lineages coexist
     assert extends_chain(g, "margin_generalization") == ["margin_generalization", "vc_generalization"]
     assert extends_chain(g, "gd_strong_convexity") == ["gd_strong_convexity", "banach_contraction"]
     assert extends_chain(g, "bernstein_concentration") == ["bernstein_concentration", "mcdiarmid_concentration"]
+    assert extends_chain(g, "online_strong_convexity") == ["online_strong_convexity", "online_gradient_descent"]
 
 
 def test_deeper_causal_chain_scores_higher():

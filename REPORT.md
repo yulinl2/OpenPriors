@@ -4,7 +4,7 @@
 
 OpenPriors reads a body of mathematical results as one typed *(object, attribute, relation)* graph and runs a closed research loop over it: **discover → predict → evaluate → investigate → experiment**. It situates each result among its priors, finds what it is structurally analogous to in another field, predicts what that analogy implies, tells the sound predictions from the spurious, refines the open ones into research directions, and runs their proposed numerical experiments — every step grounded and CI-gated.
 
-At a glance: **4 literatures**, **10 results**, **24 cross-domain analogies**, **4 judged conjectures**, **2 research directions**, over a unified graph of **176 nodes / 410 edges**.
+At a glance: **5 literatures**, **12 results**, **40 cross-domain analogies**, **4 judged conjectures**, **2 research directions**, over a unified graph of **215 nodes / 517 edges**.
 
 ## 1. The four literatures
 
@@ -14,6 +14,7 @@ At a glance: **4 literatures**, **10 results**, **24 cross-domain analogies**, *
 | Optimization | 2 | 0.700 | `banach_contraction` (1.000) |
 | Learning theory | 2 | 0.643 | `vc_generalization` (1.000) |
 | Concentration | 2 | 0.643 | `mcdiarmid_concentration` (1.000) |
+| Online learning | 2 | 0.643 | `online_gradient_descent` (1.000) |
 
 *Novelty = 1 − best-prior structural coverage (a prior must be no larger than the result it covers, so a descendant can't 'explain away' its ancestor).*
 
@@ -26,6 +27,7 @@ Each field's development line, recovered from grounded structure alone (no citat
 - **Optimization**: `banach_contraction` → `gd_strong_convexity` (novelty 0.400)
 - **Learning theory**: `vc_generalization` → `margin_generalization` (novelty 0.286)
 - **Concentration**: `mcdiarmid_concentration` → `bernstein_concentration` (novelty 0.286)
+- **Online learning**: `online_gradient_descent` → `online_strong_convexity` (novelty 0.286)
 
 ## 3. Cross-domain analogies
 
@@ -34,19 +36,19 @@ Discovered by the structure-mapping engine with **roles read from CAUSE structur
 | A | B | SME score | correspondences |
 |---|---|---|---|
 | `margin_generalization` | `bernstein_concentration` | 17.0 | the_bound↔the_bound; the_class↔the_func; the_dim↔the_inputs |
+| `margin_generalization` | `online_strong_convexity` | 17.0 | the_bound↔the_bound; the_class↔the_losses; the_dim↔the_horizon |
+| `bernstein_concentration` | `online_strong_convexity` | 17.0 | the_bound↔the_bound; the_dev↔the_gap; the_func↔the_losses |
 | `gd_strong_convexity` | `margin_generalization` | 12.0 | kappa↔the_dim; the_bound↔the_class; the_map↔the_risk |
 | `gd_strong_convexity` | `vc_generalization` | 12.0 | kappa↔the_dim; the_bound↔the_class; the_map↔the_risk |
 | `gd_strong_convexity` | `bernstein_concentration` | 12.0 | kappa↔the_inputs; the_bound↔the_func; the_map↔the_seq |
 | `gd_strong_convexity` | `mcdiarmid_concentration` | 12.0 | kappa↔the_inputs; the_bound↔the_func; the_map↔the_seq |
+| `gd_strong_convexity` | `online_gradient_descent` | 12.0 | kappa↔the_horizon; the_bound↔the_losses; the_map↔the_play |
+| `gd_strong_convexity` | `online_strong_convexity` | 12.0 | kappa↔the_horizon; the_bound↔the_losses; the_map↔the_play |
 | `margin_generalization` | `mcdiarmid_concentration` | 12.0 | the_bound↔the_bound; the_class↔the_func; the_dim↔the_inputs |
 | `vc_generalization` | `bernstein_concentration` | 12.0 | the_bound↔the_bound; the_class↔the_func; the_dim↔the_inputs |
 | `vc_generalization` | `mcdiarmid_concentration` | 12.0 | the_bound↔the_bound; the_class↔the_func; the_dim↔the_inputs |
-| `arxiv-2006.06138-main` | `banach_contraction` | 7.0 | alpha_level↔the_rate; cal_test↔the_map; the_interval↔the_seq |
-| `arxiv-2006.06138-main` | `gd_strong_convexity` | 7.0 | alpha_level↔the_rate; cal_test↔the_map; the_interval↔the_seq |
-| `weighted_conformal` | `banach_contraction` | 7.0 | alpha_level↔the_rate; cal_test↔the_map; the_interval↔the_seq |
-| `weighted_conformal` | `gd_strong_convexity` | 7.0 | alpha_level↔the_rate; cal_test↔the_map; the_interval↔the_seq |
 
-*(showing the 12 highest-scoring of 24 analogies.)*
+*(showing the 12 highest-scoring of 40 analogies.)*
 
 ## 4. Discovered structural roles
 
@@ -55,17 +57,21 @@ The role each functor plays is *discovered* from its position in the `CAUSE` glu
 | Functor | Role |
 |---|---|
 | `BOUNDED_DIFFERENCES` | `ROLE::P::2` |
+| `BOUNDED_GRADIENTS` | `ROLE::P::2` |
 | `BOUNDED_MARTINGALE` | `ROLE::PC::2` |
 | `CONCENTRATION` | `ROLE::C::2` |
 | `CONTRACTION` | `ROLE::PC::2` |
 | `COVERAGE` | `ROLE::C::2` |
+| `CURVATURE_BOUND` | `ROLE::P::2` |
 | `EXCHANGEABLE` | `ROLE::P::1` |
 | `FINITE_VC` | `ROLE::P::2` |
 | `GENERALIZATION` | `ROLE::C::2` |
 | `LIKELIHOOD_RATIO` | `ROLE::P::3` |
 | `LINEAR_CONVERGENCE` | `ROLE::C::2` |
 | `MARGIN_BOUND` | `ROLE::P::2` |
+| `NO_REGRET` | `ROLE::PC::2` |
 | `STRONG_CONVEXITY_BOUND` | `ROLE::P::2` |
+| `SUBLINEAR_REGRET` | `ROLE::C::2` |
 | `UNIFORM_CONVERGENCE` | `ROLE::PC::2` |
 | `VARIANCE_BOUND` | `ROLE::P::2` |
 | `WEIGHTED_EXCHANGEABLE` | `ROLE::PC::2` |
