@@ -3,8 +3,9 @@
 #   make pipeline  graph layer over the already-grounded corpora (grounding/dgroups/,
 #                  retrieval/library/): unify -> lineage -> analogy -> conjecture -> evaluate
 #   make query     interrogate the unified graph    make test  every epic's tests
+#   make demo      rebuild the interactive dashboard docs/index.html from live output
 # Usage:  make setup  &&  make pipeline  &&  make test
-.PHONY: setup run pipeline query test integration clean
+.PHONY: setup run pipeline query demo test integration clean
 
 VENV := decomposer/.venv
 PY   := $(VENV)/bin/python
@@ -29,6 +30,9 @@ pipeline:                  ## the capstone: full graph pipeline over three liter
 
 query:                     ## interrogate the unified graph (path / ancestor / analogy / conjecture)
 	PYTHONPATH=$(GPP) $(PY) -m graphstore.dsl_cli
+
+demo:                      ## rebuild the interactive dashboard docs/index.html from live output
+	$(PY) demo/build_demo.py
 
 test:                      ## run every epic's unit tests + the integration test
 	PYTHONPATH=$(PP) $(PY) -m pytest \
