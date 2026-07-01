@@ -93,7 +93,10 @@ def _fixed_point(op, x0: float, iters: int = 500, tol: float = 1e-12) -> float:
         if abs(nx - x) < tol:
             return nx
         x = nx
-    return x
+    # fail loudly: a non-converged last iterate is not a fixed point, so any bound built on it
+    # would be meaningless (verify-the-verifier — never report a silent non-solution)
+    raise RuntimeError(f"fixed-point iteration failed to converge within {iters} steps "
+                       f"(last |delta|={abs(op(x) - x):.2e})")
 
 
 def _sample(n: int, theta_star: float, sigma: float, rng: random.Random) -> list:
@@ -117,6 +120,10 @@ def run_experiment(theta_star: float = 3.0, sigma: float = 1.0,
         raise ValueError(f"n_schedule needs >= 2 sizes to show a rate, got {len(n_schedule)}")
     if any(n <= 0 for n in n_schedule):
         raise ValueError(f"all sample sizes must be positive, got {n_schedule}")
+    if trials <= 0:
+        raise ValueError(f"trials must be positive, got {trials}")
+    if basin_points < 2:
+        raise ValueError(f"basin_points needs >= 2 to form a grid, got {basin_points}")
 
     quad = _build_quadrature(theta_star, sigma)
     pop_fixed_point = _fixed_point(lambda t: em_operator_population(t, quad, sigma), theta_star * 0.5)
@@ -130,7 +137,9 @@ def run_experiment(theta_star: float = 3.0, sigma: float = 1.0,
     for n in n_schedule:
         recs = []
         for tr in range(trials):
-            rng = random.Random(1000 * tr + n + seed)      # deterministic per (trial, n, seed)
+            # seed on the distinct string "seed:trial:n" — random.Random hashes it with SHA-512,
+            # so the stream is deterministic across runs and injective in (seed, trial, n) for any n
+            rng = random.Random(f"{seed}:{tr}:{n}")
             data = _sample(n, theta_star, sigma, rng)
             theta_n = _fixed_point(lambda t: em_operator_empirical(t, data, sigma), theta_star)
             eps = max(abs(em_operator_empirical(t, data, sigma)

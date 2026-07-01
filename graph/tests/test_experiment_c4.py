@@ -32,7 +32,7 @@ def test_operator_is_a_local_contraction():
 
 def test_perturbation_bound_holds_for_every_sample():
     # the fixed-point-uniform-convergence theorem: |theta_n - theta*| <= eps_n/(1-kappa), and the
-    # iteration stays in the contraction basin — asserted per trial, not just on the average
+    # empirical fixed point lands in the contraction basin — asserted per trial, not just on average
     for lv in REP["levels"]:
         for r in lv["trials"]:
             assert r["in_basin"]
@@ -72,7 +72,8 @@ def test_experiment_is_deterministic():
 
 
 def test_bad_config_is_rejected_clearly():
-    for kw in ({"sigma": 0.0}, {"sigma": -1.0}, {"n_schedule": (100,)}, {"n_schedule": (100, 0)}):
+    for kw in ({"sigma": 0.0}, {"sigma": -1.0}, {"n_schedule": (100,)}, {"n_schedule": (100, 0)},
+               {"trials": 0}, {"basin_points": 1}):
         try:
             run_experiment(**kw)
             assert False, f"expected ValueError for {kw}"
