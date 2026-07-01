@@ -28,6 +28,16 @@
 
 *{box-sizing:border-box;}
 html,body{margin:0;padding:0;}
+
+/* Respect users who ask for reduced motion: kill all animation/transition. */
+@media (prefers-reduced-motion: reduce){
+  *, *::before, *::after{
+    animation-duration:.001ms !important;
+    animation-iteration-count:1 !important;
+    transition-duration:.001ms !important;
+    scroll-behavior:auto !important;
+  }
+}
 body{
   font-family:var(--font);
   color:var(--ink);
@@ -351,17 +361,17 @@ h1,h2,h3{margin:0 0 .4em;}
   <div class="nav-inner">
     <div class="brand"><span class="dot"></span>OpenPriors</div>
     <nav class="tabs" role="tablist" aria-label="Views">
-      <button class="tab active" role="tab" data-view="story" aria-selected="true">🎈 Story</button>
-      <button class="tab" role="tab" data-view="map" aria-selected="false">🗺️ The Map</button>
-      <button class="tab" role="tab" data-view="disc" aria-selected="false">💡 Discoveries</button>
-      <button class="tab" role="tab" data-view="hood" aria-selected="false">🔧 Under the Hood</button>
+      <button class="tab active" role="tab" id="tab-story" aria-controls="view-story" data-view="story" aria-selected="true">🎈 Story</button>
+      <button class="tab" role="tab" id="tab-map" aria-controls="view-map" data-view="map" aria-selected="false">🗺️ The Map</button>
+      <button class="tab" role="tab" id="tab-disc" aria-controls="view-disc" data-view="disc" aria-selected="false">💡 Discoveries</button>
+      <button class="tab" role="tab" id="tab-hood" aria-controls="view-hood" data-view="hood" aria-selected="false">🔧 Under the Hood</button>
     </nav>
   </div>
 </header>
 
 <main>
   <!-- ===== VIEW 1: STORY ===== -->
-  <section class="view active" id="view-story" role="tabpanel">
+  <section class="view active" id="view-story" role="tabpanel" aria-labelledby="tab-story" tabindex="0">
     <div class="hero">
       <h1>OpenPriors</h1>
       <p class="tagline">A machine that reads hard science, draws it as <b>dots &amp; arrows</b>, and notices when two different fields are secretly telling the <b>same story</b>.</p>
@@ -399,7 +409,7 @@ h1,h2,h3{margin:0 0 .4em;}
   </section>
 
   <!-- ===== VIEW 2: THE MAP ===== -->
-  <section class="view" id="view-map" role="tabpanel">
+  <section class="view" id="view-map" role="tabpanel" aria-labelledby="tab-map" tabindex="0">
     <div class="section-title">🌟 The big discovery</div>
     <div class="card">
       <div class="disc-svg-wrap" id="discoveryGraph"><!-- SVG injected --></div>
@@ -412,7 +422,7 @@ h1,h2,h3{margin:0 0 .4em;}
   </section>
 
   <!-- ===== VIEW 3: DISCOVERIES ===== -->
-  <section class="view" id="view-disc" role="tabpanel">
+  <section class="view" id="view-disc" role="tabpanel" aria-labelledby="tab-disc" tabindex="0">
     <div class="section-title">💭 Guesses it made</div>
     <p class="section-sub">It carried a shape from one field into another to invent an idea. A checker judged each one.</p>
     <div class="grid-2" id="conjectures"><!-- filled --></div>
@@ -433,7 +443,7 @@ h1,h2,h3{margin:0 0 .4em;}
   </section>
 
   <!-- ===== VIEW 4: UNDER THE HOOD ===== -->
-  <section class="view" id="view-hood" role="tabpanel">
+  <section class="view" id="view-hood" role="tabpanel" aria-labelledby="tab-hood" tabindex="0">
     <div class="section-title">🔧 The knowledge graph</div>
     <div class="stat-tiles" id="statTiles"><!-- filled --></div>
 
@@ -505,7 +515,8 @@ h1,h2,h3{margin:0 0 .4em;}
     });
     Object.keys(views).forEach(k=>views[k].classList.toggle('active', k===name));
     if(name==='story' && !countedUp){ runCountUp(); countedUp=true; }
-    window.scrollTo({top:0, behavior:'smooth'});
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    window.scrollTo({top:0, behavior: reduce ? 'auto' : 'smooth'});
   }
   tabs.forEach(t=>{
     t.addEventListener('click', ()=>switchView(t.dataset.view));

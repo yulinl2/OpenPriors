@@ -30,13 +30,18 @@ def build() -> Path:
     payload = json.dumps(data, ensure_ascii=False).replace("</", "<\\/")
     html = template.replace("__DATA__", payload)
 
+    # the dashboard must be fully self-contained — no external network dependency other than
+    # the w3.org SVG/XML namespaces and the plain GitHub repo link. Fail the build otherwise.
+    import re
+    urls = set(re.findall(r"https?://[^\s\"'()<>]+", html))
+    external = {u for u in urls if "w3.org" not in u and "github.com/yulinl2" not in u}
+    if external:
+        raise SystemExit(f"dashboard has external dependencies (must be self-contained): "
+                         f"{sorted(external)}")
+
     out = REPO / "docs" / "index.html"
     out.parent.mkdir(parents=True, exist_ok=True)
     out.write_text(html, encoding="utf-8")
-
-    if "http://" in html.replace("http://www.w3.org", "") or "cdn" in html.lower():
-        # w3.org SVG namespaces are fine; flag any other external refs
-        pass
     print(f"wrote {out} ({len(html):,} bytes)")
     print(f"  literatures={data['counts']['literatures']} results={data['counts']['results']} "
           f"analogies={data['counts']['analogies']} conjectures={data['counts']['conjectures']}")

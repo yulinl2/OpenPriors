@@ -5,13 +5,11 @@ These checks gate that the data model reflects the real pipeline output and that
 dependency (only the plain GitHub link) — so the published dashboard can't silently rot.
 """
 
-import json
 import pathlib
 import re
 import sys
 
 HERE = pathlib.Path(__file__).resolve().parent
-REPO = HERE.parent
 sys.path.insert(0, str(HERE))
 
 from model import DOMAINS, build_model

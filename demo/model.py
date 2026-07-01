@@ -28,9 +28,10 @@ DOMAINS = {
 def build_model() -> dict:
     import sys
     for p in ("graph/src", "retrieval/src", "analogy/src", "grounding/src"):
-        sys.path.insert(0, str(REPO / p))
+        sp = str(REPO / p)
+        if sp not in sys.path:                          # idempotent: don't grow sys.path per call
+            sys.path.insert(0, sp)
 
-    from graphstore.crossdomain import discover_role_ascension
     from graphstore.multidomain import build_multidomain_graph
     from graphstore.novelty_graph import result_novelty
     from graphstore.query import extends_chain
