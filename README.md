@@ -16,6 +16,20 @@ with deterministic code wherever an invariant is machine-checkable, and in-sessi
 (no API cost) only where natural-language understanding is irreducible. Every claim is gated by
 CI; every gate is unit-tested to fail on broken input.
 
+## 🎈 See it, don't read it
+
+**[▶ Open the interactive dashboard](https://yulinl2.github.io/OpenPriors/)** — a single
+self-contained page ([`docs/index.html`](docs/index.html)) with **four zoom levels**, from a
+10-year-old's story to the raw audit graph:
+
+| 🎈 Story | 🗺️ The Map | 💡 Discoveries | 🔧 Under the Hood |
+|---|---|---|---|
+| what it does, in emoji | the 4 fields + the analogy web | the guesses, verdicts, experiment | the graph, a fact unpacked, the schema |
+
+It reads live from the pipeline's own output (`make demo` rebuilds it), so it never drifts from
+what the system actually found. *(If the Pages link isn't live yet, open `docs/index.html`
+directly — it needs no server and no network.)*
+
 ## The pipeline
 
 ```
