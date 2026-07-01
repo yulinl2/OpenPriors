@@ -5,7 +5,7 @@
 #   make query     interrogate the unified graph    make test  every epic's tests
 #   make demo      rebuild the interactive dashboard docs/index.html from live output
 # Usage:  make setup  &&  make pipeline  &&  make test
-.PHONY: setup run pipeline query demo test integration clean
+.PHONY: setup run pipeline query demo report experiment test integration clean
 
 VENV := decomposer/.venv
 PY   := $(VENV)/bin/python
@@ -37,6 +37,9 @@ experiment:                ## run the proposed research-direction experiments (C
 
 demo:                      ## rebuild the interactive dashboard docs/index.html from live output
 	$(PY) demo/build_demo.py
+
+report:                    ## regenerate REPORT.md — the consolidated audit report, live from the pipeline
+	PYTHONPATH=demo:$(GPP) $(PY) report/build_report.py
 
 test:                      ## run every epic's unit tests + the integration test
 	PYTHONPATH=$(PP) $(PY) -m pytest \
