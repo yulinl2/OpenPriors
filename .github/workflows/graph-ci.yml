@@ -39,6 +39,8 @@ jobs:
         run: PYTHONPATH=graph/src python -m graphstore.experiment_c4
       - name: Numerical experiment for research direction C5 (OGD phase diagram vs spectral radius)
         run: PYTHONPATH=graph/src python -m graphstore.experiment_c5
+      - name: Numerical experiment for research direction C7 (regret vs last-iterate, price of robustness)
+        run: PYTHONPATH=graph/src python -m graphstore.experiment_c7
       - name: End-to-end pipeline (capstone — ingest→lineage→analogy→transfer→evaluate)
         run: PYTHONPATH=graph/src:retrieval/src:analogy/src:grounding/src python -m graphstore.pipeline
       - name: Query DSL over the unified graph (path / ancestor / analogy / conjecture lookup)

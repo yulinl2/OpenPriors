@@ -121,7 +121,7 @@ The *uncertain*-judged conjectures refined into precise, citation-grounded progr
 
 ## 7. Numerical experiments
 
-Three research directions carried through to computation, in pure Python (project doctrine):
+Every committed research direction carried through to computation, in pure Python (project doctrine):
 
 ### C2 — contraction modulus vs. change-of-measure (finite MDP)
 
@@ -175,6 +175,18 @@ Direction C5 — generated, judged *uncertain*, and refined in the same loop —
 | 0.00 | 2.00 | 1.0198 | 1.0198 | diverge |
 
 The empirical per-step rate equals ρ in every cell (the OGD map is a scaled rotation); the Banach condition η<2μ/L² is exactly ρ<1; and at the bilinear pole the averaged play converges toward the equilibrium (dist 0.07) while the last iterate wanders away (dist 5.12) — no attracting fixed point, exactly the C5 dichotomy.
+
+### C7 — regret vs. last-iterate: the price of adversarial robustness
+
+Direction C7 proposed quadratics f_t(x)=½(x−c_t)ᵀdiag(1,κ)(x−c_t) across three regimes (offline / adversarial / drifting, horizon T=4000), comparing the informed constant step η=1/L against the regret-optimal schedule η_t=min(1/L, 1/(μt)):
+
+| κ | geometric rate (=1−1/κ) | robust-schedule exponent | informed err@T | robust err@T | tracking err / δ(κ−1) |
+|---|---|---|---|---|---|
+| 1 | 0.0000 | 0.00 | 0.0e+00 | 7.9e-17 | — (exact) |
+| 10 | 0.9000 | -1.00 | 2.8e-16 | 1.5e-03 | 1.000 |
+| 100 | 0.9900 | -1.00 | 2.7e-15 | 1.6e-02 | 1.000 |
+
+The same curvature modulus drives both theorems through a lossy bridge: the informed step contracts geometrically at exactly 1−1/κ while the regret-optimal schedule (stable regret/log T) decays only polynomially (exponent −1) — a **price of robustness** that grows with conditioning and vanishes at κ=1; under drift the informed iterate tracks at exactly δ(κ−1), the contraction-plus-drift interpolation C7 proposed.
 
 ## Reproducibility
 

@@ -34,6 +34,7 @@ def build_markdown() -> str:
     from model import build_model, DOMAINS
     from graphstore.experiment_c4 import run_experiment as run_c4
     from graphstore.experiment_c5 import run_experiment as run_c5
+    from graphstore.experiment_c7 import run_experiment as run_c7
 
     m = build_model()
     c = m["counts"]
@@ -149,7 +150,8 @@ def build_markdown() -> str:
     # 7. experiments
     w("## 7. Numerical experiments")
     w("")
-    w("Three research directions carried through to computation, in pure Python (project doctrine):")
+    w("Every committed research direction carried through to computation, in pure Python "
+      "(project doctrine):")
     w("")
     w("### C2 — contraction modulus vs. change-of-measure (finite MDP)")
     w("")
@@ -203,6 +205,29 @@ def build_markdown() -> str:
       f"converges toward the equilibrium (dist {_fmt(d5[-1]['avg_dist'], 2)}) while the last "
       f"iterate wanders away (dist {_fmt(d5[-1]['last_dist'], 2)}) — no attracting fixed point, "
       f"exactly the C5 dichotomy.")
+    w("")
+    w("### C7 — regret vs. last-iterate: the price of adversarial robustness")
+    w("")
+    c7 = run_c7()
+    w(f"Direction C7 proposed quadratics f_t(x)=½(x−c_t)ᵀdiag(1,κ)(x−c_t) across three regimes "
+      f"(offline / adversarial / drifting, horizon T={c7['horizon']}), comparing the informed "
+      f"constant step η=1/L against the regret-optimal schedule η_t=min(1/L, 1/(μt)):")
+    w("")
+    w("| κ | geometric rate (=1−1/κ) | robust-schedule exponent | informed err@T | "
+      "robust err@T | tracking err / δ(κ−1) |")
+    w("|---|---|---|---|---|---|")
+    for r in c7["regimes"]:
+        k = r["kappa"]
+        track_s = _fmt(r["tracking"][0.001] / (0.001 * (k - 1))) if k > 1 else "— (exact)"
+        w(f"| {k:.0f} | {_fmt(r['geometric_rate'], 4)} | {_fmt(r['poly_exponent'], 2)} | "
+          f"{r['informed_final_err']:.1e} | {r['robust_err_marks'][c7['horizon']]:.1e} | "
+          f"{track_s} |")
+    w("")
+    w("The same curvature modulus drives both theorems through a lossy bridge: the informed step "
+      "contracts geometrically at exactly 1−1/κ while the regret-optimal schedule (stable "
+      "regret/log T) decays only polynomially (exponent −1) — a **price of robustness** that "
+      "grows with conditioning and vanishes at κ=1; under drift the informed iterate tracks at "
+      "exactly δ(κ−1), the contraction-plus-drift interpolation C7 proposed.")
     w("")
 
     # footer

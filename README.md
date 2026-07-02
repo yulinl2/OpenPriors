@@ -32,7 +32,7 @@ directly — it needs no server and no network.)*
 
 Prefer prose? **[📄 Read the audit report](REPORT.md)** — a consolidated, technical write-up of
 every literature, lineage, analogy, discovered role, conjecture, research direction, and all
-three numerical experiments, with **every figure computed live** from the pipeline (`make report`
+four numerical experiments, with **every figure computed live** from the pipeline (`make report`
 rebuilds it; CI fails if it's stale).
 
 ## The pipeline
@@ -74,7 +74,7 @@ that discovers analogies *across literatures*, predicts, and self-evaluates.
 make setup        # one venv, pinned deps
 make pipeline     # the capstone: ingest 5 literatures -> analogies -> conjectures -> verdicts
 make query        # interrogate the unified graph
-make test         # all 220 tests across every epic
+make test         # all 229 tests across every epic
 ```
 
 The front-end stages (decompose → ground) run via `make run`; each package's README has its
@@ -114,7 +114,7 @@ library- and proof-scale, and the engine itself is deepened:
 | **proof decomposition** (`retrieval.decompose`) | *depth*: explain a **full proof as a composition** of known theorems (greedy set-cover, MDL) | Q1 proof = Banach + strong-convexity + Kantorovich–Rubinstein, with the ε-sensitivity assumption + iteration bound as the **novel residual** |
 | **deeper SME** (`analogy.align`) | *depth*: **minimal ascension** (near-synonym predicates align via a type lattice) + **skolem-penalized** inferences (opt-in) | `MINIMIZE`≈`OPTIMIZE` now align; defaults unchanged |
 
-**220 tests · 10 CI workflows · all green · reproducible · $0 marginal API cost.**
+**229 tests · 10 CI workflows · all green · reproducible · $0 marginal API cost.**
 
 ## The closed loop (graph layer)
 
@@ -130,7 +130,7 @@ that the system reasons over end to end. `make pipeline` prints it in one pass:
 | **transfer** (`transfer`) | project candidate inferences as conjectures | *"by analogy with Banach, the conformal procedure has a **fixed point**"* (an invented object) |
 | **evaluate** (`evaluate`) | an in-session sub-agent judges each conjecture; a deterministic gate validates + grounds the verdict | fixed-point conjecture **plausible** (recovers conformal self-consistency); a capacity conjecture **implausible** (conformal is distribution-free) |
 | **investigate** (`discover`) | refine the *uncertain*-judged conjectures into precise, citation-grounded research directions | the "ERM operator fixed point" conjecture becomes a *fixed-point uniform-convergence* program (C4) |
-| **experiment** (`experiment_c2`, `experiment_c4`, `experiment_c5`) | **run** a proposed direction's own numerical test, pure-Python | C2: the L2(μ) contraction modulus is governed by `χ²(d‖μ)`; **C4**: the Banach bound `‖θ̂ₙ−θ*‖ ≤ εₙ/(1−κ)` holds for all samples on the BWY Gaussian-mixture EM operator, at the `1/√n` rate; **C5**: on two-player quadratic games, vanilla OGD's empirical rate **equals the spectral radius** in every phase cell — convergence iff `η<2μ/L²`, recurrence at the bilinear pole, averaged play bounded while the last iterate wanders |
+| **experiment** (`experiment_c2/c4/c5/c7`) | **run** every direction's own numerical test, pure-Python | C2: the L2(μ) contraction modulus is governed by `χ²(d‖μ)`; **C4**: the Banach bound `‖θ̂ₙ−θ*‖ ≤ εₙ/(1−κ)` holds for all samples on the BWY Gaussian-mixture EM operator, at the `1/√n` rate; **C5**: on two-player quadratic games, vanilla OGD's empirical rate **equals the spectral radius** in every phase cell — convergence iff `η<2μ/L²`, averaged play converges while the last iterate wanders; **C7**: the informed step contracts at exactly `1−1/κ` while the regret-optimal schedule decays at exponent −1 — a **price of robustness** that grows with conditioning |
 | **query** (`dsl`) | interrogate the graph | one path runs from a conformal theorem through the analogy web into a learning-theory result |
 
 So the system doesn't just detect novelty — it **situates a result among its priors, finds
