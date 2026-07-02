@@ -38,6 +38,7 @@ def test_report_is_populated_from_the_live_pipeline():
     for d in DOMAINS.values():
         assert d["nice"] in md
     assert "C2 — contraction modulus" in md and "C4 — fixed-point uniform convergence" in md
+    assert "C5 — OGD convergence/recurrence phase diagram" in md
     # the C4 experiment's confirmed fact (kappa < 1, root-n rate) is reported
     assert "κ=0.0210<1" in md and "1/√n" in md
 
