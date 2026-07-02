@@ -60,11 +60,11 @@ def test_recurrence_pole_excess_vanishes_quadratically():
         assert 3.0 < a["excess"] / b["excess"] < 5.0      # halving eta quarters the excess
 
 
-def test_averaged_play_bounded_while_last_iterate_wanders():
+def test_averaged_play_converges_while_last_iterate_wanders():
     early, late = REP["dichotomy"]
     assert late["last_dist"] > 1.5 * early["last_dist"]   # no attracting fixed point
-    assert late["avg_dist"] < 1.5 * REP["d_init"]         # the average stays put
-    assert late["avg_dist"] < 0.25 * late["last_dist"]
+    assert late["avg_dist"] < 0.25 * REP["d_init"]        # the average approaches z* (folk theorem)
+    assert late["avg_dist"] < 0.1 * late["last_dist"]
 
 
 def test_experiment_is_deterministic():

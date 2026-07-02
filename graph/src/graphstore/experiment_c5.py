@@ -122,7 +122,7 @@ def run_experiment(eta: float = 0.1, steps: int = 2000, seed: int = 0) -> dict:
                for e in (0.2, 0.1, 0.05, 0.025)]
 
     # 4. averaged-play dichotomy at the bilinear pole, vanishing step eta_t = c/sqrt(t)
-    zst = (-b[1] / gamma0, b[0] / gamma0)                # limit of equilibrium as mu -> 0
+    zst = equilibrium(0.0, gamma0, b)                    # det = gamma^2 > 0, so mu=0 is fine
     z = (zst[0] + 1.0, zst[1] + 1.0)
     d_init = math.hypot(1.0, 1.0)
     sx = sy = 0.0
@@ -193,13 +193,14 @@ def main(argv=None) -> int:
         ratio = a["excess"] / bb["excess"]
         if not 3.0 < ratio < 5.0:
             raise SystemExit(f"recurrence-pole scaling not quadratic: excess ratio {ratio:.2f}")
-    # 5. the dichotomy: last iterate grows from its early mark; the average stays bounded and
-    #    ends far below the last iterate
+    # 5. the dichotomy: the last iterate wanders away while the AVERAGED play converges toward
+    #    the equilibrium (the folk theorem's object) — well below its starting distance
     early, late = rep["dichotomy"]
     if not late["last_dist"] > 1.5 * early["last_dist"]:
         raise SystemExit("last iterate should wander away at the bilinear pole")
-    if not (late["avg_dist"] < 1.5 * rep["d_init"] and late["avg_dist"] < 0.25 * late["last_dist"]):
-        raise SystemExit("averaged play should stay bounded while the last iterate wanders")
+    if not (late["avg_dist"] < 0.25 * rep["d_init"] and late["avg_dist"] < 0.1 * late["last_dist"]):
+        raise SystemExit("averaged play should approach the equilibrium while the last "
+                         "iterate wanders")
 
     print(f"\n  confirmed: the empirical rate equals the spectral radius in every phase-plane "
           f"cell; the judge's\n  Banach condition eta < 2mu/L^2 is exactly rho < 1 (modulus = "

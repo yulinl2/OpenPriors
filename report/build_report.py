@@ -200,8 +200,9 @@ def build_markdown() -> str:
     d5 = c5["dichotomy"]
     w(f"The empirical per-step rate equals ρ in every cell (the OGD map is a scaled rotation); "
       f"the Banach condition η<2μ/L² is exactly ρ<1; and at the bilinear pole the averaged play "
-      f"stays bounded ({_fmt(d5[-1]['avg_dist'], 2)}) while the last iterate wanders away "
-      f"({_fmt(d5[-1]['last_dist'], 2)}) — no attracting fixed point, exactly the C5 dichotomy.")
+      f"converges toward the equilibrium (dist {_fmt(d5[-1]['avg_dist'], 2)}) while the last "
+      f"iterate wanders away (dist {_fmt(d5[-1]['last_dist'], 2)}) — no attracting fixed point, "
+      f"exactly the C5 dichotomy.")
     w("")
 
     # footer

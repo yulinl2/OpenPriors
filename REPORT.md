@@ -174,7 +174,7 @@ Direction C5 — generated, judged *uncertain*, and refined in the same loop —
 | 0.00 | 1.00 | 1.0050 | 1.0050 | boundary |
 | 0.00 | 2.00 | 1.0198 | 1.0198 | diverge |
 
-The empirical per-step rate equals ρ in every cell (the OGD map is a scaled rotation); the Banach condition η<2μ/L² is exactly ρ<1; and at the bilinear pole the averaged play stays bounded (1.41) while the last iterate wanders away (11.39) — no attracting fixed point, exactly the C5 dichotomy.
+The empirical per-step rate equals ρ in every cell (the OGD map is a scaled rotation); the Banach condition η<2μ/L² is exactly ρ<1; and at the bilinear pole the averaged play converges toward the equilibrium (dist 0.07) while the last iterate wanders away (dist 5.12) — no attracting fixed point, exactly the C5 dichotomy.
 
 ## Reproducibility
 
