@@ -121,7 +121,7 @@ The *uncertain*-judged conjectures refined into precise, citation-grounded progr
 
 ## 7. Numerical experiments
 
-Two research directions carried through to computation, in pure Python (project doctrine):
+Three research directions carried through to computation, in pure Python (project doctrine):
 
 ### C2 — contraction modulus vs. change-of-measure (finite MDP)
 
@@ -151,6 +151,30 @@ On the Balakrishnan–Wainwright–Yu symmetric 2-Gaussian-mixture EM operator M
 | 1600 | 0.0234 | 0.0230 | 0.0239 | 0.936 |
 
 The fixed-point error tracks the bound within a few percent and decays at the 1/√n uniform-convergence rate — recovering the BWY guarantee from an operator-class argument.
+
+### C5 — OGD convergence/recurrence phase diagram vs. the spectral radius
+
+Direction C5 — generated, judged *uncertain*, and refined in the same loop — proposed testing whether vanilla OGD's last-iterate behaviour on two-player quadratic games F(z)=(μI+γS)z+b is governed by the spectral radius ρ of the linearized map (η=0.1, 2000 steps):
+
+| μ | γ | ρ (spectral) | empirical rate | phase |
+|---|---|---|---|---|
+| 1.00 | 0.50 | 0.9014 | 0.9014 | converge |
+| 1.00 | 1.00 | 0.9055 | 0.9055 | converge |
+| 1.00 | 2.00 | 0.9220 | 0.9220 | converge |
+| 0.50 | 0.50 | 0.9513 | 0.9513 | converge |
+| 0.50 | 1.00 | 0.9552 | 0.9552 | converge |
+| 0.50 | 2.00 | 0.9708 | 0.9708 | converge |
+| 0.20 | 0.50 | 0.9813 | 0.9813 | converge |
+| 0.20 | 1.00 | 0.9851 | 0.9851 | converge |
+| 0.20 | 2.00 | 1.0002 | 1.0002 | boundary |
+| 0.10 | 0.50 | 0.9913 | 0.9913 | converge |
+| 0.10 | 1.00 | 0.9950 | 0.9950 | boundary |
+| 0.10 | 2.00 | 1.0100 | 1.0100 | diverge |
+| 0.00 | 0.50 | 1.0012 | 1.0012 | boundary |
+| 0.00 | 1.00 | 1.0050 | 1.0050 | boundary |
+| 0.00 | 2.00 | 1.0198 | 1.0198 | diverge |
+
+The empirical per-step rate equals ρ in every cell (the OGD map is a scaled rotation); the Banach condition η<2μ/L² is exactly ρ<1; and at the bilinear pole the averaged play converges toward the equilibrium (dist 0.07) while the last iterate wanders away (dist 5.12) — no attracting fixed point, exactly the C5 dichotomy.
 
 ## Reproducibility
 

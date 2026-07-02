@@ -33,6 +33,7 @@ def build_markdown() -> str:
     _sys_path()
     from model import build_model, DOMAINS
     from graphstore.experiment_c4 import run_experiment as run_c4
+    from graphstore.experiment_c5 import run_experiment as run_c5
 
     m = build_model()
     c = m["counts"]
@@ -148,7 +149,7 @@ def build_markdown() -> str:
     # 7. experiments
     w("## 7. Numerical experiments")
     w("")
-    w("Two research directions carried through to computation, in pure Python (project doctrine):")
+    w("Three research directions carried through to computation, in pure Python (project doctrine):")
     w("")
     w("### C2 — contraction modulus vs. change-of-measure (finite MDP)")
     w("")
@@ -181,6 +182,27 @@ def build_markdown() -> str:
     w("")
     w("The fixed-point error tracks the bound within a few percent and decays at the 1/√n "
       "uniform-convergence rate — recovering the BWY guarantee from an operator-class argument.")
+    w("")
+    w("### C5 — OGD convergence/recurrence phase diagram vs. the spectral radius")
+    w("")
+    c5 = run_c5(seed=0)
+    w(f"Direction C5 — generated, judged *uncertain*, and refined in the same loop — proposed "
+      f"testing whether vanilla OGD's last-iterate behaviour on two-player quadratic games "
+      f"F(z)=(μI+γS)z+b is governed by the spectral radius ρ of the linearized map "
+      f"(η={c5['eta']}, {c5['steps']} steps):")
+    w("")
+    w("| μ | γ | ρ (spectral) | empirical rate | phase |")
+    w("|---|---|---|---|---|")
+    for cell in c5["cells"]:
+        w(f"| {_fmt(cell['mu'], 2)} | {_fmt(cell['gamma'], 2)} | {_fmt(cell['rho'], 4)} | "
+          f"{_fmt(cell['empirical_rate'], 4)} | {cell['phase']} |")
+    w("")
+    d5 = c5["dichotomy"]
+    w(f"The empirical per-step rate equals ρ in every cell (the OGD map is a scaled rotation); "
+      f"the Banach condition η<2μ/L² is exactly ρ<1; and at the bilinear pole the averaged play "
+      f"converges toward the equilibrium (dist {_fmt(d5[-1]['avg_dist'], 2)}) while the last "
+      f"iterate wanders away (dist {_fmt(d5[-1]['last_dist'], 2)}) — no attracting fixed point, "
+      f"exactly the C5 dichotomy.")
     w("")
 
     # footer
