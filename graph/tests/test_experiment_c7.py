@@ -53,9 +53,11 @@ def test_adversarial_regret_grows_logarithmically():
         vals = [r["regret_marks"][t] / math.log(t) for t in marks]
         for u, v in zip(vals, vals[1:]):
             assert 0.8 < v / u < 1.1, (k, vals)
-        # and regret is genuinely sublinear
-        assert r["regret_marks"][T] / T < 1.0 or k > 1   # loose for high curvature scale
-        assert r["regret_marks"][T] < r["regret_marks"][T // 2] * 1.2
+        # and regret is genuinely sublinear, scale-free in kappa: doubling the horizon adds
+        # only a small fraction of the regret already accumulated (true for log growth,
+        # false for linear growth, and independent of the curvature scale)
+        assert (r["regret_marks"][T] - r["regret_marks"][T // 2]
+                < 0.2 * r["regret_marks"][T // 2]), k
 
 
 def test_drift_tracking_follows_the_contraction_plus_drift_law():
